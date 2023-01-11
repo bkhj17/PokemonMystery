@@ -28,6 +28,15 @@
 #define BLACK { 0.0f, 0.0f, 0.0f, 1.0f }
 #define WHITE RGB(255,255,255)
 
+#define DEVICE Device::Get()->GetDevice()
+#define DC Device::Get()->GetDeviceContext()
+
+#define DELTA Timer::Get()->GetElapsedTime()
+
+#define KEY_DOWN(k) KeyBoard::Get()->Down(k)
+#define KEY_UP(k) KeyBoard::Get()->Up(k)
+#define KEY_PRESS(k) KeyBoard::Get()->Press(k)
+
 // Windows 헤더 파일
 #include <windows.h>
 /*
@@ -68,3 +77,35 @@
 
 using namespace std;
 using namespace DirectX;
+
+typedef DirectX::XMFLOAT4 Float4;
+typedef DirectX::XMFLOAT3 Float3;
+typedef DirectX::XMFLOAT2 Float2;
+typedef DirectX::XMMATRIX Matrix;
+
+//Framework Header
+#include "Framework/Utilities/Singleton.h"
+#include "Framework/Utilities/Timer.h"
+#include "Framework/Utilities/KeyBoard.h"
+#include "Framework/Utilities/Utility.h"
+
+#include "Framework/Math/GameMath.h"
+using namespace GameMath;
+
+#include "Framework/System/Device.h"
+
+#include "Framework/Shaders/Shader.h"
+#include "Framework/Shaders/VertexShader.h"
+#include "Framework/Shaders/PixelShader.h"
+
+#include "Framework/Buffer/VertexLayouts.h"
+#include "Framework/Buffer/VertexBuffer.h"
+#include "Framework/Buffer/IndexBuffer.h"
+
+#include "Objects/Basic/Rect.h"
+
+#include "Scenes/Scene.h"
+
+#include "Manager/GameManager.h"
+
+extern HWND hWnd;
