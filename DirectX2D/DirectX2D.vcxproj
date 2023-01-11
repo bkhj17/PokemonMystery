@@ -138,16 +138,48 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\Math\GameMath.h" />
+    <ClInclude Include="Framework\Shaders\Shader.h" />
+    <ClInclude Include="Framework\System\Device.h" />
     <ClInclude Include="DirectX2D.h" />
     <ClInclude Include="Framework.h" />
+    <ClInclude Include="Framework\Utilities\KeyBoard.h" />
+    <ClInclude Include="Framework\Utilities\Singleton.h" />
+    <ClInclude Include="Framework\Utilities\Timer.h" />
+    <ClInclude Include="Framework\Utilities\Utility.h" />
+    <ClInclude Include="Framework\Buffer\IndexBuffer.h" />
+    <ClInclude Include="Manager\GameManager.h" />
+    <ClInclude Include="Framework\Shaders\PixelShader.h" />
+    <ClInclude Include="Objects\Basic\Rect.h" />
+    <ClInclude Include="Objects\Polygon.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Scenes\TutorialScene.h" />
+    <ClInclude Include="Framework\Shaders\VertexShader.h" />
+    <ClInclude Include="Framework\Buffer\VertexBuffer.h" />
+    <ClInclude Include="Framework\Buffer\VertexLayouts.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\Math\GameMath.cpp" />
+    <ClCompile Include="Framework\Shaders\Shader.cpp" />
+    <ClCompile Include="Framework\System\Device.cpp" />
     <ClCompile Include="DirectX2D.cpp" />
     <ClCompile Include="Framework.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Framework\Utilities\KeyBoard.cpp" />
+    <ClCompile Include="Framework\Utilities\Timer.cpp" />
+    <ClCompile Include="Framework\Utilities\Utility.cpp" />
+    <ClCompile Include="Framework\Buffer\IndexBuffer.cpp" />
+    <ClCompile Include="Manager\GameManager.cpp" />
+    <ClCompile Include="Framework\Shaders\PixelShader.cpp" />
+    <ClCompile Include="Objects\Basic\Rect.cpp" />
+    <ClCompile Include="Objects\Polygon.cpp" />
+    <ClCompile Include="Scenes\Scene.cpp" />
+    <ClCompile Include="Scenes\TutorialScene.cpp" />
+    <ClCompile Include="Framework\Shaders\VertexShader.cpp" />
+    <ClCompile Include="Framework\Buffer\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX2D.rc" />
@@ -157,6 +189,13 @@
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Shaders\PixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PS</EntryPointName>
+    </FxCompile>
     <FxCompile Include="Shaders\Tutorial.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
@@ -164,6 +203,13 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Shaders\VertexShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
     </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
