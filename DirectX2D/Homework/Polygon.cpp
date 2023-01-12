@@ -1,7 +1,7 @@
 #include "Framework.h"
 #include "Polygon.h"
 
-SpawnPolygon::SpawnPolygon()
+SpawnPolygon0111::SpawnPolygon0111()
 {
 	vertexShader = Shader::AddVS(L"VertexShader.hlsl");
 	pixelShader = Shader::AddPS(L"PixelShader.hlsl");
@@ -10,18 +10,18 @@ SpawnPolygon::SpawnPolygon()
 	vertices.resize(POOLSIZE);
 	indices.resize(POOLSIZE*3);
 
-
 	vertexBuffer = new VertexBuffer(vertices.data(), sizeof(VertexColor), vertices.size());
 	indexBuffer = new IndexBuffer(indices.data(), indices.size());
 }
 
-SpawnPolygon::~SpawnPolygon()
+SpawnPolygon0111::~SpawnPolygon0111()
 {
 	delete vertexBuffer;
 	delete indexBuffer;
 }
 
-void SpawnPolygon::Update()
+
+void SpawnPolygon0111::Update()
 {
 	if (!isActive)
 		return;
@@ -31,7 +31,7 @@ void SpawnPolygon::Update()
 		isActive = false;
 }
 
-void SpawnPolygon::Render()
+void SpawnPolygon0111::Render()
 {
 	if (!isActive)
 		return;
@@ -45,7 +45,7 @@ void SpawnPolygon::Render()
 	DC->DrawIndexed(use*3, 0, 0);
 }
 
-void SpawnPolygon::Spawn()
+void SpawnPolygon0111::Spawn()
 {
 	isActive = true;
 	Float2 pos = { Random(-0.5f, 0.5f), Random(-0.5f, 0.5f) };
@@ -73,7 +73,6 @@ void SpawnPolygon::Spawn()
 	indices[cnt++] = 1;
 
 	vertexBuffer->Update(vertices.data(), use+1);
-
 	indexBuffer->Update(indices.data(), use*3);
 
 	timeToDeath = Random(0.5f, 2.0f);

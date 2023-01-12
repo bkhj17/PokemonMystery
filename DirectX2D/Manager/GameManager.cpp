@@ -1,12 +1,14 @@
 #include "Framework.h"
 #include "GameManager.h"
 #include "Scenes/TutorialScene.h"
+//#include "Scenes/SpawnPolygonScene.h"
+#include "Homework/230112/Scene0112.h"
 
 GameManager::GameManager()
 {
 	Create();
 
-	scene = new TutorialScene;
+	scene = new Scene0112;
 }
 
 GameManager::~GameManager()

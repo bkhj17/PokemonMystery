@@ -89,6 +89,7 @@ typedef DirectX::XMMATRIX Matrix;
 #include "Framework/Utilities/KeyBoard.h"
 #include "Framework/Utilities/Utility.h"
 
+#include "Framework/Math/Vector2.h"
 #include "Framework/Math/GameMath.h"
 using namespace GameMath;
 
@@ -98,14 +99,19 @@ using namespace GameMath;
 #include "Framework/Shaders/VertexShader.h"
 #include "Framework/Shaders/PixelShader.h"
 
-#include "Framework/Buffer/VertexLayouts.h"
 #include "Framework/Buffer/VertexBuffer.h"
 #include "Framework/Buffer/IndexBuffer.h"
+#include "Framework/Buffer/ConstBuffer.h"
+#include "Framework/Buffer/VertexLayouts.h"
+#include "Framework/Buffer/GlobalBuffer.h"
 
+#include "Objects/Basic/GameObject.h"
 #include "Objects/Basic/Rect.h"
+#include "Objects/SpawnPolygon/SpawnPolygon.h"
 
 #include "Scenes/Scene.h"
 
 #include "Manager/GameManager.h"
 
 extern HWND hWnd;
+extern Vector2 mousePos;

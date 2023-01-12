@@ -10,11 +10,14 @@ public:
 	virtual void Render() override;
 	virtual void PostRender() override;
 
-	void SpawnRect();
-
 private:
-	vector<class SpawnPolygon*> polygons;
+	Rect* rect;
+	MatrixBuffer* worldBuffer;
+	MatrixBuffer* projectionBuffer;
 
-	float spawnTime, spawnRate; 
+	XMFLOAT4X4 worldMatrix;
+
+	Vector2 pos;	
+	Vector2 scale;		//πË¿≤
+	float angle = 0.0f;
 };
-

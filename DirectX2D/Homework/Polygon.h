@@ -1,9 +1,9 @@
 #pragma once
-class SpawnPolygon
+class SpawnPolygon0111
 {
 public:
-	SpawnPolygon();
-	~SpawnPolygon();
+	SpawnPolygon0111();
+	~SpawnPolygon0111();
 
 	void Update();
 	void Render();

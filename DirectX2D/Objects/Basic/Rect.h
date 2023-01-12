@@ -1,21 +1,13 @@
 #pragma once
-class Rect
+class Rect : public GameObject
 {
 public:
 	Rect(Float2 pos, Float2 size);
-	~Rect();
+	~Rect() = default;
 
-	void Update();
 	void Render();
-public:
-	bool isActive = false;
-private:
-	VertexShader* vertexShader;
-	PixelShader* pixelShader;
-	VertexBuffer* vertexBuffer;
-	IndexBuffer* indexBuffer;
 
-	vector<VertexColor> vertices;
-	vector<UINT> indices;
+private:
+
 };
 
