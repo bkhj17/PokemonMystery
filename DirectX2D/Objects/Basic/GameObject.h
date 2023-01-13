@@ -1,11 +1,11 @@
 #pragma once
-class GameObject
+class GameObject : public Transform
 {
 public:
-	GameObject(wstring shaderFile = L"Shader.hlsl");
+	GameObject(wstring shaderFile = L"UV.hlsl");
 	virtual ~GameObject();
 
-	virtual void Update() {}
+	virtual void Update();
 	virtual void Render();
 
 protected:
@@ -14,7 +14,9 @@ protected:
 	VertexBuffer* vertexBuffer = nullptr;
 	IndexBuffer* indexBuffer = nullptr;
 
-	vector<VertexColor> vertices;
+	MatrixBuffer* worldBuffer;
+
+	vector<Vertex> vertices;
 	vector<UINT> indices;
 };
 

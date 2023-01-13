@@ -15,6 +15,7 @@ public:
     void SetLockFPS(int value) { lockFPS = value; }
     float GetElapsedTime() { return elapsedTime > EPSILON ? EPSILON : elapsedTime * deltaScale; } //타이머 시간 간격
 
+    int GetFPS() { return frameRate; }
 private:
     float timeScale = 0.0f;
     float elapsedTime = 0.0f;
