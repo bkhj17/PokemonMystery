@@ -139,9 +139,6 @@ void Scene0113::Play()
 	for (auto clay : clays)
 		clay->Update();
 
-	leftAim->Update();
-	rightAim->Update();
-
 	float height = CalcClayY(leftAim->Pos().x);
 	if (height > 0.0f)
 		leftAim->Pos().y = height;
@@ -149,6 +146,9 @@ void Scene0113::Play()
 	height = CalcClayY(rightAim->Pos().x);
 	if (height > 0.0f)
 		rightAim->Pos().y = height;
+
+	leftAim->Update();
+	rightAim->Update();
 
 	if (KEY_DOWN(VK_SPACE)) {
 		for (auto clay : clays) {
