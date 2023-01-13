@@ -44,7 +44,7 @@ Device::Device()
 #pragma endregion
 
 #pragma region CreateRenderTargetView
-	ID3D11Texture2D* backBuffer;
+	ID3D11Texture2D* backBuffer = nullptr;
 	swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&backBuffer);
 	device->CreateRenderTargetView(backBuffer, nullptr, &renderTargetView);
 	backBuffer->Release();
@@ -54,9 +54,9 @@ Device::Device()
 
 #pragma region SetViewport
 	//ºäÆ÷Æ® ¼³Á¤
-	D3D11_VIEWPORT viewport;
-	viewport.Width = width;
-	viewport.Height = height;
+	D3D11_VIEWPORT viewport = {};
+	viewport.Width = (float)width;
+	viewport.Height = (float)height;
 	viewport.MinDepth = 0.0f;
 	viewport.MaxDepth = 0.0f;
 	viewport.TopLeftX = 0.0f;

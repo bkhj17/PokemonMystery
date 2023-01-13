@@ -8,6 +8,7 @@ struct Vector2
 	Vector2() = default;
 	Vector2(float x, float y) : x(x), y(y) {}
 	Vector2(POINT point) : x(static_cast<float>(point.x)), y(static_cast<float>(point.y)) {}
+	Vector2(Float2 point) : x(point.x), y(point.y) {}
 
 	Vector2 operator+(const Vector2& value) const {
 		return Vector2(x + value.x, y + value.y);
@@ -63,6 +64,10 @@ struct Vector2
 	Vector2 GetNormalized() const {
 		float length = Length();
 		return Vector2(x / length, y / length);
+	}
+
+	float Angle() const {
+		return atan2f(y, x);
 	}
 };
 

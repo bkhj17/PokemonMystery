@@ -71,7 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>./;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Libraries;./;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -115,7 +116,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <FxCompile>
-      <EntryPointName>VS</EntryPointName>
+      <EntryPointName>PS</EntryPointName>
     </FxCompile>
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>
@@ -129,6 +130,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>Framework.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -138,7 +141,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Homework\230112\Bullet0112.h" />
+    <ClInclude Include="Framework\Utilities\Audio.h" />
+    <ClInclude Include="Homework\230113\Clay0113.h" />
+    <ClInclude Include="Homework\230113\Aim0113.h" />
+    <ClInclude Include="Objects\Shooting\BulletManager.h" />
+    <ClInclude Include="Objects\Shooting\Bullet.h" />
+    <ClInclude Include="Framework\Environment\Environment.h" />
     <ClInclude Include="Framework\Buffer\ConstBuffer.h" />
     <ClInclude Include="Framework\Math\GameMath.h" />
     <ClInclude Include="Framework\Math\Vector2.h" />
@@ -155,26 +163,28 @@
     <ClInclude Include="Objects\Basic\GameObject.h" />
     <ClInclude Include="Manager\GameManager.h" />
     <ClInclude Include="Framework\Shaders\PixelShader.h" />
-    <ClInclude Include="Objects\Basic\Rect.h" />
-    <ClInclude Include="Homework\Polygon.h" />
-    <ClInclude Include="Homework\230112\Plane0112.h" />
+    <ClInclude Include="Objects\Basic\Quad.h" />
+    <ClInclude Include="Objects\Shooting\Plane.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="Homework\230112\Scene0112.h" />
+    <ClInclude Include="Homework\230113\Scene0113.h" />
     <ClInclude Include="Scenes\Scene.h" />
-    <ClInclude Include="Scenes\SpawnPolygonScene.h" />
-    <ClInclude Include="Objects\SpawnPolygon\SpawnPolygon.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Scenes\TutorialScene.h" />
     <ClInclude Include="Framework\Shaders\VertexShader.h" />
     <ClInclude Include="Framework\Buffer\VertexBuffer.h" />
     <ClInclude Include="Framework\Buffer\VertexLayouts.h" />
-    <ClInclude Include="Homework\230112\Transform0112.h" />
+    <ClInclude Include="Scenes\TextureScene.h" />
+    <ClInclude Include="Framework\Math\Transform.h" />
+    <ClInclude Include="Framework\Render\Texture.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Homework\230112\Bullet0112.cpp" />
+    <ClCompile Include="Framework\Utilities\Audio.cpp" />
+    <ClCompile Include="Homework\230113\Clay0113.cpp" />
+    <ClCompile Include="Homework\230113\Aim0113.cpp" />
+    <ClCompile Include="Objects\Shooting\BulletManager.cpp" />
+    <ClCompile Include="Objects\Shooting\Bullet.cpp" />
+    <ClCompile Include="Framework\Environment\Environment.cpp" />
     <ClCompile Include="Framework\Buffer\ConstBuffer.cpp" />
     <ClCompile Include="Framework\Math\GameMath.cpp" />
-    <ClCompile Include="Framework\Math\Vector2.cpp" />
     <ClCompile Include="Framework\Shaders\Shader.cpp" />
     <ClCompile Include="Framework\System\Device.cpp" />
     <ClCompile Include="DirectX2D.cpp" />
@@ -188,17 +198,14 @@
     <ClCompile Include="Objects\Basic\GameObject.cpp" />
     <ClCompile Include="Manager\GameManager.cpp" />
     <ClCompile Include="Framework\Shaders\PixelShader.cpp" />
-    <ClCompile Include="Objects\Basic\Rect.cpp" />
-    <ClCompile Include="Homework\Polygon.cpp" />
-    <ClCompile Include="Homework\230112\Scene0112.cpp" />
-    <ClCompile Include="Homework\230112\Plane0112.cpp" />
-    <ClCompile Include="Scenes\Scene.cpp" />
-    <ClCompile Include="Scenes\TutorialScene.cpp" />
+    <ClCompile Include="Objects\Basic\Quad.cpp" />
+    <ClCompile Include="Objects\Shooting\Plane.cpp" />
+    <ClCompile Include="Homework\230113\Scene0113.cpp" />
     <ClCompile Include="Framework\Shaders\VertexShader.cpp" />
     <ClCompile Include="Framework\Buffer\VertexBuffer.cpp" />
-    <ClCompile Include="Scenes\SpawnPolygonScene.cpp" />
-    <ClCompile Include="Objects\SpawnPolygon\SpawnPolygon.cpp" />
-    <ClCompile Include="Homework\230112\Transform0112.cpp" />
+    <ClCompile Include="Scenes\TextureScene.cpp" />
+    <ClCompile Include="Framework\Math\Transform.cpp" />
+    <ClCompile Include="Framework\Render\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX2D.rc" />
@@ -215,6 +222,12 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PS</EntryPointName>
     </FxCompile>
+    <FxCompile Include="Shaders\PixelUV.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="Shaders\Tutorial.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
@@ -224,6 +237,13 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="Shaders\VertexShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="Shaders\VertexUV.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>

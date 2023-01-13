@@ -17,8 +17,6 @@
 #define CENTER_X	(WIN_WIDTH * 0.5f)
 #define CENTER_Y	(WIN_HEIGHT * 0.5f)
 
-#define PI 3.14f
-
 #define RED { 1.0f, 0.0f, 0.0f, 1.0f }
 #define GREEN { 0.0f, 1.0f, 0.0f, 1.0f }
 #define BLUE { 0.0f, 0.0f, 1.0f, 1.0f }
@@ -26,7 +24,7 @@
 #define CYAN { 0.0f, 1.0f, 1.0f, 1.0f }
 #define MAGENTA { 1.0f, 0.0f, 0.0f, 1.0f }
 #define BLACK { 0.0f, 0.0f, 0.0f, 1.0f }
-#define WHITE RGB(255,255,255)
+#define WHITE {1.0f, 1.0f, 1.0f, 1.0f }
 
 #define DEVICE Device::Get()->GetDevice()
 #define DC Device::Get()->GetDeviceContext()
@@ -65,6 +63,7 @@
 #include <fstream>
 #include <sstream>
 #include <functional>
+using namespace std;
 
 #include <d3d11.h>
 #include <DirectXMath.h>
@@ -75,8 +74,20 @@
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
 
-using namespace std;
+#include <DirectXTex/DirectXTex.h>
+#pragma comment(lib, "DirectXTex.lib")
 using namespace DirectX;
+
+#include <ImGui/imgui.h>
+#include <ImGui/imgui_impl_dx11.h>
+#include <ImGui/imgui_impl_win32.h>
+
+#pragma comment(lib, "ImGui.lib")
+
+//FMOD Library
+#include "Libraries/inc/fmod.hpp"
+#pragma comment(lib, "Libraries/lib/fmod_vc.lib")
+
 
 typedef DirectX::XMFLOAT4 Float4;
 typedef DirectX::XMFLOAT3 Float3;
@@ -87,10 +98,13 @@ typedef DirectX::XMMATRIX Matrix;
 #include "Framework/Utilities/Singleton.h"
 #include "Framework/Utilities/Timer.h"
 #include "Framework/Utilities/KeyBoard.h"
+#include "Framework/Utilities/Audio.h"
 #include "Framework/Utilities/Utility.h"
+
 
 #include "Framework/Math/Vector2.h"
 #include "Framework/Math/GameMath.h"
+#include "Framework/Math/Transform.h"
 using namespace GameMath;
 
 #include "Framework/System/Device.h"
@@ -105,9 +119,16 @@ using namespace GameMath;
 #include "Framework/Buffer/VertexLayouts.h"
 #include "Framework/Buffer/GlobalBuffer.h"
 
+#include "Framework/Render/Texture.h"
+
+#include "Framework/Environment/Environment.h"
+
 #include "Objects/Basic/GameObject.h"
-#include "Objects/Basic/Rect.h"
-#include "Objects/SpawnPolygon/SpawnPolygon.h"
+#include "Objects/Basic/Quad.h"
+
+#include "Objects/Shooting/Plane.h"
+#include "Objects/Shooting/Bullet.h"
+#include "Objects/Shooting/BulletManager.h"
 
 #include "Scenes/Scene.h"
 

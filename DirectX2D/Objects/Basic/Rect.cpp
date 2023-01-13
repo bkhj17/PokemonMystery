@@ -1,5 +1,4 @@
 #include "Framework.h"
-#include "Rect.h"
 
 Rect::Rect(Float2 pos, Float2 size)
 {
