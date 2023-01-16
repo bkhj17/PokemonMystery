@@ -13,7 +13,7 @@ void Aim0113::Update()
 
 bool Aim0113::IsCollision(Quad* quad)
 {
-    if (!quad->IsActive())
+    if (!quad->Active())
         return false;
 
     float dist = (Pos() - quad->Pos()).Length();

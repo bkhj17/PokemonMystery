@@ -15,6 +15,8 @@ namespace GameMath {
 	Vector2 Lerp(const Vector2& state, const Vector2& end, float t);
 	Vector2 SLerp(const Vector2& state, const Vector2& end, float t);
 
-	float Cross(const Vector2& vec1, const Vector2 vec2);
-	float Dot(const Vector2& vec1, const Vector2 vec2);
+	float Cross(const Vector2& vec1, const Vector2& vec2);
+	float Dot(const Vector2& vec1, const Vector2& vec2);
+
+	float Distance(const Vector2& vec1, const Vector2& vec2);
 }

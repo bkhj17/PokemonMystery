@@ -24,16 +24,8 @@ void TextureScene::Render()
 
 void TextureScene::PostRender()
 {
-	ImGui_ImplDX11_NewFrame();
-	ImGui_ImplWin32_NewFrame();
-
-	ImGui::NewFrame();
-	
 	string fps = "FPS : " + to_string(Timer::Get()->GetFPS());
 	ImGui::Text(fps.c_str());
 
 	plane->RenderUI();
-
-	ImGui::Render();
-	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }

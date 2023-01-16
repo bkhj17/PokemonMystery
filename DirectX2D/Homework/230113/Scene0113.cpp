@@ -95,7 +95,7 @@ void Scene0113::SpawnClay()
 		return;
 
 	for (auto clay : clays) {
-		if (!clay->IsActive()) {
+		if (!clay->Active()) {
 			clay->Spawn();
 			spawnTime = spawnRate;
 			return;
@@ -109,7 +109,7 @@ float Scene0113::CalcClayY(float x)
 	Clay0113* target = nullptr;
 
 	for (auto c : clays) {
-		if (!c->IsActive())
+		if (!c->Active())
 			continue;
 
 		auto dist = x - c->Pos().x;

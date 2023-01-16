@@ -41,6 +41,8 @@ void Transform::RenderUI()
 	ImGui::Text(tag.c_str());
 
 	string temp = tag + "_Pos";
+
+	float* f = (float*)&localPosition;
 	ImGui::DragFloat2(temp.c_str(), (float*)&localPosition, 1.0f);
 
 	temp = tag + "_Rot";
@@ -57,4 +59,12 @@ void Transform::RenderUI()
 
 	temp = tag + "_Scale";
 	ImGui::DragFloat2(temp.c_str(), (float*)&localScale, 0.1f);
+}
+
+bool Transform::Active()
+{
+	if (parent == nullptr)
+		return isActive;
+
+	return isActive && parent->Active();
 }

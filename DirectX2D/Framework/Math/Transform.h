@@ -14,20 +14,23 @@ public:
 	Vector2 GlobalPos() { return globalPosition; }
 	Vector2 GlobalScale() { return globalScale; }
 
-	bool& IsActive() { return isActive; }
+	bool Active();
+	bool ActiveSelf() { return isActive; }
+
+	void SetActive(bool isActive) {	this->isActive = isActive;	}
+	void SetTag(string tag) { this->tag = tag; }
 
 	Vector2& Pos() { return localPosition; }
 	Float3& Rotation() { return localRotation; }
 	Vector2& Scale() { return localScale; }
-
 
 	void SetParent(Transform* transform) { parent = transform; }
 	void SetPivot(Vector2 pivot) { this->pivot = pivot; }
 protected:
 	string tag;
 
-	Vector2 localPosition = {};				//좌표
-	Float3 localRotation = {};				//회전
+	Vector2 localPosition;				//좌표
+	Float3 localRotation = {0.0f, 0.0f, 0.0f};				//회전
 	Vector2 localScale = { 1.0f, 1.0f };	//배율
 protected:
 	bool isActive = true;

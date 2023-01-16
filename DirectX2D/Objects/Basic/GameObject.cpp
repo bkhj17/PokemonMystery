@@ -42,5 +42,5 @@ void GameObject::Render()
 	vertexShader->Set();
 	pixelShader->Set();
 
-	DC->DrawIndexed(indices.size(), 0, 0);
+	DC->DrawIndexed((UINT)indices.size(), 0, 0);
 }

@@ -1,14 +1,17 @@
 #include "Framework.h"
 //#include "Scenes/TutorialScene.h"
 //#include "Scenes/SpawnPolygonScene.h"
-//#include "Homework/230112/Scene0112.h"
-#include "Homework/230113/Scene0113.h"
 //#include "Scenes/TextureScene.h"
+//#include "Scenes/CollisionScene.h"
+//#include "Homework/230112/Scene0112.h"
+//#include "Homework/230113/Scene0113.h"
+#include "Homework/230116/Scene0116.h"
+
 GameManager::GameManager()
 {
 	Create();
 
-	scene = new Scene0113();
+	scene = new Scene0116();
 }
 
 GameManager::~GameManager()
@@ -38,6 +41,9 @@ void GameManager::Render()
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
+
+	string fps = "FPS : " + to_string(Timer::Get()->GetFPS());
+	ImGui::Text(fps.c_str());
 
 	scene->PostRender();
 

@@ -5,10 +5,14 @@ Bullet::Bullet()
 	: Quad(L"Textures/Shooting/playerBullet.png")
 {
 	isActive = false;
+
+	collider = new RectCollider(texture->GetSize());
+	collider->SetParent(this);
 }
 
 Bullet::~Bullet()
 {
+	delete collider;
 }
 
 void Bullet::Update()
@@ -26,6 +30,7 @@ void Bullet::Update()
 		isActive = false;
 
 	__super::Update();
+	collider->UpdateWorld();
 }
 
 void Bullet::Render()
@@ -34,6 +39,7 @@ void Bullet::Render()
 		return;
 
 	__super::Render();
+	collider->Render();
 }
 
 void Bullet::Fire(Vector2 pos, Vector2 direction)

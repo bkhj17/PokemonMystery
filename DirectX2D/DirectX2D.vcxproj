@@ -141,6 +141,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Homework\230116\Block0116.h" />
+    <ClInclude Include="Homework\230116\Ball0116.h" />
+    <ClInclude Include="Homework\230116\Bar0116.h" />
+    <ClInclude Include="Homework\230116\Area0116.h" />
+    <ClInclude Include="Framework\Collision\CircleCollider.h" />
+    <ClInclude Include="Framework\Collision\Collider.h" />
+    <ClInclude Include="Framework\Collision\RectCollider.h" />
+    <ClInclude Include="Homework\230116\Scene0116.h" />
+    <ClInclude Include="Scenes\CollisionScene.h" />
     <ClInclude Include="Framework\Utilities\Audio.h" />
     <ClInclude Include="Homework\230113\Clay0113.h" />
     <ClInclude Include="Homework\230113\Aim0113.h" />
@@ -175,8 +184,19 @@
     <ClInclude Include="Scenes\TextureScene.h" />
     <ClInclude Include="Framework\Math\Transform.h" />
     <ClInclude Include="Framework\Render\Texture.h" />
+    <ClInclude Include="TestTile.h" />
+    <ClInclude Include="Test\TestScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Homework\230116\Block0116.cpp" />
+    <ClCompile Include="Homework\230116\Ball0116.cpp" />
+    <ClCompile Include="Homework\230116\Bar0116.cpp" />
+    <ClCompile Include="Homework\230116\Area0116.cpp" />
+    <ClCompile Include="Framework\Collision\CircleCollider.cpp" />
+    <ClCompile Include="Framework\Collision\Collider.cpp" />
+    <ClCompile Include="Framework\Collision\RectCollider.cpp" />
+    <ClCompile Include="Homework\230116\Scene0116.cpp" />
+    <ClCompile Include="Scenes\CollisionScene.cpp" />
     <ClCompile Include="Framework\Utilities\Audio.cpp" />
     <ClCompile Include="Homework\230113\Clay0113.cpp" />
     <ClCompile Include="Homework\230113\Aim0113.cpp" />
@@ -206,6 +226,8 @@
     <ClCompile Include="Scenes\TextureScene.cpp" />
     <ClCompile Include="Framework\Math\Transform.cpp" />
     <ClCompile Include="Framework\Render\Texture.cpp" />
+    <ClCompile Include="TestTile.cpp" />
+    <ClCompile Include="Test\TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX2D.rc" />
@@ -215,6 +237,12 @@
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Shaders\PixelPos.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="Shaders\PixelShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
@@ -235,6 +263,13 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Shaders\VertexPos.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
     </FxCompile>
     <FxCompile Include="Shaders\VertexShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>

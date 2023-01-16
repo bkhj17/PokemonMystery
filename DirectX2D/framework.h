@@ -73,6 +73,8 @@ using namespace std;
 //정적 라이브러리 포함
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
+#pragma comment(lib, "dxguid.lib")
+
 
 #include <DirectXTex/DirectXTex.h>
 #pragma comment(lib, "DirectXTex.lib")
@@ -120,6 +122,10 @@ using namespace GameMath;
 #include "Framework/Buffer/GlobalBuffer.h"
 
 #include "Framework/Render/Texture.h"
+
+#include "Framework/Collision/Collider.h"
+#include "Framework/Collision/RectCollider.h"
+#include "Framework/Collision/CircleCollider.h"
 
 #include "Framework/Environment/Environment.h"
 

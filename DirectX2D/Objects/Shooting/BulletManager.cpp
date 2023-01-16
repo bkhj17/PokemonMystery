@@ -31,7 +31,7 @@ void BulletManager::Render()
 void BulletManager::Fire(Vector2 pos, Vector2 direction)
 {
 	for (auto bullet : bullets) {
-		if (!bullet->IsActive()) {
+		if (!bullet->Active()) {
 			bullet->Fire(pos, direction);
 			return;
 		}

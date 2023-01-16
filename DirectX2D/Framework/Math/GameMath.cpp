@@ -41,12 +41,17 @@ Vector2 GameMath::SLerp(const Vector2& state, const Vector2& end, float t)
 	return state + (end - state) * t*t;
 }
 
-float GameMath::Cross(const Vector2& vec1, const Vector2 vec2)
+float GameMath::Cross(const Vector2& vec1, const Vector2& vec2)
 {
 	return vec1.x * vec2.y - vec2.x * vec1.y;
 }
 
-float GameMath::Dot(const Vector2& vec1, const Vector2 vec2)
+float GameMath::Dot(const Vector2& vec1, const Vector2& vec2)
 {
 	return vec1.x * vec2.x + vec1.y * vec2.y;
+}
+
+float GameMath::Distance(const Vector2& vec1, const Vector2& vec2)
+{
+	return (vec1 - vec2).Length();
 }

@@ -1,14 +1,11 @@
 #pragma once
 
-struct Vector2
+struct Vector2 : public Float2
 {
-	float x = 0.0f;
-	float y = 0.0f;
-
 	Vector2() = default;
-	Vector2(float x, float y) : x(x), y(y) {}
-	Vector2(POINT point) : x(static_cast<float>(point.x)), y(static_cast<float>(point.y)) {}
-	Vector2(Float2 point) : x(point.x), y(point.y) {}
+	Vector2(float x, float y) : Float2(x, y) {}
+	Vector2(POINT point) : Float2(static_cast<float>(point.x), static_cast<float>(point.y)) {}
+	Vector2(Float2 point) : Float2(point.x, point.y) {}
 
 	Vector2 operator+(const Vector2& value) const {
 		return Vector2(x + value.x, y + value.y);
@@ -21,7 +18,7 @@ struct Vector2
 	Vector2 operator*(const float& value) const {
 		return Vector2(x * value, y * value);
 	}
-
+	
 	Vector2 operator/(const float& value) const {
 		return Vector2(x / value, y / value);
 	}
@@ -44,6 +41,31 @@ struct Vector2
 	void operator/=(const float& value) {
 		x /= value;
 		y /= value;
+	}
+
+	Vector2 operator*(const Matrix& value) {
+		Float2 coord(x, y);
+		XMVECTOR temp = XMLoadFloat2(&coord);
+
+		//XMVector2TransformCoord : w -> 1 => 위치 이동 반영
+		//XMVector2TransformNormal : w -> 0 => 위치 이동 없음
+		temp = XMVector2TransformCoord(temp, value);
+		XMStoreFloat2(&coord, temp);
+		return coord;
+	}
+
+	void operator*=(const Matrix& value) {
+		Float2 coord(x, y);
+		XMVECTOR temp = XMLoadFloat2(&coord);
+
+		//XMVector2TransformCoord : w -> 1 => 위치 이동 반영
+		//XMVector2TransformNormal : w -> 0 => 위치 이동 없음
+		temp = XMVector2TransformCoord(temp, value);
+		XMStoreFloat2(&coord, temp);
+
+		x = coord.x;
+		y = coord.y;
+
 	}
 
 	float Length() const {
