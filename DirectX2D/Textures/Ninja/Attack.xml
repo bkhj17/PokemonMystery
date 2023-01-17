@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:50129ae79e42872de1d0d442dee636f7:7c89fa787de53681ea6b5eb76357d847:575d1802bb6856bd1f7ddd8744178f3b$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="Attack.png" width="1578" height="2268">
+    <sprite n="Attack__000.png" x="1" y="1" w="524" h="565" pX="0.5" pY="0.5"/>
+    <sprite n="Attack__001.png" x="527" y="1" w="524" h="565" pX="0.5" pY="0.5"/>
+    <sprite n="Attack__002.png" x="1053" y="1" w="524" h="565" pX="0.5" pY="0.5"/>
+    <sprite n="Attack__003.png" x="1" y="568" w="524" h="565" pX="0.5" pY="0.5"/>
+    <sprite n="Attack__004.png" x="527" y="568" w="524" h="565" pX="0.5" pY="0.5"/>
+    <sprite n="Attack__005.png" x="1053" y="568" w="524" h="565" pX="0.5" pY="0.5"/>
+    <sprite n="Attack__006.png" x="1" y="1135" w="524" h="565" pX="0.5" pY="0.5"/>
+    <sprite n="Attack__007.png" x="527" y="1135" w="524" h="565" pX="0.5" pY="0.5"/>
+    <sprite n="Attack__008.png" x="1053" y="1135" w="524" h="565" pX="0.5" pY="0.5"/>
+    <sprite n="Attack__009.png" x="1" y="1702" w="524" h="565" pX="0.5" pY="0.5"/>
+</TextureAtlas>

@@ -28,11 +28,11 @@ void BulletManager::Render()
 		bullet->Render();
 }
 
-void BulletManager::Fire(Vector2 pos, Vector2 direction)
+void BulletManager::Fire(Vector2 pos, Vector2 velocity)
 {
 	for (auto bullet : bullets) {
 		if (!bullet->Active()) {
-			bullet->Fire(pos, direction);
+			bullet->Fire(pos, velocity);
 			return;
 		}
 	}

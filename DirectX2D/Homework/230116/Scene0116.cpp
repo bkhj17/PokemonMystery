@@ -14,14 +14,12 @@ Scene0116::Scene0116()
 
 	ball = new Ball0116(20.0f);
 	ball->SetTag("Ball");
-	SetBall();
-	
-	SetBar();
 
+	CreateBar();
 	CreateBlocks();
+
+	SetBall();
 	SetBlocks();
-
-
 
 	gameOverMessage = new Quad(L"Textures/Shooting/GameOver.png", { CENTER_X, CENTER_Y });
 	gameClearMessage = new Quad(L"Textures/Shooting/GameClear.png", { CENTER_X, CENTER_Y });
@@ -33,10 +31,8 @@ Scene0116::~Scene0116()
 	delete leftBar;
 	delete rightBar;
 
-	for (int i = 0; i < blocks.size(); i++) {
-		for (auto block : blocks[i])
-			delete block;
-	}
+	for (auto block : blocks)
+		delete block;
 }
 
 void Scene0116::Update()
@@ -48,15 +44,13 @@ void Scene0116::Update()
 		break;
 	case Scene0116::GameState::CLEAR:
 	case Scene0116::GameState::GAME_OVER:
-		if (KEY_DOWN(VK_LBUTTON) || KEY_DOWN(VK_RBUTTON)) {
+		if (KEY_DOWN(VK_SPACE)) {
 			SetBall();
 			SetBlocks();
 			state = GameState::PLAY;
 		}
 		break;
 	}
-
-
 }
 
 void Scene0116::Render()
@@ -66,10 +60,9 @@ void Scene0116::Render()
 	rightBar->Render();
 	ball->Render();
 
-	for (int i = 0; i < blocks.size(); i++) {
-		for (auto block : blocks[i])
-			block->Render();
-	}
+	for (auto block : blocks)
+		block->Render();
+	
 }
 
 void Scene0116::PostRender()
@@ -93,26 +86,24 @@ void Scene0116::PostRender()
 }
 void Scene0116::Play()
 {
+	SpawnBlock();
+	for (auto block : blocks)
+		block->Update();
 
 	leftBar->SetPress(KEY_PRESS(VK_LBUTTON));
 	rightBar->SetPress(KEY_PRESS(VK_RBUTTON));
-
-	Collide();
-	if (state != GameState::PLAY)
-		return;
-
-	ball->AreaCollision(area);
-
-	for (int i = 0; i < blocks.size(); i++)
-		for (auto block : blocks[i])
-			block->Update();
-
+	
 	leftBar->Update();
 	rightBar->Update();
 	ball->Update();
 
-	if (ball->Pos().y < 0.0f)
+	if (ball->Pos().y < -ball->Half().y) {
 		state = GameState::GAME_OVER;
+		return;
+	}
+	Collide();
+	if (state != GameState::PLAY)
+		return;
 }
 
 void Scene0116::ClearRender()
@@ -125,10 +116,9 @@ void Scene0116::GameOverRender()
 	gameOverMessage->Render();
 }
 
-void Scene0116::SetBar()
+void Scene0116::CreateBar()
 {
 	float barLength = 130.0f;
-
 
 	leftBar = new Bar0116({ barLength, 30.0f }, true);
 	leftBar->SetTag("LeftBar");
@@ -146,16 +136,20 @@ void Scene0116::CreateBlocks()
 	int blockCol = 5;
 	int blockRow = 3;
 	float blockSizeX = (area->RightBottom().x - area->LeftTop().x) / (float)blockCol;
-	float blockSizeY = 20.0f;
+	float blockSizeY = 60.0f;
 
 	blocks.resize(blockRow);
-	for (int i = 0; i < blocks.size(); i++) {
-		blocks[i].resize(blockCol);
-		for (int j = 0; j < blocks[i].size(); j++) {
-			blocks[i][j] = new Block0116(Vector2(blockSizeX, blockSizeY));
-			blocks[i][j]->SetBreakFunc(bind(&Scene0116::BreakBlock, this));
-		}
+	for (auto& block : blocks) {
+		block = new Block0116(Vector2(blockSizeX, blockSizeY));
+		block->SetBreakFunc(bind(&Scene0116::BreakBlock, this));
 	}
+}
+
+void Scene0116::StartGame()
+{
+	SetBlocks();
+	SetBall();
+	spawnTime = 0.0f;
 }
 
 void Scene0116::SetBlocks()
@@ -165,52 +159,79 @@ void Scene0116::SetBlocks()
 	float blockStartX = area->LeftTop().x;
 	float blockStartY = area->LeftTop().y - 200.0f;
 	float blockSizeX = (area->RightBottom().x - area->LeftTop().x) / (float)blockCol;
-	float blockSizeY = 20.0f;
+	float blockSizeY = 60.0f;
 
-	for (int i = 0; i < blocks.size(); i++) {
-		for (int j = 0; j < blocks[i].size(); j++) {
-			blocks[i][j]->SetActive(true);
-			blocks[i][j]->Pos().x = blockStartX + ((float)j + 0.5f) * blockSizeX;
-			blocks[i][j]->Pos().y = blockStartY + blockSizeY * (float)i;
-			blocks[i][j]->UpdateWorld();
-		}
-	}
-
-	numBlock = blockCol * blockRow;
+	score = 0;
+	for(auto block : blocks)
+		block->SetActive(false);
 }
 
 void Scene0116::SetBall()
 {
-	ball->Pos() = { CENTER_X - 30.0f, CENTER_Y };
-	ball->GetDirection() = { 0.0f, 0.0f };
+	ball->Pos() = { CENTER_X + 30.0f, CENTER_Y };
+	ball->GetVelocity() = { 0.0f, 0.0f };
 }
 
 void Scene0116::Collide()
 {
-
 	ball->BarCollision(leftBar);
 	ball->BarCollision(rightBar);
 
-	for (int i = 0; i < blocks.size(); i++) {
-		for (auto block : blocks[i]) {
-			//block 콜리전
-			ball->BlockCollision(block);
+	for (auto block : blocks) {
+		//block 콜리전
+		ball->BlockCollision(block);
+	}
+
+	for (auto block : blocks) {
+		bool leftCol = leftBar->GetCollider()->IsCollision(block->GetCollider());
+		bool rightCol = rightBar->GetCollider()->IsCollision(block->GetCollider());
+		if (leftCol || rightCol) {
+			state = GameState::GAME_OVER;
+			return;
 		}
 	}
 
-	for (int i = 0; i < blocks.size(); i++) {
-		for (auto block : blocks[i]) {
-			if (leftBar->GetCollider()->IsCollision(block->GetCollider())
-				|| rightBar->GetCollider()->IsCollision(block->GetCollider())) {
-				state = GameState::GAME_OVER;
-				return;
-			}
-		}
-	}
+	ball->AreaCollision(area);
 }
 
 void Scene0116::BreakBlock()
 {
-	if (--numBlock <= 0)
+	if (++score >= CLEAR_SCORE)
 		state = GameState::CLEAR;
+}
+
+void Scene0116::SpawnBlock()
+{
+	//스폰 시간 검사
+	spawnTime -= DELTA;
+	if (spawnTime > 0.0f)
+		return;
+
+	Block0116* spawnBlock = nullptr;
+	for (auto block : blocks) {
+		if (!block->Active()) {
+			spawnBlock = block;
+			break;
+		}
+	}
+	//스폰할 거 없음
+	if (spawnBlock == nullptr)
+		return;
+
+	//스폰할 게 있음
+	spawnTime = spawnRate;
+
+	float left = area->LeftTop().x;
+	float right = area->RightBottom().x;
+	float top = area->LeftTop().y;
+
+	Vector2 size = spawnBlock->GetCollider()->Size();
+
+	float y = top - size.y * 0.5f;
+	float minX = left + size.x * 0.5f;
+	float maxX = right - size.x * 0.5f;
+
+	spawnBlock->Pos() = { Random(minX, maxX), y };
+
+	spawnBlock->Spawn();
 }

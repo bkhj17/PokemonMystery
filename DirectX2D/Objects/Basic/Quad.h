@@ -9,6 +9,7 @@ public:
 
 	void SetTexture(wstring file);
 
+	Vector2 GetSize() { return size; }
 	Vector2 Half() { return size * 0.5f; }
 private:
 	void CreateMesh(Vector2 size, Vector2 pos);

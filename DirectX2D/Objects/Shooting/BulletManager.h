@@ -10,7 +10,7 @@ public:
 	void Update();
 	void Render();
 
-	void Fire(Vector2 pos, Vector2 direction);
+	void Fire(Vector2 pos, Vector2 velocity);
 
 private:
 	vector<Bullet*> bullets;

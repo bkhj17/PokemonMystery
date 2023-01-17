@@ -1,25 +1,55 @@
 #pragma once
-class Block0116 : public Quad
+#include "AnimTransform0117.h"
+
+class Block0116 : public AnimTransform0117
 {
+private:
+	const float FALLDOWN_SPEED = 20.0f;
+	const int MAX_HIT_POINT = 2;
+
+	enum ActionType {
+		IDLE, HIT, DEAD
+	};
+
 public:
 	Block0116(Vector2 Size);
 	~Block0116();
 
 	void Update();
+	void Render();
 
 	void FallDown();
 
-	Collider* GetCollider() { return collider; }
+	RectCollider* GetCollider() { return collider; }
 
-	void Break();
+	void Spawn();
 
 	void SetBreakFunc(function<void()> func) { breakFunc = func; }
+
+	bool IsDead() { return curAction == DEAD; }
+
+	void Hit();
+	void Damaged();
+
+
 private:
-	const float FALL_DOWN_RATE = 2.0f;
-	float fallDownTime = FALL_DOWN_RATE;
+	void Break();
+	void ChangeAction(ActionType action);
+
+
+	virtual void LoadClips() override;
+
+private:
+	int hitPoint = MAX_HIT_POINT;
+
+	ActionType curAction;
+
+	float speed = FALLDOWN_SPEED;
 
 	RectCollider* collider;
-
 	function<void()> breakFunc;
+
+	Vector2 size;
+
 };
 

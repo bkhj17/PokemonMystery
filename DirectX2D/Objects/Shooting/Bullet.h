@@ -9,11 +9,11 @@ public:
 	void Update();
 	void Render();
 
-	void Fire(Vector2 pos, Vector2 direction);
+	void Fire(Vector2 pos, Vector2 velocity);
 
 private:
 	float speed = 1000.0f;
-	Vector2 direction;
+	Vector2 velocity;
 
 	Collider* collider;
 };

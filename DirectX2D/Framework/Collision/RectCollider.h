@@ -15,6 +15,7 @@ public:
 	virtual bool IsPointCollision(Vector2 point) override;
 	virtual bool IsRectCollision(RectCollider* rect, Vector2* overlap) override;
 	virtual bool IsCircleCollision(CircleCollider* circle) override;
+	bool IsCircleCollision(CircleCollider* circle, Vector2* overlap);
 
 	Vector2 Size() { return { size.x * GlobalScale().x, size.y * GlobalScale().y }; }
 	Vector2 Half() { return Size() * 0.5f; }

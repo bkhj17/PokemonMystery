@@ -141,6 +141,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Homework\230116\AnimTransform0117.h" />
+    <ClInclude Include="Framework\Render\Clip.h" />
+    <ClInclude Include="Framework\Render\Frame.h" />
+    <ClInclude Include="Framework\Utilities\tinyxml2.h" />
+    <ClInclude Include="Objects\Character\Ninja.h" />
+    <ClInclude Include="Scenes\AnimationScene.h" />
+    <ClInclude Include="Objects\PinBall\Ball.h" />
+    <ClInclude Include="Objects\PinBall\Bat.h" />
     <ClInclude Include="Homework\230116\Block0116.h" />
     <ClInclude Include="Homework\230116\Ball0116.h" />
     <ClInclude Include="Homework\230116\Bar0116.h" />
@@ -149,6 +157,8 @@
     <ClInclude Include="Framework\Collision\Collider.h" />
     <ClInclude Include="Framework\Collision\RectCollider.h" />
     <ClInclude Include="Homework\230116\Scene0116.h" />
+    <ClInclude Include="Framework\Utilities\Observer.h" />
+    <ClInclude Include="Scenes\PinBallScene.h" />
     <ClInclude Include="Scenes\CollisionScene.h" />
     <ClInclude Include="Framework\Utilities\Audio.h" />
     <ClInclude Include="Homework\230113\Clay0113.h" />
@@ -188,6 +198,14 @@
     <ClInclude Include="Test\TestScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Homework\230116\AnimTransform0117.cpp" />
+    <ClCompile Include="Framework\Render\Clip.cpp" />
+    <ClCompile Include="Framework\Render\Frame.cpp" />
+    <ClCompile Include="Framework\Utilities\tinyxml2.cpp" />
+    <ClCompile Include="Objects\Character\Ninja.cpp" />
+    <ClCompile Include="Scenes\AnimationScene.cpp" />
+    <ClCompile Include="Objects\PinBall\Ball.cpp" />
+    <ClCompile Include="Objects\PinBall\Bat.cpp" />
     <ClCompile Include="Homework\230116\Block0116.cpp" />
     <ClCompile Include="Homework\230116\Ball0116.cpp" />
     <ClCompile Include="Homework\230116\Bar0116.cpp" />
@@ -196,6 +214,8 @@
     <ClCompile Include="Framework\Collision\Collider.cpp" />
     <ClCompile Include="Framework\Collision\RectCollider.cpp" />
     <ClCompile Include="Homework\230116\Scene0116.cpp" />
+    <ClCompile Include="Framework\Utilities\Observer.cpp" />
+    <ClCompile Include="Scenes\PinBallScene.cpp" />
     <ClCompile Include="Scenes\CollisionScene.cpp" />
     <ClCompile Include="Framework\Utilities\Audio.cpp" />
     <ClCompile Include="Homework\230113\Clay0113.cpp" />

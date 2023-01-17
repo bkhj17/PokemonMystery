@@ -41,7 +41,6 @@ bool RectCollider::IsCircleCollision(CircleCollider* circle)
     auto obb = GetObb();
 
     auto direction = obb.position - circle->GlobalPos();
-    auto d = abs(Dot(obb.axis[0], direction));
 
     float x = abs(Dot(direction, obb.axis[0]));
     if (x > obb.halfSize.x + circle->Radius()) return false;
@@ -54,6 +53,27 @@ bool RectCollider::IsCircleCollision(CircleCollider* circle)
     Vector2 temp = Vector2(x, y) - obb.halfSize;
     return (temp.Length() < circle->Radius());
 }
+
+
+
+bool RectCollider::IsCircleCollision(CircleCollider* circle, Vector2* overlap)
+{
+    if (!isActive || !circle->Active())
+        return false;
+
+    float left = max(circle->GlobalPos().x - circle->Radius(), L());
+    float right = min(circle->GlobalPos().x + circle->Radius(), R());
+    float top = min(circle->GlobalPos().y + circle->Radius(), T());
+    float bottom = max(circle->GlobalPos().y - circle->Radius(), B());
+
+    overlap->x = right - left;
+    overlap->y = top - bottom;
+    if (overlap->x > 0 && overlap->y > 0)
+        return true;
+
+    return false;
+}
+
 
 Vector2 RectCollider::LeftTop()
 {

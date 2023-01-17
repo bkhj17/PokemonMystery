@@ -17,7 +17,7 @@ public:
     void SetHitFunc(function<void()> func) { hitFunc = func; }
     void SetOutFunc(function<void()> func) { outFunc = func; }
 
-    const Vector2& GetDirection() { return direction; }
+    const Vector2& GetDirection() { return velocity; }
 
     void ShutDown() { isActive = false; }
 private:
@@ -25,7 +25,7 @@ private:
     float xSpeed = 0.0f;
     float yAccel = 0.0f;
     
-    Vector2 direction = {};
+    Vector2 velocity = {};
 
     function<void()> hitFunc = nullptr;
     function<void()> outFunc = nullptr;

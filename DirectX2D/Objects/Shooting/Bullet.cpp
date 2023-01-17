@@ -20,7 +20,7 @@ void Bullet::Update()
 	if (!isActive)
 		return;
 
-	localPosition += direction * speed * DELTA;
+	localPosition += velocity * speed * DELTA;
 
 	if (localPosition.x < 0 || localPosition.x > WIN_WIDTH)
 		isActive = false;
@@ -42,12 +42,12 @@ void Bullet::Render()
 	collider->Render();
 }
 
-void Bullet::Fire(Vector2 pos, Vector2 direction)
+void Bullet::Fire(Vector2 pos, Vector2 velocity)
 {
 	isActive = true;
 
 	localPosition = pos;
-	this->direction = direction;
+	this->velocity = velocity;
 
-	localRotation.z = direction.Angle();
+	localRotation.z = velocity.Angle();
 }

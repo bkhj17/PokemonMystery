@@ -96,13 +96,18 @@ typedef DirectX::XMFLOAT3 Float3;
 typedef DirectX::XMFLOAT2 Float2;
 typedef DirectX::XMMATRIX Matrix;
 
+typedef function<void()> Event;
+typedef function<void(void*)> ParamEvent;
+
 //Framework Header
 #include "Framework/Utilities/Singleton.h"
 #include "Framework/Utilities/Timer.h"
 #include "Framework/Utilities/KeyBoard.h"
 #include "Framework/Utilities/Audio.h"
 #include "Framework/Utilities/Utility.h"
-
+#include "Framework/Utilities/Observer.h"
+#include "Framework/Utilities/tinyxml2.h"
+using namespace Utility;
 
 #include "Framework/Math/Vector2.h"
 #include "Framework/Math/GameMath.h"
@@ -122,6 +127,8 @@ using namespace GameMath;
 #include "Framework/Buffer/GlobalBuffer.h"
 
 #include "Framework/Render/Texture.h"
+#include "Framework/Render/Frame.h"
+#include "Framework/Render/Clip.h"
 
 #include "Framework/Collision/Collider.h"
 #include "Framework/Collision/RectCollider.h"
@@ -135,6 +142,11 @@ using namespace GameMath;
 #include "Objects/Shooting/Plane.h"
 #include "Objects/Shooting/Bullet.h"
 #include "Objects/Shooting/BulletManager.h"
+
+#include "Objects/PinBall/Bat.h"
+#include "Objects/PinBall/Ball.h"
+
+#include "Objects/Character/Ninja.h"
 
 #include "Scenes/Scene.h"
 

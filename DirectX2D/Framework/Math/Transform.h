@@ -9,7 +9,9 @@ public:
 	void RenderUI();
 
 	Vector2 Right() { return right.GetNormalized(); }
+	Vector2 Left() { return Right() * -1.0f; }
 	Vector2 Up() { return up.GetNormalized(); }
+	Vector2 Down() { return Up() * -1.0f; }
 
 	Vector2 GlobalPos() { return globalPosition; }
 	Vector2 GlobalScale() { return globalScale; }

@@ -17,11 +17,11 @@ void Clay0113::Update()
 	if (!isActive)
 		return;
 
-	direction.y += yAccel * DELTA;	//가속도 적용
+	velocity.y += yAccel * DELTA;	//가속도 적용
 	//각도 적용
-	localRotation.z = direction.Angle();
+	localRotation.z = velocity.Angle();
 	//위치 변경
-	localPosition += direction * DELTA;
+	localPosition += velocity * DELTA;
 
 	Out();
 
@@ -46,13 +46,13 @@ void Clay0113::Spawn()
 
 	//x 속도 = 가로 거리 / 시간 => 제 시간에 목표지점에 도착. 등속
 	xSpeed = (WIN_WIDTH + RADIUS * 2) / time;
-	direction.x = fromLeft ? xSpeed : -xSpeed;
+	velocity.x = fromLeft ? xSpeed : -xSpeed;
 
 	float halfTime = time * 0.5f;
 	//제대로 계산하는데에 실패했는데 어찌어찌 돌아간다. 어떻게 된걸까
 	float maxYSpeed = (WIN_HEIGHT - localPosition.y) * 2 / halfTime;
-	direction.y = Random(300.0f, maxYSpeed);
-	yAccel = -direction.y / (halfTime); 
+	velocity.y = Random(300.0f, maxYSpeed);
+	yAccel = -velocity.y / (halfTime); 
 }
 
 void Clay0113::Hit()
@@ -72,8 +72,8 @@ void Clay0113::Out()
 		return;
 
 	//나갔는지 검사
-	isActive &= !(direction.x < 0.0f && localPosition.x < -RADIUS);
-	isActive &= !(direction.x > 0.0f && localPosition.x > WIN_WIDTH + RADIUS);
+	isActive &= !(velocity.x < 0.0f && localPosition.x < -RADIUS);
+	isActive &= !(velocity.x > 0.0f && localPosition.x > WIN_WIDTH + RADIUS);
 	isActive &= !(localPosition.y < 0.0f);
 
 	if (!isActive && outFunc != nullptr)

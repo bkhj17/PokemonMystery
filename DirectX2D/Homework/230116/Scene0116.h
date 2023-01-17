@@ -15,6 +15,8 @@ private:
     };
     GameState state = GameState::PLAY;
 
+    const int CLEAR_SCORE = 10;
+
 public:
     Scene0116();
     ~Scene0116();
@@ -28,15 +30,18 @@ private:
     void ClearRender();
     void GameOverRender();
 
-    void SetBar();
+    void CreateBar();
     void CreateBlocks();
-    void SetBlocks();
 
+    void StartGame();
+    void SetBlocks();
     void SetBall();
 
     void Collide();
 
     void BreakBlock();
+
+    void SpawnBlock();
 private:
     Area0116* area;
 
@@ -45,11 +50,14 @@ private:
 
     Ball0116* ball;
 
-    int numBlock;
-    vector<vector<Block0116*>> blocks;
+    int score = 0;
+    vector<Block0116*> blocks;
 
+    float spawnRate = 3.0f;
+    float spawnTime = 0.0f;
 
     Quad* gameOverMessage = nullptr;
     Quad* gameClearMessage = nullptr;
+
 };
 
