@@ -21,8 +21,16 @@ Dummy0118::~Dummy0118()
 
 void Dummy0118::Update()
 {
+	actions[curAction]->Update();
 	if (!actions[curAction]->IsPlaying())
 		SetAction(IDLE);
+
+	velocity -= 980.0f * DELTA;
+	localPosition.y += velocity * DELTA;
+	if (localPosition.y < 200.0f) {
+		localPosition.y = 200.0f;
+		velocity = 0.0f;
+	}
 
 	UpdateWorld();
 	collider->UpdateWorld();
@@ -36,9 +44,16 @@ void Dummy0118::Render()
 	collider->Render();
 }
 
+void Dummy0118::Hit()
+{
+	velocity = 500.0f;
+
+	SetAction(DEAD);
+}
+
 void Dummy0118::SetAction(ActionType type)
 {
-	if (curAction == type)
+	if (curAction == type && type != DEAD)
 		return;
 
 	curAction = type;

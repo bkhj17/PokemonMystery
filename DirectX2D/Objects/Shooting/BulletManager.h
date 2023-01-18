@@ -11,7 +11,7 @@ public:
 	void Render();
 
 	void Fire(Vector2 pos, Vector2 velocity);
-
+	void CheckCollision(Collider* collider, Event event);
 private:
 	vector<Bullet*> bullets;
 };

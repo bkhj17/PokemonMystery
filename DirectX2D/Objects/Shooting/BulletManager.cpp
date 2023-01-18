@@ -37,3 +37,16 @@ void BulletManager::Fire(Vector2 pos, Vector2 velocity)
 		}
 	}
 }
+
+void BulletManager::CheckCollision(Collider* collider, Event event)
+{
+	for (auto bullet : bullets) {
+		if (!bullet->Active())
+			continue;
+
+		if (bullet->IsCollision(collider)) {
+			event();
+			bullet->SetActive(false);
+		}
+	}
+}

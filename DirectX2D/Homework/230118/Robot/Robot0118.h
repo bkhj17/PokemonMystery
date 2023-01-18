@@ -14,7 +14,6 @@ public:
 
 	void Update();
 	void Render();
-
 private:
 	void CreateActions();
 	void CreateCommands();

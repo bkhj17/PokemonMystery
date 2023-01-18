@@ -51,3 +51,8 @@ void Bullet::Fire(Vector2 pos, Vector2 velocity)
 
 	localRotation.z = velocity.Angle();
 }
+
+bool Bullet::IsCollision(Collider* other)
+{ 
+	return collider->IsCollision(other);
+}

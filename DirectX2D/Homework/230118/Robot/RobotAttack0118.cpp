@@ -16,6 +16,9 @@ void RobotAttack0118::Update()
 {
 	__super::Update();
 	attackCollider->UpdateWorld();
+
+	if(attackCollider->Active() && attackCollider->IsCollision(Dummy0118::Get()->GetCollider()))
+		Dummy0118::Get()->Hit();
 }
 
 void RobotAttack0118::Render()

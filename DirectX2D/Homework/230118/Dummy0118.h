@@ -15,7 +15,7 @@ public:
 	void Render();
 
 	RectCollider* GetCollider() { return collider; }
-	void Hit() { SetAction(DEAD);  }
+	void Hit();
 private:
 
 	void SetAction(ActionType type);
@@ -24,6 +24,6 @@ private:
 	ActionType curAction = IDLE;
 
 	RectCollider* collider;
-
+	float velocity = 0.0f;
 };
 
