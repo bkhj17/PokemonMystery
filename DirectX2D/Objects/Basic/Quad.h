@@ -5,7 +5,7 @@ public:
 	Quad(wstring file, Vector2 pos = {});
 	~Quad();
 
-	virtual void Render() override;
+	virtual void Render();
 
 	void SetTexture(wstring file);
 
@@ -15,6 +15,12 @@ private:
 	void CreateMesh(Vector2 size, Vector2 pos);
 
 protected:
+	VertexBuffer* vertexBuffer = nullptr;
+	IndexBuffer* indexBuffer = nullptr;
 	Texture* texture = nullptr;
+
+	vector<Vertex> vertices;
+	vector<UINT> indices;
+
 	Vector2 size;
 };

@@ -23,8 +23,8 @@ void Plane::Update()
 	Rotate();
 	Fire();
 
-	__super::Update();
-	weapon->Update();
+	UpdateWorld();
+	weapon->UpdateWorld();
 	BulletManager::Get()->Update();
 }
 

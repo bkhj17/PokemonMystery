@@ -14,7 +14,6 @@ private:
 public:
 	void Update();
 
-
 	bool Down(UINT key) { 
 		return mapState[key] == DOWN; 
 	}

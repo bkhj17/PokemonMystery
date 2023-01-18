@@ -6,6 +6,7 @@ Environment::Environment()
 	CreateProjection();
 	CreateSamplerState();
 	CreateBlendState();
+	CreateRasterizerState();
 }
 
 Environment::~Environment()
@@ -14,6 +15,7 @@ Environment::~Environment()
 
 	samplerState->Release();
 	blendState->Release();
+	rasterizerState->Release();
 }
 
 void Environment::CreateProjection()
@@ -62,4 +64,15 @@ void Environment::CreateBlendState()
 
 	float blendFactor[4] = {};
 	DC->OMSetBlendState(blendState, blendFactor, 0xffffffff);
+}
+
+void Environment::CreateRasterizerState()
+{
+	D3D11_RASTERIZER_DESC rasterizerDesc = {};
+	rasterizerDesc.CullMode = D3D11_CULL_NONE;
+	rasterizerDesc.FillMode = D3D11_FILL_SOLID;
+
+	DEVICE->CreateRasterizerState(&rasterizerDesc, &rasterizerState);
+
+	DC->RSSetState(rasterizerState);
 }

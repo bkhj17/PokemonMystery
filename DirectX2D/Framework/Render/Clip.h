@@ -17,7 +17,7 @@ public:
 
 	Frame* GetCurFrame() { return frames[curFrameNum]; }
 
-	map<UINT, function<void()>> events;
+	void SetEvent(Event event, int frameNum = -1);
 private:
 	vector<Frame*> frames;
 	UINT curFrameNum = 0;
@@ -28,5 +28,7 @@ private:
 
 	bool isLoop = false;
 	bool isPlay = false;
+
+	map<UINT, Event> events;
 };
 

@@ -10,37 +10,14 @@ GameObject::GameObject(wstring shaderFile)
 
 GameObject::~GameObject()
 {
-	if(vertexBuffer != nullptr)
-		delete vertexBuffer;
-	if(indexBuffer != nullptr)
-		delete indexBuffer;
-
 	delete worldBuffer;
 }
 
-void GameObject::Update()
+void GameObject::SetRender()
 {
-	if (!isActive)
-		return;
-
-	UpdateWorld();
-}
-
-void GameObject::Render()
-{
-	if (!isActive)
-		return;
-
 	worldBuffer->Set(world);
 	worldBuffer->SetVS(0);
 
-	if(vertexBuffer != nullptr)
-		vertexBuffer->Set();
-	if (indexBuffer != nullptr)
-		indexBuffer->Set();
-
 	vertexShader->Set();
 	pixelShader->Set();
-
-	DC->DrawIndexed((UINT)indices.size(), 0, 0);
 }

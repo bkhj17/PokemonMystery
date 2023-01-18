@@ -27,7 +27,7 @@ void Bar0116::Update()
 {
 	Control();
 
-	__super::Update();
+	UpdateWorld();
 	collider->UpdateWorld();
 }
 

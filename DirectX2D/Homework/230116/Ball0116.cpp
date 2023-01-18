@@ -24,7 +24,7 @@ void Ball0116::Update()
 	ApplyGravity();
 	Move();
 
-	__super::Update();
+	UpdateWorld();
 	collider->UpdateWorld();
 }
 
@@ -45,13 +45,12 @@ void Ball0116::BarCollision(Bar0116* bar)
 	direction.Normalize();
 
 	float power = 0.0f;
-	float distanceRate = 0.0f;
-
 	if (bar->IsSwing()) {
+		//
 		float rate = bar->GetInterpolation() + 1.0f;
 
 		Vector2 pos(bar->GlobalPos().x, bar->GlobalPos().y);
-		distanceRate += Distance(pos, localPosition) / bar->GetSize().x;
+		float distanceRate = Distance(pos, localPosition) / bar->GetSize().x;
 
 		power = rate * velocity.Length() * 0.6f + distanceRate;
 		velocity = normal * power;
@@ -92,16 +91,22 @@ void Ball0116::AreaCollision(Area0116* area)
 	if (Pos().x - collider->Radius() < leftTop.x) {
 		Pos().x = leftTop.x + collider->Radius();
 		velocity.x *= -1.0f;
+
+		velocity *= 0.7f;
 	}
 
 	if (Pos().x + collider->Radius() > rightBottom.x) {
 		Pos().x = rightBottom.x - collider->Radius();
 		velocity.x *= -1.0f;
+
+		velocity *= 0.7f;
 	}
 
 	if(Pos().y + collider->Radius() > leftTop.y) {
 		Pos().y = leftTop.y - collider->Radius();
 		velocity.y *= -1.0f;
+
+		velocity *= 0.7f;
 	}
 }
 

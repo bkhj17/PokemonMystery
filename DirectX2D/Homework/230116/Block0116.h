@@ -13,9 +13,9 @@ private:
 
 public:
 	Block0116(Vector2 Size);
-	~Block0116();
+	virtual ~Block0116();
 
-	void Update();
+	virtual void Update();
 	void Render();
 
 	void FallDown();

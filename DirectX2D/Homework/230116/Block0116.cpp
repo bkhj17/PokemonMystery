@@ -92,9 +92,9 @@ void Block0116::ChangeAction(ActionType action)
 void Block0116::LoadClips()
 {
 	string path = "Textures/Ninja/";
-	LoadClip(IDLE, path, "Idle.xml", true, 1.0f);
-	LoadClip(HIT, path, "Attack.xml", false, 3.0f);
-	LoadClip(DEAD, path, "Dead.xml", false, 1.0f);
+	LoadClip(IDLE, path, "Ninja_Idle.xml", true, 1.0f);
+	LoadClip(HIT, path, "Ninja_Attack.xml", false, 3.0f);
+	LoadClip(DEAD, path, "Ninja_Dead.xml", false, 1.0f);
 
-	clips[HIT]->events[8] = bind(&Block0116::Damaged, this);
+	clips[HIT]->SetEvent(bind(&Block0116::Damaged, this));
 }

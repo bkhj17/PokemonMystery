@@ -8,7 +8,7 @@ public:
     Clay0113();
     ~Clay0113();
 
-    void Update() override;
+    void Update();
     void Spawn();
 
     void Hit();

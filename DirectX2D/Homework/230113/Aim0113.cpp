@@ -8,7 +8,7 @@ Aim0113::Aim0113()
 
 void Aim0113::Update()
 {
-    __super::Update();
+    UpdateWorld();
 }
 
 bool Aim0113::IsCollision(Quad* quad)

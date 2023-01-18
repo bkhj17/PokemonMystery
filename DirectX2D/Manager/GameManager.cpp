@@ -4,16 +4,17 @@
 //#include "Scenes/TextureScene.h"
 //#include "Scenes/CollisionScene.h"
 //#include "Scenes/PinBallScene.h"
-//#include "Scenes/AnimationScene.h"
+#include "Scenes/AnimationScene.h"
 //#include "Homework/230112/Scene0112.h"
 //#include "Homework/230113/Scene0113.h"
-#include "Homework/230116/Scene0116.h"
+//#include "Homework/230116/Scene0116.h"
+#include "Homework/230118/Scene0118.h"
 
 GameManager::GameManager()
 {
 	Create();
 
-	scene = new Scene0116();
+	scene = new Scene0118();
 }
 
 GameManager::~GameManager()

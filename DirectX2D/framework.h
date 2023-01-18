@@ -138,6 +138,7 @@ using namespace GameMath;
 
 #include "Objects/Basic/GameObject.h"
 #include "Objects/Basic/Quad.h"
+#include "Objects/Basic/Action.h"
 
 #include "Objects/Shooting/Plane.h"
 #include "Objects/Shooting/Bullet.h"
@@ -146,7 +147,7 @@ using namespace GameMath;
 #include "Objects/PinBall/Bat.h"
 #include "Objects/PinBall/Ball.h"
 
-#include "Objects/Character/Ninja.h"
+#include "Objects/Character/Ninja/Ninja.h"
 
 #include "Scenes/Scene.h"
 

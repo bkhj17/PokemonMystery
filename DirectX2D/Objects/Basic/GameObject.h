@@ -5,18 +5,12 @@ public:
 	GameObject(wstring shaderFile = L"UV.hlsl");
 	virtual ~GameObject();
 
-	virtual void Update();
-	virtual void Render();
+	void SetRender();
 
 protected:
 	VertexShader* vertexShader;
 	PixelShader* pixelShader;
-	VertexBuffer* vertexBuffer = nullptr;
-	IndexBuffer* indexBuffer = nullptr;
-
 	MatrixBuffer* worldBuffer;
 
-	vector<Vertex> vertices;
-	vector<UINT> indices;
 };
 

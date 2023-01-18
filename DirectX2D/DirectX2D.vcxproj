@@ -141,11 +141,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Homework\230118\Dummy0118.h" />
+    <ClInclude Include="Homework\230118\Command0118.h" />
+    <ClInclude Include="Objects\Character\Ninja\NinjaThrow.h" />
+    <ClInclude Include="Objects\Character\Ninja\NinjaJumpAttack.h" />
+    <ClInclude Include="Objects\Character\Ninja\NinjaMeleeAttack.h" />
+    <ClInclude Include="Objects\Character\Ninja\NinjaAttack.h" />
+    <ClInclude Include="Objects\Character\Ninja\NinjaJump.h" />
+    <ClInclude Include="Objects\Character\Ninja\NinjaRun.h" />
+    <ClInclude Include="Objects\Character\Ninja\NinjaIdle.h" />
+    <ClInclude Include="Objects\Basic\Action.h" />
     <ClInclude Include="Homework\230116\AnimTransform0117.h" />
     <ClInclude Include="Framework\Render\Clip.h" />
     <ClInclude Include="Framework\Render\Frame.h" />
     <ClInclude Include="Framework\Utilities\tinyxml2.h" />
-    <ClInclude Include="Objects\Character\Ninja.h" />
+    <ClInclude Include="Objects\Character\Ninja\Ninja.h" />
+    <ClInclude Include="Homework\230118\Scene0118.h" />
+    <ClInclude Include="Homework\230118\Robot\Robot0118.h" />
+    <ClInclude Include="Homework\230118\Robot\RobotJumpUp0118.h" />
+    <ClInclude Include="Homework\230118\Robot\RobotJumpDown0118.h" />
+    <ClInclude Include="Homework\230118\Robot\RobotMeleeAttack0118.h" />
+    <ClInclude Include="Homework\230118\Robot\RobotAttack0118.h" />
+    <ClInclude Include="Homework\230118\Robot\RobotJumpAttack0118.h" />
+    <ClInclude Include="Homework\230118\Robot\RobotShoot0118.h" />
     <ClInclude Include="Scenes\AnimationScene.h" />
     <ClInclude Include="Objects\PinBall\Ball.h" />
     <ClInclude Include="Objects\PinBall\Bat.h" />
@@ -198,11 +216,29 @@
     <ClInclude Include="Test\TestScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Homework\230118\Dummy0118.cpp" />
+    <ClCompile Include="Homework\230118\Command0118.cpp" />
+    <ClCompile Include="Objects\Character\Ninja\NinjaThrow.cpp" />
+    <ClCompile Include="Objects\Character\Ninja\NinjaJumpAttack.cpp" />
+    <ClCompile Include="Objects\Character\Ninja\NinjaMeleeAttack.cpp" />
+    <ClCompile Include="Objects\Character\Ninja\NinjaAttack.cpp" />
+    <ClCompile Include="Objects\Character\Ninja\NinjaJump.cpp" />
+    <ClCompile Include="Objects\Character\Ninja\NinjaRun.cpp" />
+    <ClCompile Include="Objects\Character\Ninja\NinjaIdle.cpp" />
+    <ClCompile Include="Objects\Basic\Action.cpp" />
     <ClCompile Include="Homework\230116\AnimTransform0117.cpp" />
     <ClCompile Include="Framework\Render\Clip.cpp" />
     <ClCompile Include="Framework\Render\Frame.cpp" />
     <ClCompile Include="Framework\Utilities\tinyxml2.cpp" />
-    <ClCompile Include="Objects\Character\Ninja.cpp" />
+    <ClCompile Include="Objects\Character\Ninja\Ninja.cpp" />
+    <ClCompile Include="Homework\230118\Scene0118.cpp" />
+    <ClCompile Include="Homework\230118\Robot\Robot0118.cpp" />
+    <ClCompile Include="Homework\230118\Robot\RobotJumpUp0118.cpp" />
+    <ClCompile Include="Homework\230118\Robot\RobotJumpDown0118.cpp" />
+    <ClCompile Include="Homework\230118\Robot\RobotMeleeAttack0118.cpp" />
+    <ClCompile Include="Homework\230118\Robot\RobotAttack0118.cpp" />
+    <ClCompile Include="Homework\230118\Robot\RobotJumpAttack0118.cpp" />
+    <ClCompile Include="Homework\230118\Robot\RobotShoot0118.cpp" />
     <ClCompile Include="Scenes\AnimationScene.cpp" />
     <ClCompile Include="Objects\PinBall\Ball.cpp" />
     <ClCompile Include="Objects\PinBall\Bat.cpp" />

@@ -29,7 +29,7 @@ void Bullet::Update()
 	if (localPosition.y < 0 || localPosition.y > WIN_HEIGHT)
 		isActive = false;
 
-	__super::Update();
+	UpdateWorld();
 	collider->UpdateWorld();
 }
 

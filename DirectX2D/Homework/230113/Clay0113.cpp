@@ -25,7 +25,7 @@ void Clay0113::Update()
 
 	Out();
 
-	__super::Update();
+	UpdateWorld();
 }
 
 void Clay0113::Spawn()

@@ -15,12 +15,22 @@ Quad::Quad(wstring file, Vector2 pos)
 
 Quad::~Quad()
 {
+	delete vertexBuffer;
+	delete indexBuffer;
 }
 
 void Quad::Render()
 {
+	if (!isActive)
+		return;
+
 	texture->PSSet();
-	__super::Render();
+	__super::SetRender();
+
+	vertexBuffer->Set();
+	indexBuffer->Set();
+
+	DC->DrawIndexed((UINT)indices.size(), 0, 0);
 }
 
 void Quad::SetTexture(wstring file)
