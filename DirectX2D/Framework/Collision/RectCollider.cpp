@@ -13,7 +13,7 @@ RectCollider::RectCollider(Vector2 size)
     vertices.emplace_back(-halfSize.x, -halfSize.y);
     vertices.emplace_back(-halfSize.x, halfSize.y);
 
-    vertexBuffer = new VertexBuffer(vertices.data(), sizeof(VertexPos), vertices.size());
+    vertexBuffer = new VertexBuffer(vertices.data(), (UINT)sizeof(VertexPos), (UINT)vertices.size());
 }
 
 bool RectCollider::IsPointCollision(Vector2 point)

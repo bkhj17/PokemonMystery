@@ -15,7 +15,7 @@ CircleCollider::CircleCollider(float radius)
 		vertices.emplace_back(x, y);
 	}
 
-	vertexBuffer = new VertexBuffer(vertices.data(), sizeof(VertexPos), vertices.size());
+	vertexBuffer = new VertexBuffer(vertices.data(), (UINT)sizeof(VertexPos), (UINT)vertices.size());
 }
 
 bool CircleCollider::IsPointCollision(Vector2 point)

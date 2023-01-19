@@ -152,7 +152,7 @@ void Ball0116::BlockCollision(Block0116* block)
 			}
 		}
 
-		velocity *= 0.7;
+		velocity *= 0.7f;
 	}
 }
 

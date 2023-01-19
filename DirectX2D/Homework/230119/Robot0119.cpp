@@ -46,7 +46,7 @@ void Robot0119::Render()
 	__super::Render();
 }
 
-const Vector2& Robot0119::GetSize()
+Vector2 Robot0119::GetSize()
 {
 	return actions[curAction]->GetCurFrameSize();
 }

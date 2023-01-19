@@ -13,7 +13,7 @@ public:
 	void SetSelected(bool selected) { this->selected = selected; }
 	bool IsSelected() { return selected; }
 
-	const Vector2& GetSize();
+	Vector2 GetSize();
 
 	RectCollider* GetCollider() { return collider; }
 private:

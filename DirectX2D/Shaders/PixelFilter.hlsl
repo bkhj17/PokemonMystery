@@ -167,19 +167,20 @@ float4 OutLine0119(float2 uv)
 {
     float4 coord = map.Sample(samp, uv);
     
-    float div = 1.0f / imageSize;
+    float2 div = 1.0f / imageSize;
     
-    float pi2 = 6.28;
+    float pi = 3.14159265359;
     float check = 36;
-    float degree = pi2 / check;
+    float degree = 2 * pi / check;
     
     if (coord.a == 0)
     {
         for (int i = 0; i < check; i++)
         {
             float2 temp = uv + div * float2(cos(degree * i), sin(degree * i)) * scale;
+            temp = clamp(temp, 0.0, 1.0);
             if (map.Sample(samp, temp).a != 0)
-                return color;            
+                return color;
         }
     }
     

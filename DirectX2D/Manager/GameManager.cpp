@@ -16,7 +16,7 @@ GameManager::GameManager()
 {
 	Create();
 
-	scene = new Scene0119();
+	scene = new ShaderScene();
 }
 
 GameManager::~GameManager()

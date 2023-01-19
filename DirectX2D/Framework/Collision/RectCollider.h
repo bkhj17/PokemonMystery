@@ -41,6 +41,6 @@ private:
 private:
 	Vector2 size;
 
-	ObbDesc obbDesc;
+	ObbDesc obbDesc = {};
 };
 

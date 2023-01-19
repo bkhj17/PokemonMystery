@@ -39,7 +39,7 @@ string Command0118::CheckCommand()
 		bool collect = true;
 		int t = tail - 1;
 		if (t < 0)
-			t += inputs.size();
+			t += (int)inputs.size();
 
 		for (int i = 0; i < command.second.size(); i++) {
 			if (command.second[command.second.size() - 1 - i] != inputs[t]) {
@@ -47,7 +47,7 @@ string Command0118::CheckCommand()
 				break;
 			}
 			if (--t < 0)
-				t += inputs.size();
+				t += (int)inputs.size();
 		}
 
 		if (collect)
@@ -81,7 +81,7 @@ int Command0118::InputsNum()
 	int t = tail;
 
 	while (head > t)
-		t += inputs.size();
+		t += (int)inputs.size();
 
 	return t - head;
 }
