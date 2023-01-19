@@ -1,6 +1,7 @@
 #pragma once
 class Robot0118 : public GameObject
 {
+protected:
 	enum ActionType {
 		IDLE = 0, RUN,
 		JUMP_UP = 10, JUMP_DOWN,
@@ -12,9 +13,9 @@ public:
 	Robot0118();
 	~Robot0118();
 
-	void Update();
-	void Render();
-private:
+	virtual void Update();
+	virtual void Render();
+protected:
 	void CreateActions();
 	void CreateCommands();
 
@@ -27,7 +28,7 @@ private:
 
 	void InputCommand();
 	void SetAction(ActionType type);
-private:
+protected:
 	map<ActionType, Action*> actions;
 	ActionType curAction = IDLE;
 };

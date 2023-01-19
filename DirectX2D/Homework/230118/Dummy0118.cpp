@@ -22,14 +22,23 @@ Dummy0118::~Dummy0118()
 void Dummy0118::Update()
 {
 	actions[curAction]->Update();
-	if (!actions[curAction]->IsPlaying())
-		SetAction(IDLE);
 
 	velocity -= 980.0f * DELTA;
 	localPosition.y += velocity * DELTA;
 	if (localPosition.y < 200.0f) {
 		localPosition.y = 200.0f;
 		velocity = 0.0f;
+		if(curAction == DEAD)
+			down = true;
+	}
+
+	if (down) {
+		downTime += DELTA;
+		if (downTime > downRate) {
+			downTime = 0.0f;
+			down = false;
+			SetAction(IDLE);
+		}
 	}
 
 	UpdateWorld();
@@ -46,6 +55,9 @@ void Dummy0118::Render()
 
 void Dummy0118::Hit()
 {
+	if (down)
+		return;
+
 	velocity = 500.0f;
 
 	SetAction(DEAD);

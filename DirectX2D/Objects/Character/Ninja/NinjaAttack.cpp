@@ -1,36 +1,35 @@
 #include "Framework.h"
-#include "NinjaAttack.h"
 
 NinjaAttack::NinjaAttack(string file, Transform* target)
-	: Action("Textures/Ninja/", file, false), target(target)
-{
+    : Action("Textures/Ninja/", file, false), target(target)
+{    
+    clip->SetEvent(bind(&NinjaAttack::End, this));
 }
 
 NinjaAttack::~NinjaAttack()
 {
-	delete attackCollider;
+    delete attackCollider;
 }
 
 void NinjaAttack::Render()
 {
-	Action::Render();
+    Action::Render();
 
-	attackCollider->Render();
+    attackCollider->Render();
 }
 
 void NinjaAttack::End()
 {
-	event();
+    event();
 }
 
 void NinjaAttack::EnableCollider()
 {
-	attackCollider->SetActive(true);
-	attackCollider->UpdateWorld();
+    attackCollider->UpdateWorld();
+    attackCollider->SetActive(true);
 }
 
 void NinjaAttack::DisableCollider()
 {
-	attackCollider->SetActive(false);
-	attackCollider->UpdateWorld();
+    attackCollider->SetActive(false);
 }

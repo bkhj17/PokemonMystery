@@ -25,6 +25,11 @@ void Action::Start()
 	clip->Play();
 }
 
+Vector2 Action::GetCurFrameSize()
+{
+	return clip->GetCurFrame()->GetSize();
+}
+
 void Action::LoadClip(string path, string file, bool isLoop, float speed)
 {
 	tinyxml2::XMLDocument* document = new tinyxml2::XMLDocument;

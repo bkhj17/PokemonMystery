@@ -7,6 +7,7 @@ protected:
 	const float MOVE_SPEED = 100.0f;
 public:
 	Action(string path, string file, bool isLoop, float speed = 1.0f);
+	Action() = default;
 	virtual ~Action();
 
 	virtual void Update();
@@ -18,7 +19,10 @@ public:
 	void SetEvent(Event event) { this->event = event; }
 
 	bool IsPlaying() { return clip->IsPlay(); }
-private:
+
+	Vector2 GetCurFrameSize();
+
+protected:
 	void LoadClip(string path, string file, bool isLoop, float speed);
 
 protected:

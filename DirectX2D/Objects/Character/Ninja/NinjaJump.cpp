@@ -2,37 +2,32 @@
 #include "NinjaJump.h"
 
 NinjaJump::NinjaJump(Transform* target)
-	: Action("Textures/Ninja/", "Ninja_Jump.xml", false), target(target)
+    : target(target)
 {
 }
 
 void NinjaJump::Update()
 {
-	velocity -= GRAVITY * DELTA;
+    velocity -= GRAVITY * DELTA;
 
-	target->Pos().y += velocity * DELTA;
+    target->Pos().y += velocity * DELTA;
 
-	if (KEY_PRESS(VK_RIGHT)) {
-		target->Pos().x += MOVE_SPEED * DELTA;
-		target->Rotation().y = 0.f;
-	}
-	if (KEY_PRESS(VK_LEFT)) {
-		target->Pos().x -= MOVE_SPEED * DELTA;
-		target->Rotation().y = XM_PI;
-	}
+    Move();
 
-	if (target->Pos().y < FLOOR_HEIGHT) {
-		target->Pos().y = FLOOR_HEIGHT;
-		velocity = 0.0f;
-
-		if(event != nullptr)
-			event();
-	}
-	Action::Update();
+    Action::Update();
 }
 
-void NinjaJump::Start()
+void NinjaJump::Move()
 {
-	Action::Start();
-	velocity = JUMP_POWER;
+    if (KEY_PRESS(VK_RIGHT))
+    {
+        target->Pos().x += MOVE_SPEED * DELTA;
+        target->Rot().y = 0;
+    }
+
+    if (KEY_PRESS(VK_LEFT))
+    {
+        target->Pos().x -= MOVE_SPEED * DELTA;
+        target->Rot().y = XM_PI;
+    }
 }

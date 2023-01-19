@@ -13,11 +13,11 @@ void RobotJumpUp0118::Update()
 
 	if (KEY_PRESS(VK_RIGHT)) {
 		target->Pos().x += MOVE_SPEED * DELTA;
-		target->Rotation().y = 0.f;
+		target->Rot().y = 0.f;
 	}
 	if (KEY_PRESS(VK_LEFT)) {
 		target->Pos().x -= MOVE_SPEED * DELTA;
-		target->Rotation().y = XM_PI;
+		target->Rot().y = XM_PI;
 	}
 
 	if (velocity < 0.0f) {

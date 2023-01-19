@@ -7,6 +7,7 @@ public:
 
 	void SetRender();
 
+	void SetPixelShader(wstring shaderFile);
 protected:
 	VertexShader* vertexShader;
 	PixelShader* pixelShader;

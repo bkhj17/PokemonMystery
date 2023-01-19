@@ -14,8 +14,21 @@ Environment::~Environment()
 	delete projectionBuffer;
 
 	samplerState->Release();
-	blendState->Release();
+	alphaBlendState->Release();
 	rasterizerState->Release();
+}
+
+void Environment::SetAlphaBlend()
+{
+
+	float blendFactor[4] = {};
+	DC->OMSetBlendState(alphaBlendState, blendFactor, 0xffffffff);
+}
+
+void Environment::SetAdditiveBlend()
+{
+	float blendFactor[4] = {};
+	DC->OMSetBlendState(additiveBlendState, blendFactor, 0xffffffff);
 }
 
 void Environment::CreateProjection()
@@ -51,8 +64,8 @@ void Environment::CreateBlendState()
 {
 	D3D11_BLEND_DESC blendDesc = {};	
 	blendDesc.RenderTarget[0].BlendEnable = true;	//알파 블렌드 사용
-	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA; //텍스처 알파 그대로
-	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA; //배경 1-알파 
+	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA; //텍스처 = 알파 그대로
+	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA; //배경 = 1-알파
 	blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;	//덧셈
 
 	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_SRC_ALPHA;
@@ -60,10 +73,14 @@ void Environment::CreateBlendState()
 	blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 
 	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-	DEVICE->CreateBlendState(&blendDesc, &blendState);
+	DEVICE->CreateBlendState(&blendDesc, &alphaBlendState);
 
 	float blendFactor[4] = {};
-	DC->OMSetBlendState(blendState, blendFactor, 0xffffffff);
+	DC->OMSetBlendState(alphaBlendState, blendFactor, 0xffffffff);
+
+	//additive
+	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE; //배경 * color
+	DEVICE->CreateBlendState(&blendDesc, &additiveBlendState);
 }
 
 void Environment::CreateRasterizerState()

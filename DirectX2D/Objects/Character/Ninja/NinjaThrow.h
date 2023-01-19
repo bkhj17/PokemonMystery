@@ -3,14 +3,14 @@
 class NinjaThrow : public Action
 {
 public:
-	NinjaThrow(Transform* target);
-	~NinjaThrow() = default;
+    NinjaThrow(Transform* target);
+    ~NinjaThrow() = default;
 
-	virtual void End();
-private:
-	void Fire();
+    virtual void End() override;
 
 private:
-	Transform* target;
+    void Fire();
+
+private:
+    Transform* target;
 };
-

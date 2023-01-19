@@ -57,6 +57,7 @@
 #include <deque>
 #include <set>
 #include <map>
+#include <unordered_set>
 #include <unordered_map>
 #include <algorithm>
 #include <cmath>
@@ -98,6 +99,7 @@ typedef DirectX::XMMATRIX Matrix;
 
 typedef function<void()> Event;
 typedef function<void(void*)> ParamEvent;
+typedef function<void(int)> IntParamEvent;
 
 //Framework Header
 #include "Framework/Utilities/Singleton.h"
@@ -139,6 +141,10 @@ using namespace GameMath;
 #include "Objects/Basic/GameObject.h"
 #include "Objects/Basic/Quad.h"
 #include "Objects/Basic/Action.h"
+#include "Objects/Basic/Effect.h"
+
+#include "Objects/Manager/EffectManager.h"
+#include "Objects/Manager/CommandManager.h"
 
 #include "Objects/Shooting/Plane.h"
 #include "Objects/Shooting/Bullet.h"
@@ -147,6 +153,16 @@ using namespace GameMath;
 #include "Objects/PinBall/Bat.h"
 #include "Objects/PinBall/Ball.h"
 
+#include "Objects/Character/Ninja/NinjaIdle.h"
+#include "Objects/Character/Ninja/NinjaRun.h"
+#include "Objects/Character/Ninja/NinjaJump.h"
+#include "Objects/Character/Ninja/NinjaJumpUp.h"
+#include "Objects/Character/Ninja/NinjaJumpDown.h"
+#include "Objects/Character/Ninja/NinjaGlide.h"
+#include "Objects/Character/Ninja/NinjaAttack.h"
+#include "Objects/Character/Ninja/NinjaMeleeAttack.h"
+#include "Objects/Character/Ninja/NinjaJumpAttack.h"
+#include "Objects/Character/Ninja/NinjaThrow.h"
 #include "Objects/Character/Ninja/Ninja.h"
 
 #include "Scenes/Scene.h"

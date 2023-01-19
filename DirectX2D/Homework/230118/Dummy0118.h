@@ -1,14 +1,14 @@
 #pragma once
 class Dummy0118 : public GameObject, public Singleton<Dummy0118>
 {
-private:
+protected:
 	enum ActionType {
 		IDLE, HIT, DEAD
 	};
 
 	friend class Singleton;
 	Dummy0118();
-	~Dummy0118();
+	virtual ~Dummy0118();
 
 public:
 	void Update();
@@ -16,12 +16,17 @@ public:
 
 	RectCollider* GetCollider() { return collider; }
 	void Hit();
-private:
+protected:
 
 	void SetAction(ActionType type);
-private:
+protected:
 	map<ActionType, Action*> actions;
 	ActionType curAction = IDLE;
+
+	bool down = false;
+	float downTime = 0.0f;
+	float downRate = 2.0f;
+
 
 	RectCollider* collider;
 	float velocity = 0.0f;

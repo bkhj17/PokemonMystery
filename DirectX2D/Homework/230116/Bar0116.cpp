@@ -11,7 +11,7 @@ Bar0116::Bar0116(Vector2 size, bool isLeft)
 	down = XM_PI / 6.0f * (isLeft ? -1.0f : 1.0f);
 	up = down + (isLeft ? 1.0f : -1.0f) * XM_PI / 3.0f;
 
-	Rotation().z = down;
+	Rot().z = down;
 	SetPivot({ size.x * (isLeft ? -0.5f : 0.5f), 0.0f });
 
 	collider = new RectCollider(size);

@@ -21,3 +21,8 @@ void GameObject::SetRender()
 	vertexShader->Set();
 	pixelShader->Set();
 }
+
+void GameObject::SetPixelShader(wstring shaderFile)
+{
+	pixelShader = Shader::AddPS(L"Pixel" + shaderFile);
+}

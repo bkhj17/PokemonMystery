@@ -141,8 +141,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Homework\230119\Robot0119.h" />
+    <ClInclude Include="Objects\Manager\CommandManager.h" />
+    <ClInclude Include="Objects\Manager\EffectManager.h" />
+    <ClInclude Include="Objects\Basic\Effect.h" />
     <ClInclude Include="Homework\230118\Dummy0118.h" />
     <ClInclude Include="Homework\230118\Command0118.h" />
+    <ClInclude Include="Objects\Character\Ninja\NinjaGlide.h" />
+    <ClInclude Include="Objects\Character\Ninja\NinjaJumpDown.h" />
+    <ClInclude Include="Objects\Character\Ninja\NinjaJumpUp.h" />
     <ClInclude Include="Objects\Character\Ninja\NinjaThrow.h" />
     <ClInclude Include="Objects\Character\Ninja\NinjaJumpAttack.h" />
     <ClInclude Include="Objects\Character\Ninja\NinjaMeleeAttack.h" />
@@ -164,6 +171,7 @@
     <ClInclude Include="Homework\230118\Robot\RobotAttack0118.h" />
     <ClInclude Include="Homework\230118\Robot\RobotJumpAttack0118.h" />
     <ClInclude Include="Homework\230118\Robot\RobotShoot0118.h" />
+    <ClInclude Include="Homework\230119\Scene0119.h" />
     <ClInclude Include="Scenes\AnimationScene.h" />
     <ClInclude Include="Objects\PinBall\Ball.h" />
     <ClInclude Include="Objects\PinBall\Bat.h" />
@@ -205,6 +213,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Homework\230113\Scene0113.h" />
     <ClInclude Include="Scenes\Scene.h" />
+    <ClInclude Include="Scenes\ShaderScene.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Framework\Shaders\VertexShader.h" />
     <ClInclude Include="Framework\Buffer\VertexBuffer.h" />
@@ -216,8 +225,15 @@
     <ClInclude Include="Test\TestScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Homework\230119\Robot0119.cpp" />
+    <ClCompile Include="Objects\Manager\CommandManager.cpp" />
+    <ClCompile Include="Objects\Manager\EffectManager.cpp" />
+    <ClCompile Include="Objects\Basic\Effect.cpp" />
     <ClCompile Include="Homework\230118\Dummy0118.cpp" />
     <ClCompile Include="Homework\230118\Command0118.cpp" />
+    <ClCompile Include="Objects\Character\Ninja\NinjaGlide.cpp" />
+    <ClCompile Include="Objects\Character\Ninja\NinjaJumpDown.cpp" />
+    <ClCompile Include="Objects\Character\Ninja\NinjaJumpUp.cpp" />
     <ClCompile Include="Objects\Character\Ninja\NinjaThrow.cpp" />
     <ClCompile Include="Objects\Character\Ninja\NinjaJumpAttack.cpp" />
     <ClCompile Include="Objects\Character\Ninja\NinjaMeleeAttack.cpp" />
@@ -239,6 +255,7 @@
     <ClCompile Include="Homework\230118\Robot\RobotAttack0118.cpp" />
     <ClCompile Include="Homework\230118\Robot\RobotJumpAttack0118.cpp" />
     <ClCompile Include="Homework\230118\Robot\RobotShoot0118.cpp" />
+    <ClCompile Include="Homework\230119\Scene0119.cpp" />
     <ClCompile Include="Scenes\AnimationScene.cpp" />
     <ClCompile Include="Objects\PinBall\Ball.cpp" />
     <ClCompile Include="Objects\PinBall\Bat.cpp" />
@@ -282,6 +299,7 @@
     <ClCompile Include="Scenes\TextureScene.cpp" />
     <ClCompile Include="Framework\Math\Transform.cpp" />
     <ClCompile Include="Framework\Render\Texture.cpp" />
+    <ClCompile Include="Scenes\ShaderScene.cpp" />
     <ClCompile Include="TestTile.cpp" />
     <ClCompile Include="Test\TestScene.cpp" />
   </ItemGroup>
@@ -293,6 +311,18 @@
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Shaders\PixelEffect.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shaders\PixelFilter.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="Shaders\PixelPos.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>

@@ -23,7 +23,7 @@ public:
 	void SetTag(string tag) { this->tag = tag; }
 
 	Vector2& Pos() { return localPosition; }
-	Float3& Rotation() { return localRotation; }
+	Float3& Rot() { return localRotation; }
 	Vector2& Scale() { return localScale; }
 
 	void SetParent(Transform* transform) { parent = transform; }

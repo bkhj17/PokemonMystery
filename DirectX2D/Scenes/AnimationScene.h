@@ -14,5 +14,6 @@ public:
 private:
     Ninja* ninja;
 
+    Effect* effect;
 };
 
