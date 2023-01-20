@@ -20,6 +20,7 @@ LineRenderer0120::LineRenderer0120()
 LineRenderer0120::~LineRenderer0120()
 {
 	delete vertexBuffer;
+	delete worldBuffer;
 	delete colorBuffer;
 }
 
