@@ -74,6 +74,5 @@ void Button::Render()
 
 	colorBuffer->SetPS(0);
 
-	collider->Render();
 	__super::Render();
 }

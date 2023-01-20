@@ -15,8 +15,8 @@ public:
 	Button(Vector2 size);
 	~Button();
 
-	void Update();
-	void Render();
+	virtual void Update();
+	virtual void Render();
 
 	void SetEvent(Event event) { this->event = event; }
 	void SetParamEvent(ParamEvent event) { this->paramEvent = event; }

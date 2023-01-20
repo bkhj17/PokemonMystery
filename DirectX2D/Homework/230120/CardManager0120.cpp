@@ -2,6 +2,8 @@
 #include "CardManager0120.h"
 #include "SichuanCard0120.h"
 #include "LineRenderer0120.h"
+#include "LineManager0120.h"
+
 const Vector2 CardManager0120::DIRECTION[] = {
 	{0.0f, 0.0f},
 	{-1.0f, 0.0f},
@@ -20,51 +22,35 @@ CardManager0120::CardManager0120()
 		card->SetEvent(bind(&CardManager0120::SelectCard, this, card));
 	}
 
-	lineRenderer = new LineRenderer0120();
+	LineManager0120::Get();
 }
 
 CardManager0120::~CardManager0120()
 {
 	for (auto card : cards)
 		delete card;
-
-	delete lineRenderer;
 }
 
 void CardManager0120::Update()
 {
 	for (auto card : cards)
 		card->Update();
+}
 
-	if (showTime > 0.0f) {
-		showTime -= DELTA;
-
-		if (showTime < 0.0f) {
-			select1->SetSelected(false);
-			select1->SetActive(false);
-			select1 = nullptr;
-
-			select2->SetSelected(false);
-			select2->SetActive(false);
-			select2 = nullptr;
-		}
-
-		return;
-	}
-
+void CardManager0120::SelectUpdate()
+{
 	if (select1 != nullptr && select2 != nullptr) {
 		if (Pairing(select1, select2)) {
-			if(matchFunc != nullptr)
+			if (matchFunc != nullptr)
 				matchFunc();
-			showTime = showRate;
+			select1->Kill();
+			select2->Kill();
 		}
-		else {
-			select1->SetSelected(false);
-			select1 = nullptr;
 
-			select2->SetSelected(false);
-			select2 = nullptr;
-		}
+		select1->SetSelected(false);
+		select1 = nullptr;
+		select2->SetSelected(false);
+		select2 = nullptr;
 	}
 }
 
@@ -83,7 +69,7 @@ void CardManager0120::SelectCard(void* card)
 		return;
 	}
 	else if (select1 == clickedCard) {
-		select1->SetSelected(true);
+		select1->SetSelected(false);
 		select1 = nullptr;
 		return;
 	}
@@ -99,9 +85,6 @@ void CardManager0120::Render()
 {
 	for (auto card : cards)
 		card->Render();
-
-	if (showTime > 0.0f)
-		lineRenderer->Render();
 }
 
 void CardManager0120::InitTable(int num)
@@ -280,8 +263,7 @@ bool CardManager0120::Pairing(SichuanCard0120* card1, SichuanCard0120* card2)
 			lineQueue.push_front(tracking);
 		}
 
-		lineRenderer->Set(lineQueue);
-		showTime = showRate;
+		LineManager0120::Get()->Pop()->Set(lineQueue);
 	}
 
 	return result;

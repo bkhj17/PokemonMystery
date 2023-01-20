@@ -282,6 +282,12 @@
     <ClInclude Include="Homework\230120\LineRenderer0120.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Homework\230120\ProgressBar0120.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Homework\230120\LineManager0120.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectX2D.cpp">
@@ -530,6 +536,12 @@
     <ClCompile Include="Homework\230120\LineRenderer0120.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Homework\230120\ProgressBar0120.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Homework\230120\LineManager0120.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX2D.rc">
@@ -557,5 +569,6 @@
     <FxCompile Include="Shaders\PixelMulti.hlsl" />
     <FxCompile Include="Shaders\PixelNinja.hlsl" />
     <FxCompile Include="Shaders\PixelLight.hlsl" />
+    <FxCompile Include="Shaders\PixelProgress0120.hlsl" />
   </ItemGroup>
 </Project>

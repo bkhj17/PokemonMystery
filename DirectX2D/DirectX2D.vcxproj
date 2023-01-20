@@ -144,6 +144,7 @@
     <ClInclude Include="Framework\Utilities\Font.h" />
     <ClInclude Include="Homework\230120\CardManager0120.h" />
     <ClInclude Include="Homework\230120\LineRenderer0120.h" />
+    <ClInclude Include="Homework\230120\LineManager0120.h" />
     <ClInclude Include="Objects\UI\Button.h" />
     <ClInclude Include="Homework\230119\Robot0119.h" />
     <ClInclude Include="Objects\Manager\CommandManager.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="Homework\230118\Robot\RobotShoot0118.h" />
     <ClInclude Include="Homework\230119\Scene0119.h" />
     <ClInclude Include="Homework\230120\Scene0120.h" />
+    <ClInclude Include="Homework\230120\ProgressBar0120.h" />
     <ClInclude Include="Scenes\PuzzleScene.h" />
     <ClInclude Include="Scenes\AnimationScene.h" />
     <ClInclude Include="Objects\PinBall\Ball.h" />
@@ -235,6 +237,7 @@
     <ClCompile Include="Framework\Utilities\Font.cpp" />
     <ClCompile Include="Homework\230120\CardManager0120.cpp" />
     <ClCompile Include="Homework\230120\LineRenderer0120.cpp" />
+    <ClCompile Include="Homework\230120\LineManager0120.cpp" />
     <ClCompile Include="Objects\UI\Button.cpp" />
     <ClCompile Include="Homework\230119\Robot0119.cpp" />
     <ClCompile Include="Objects\Manager\CommandManager.cpp" />
@@ -268,6 +271,7 @@
     <ClCompile Include="Homework\230118\Robot\RobotShoot0118.cpp" />
     <ClCompile Include="Homework\230119\Scene0119.cpp" />
     <ClCompile Include="Homework\230120\Scene0120.cpp" />
+    <ClCompile Include="Homework\230120\ProgressBar0120.cpp" />
     <ClCompile Include="Scenes\PuzzleScene.cpp" />
     <ClCompile Include="Scenes\AnimationScene.cpp" />
     <ClCompile Include="Objects\PinBall\Ball.cpp" />
@@ -356,6 +360,12 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Shaders\PixelPos.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shaders\PixelProgress0120.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>

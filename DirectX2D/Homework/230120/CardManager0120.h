@@ -28,6 +28,8 @@ private:
 	void SelectCard(void* card);
 public:
 	void Update();
+	void SelectUpdate();
+
 	void Render();
 
 	void InitTable(int);
@@ -49,9 +51,5 @@ private:
 	Event matchFunc = nullptr;
 
 	deque<Vector2> lineQueue;
-	float showTime = 0.0f;
-	float showRate = 1.0f;
-	class LineRenderer0120* lineRenderer;
-
 };
 
