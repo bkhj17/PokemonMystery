@@ -33,6 +33,10 @@ Scene0120::~Scene0120()
 {
 	CardManager0120::Delete();
 	LineManager0120::Delete();
+
+	delete timerBar;
+	delete clearMessage;
+	delete gameOverMessage;
 }
 
 void Scene0120::Update()
