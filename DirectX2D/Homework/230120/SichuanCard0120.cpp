@@ -36,8 +36,6 @@ void SichuanCard0120::Update()
 
 void SichuanCard0120::Render()
 {
-
-
 	__super::Render();
 
 	if(isActive && selected)

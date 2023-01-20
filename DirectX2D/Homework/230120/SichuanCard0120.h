@@ -20,8 +20,6 @@ private:
 	int index = -1;
 	bool selected = false;
 
-
-
 	float showTime = 0.0f;
 	float showRate = 1.0f;
 };

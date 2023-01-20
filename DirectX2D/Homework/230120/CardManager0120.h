@@ -1,11 +1,13 @@
 #pragma once
 class SichuanCard0120;
 
+//BFS용 queue 노드
 struct PqNode {
 	int curved;
 	Vector2 postPos, direction;
 
 	bool operator<(const PqNode& node) const {
+		//오름차순 정렬
 		return curved > node.curved;
 	}
 };
