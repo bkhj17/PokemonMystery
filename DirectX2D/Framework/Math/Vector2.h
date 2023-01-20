@@ -7,6 +7,10 @@ struct Vector2 : public Float2
 	Vector2(POINT point) : Float2(static_cast<float>(point.x), static_cast<float>(point.y)) {}
 	Vector2(Float2 point) : Float2(point.x, point.y) {}
 
+	bool operator==(const Vector2& value) const {
+		return x == value.x && y == value.y;
+	}
+
 	Vector2 operator+(const Vector2& value) const {
 		return Vector2(x + value.x, y + value.y);
 	}
@@ -75,6 +79,10 @@ struct Vector2 : public Float2
 		x = coord.x;
 		y = coord.y;
 
+	}
+
+	bool operator<(const Vector2& vec) {
+		return Length() < vec.Length();
 	}
 
 	float Length() const {

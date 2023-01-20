@@ -2,18 +2,29 @@
 
 Ninja::Ninja()    
 {
+    SetPixelShader(L"Ninja.hlsl");
+
     Pos() = { CENTER_X, CENTER_Y };
 
     CreateActions();
     actions[curAction]->Start();
 
     Observer::Get()->AddIntParamEvent("Action", bind(&Ninja::SetAction2, this, placeholders::_1));
+
+
+    secondMap = Texture::Add(L"Textures/Effect/rainbow.png");
+
+    intValueBuffer = new IntValueBuffer;
+    floatValueBuffer = new FloatValueBuffer;;
 }
 
 Ninja::~Ninja()
 {
     for (pair<ActionType, Action*> action : actions)
         delete action.second;
+
+    delete intValueBuffer;
+    delete floatValueBuffer;
 }
 
 void Ninja::Update()
@@ -26,9 +37,23 @@ void Ninja::Update()
 
 void Ninja::Render()
 {
+    secondMap->PSSet(1);
+
     SetRender();
 
+    intValueBuffer->SetPS(1);
+
+    floatValueBuffer->Get()[0] = actions[curAction]->GetCurFrameSize().x;
+    floatValueBuffer->Get()[1] = actions[curAction]->GetCurFrameSize().y;
+    floatValueBuffer->SetPS(2);
+
     actions[curAction]->Render();
+}
+
+void Ninja::PostRender()
+{
+    ImGui::DragInt("Weight", &intValueBuffer->Get()[0], 1.0f, 0, 30);
+    ImGui::DragInt("Scale", &intValueBuffer->Get()[1], 1.0f, 0, 10);
 }
 
 void Ninja::Control()

@@ -76,16 +76,24 @@ using namespace std;
 #pragma comment(lib, "d3dcompiler.lib")
 #pragma comment(lib, "dxguid.lib")
 
-
+//DirectXTex
 #include <DirectXTex/DirectXTex.h>
 #pragma comment(lib, "DirectXTex.lib")
 using namespace DirectX;
 
+//ImGui
 #include <ImGui/imgui.h>
 #include <ImGui/imgui_impl_dx11.h>
 #include <ImGui/imgui_impl_win32.h>
 
 #pragma comment(lib, "ImGui.lib")
+
+//DirectWrite
+#include <d2d1_2.h>
+#include <dwrite.h>
+
+#pragma comment(lib, "d2d1.lib")
+#pragma comment(lib, "dwrite.lib")
 
 //FMOD Library
 #include "Libraries/inc/fmod.hpp"
@@ -109,6 +117,7 @@ typedef function<void(int)> IntParamEvent;
 #include "Framework/Utilities/Utility.h"
 #include "Framework/Utilities/Observer.h"
 #include "Framework/Utilities/tinyxml2.h"
+#include "Framework/Utilities/Font.h"
 using namespace Utility;
 
 #include "Framework/Math/Vector2.h"
@@ -142,6 +151,8 @@ using namespace GameMath;
 #include "Objects/Basic/Quad.h"
 #include "Objects/Basic/Action.h"
 #include "Objects/Basic/Effect.h"
+
+#include "Objects/UI/Button.h"
 
 #include "Objects/Manager/EffectManager.h"
 #include "Objects/Manager/CommandManager.h"

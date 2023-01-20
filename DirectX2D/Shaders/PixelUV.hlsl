@@ -7,7 +7,12 @@ struct PixelInput
 Texture2D map : register(t0);
 SamplerState samp : register(s0);
 
+cbuffer ColorBuffer : register(b0)
+{
+    float4 color;
+}
+
 float4 PS(PixelInput input) : SV_TARGET
 {
-    return map.Sample(samp, input.uv);
+    return map.Sample(samp, input.uv) * color;
 }

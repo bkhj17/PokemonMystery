@@ -29,7 +29,8 @@ void Quad::Render()
 	if (!isActive)
 		return;
 
-	texture->PSSet();
+	if(texture != nullptr)
+		texture->PSSet();
 
 	vertexBuffer->Set();
 	indexBuffer->Set();

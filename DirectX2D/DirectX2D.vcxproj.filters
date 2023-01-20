@@ -261,6 +261,27 @@
     <ClInclude Include="Homework\230119\Robot0119.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Scenes\PuzzleScene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\UI\Button.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Homework\230120\Scene0120.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Homework\230120\SichuanCard0120.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Homework\230120\CardManager0120.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Utilities\Font.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Homework\230120\LineRenderer0120.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectX2D.cpp">
@@ -488,6 +509,27 @@
     <ClCompile Include="Homework\230119\Robot0119.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Scenes\PuzzleScene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\UI\Button.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Homework\230120\Scene0120.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Homework\230120\SichuanCard0120.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Homework\230120\CardManager0120.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Utilities\Font.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Homework\230120\LineRenderer0120.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX2D.rc">
@@ -512,5 +554,8 @@
     <FxCompile Include="Shaders\PixelPos.hlsl" />
     <FxCompile Include="Shaders\PixelEffect.hlsl" />
     <FxCompile Include="Shaders\PixelFilter.hlsl" />
+    <FxCompile Include="Shaders\PixelMulti.hlsl" />
+    <FxCompile Include="Shaders\PixelNinja.hlsl" />
+    <FxCompile Include="Shaders\PixelLight.hlsl" />
   </ItemGroup>
 </Project>

@@ -165,7 +165,7 @@ float4 RadialBlur(float2 uv)
 
 float4 OutLine0119(float2 uv)
 {
-    float4 coord = map.Sample(samp, uv);
+    float4 tex = map.Sample(samp, uv);
     
     float2 div = 1.0f / imageSize;
     
@@ -173,7 +173,7 @@ float4 OutLine0119(float2 uv)
     float check = 36;
     float degree = 2 * pi / check;
     
-    if (coord.a == 0)
+    if (tex.a == 0)
     {
         for (int i = 0; i < check; i++)
         {
@@ -184,7 +184,7 @@ float4 OutLine0119(float2 uv)
         }
     }
     
-    return coord;
+    return tex;
 }
 
 

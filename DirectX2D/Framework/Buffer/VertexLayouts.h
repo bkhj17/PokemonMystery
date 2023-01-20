@@ -9,7 +9,6 @@ struct Vertex
         : pos({ x, y, 0.0f }), uv({u, v}) {}
 };
 
-
 struct VertexColor
 {
     Float3 pos;

@@ -4,19 +4,21 @@
 //#include "Scenes/TextureScene.h"
 //#include "Scenes/CollisionScene.h"
 //#include "Scenes/PinBallScene.h"
-//#include "Scenes/AnimationScene.h"
+#include "Scenes/AnimationScene.h"
 #include "Scenes/ShaderScene.h"
+#include "Scenes/PuzzleScene.h"
 //#include "Homework/230112/Scene0112.h"
 //#include "Homework/230113/Scene0113.h"
 //#include "Homework/230116/Scene0116.h"
 //#include "Homework/230118/Scene0118.h"
 #include "Homework/230119/Scene0119.h"
+#include "Homework/230120/Scene0120.h"
 
 GameManager::GameManager()
 {
 	Create();
 
-	scene = new ShaderScene();
+	scene = new Scene0120();
 }
 
 GameManager::~GameManager()
@@ -39,6 +41,8 @@ void GameManager::Render()
 {
 	Device::Get()->Clear();
 
+	Font::Get()->GetDC()->BeginDraw();
+
 	scene->Render();
 
 	ImGui_ImplDX11_NewFrame();
@@ -46,12 +50,14 @@ void GameManager::Render()
 	ImGui::NewFrame();
 
 	string fps = "FPS : " + to_string(Timer::Get()->GetFPS());
-	ImGui::Text(fps.c_str());
+	Font::Get()->RenderText(fps, { 100.0f, WIN_HEIGHT - 20.0f });
 
 	scene->PostRender();
 
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+	Font::Get()->GetDC()->EndDraw();
 
 	Device::Get()->Present();
 }
@@ -64,6 +70,11 @@ void GameManager::Create()
 	Environment::Get();
 	Audio::Get();
 	Observer::Get();
+
+	Font::Get()->AddColor("White", 1, 1, 1);
+	Font::Get()->AddStyle("Default", L"¸¼Àº°íµñ");
+	Font::Get()->SetColor("White");
+	Font::Get()->SetStyle("Default");
 
 	ImGui::CreateContext();
 	ImGui::StyleColorsDark();
@@ -82,6 +93,7 @@ void GameManager::Delete()
 	Environment::Delete();
 	Audio::Delete();
 	Observer::Delete();
+	Font::Delete();
 
 	ImGui_ImplWin32_Shutdown();
 	ImGui_ImplDX11_Shutdown();

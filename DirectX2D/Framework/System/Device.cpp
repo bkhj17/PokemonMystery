@@ -21,7 +21,6 @@ Device::Device()
 	//다중표본화 : 여러개 만들어놓고 씀(복잡해서 게임 프로그래밍에서 쓰기엔 부담스러움)
 	swapChainDesc.SampleDesc.Count = 1;     //1개
 	swapChainDesc.SampleDesc.Quality = 0;   //안 쓴다
-
 	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	swapChainDesc.BufferCount = 1;          //백버퍼 개수 
 	swapChainDesc.OutputWindow = hWnd;      //윈도우 정보
@@ -31,7 +30,7 @@ Device::Device()
 		nullptr,                            //어댑터 : 실시간 화면 크기 조절에 필요. 
 		D3D_DRIVER_TYPE_HARDWARE,           //접근할 드라이버. 에뮬레이터 사용 시 소프트웨어 모드
 		0,                                  //사용할 소프트웨어. 0 == 사용 안 함
-		D3D10_CREATE_DEVICE_DEBUG,
+		D3D10_CREATE_DEVICE_DEBUG | D3D11_CREATE_DEVICE_BGRA_SUPPORT,
 		nullptr,                            //사양 체크
 		0,
 		D3D11_SDK_VERSION,                  //개발 도구 버전
@@ -69,11 +68,11 @@ Device::Device()
 
 Device::~Device()
 {
-	device->Release();
-	deviceContext->Release();
-
-	swapChain->Release();
 	renderTargetView->Release();
+	swapChain->Release();
+
+	deviceContext->Release();
+	device->Release();
 }
 
 void Device::Clear()

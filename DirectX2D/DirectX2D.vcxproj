@@ -141,6 +141,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\Utilities\Font.h" />
+    <ClInclude Include="Homework\230120\CardManager0120.h" />
+    <ClInclude Include="Homework\230120\LineRenderer0120.h" />
+    <ClInclude Include="Objects\UI\Button.h" />
     <ClInclude Include="Homework\230119\Robot0119.h" />
     <ClInclude Include="Objects\Manager\CommandManager.h" />
     <ClInclude Include="Objects\Manager\EffectManager.h" />
@@ -172,6 +176,8 @@
     <ClInclude Include="Homework\230118\Robot\RobotJumpAttack0118.h" />
     <ClInclude Include="Homework\230118\Robot\RobotShoot0118.h" />
     <ClInclude Include="Homework\230119\Scene0119.h" />
+    <ClInclude Include="Homework\230120\Scene0120.h" />
+    <ClInclude Include="Scenes\PuzzleScene.h" />
     <ClInclude Include="Scenes\AnimationScene.h" />
     <ClInclude Include="Objects\PinBall\Ball.h" />
     <ClInclude Include="Objects\PinBall\Bat.h" />
@@ -214,6 +220,7 @@
     <ClInclude Include="Homework\230113\Scene0113.h" />
     <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="Scenes\ShaderScene.h" />
+    <ClInclude Include="Homework\230120\SichuanCard0120.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Framework\Shaders\VertexShader.h" />
     <ClInclude Include="Framework\Buffer\VertexBuffer.h" />
@@ -225,6 +232,10 @@
     <ClInclude Include="Test\TestScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\Utilities\Font.cpp" />
+    <ClCompile Include="Homework\230120\CardManager0120.cpp" />
+    <ClCompile Include="Homework\230120\LineRenderer0120.cpp" />
+    <ClCompile Include="Objects\UI\Button.cpp" />
     <ClCompile Include="Homework\230119\Robot0119.cpp" />
     <ClCompile Include="Objects\Manager\CommandManager.cpp" />
     <ClCompile Include="Objects\Manager\EffectManager.cpp" />
@@ -256,6 +267,8 @@
     <ClCompile Include="Homework\230118\Robot\RobotJumpAttack0118.cpp" />
     <ClCompile Include="Homework\230118\Robot\RobotShoot0118.cpp" />
     <ClCompile Include="Homework\230119\Scene0119.cpp" />
+    <ClCompile Include="Homework\230120\Scene0120.cpp" />
+    <ClCompile Include="Scenes\PuzzleScene.cpp" />
     <ClCompile Include="Scenes\AnimationScene.cpp" />
     <ClCompile Include="Objects\PinBall\Ball.cpp" />
     <ClCompile Include="Objects\PinBall\Bat.cpp" />
@@ -300,6 +313,7 @@
     <ClCompile Include="Framework\Math\Transform.cpp" />
     <ClCompile Include="Framework\Render\Texture.cpp" />
     <ClCompile Include="Scenes\ShaderScene.cpp" />
+    <ClCompile Include="Homework\230120\SichuanCard0120.cpp" />
     <ClCompile Include="TestTile.cpp" />
     <ClCompile Include="Test\TestScene.cpp" />
   </ItemGroup>
@@ -318,6 +332,24 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Shaders\PixelFilter.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shaders\PixelLight.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shaders\PixelMulti.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shaders\PixelNinja.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>

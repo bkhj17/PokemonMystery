@@ -12,7 +12,7 @@ public:
 
 	ID3D11Device* GetDevice() { return device; }
 	ID3D11DeviceContext* GetDeviceContext() { return deviceContext; }
-
+	IDXGISwapChain* GetSwapChain() { return swapChain; }
 private:
 	ID3D11Device* device;                       //CPU 접근(메모리를 비롯한 출력 외
 	ID3D11DeviceContext* deviceContext;         //GPU 접근(출력)

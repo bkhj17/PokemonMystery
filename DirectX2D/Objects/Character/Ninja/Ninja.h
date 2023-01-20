@@ -19,6 +19,7 @@ public:
     void Update();
     void Render();
 
+    void PostRender();
 private:
     void Control();
 
@@ -42,4 +43,9 @@ private:
     map<ActionType, Action*> actions;
 
     ActionType curAction = JUMP_DOWN;
+
+    Texture* secondMap;
+
+    IntValueBuffer* intValueBuffer;
+    FloatValueBuffer* floatValueBuffer;
 };

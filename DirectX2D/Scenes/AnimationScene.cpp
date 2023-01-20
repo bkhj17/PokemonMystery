@@ -50,4 +50,5 @@ void AnimationScene::Render()
 
 void AnimationScene::PostRender()
 {
+	ninja->PostRender();
 }
