@@ -29,6 +29,7 @@ VertexOutput VS(VertexInput input)
 {
     VertexOutput output;
     output.pos = mul(input.pos, world);
+    output.pos = mul(output.pos, view);
     output.pos = mul(output.pos, projection);
     output.uv = input.uv;
     return output;

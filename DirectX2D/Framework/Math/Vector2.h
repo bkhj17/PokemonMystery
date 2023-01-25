@@ -51,6 +51,11 @@ struct Vector2 : public Float2
 		y *= value;
 	}
 
+	void operator*=(const Vector2& value) {
+		x *= value.x;
+		y *= value.y;
+	}
+
 	void operator/=(const float& value) {
 		x /= value;
 		y /= value;

@@ -141,6 +141,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\Environment\Camera.h" />
+    <ClInclude Include="Objects\Puzzle\Card.h" />
     <ClInclude Include="Framework\Utilities\Font.h" />
     <ClInclude Include="Homework\230120\CardManager0120.h" />
     <ClInclude Include="Homework\230120\LineRenderer0120.h" />
@@ -179,6 +181,9 @@
     <ClInclude Include="Homework\230119\Scene0119.h" />
     <ClInclude Include="Homework\230120\Scene0120.h" />
     <ClInclude Include="Homework\230120\ProgressBar0120.h" />
+    <ClInclude Include="Framework\Render\RenderTarget.h" />
+    <ClInclude Include="Homework\230125\Scene0125.h" />
+    <ClInclude Include="Scenes\RenderTargetScene.h" />
     <ClInclude Include="Scenes\PuzzleScene.h" />
     <ClInclude Include="Scenes\AnimationScene.h" />
     <ClInclude Include="Objects\PinBall\Ball.h" />
@@ -234,6 +239,8 @@
     <ClInclude Include="Test\TestScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\Environment\Camera.cpp" />
+    <ClCompile Include="Objects\Puzzle\Card.cpp" />
     <ClCompile Include="Framework\Utilities\Font.cpp" />
     <ClCompile Include="Homework\230120\CardManager0120.cpp" />
     <ClCompile Include="Homework\230120\LineRenderer0120.cpp" />
@@ -272,6 +279,9 @@
     <ClCompile Include="Homework\230119\Scene0119.cpp" />
     <ClCompile Include="Homework\230120\Scene0120.cpp" />
     <ClCompile Include="Homework\230120\ProgressBar0120.cpp" />
+    <ClCompile Include="Framework\Render\RenderTarget.cpp" />
+    <ClCompile Include="Homework\230125\Scene0125.cpp" />
+    <ClCompile Include="Scenes\RenderTargetScene.cpp" />
     <ClCompile Include="Scenes\PuzzleScene.cpp" />
     <ClCompile Include="Scenes\AnimationScene.cpp" />
     <ClCompile Include="Objects\PinBall\Ball.cpp" />
@@ -359,6 +369,12 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
+    <FxCompile Include="Shaders\PixelOutline.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="Shaders\PixelPos.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
@@ -393,13 +409,6 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="Shaders\VertexPos.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
-    </FxCompile>
-    <FxCompile Include="Shaders\VertexShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>

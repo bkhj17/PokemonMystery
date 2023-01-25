@@ -6,10 +6,12 @@
 
 Scene0120::Scene0120()
 {
+	CardManager0120::Get()->SetMatchFunc(bind(&Scene0120::ScoreUp, this, 2));
+
 	goal = 12;
 	score = 0;
+
 	CardManager0120::Get()->InitTable(goal);
-	CardManager0120::Get()->SetMatchFunc(bind(&Scene0120::ScoreUp, this, 2));
 	CardManager0120::Get()->Update();
 
 	LineManager0120::Get();
@@ -57,8 +59,11 @@ void Scene0120::Update()
 		break;
 	case Scene0120::CLEAR:
 	case Scene0120::GAME_OVER:
-		if (KEY_DOWN(VK_LBUTTON))
+		if (KEY_DOWN(VK_LBUTTON)) {
+			CardManager0120::Get()->InitTable(goal);
+			score = 0;
 			state = READY;
+		}
 		break;
 	}
 
@@ -95,7 +100,6 @@ void Scene0120::PostRender()
 void Scene0120::ScoreUp(int num)
 {
 	score += num;
-	if (score >= goal) {
+	if (score >= goal)
 		state = CLEAR;
-	}
 }

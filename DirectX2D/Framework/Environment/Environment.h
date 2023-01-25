@@ -12,6 +12,7 @@ public:
     void SetAlphaBlend();
     void SetAdditiveBlend();
 
+    Camera* GetMainCamera() { return mainCamera; }
 private:
     void CreateProjection();
     void CreateSamplerState();
@@ -25,4 +26,6 @@ private:
     ID3D11BlendState* alphaBlendState;
     ID3D11BlendState* additiveBlendState;
     ID3D11RasterizerState* rasterizerState;
+
+    Camera* mainCamera;
 };

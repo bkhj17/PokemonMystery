@@ -11,6 +11,8 @@ public:
 	virtual void Render() = 0;		//오브젝트 출력용
 	virtual void PostRender() = 0;	//UI 출력용
 
+	virtual void PreRender() {};
+
 	virtual void Start() {};
 	virtual void End() {};
 };

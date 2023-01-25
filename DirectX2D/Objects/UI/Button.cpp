@@ -17,6 +17,7 @@ Button::Button(Vector2 size)
 
 Button::~Button()
 {
+	delete collider;
 }
 
 void Button::Update()

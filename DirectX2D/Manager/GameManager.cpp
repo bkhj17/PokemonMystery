@@ -4,26 +4,30 @@
 //#include "Scenes/TextureScene.h"
 //#include "Scenes/CollisionScene.h"
 //#include "Scenes/PinBallScene.h"
-#include "Scenes/AnimationScene.h"
-#include "Scenes/ShaderScene.h"
+//#include "Scenes/AnimationScene.h"
+//#include "Scenes/ShaderScene.h"
 #include "Scenes/PuzzleScene.h"
+#include "Scenes/RenderTargetScene.h"
 //#include "Homework/230112/Scene0112.h"
 //#include "Homework/230113/Scene0113.h"
 //#include "Homework/230116/Scene0116.h"
 //#include "Homework/230118/Scene0118.h"
-#include "Homework/230119/Scene0119.h"
-#include "Homework/230120/Scene0120.h"
+//#include "Homework/230119/Scene0119.h"
+//#include "Homework/230120/Scene0120.h"
+#include "Homework/230125/Scene0125.h"
 
 GameManager::GameManager()
 {
 	Create();
+	uiViewBuffer = new MatrixBuffer;
 
-	scene = new Scene0120();
+	scene = new Scene0125();
 }
 
 GameManager::~GameManager()
 {
 	delete scene;
+	delete uiViewBuffer;
 
 	Delete();
 }
@@ -35,14 +39,19 @@ void GameManager::Update()
 	Audio::Get()->Update();
 
 	scene->Update();
+
+	CAM->Update();
 }
 
 void GameManager::Render()
 {
+	scene->PreRender();
+
 	Device::Get()->Clear();
 
 	Font::Get()->GetDC()->BeginDraw();
 
+	uiViewBuffer->SetVS(1);
 	scene->Render();
 
 	ImGui_ImplDX11_NewFrame();
@@ -51,6 +60,8 @@ void GameManager::Render()
 
 	string fps = "FPS : " + to_string(Timer::Get()->GetFPS());
 	Font::Get()->RenderText(fps, { 100.0f, WIN_HEIGHT - 20.0f });
+
+	CAM->RenderUI();
 
 	scene->PostRender();
 

@@ -37,7 +37,7 @@ void Quad::Render()
 
 	colorBuffer->SetPS(0);
 
-	__super::SetRender();
+	SetRender();
 
 	DC->DrawIndexed((UINT)indices.size(), 0, 0);
 }

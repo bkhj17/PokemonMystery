@@ -36,10 +36,19 @@ Texture* Texture::Add(wstring file)
 	return textures[file];
 }
 
+Texture* Texture::Add(wstring key, ID3D11ShaderResourceView* srv)
+{
+	if (textures.count(key) > 0)
+		return textures[key];
+
+	ScratchImage image;
+	textures[key] = new Texture(srv, image, key);
+
+	return textures[key];
+}
+
 void Texture::Delete()
 {
-	for (auto& texture : textures) {
+	for (auto& texture : textures)
 		delete texture.second;
-	}
-
 }

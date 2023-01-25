@@ -35,6 +35,8 @@
 #define KEY_UP(k) KeyBoard::Get()->Up(k)
 #define KEY_PRESS(k) KeyBoard::Get()->Press(k)
 
+#define CAM Environment::Get()->GetMainCamera()
+
 // Windows 헤더 파일
 #include <windows.h>
 /*
@@ -140,11 +142,13 @@ using namespace GameMath;
 #include "Framework/Render/Texture.h"
 #include "Framework/Render/Frame.h"
 #include "Framework/Render/Clip.h"
+#include "Framework/Render/RenderTarget.h"
 
 #include "Framework/Collision/Collider.h"
 #include "Framework/Collision/RectCollider.h"
 #include "Framework/Collision/CircleCollider.h"
 
+#include "Framework/Environment/Camera.h"
 #include "Framework/Environment/Environment.h"
 
 #include "Objects/Basic/GameObject.h"
@@ -175,6 +179,8 @@ using namespace GameMath;
 #include "Objects/Character/Ninja/NinjaJumpAttack.h"
 #include "Objects/Character/Ninja/NinjaThrow.h"
 #include "Objects/Character/Ninja/Ninja.h"
+
+#include "Objects/Puzzle/Card.h"
 
 #include "Scenes/Scene.h"
 

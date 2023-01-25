@@ -79,6 +79,14 @@ float4 RevSubtract(float2 uv)
     return float4((tex2 - tex1).rgb, max(tex1.a, tex2.a));
 }
 
+float4 Max(float2 uv)
+{
+    float4 tex1 = map.Sample(samp, uv);
+    float4 tex2 = secondMap.Sample(samp, uv);
+    
+    return float4((tex2 - tex1).rgb, max(tex1.a, tex2.a));
+}
+
 float4 PS(PixelInput input) : SV_TARGET
 {
     if (index == 1)

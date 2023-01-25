@@ -7,20 +7,23 @@ Environment::Environment()
 	CreateSamplerState();
 	CreateBlendState();
 	CreateRasterizerState();
+
+	mainCamera = new Camera();
 }
 
 Environment::~Environment()
 {
 	delete projectionBuffer;
+	delete mainCamera;
 
 	samplerState->Release();
 	alphaBlendState->Release();
 	rasterizerState->Release();
+
 }
 
 void Environment::SetAlphaBlend()
 {
-
 	float blendFactor[4] = {};
 	DC->OMSetBlendState(alphaBlendState, blendFactor, 0xffffffff);
 }

@@ -22,6 +22,12 @@ cbuffer SizeBuffer : register(b2)
     float2 lightPos;
 }
 
+cbuffer PosBuffer : register(b3)
+{
+    float2 firstPos;
+    float2 secondPos;
+}
+
 float4 Light(float2 uv)
 {
     float4 albedo = map.Sample(samp, uv);
@@ -60,10 +66,28 @@ float4 Light2(float2 uv)
     return float4(albedo.rgb - value, albedo.a);
 }
 
+float4 DualLight(float2 uv)
+{
+    float4 albedo = map.Sample(samp, uv);
+    
+    float2 pixelCoord = uv * imageSize;
+    
+    float2 coord1 = firstPos;
+    float2 coord2 = secondPos;
+    float dist = min(distance(coord1, pixelCoord), distance(coord2, pixelCoord));
+    
+    if (dist < range)
+        return albedo;
+    return float4(albedo.rgb * 0.1f, albedo.a);
+}
+
+
 float4 PS(PixelInput input) : SV_TARGET
 {
     if(index == 1)
-        return LightIntensity(input.uv);
-
+        return LightIntensity(input.uv);        
+    if(index == 2)
+        return DualLight(input.uv);
+    
     return Light(input.uv);
 }

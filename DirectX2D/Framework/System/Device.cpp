@@ -50,7 +50,6 @@ Device::Device()
 #pragma endregion
 	deviceContext->OMSetRenderTargets(1, &renderTargetView, nullptr);
 
-
 #pragma region SetViewport
 	//∫‰∆˜∆Æ º≥¡§
 	D3D11_VIEWPORT viewport = {};
@@ -77,6 +76,8 @@ Device::~Device()
 
 void Device::Clear()
 {
+	deviceContext->OMSetRenderTargets(1, &renderTargetView, nullptr);
+
 	float clearColor[4] = { 0.0f, 0.125f, 0.3f, 1.0f };
 	deviceContext->ClearRenderTargetView(renderTargetView, clearColor); //∑ª¥ı≈∏∞Ÿ∫‰ √ ±‚»≠
 }

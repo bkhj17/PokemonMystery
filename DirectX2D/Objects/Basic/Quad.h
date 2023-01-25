@@ -8,6 +8,7 @@ public:
 	virtual void Render();
 
 	void SetTexture(wstring file);
+	void SetTexture(Texture* texture) { this->texture = texture; }
 
 	Vector2 GetSize() { return size; }
 	Vector2 Half() { return size * 0.5f; }

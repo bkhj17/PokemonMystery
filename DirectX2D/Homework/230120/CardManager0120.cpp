@@ -89,6 +89,9 @@ void CardManager0120::Render()
 
 void CardManager0120::InitTable(int num)
 {
+	select1 = nullptr;
+	select2 = nullptr;
+
 	num = min(POOL_SIZE, num);
 	num = num / 2 * 2;
 
@@ -140,7 +143,10 @@ pair<int, int> CardManager0120::SearchSetablePoint(vector<vector<bool>>& table, 
 		}
 	}
 
-	//문제가 있다. 당장 매치 가능한 위치라고 막 놓다가 길을 막으면 풀 수 없는 문제가 될 수도 있다
+	//문제가 있다
+	//당장 매치 가능한 위치라고 막 놓다가 길을 막으면 풀 수 없는 문제가 될 수도 있다
+
+
 
 	//놓을 수 있는 위치가 없다
 	if (points.empty())
@@ -225,9 +231,6 @@ bool CardManager0120::Pairing(SichuanCard0120* card1, SichuanCard0120* card2)
 		bool pass = true;
 		for (auto card : cards) {
 			if (!card->Active())
-				continue;
-
-			if (card == card1)
 				continue;
 
 			pass &= !card->GetCollider()->IsPointCollision(curPos);

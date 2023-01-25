@@ -5,10 +5,13 @@ struct PixelInput
 };
 
 Texture2D map : register(t0);
-Texture2D secondMap : register(t1);
-
 SamplerState samp : register(s0);
 
+
+cbuffer ColorBuffer : register(b0)
+{
+    float4 color;
+}
 cbuffer IndexBuffer : register(b1)
 {
     int weight;
@@ -20,9 +23,15 @@ cbuffer SizeBuffer : register(b2)
     float2 imageSize;
 }
 
+cbuffer OutlineColorBuffer : register(b3)
+{
+    float4 outlineColor;
+}
+
+
 float4 PS(PixelInput input) : SV_TARGET
 {
-    float4 color = map.Sample(samp, input.uv);
+    float4 albedo = map.Sample(samp, input.uv);
      
     float count = 0;
     for (int y = -1; y <= 1; y++)
@@ -36,8 +45,8 @@ float4 PS(PixelInput input) : SV_TARGET
     }
     
     if (count > scale && count < (9 - scale))
-        return secondMap.Sample(samp, input.uv);
+        return outlineColor;
     
-    return color;
+    return albedo * color;
 }
 

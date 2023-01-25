@@ -28,8 +28,6 @@ private:
 
 	State state = NONE;
 
-	Float4 noneColor;
-
 	bool isDownCheck = false;
 
 	Event event = nullptr;
@@ -37,4 +35,3 @@ private:
 
 	void* object = nullptr;
 };
-
