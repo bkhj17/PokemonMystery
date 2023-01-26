@@ -13,10 +13,14 @@ private:
 	void CreateRTVTexture();
 	void CreateRTV();
 	void CreateSRV();
+	void CreateProjection();
 private:
 	UINT width, height;
 	ID3D11Texture2D* rtvTexture;
 	ID3D11RenderTargetView* rtv;
 	ID3D11ShaderResourceView* srv;
+
+	MatrixBuffer* projectionBuffer;
+
 };
 

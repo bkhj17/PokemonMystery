@@ -49,20 +49,6 @@ Device::Device()
 	backBuffer->Release();
 #pragma endregion
 	deviceContext->OMSetRenderTargets(1, &renderTargetView, nullptr);
-
-#pragma region SetViewport
-	//ºäÆ÷Æ® ¼³Á¤
-	D3D11_VIEWPORT viewport = {};
-	viewport.Width = (float)width;
-	viewport.Height = (float)height;
-	viewport.MinDepth = 0.0f;
-	viewport.MaxDepth = 0.0f;
-	viewport.TopLeftX = 0.0f;
-	viewport.TopLeftY = 0.0f;
-
-	deviceContext->RSSetViewports(1, &viewport);
-#pragma endregion
-
 }
 
 Device::~Device()

@@ -14,11 +14,17 @@ public:
 private:
     Quad* bg;
     Plane* plane;
+    Ninja* ninja;
 
     RenderTarget* renderTarget;
+    RenderTarget* ninjaRenderTarget;
     vector<Quad*> renderTextures;
 
     IntValueBuffer* intValueBuffer;
     FloatValueBuffer* floatValueBuffer;
+    FloatValueBuffer* lightBuffer;
+
+    Camera* planeCamera;
+    Camera* ninjaCamera;
 };
 

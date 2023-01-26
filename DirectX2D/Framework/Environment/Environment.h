@@ -12,7 +12,11 @@ public:
     void SetAlphaBlend();
     void SetAdditiveBlend();
 
+    void SetViewport(UINT width = WIN_WIDTH, UINT height = WIN_HEIGHT);
+    void SetProjection();
+
     Camera* GetMainCamera() { return mainCamera; }
+
 private:
     void CreateProjection();
     void CreateSamplerState();
@@ -28,4 +32,6 @@ private:
     ID3D11RasterizerState* rasterizerState;
 
     Camera* mainCamera;
+
+    D3D11_VIEWPORT viewport = {};
 };

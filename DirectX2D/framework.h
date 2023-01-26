@@ -8,7 +8,7 @@
 #define WIN32_LEAN_AND_MEAN             // 거의 사용되지 않는 내용을 Windows 헤더에서 제외합니다.
 
 //사용자 정의 상수
-#define WIN_WIDTH	1280
+#define WIN_WIDTH	1700
 #define WIN_HEIGHT	720
 
 #define WIN_START_X 100
@@ -120,6 +120,8 @@ typedef function<void(int)> IntParamEvent;
 #include "Framework/Utilities/Observer.h"
 #include "Framework/Utilities/tinyxml2.h"
 #include "Framework/Utilities/Font.h"
+#include "Framework/Utilities/BinaryWriter.h"
+#include "Framework/Utilities/BinaryReader.h"
 using namespace Utility;
 
 #include "Framework/Math/Vector2.h"
@@ -157,6 +159,8 @@ using namespace GameMath;
 #include "Objects/Basic/Effect.h"
 
 #include "Objects/UI/Button.h"
+#include "Objects/Tile/Tile.h"
+#include "Objects/Tile/EditTileMap.h"
 
 #include "Objects/Manager/EffectManager.h"
 #include "Objects/Manager/CommandManager.h"
@@ -188,3 +192,4 @@ using namespace GameMath;
 
 extern HWND hWnd;
 extern Vector2 mousePos;
+extern float mouseWheel;

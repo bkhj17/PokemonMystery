@@ -8,20 +8,22 @@
 //#include "Scenes/ShaderScene.h"
 #include "Scenes/PuzzleScene.h"
 #include "Scenes/RenderTargetScene.h"
+#include "Scenes/TileScene.h"
 //#include "Homework/230112/Scene0112.h"
 //#include "Homework/230113/Scene0113.h"
 //#include "Homework/230116/Scene0116.h"
 //#include "Homework/230118/Scene0118.h"
 //#include "Homework/230119/Scene0119.h"
 //#include "Homework/230120/Scene0120.h"
-#include "Homework/230125/Scene0125.h"
+//#include "Homework/230125/Scene0125.h"
+#include "Homework/230126/Scene0126.h"
 
 GameManager::GameManager()
 {
 	Create();
 	uiViewBuffer = new MatrixBuffer;
 
-	scene = new Scene0125();
+	scene = new Scene0126();
 }
 
 GameManager::~GameManager()
@@ -41,6 +43,8 @@ void GameManager::Update()
 	scene->Update();
 
 	CAM->Update();
+
+	mouseWheel = 0.0f;
 }
 
 void GameManager::Render()
@@ -50,6 +54,9 @@ void GameManager::Render()
 	Device::Get()->Clear();
 
 	Font::Get()->GetDC()->BeginDraw();
+
+	Environment::Get()->SetViewport();
+	Environment::Get()->SetProjection();
 
 	uiViewBuffer->SetVS(1);
 	scene->Render();

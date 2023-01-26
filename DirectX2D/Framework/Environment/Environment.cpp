@@ -34,6 +34,26 @@ void Environment::SetAdditiveBlend()
 	DC->OMSetBlendState(additiveBlendState, blendFactor, 0xffffffff);
 }
 
+void Environment::SetViewport(UINT width, UINT height)
+{
+#pragma region SetViewport
+	//뷰포트 설정
+	viewport.Width = (float)width;
+	viewport.Height = (float)height;
+	viewport.MinDepth = 0.0f;
+	viewport.MaxDepth = 0.0f;
+	viewport.TopLeftX = 0.0f;
+	viewport.TopLeftY = 0.0f;
+
+	DC->RSSetViewports(1, &viewport);
+#pragma endregion
+}
+
+void Environment::SetProjection()
+{
+	projectionBuffer->SetVS(2);
+}
+
 void Environment::CreateProjection()
 {
 	//왼손 좌표계로 원점이 센터로 맞춰진 설정을 끄겠다

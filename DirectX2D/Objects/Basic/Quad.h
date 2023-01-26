@@ -14,6 +14,7 @@ public:
 	Vector2 Half() { return size * 0.5f; }
 
 	Float4& GetColor() { return colorBuffer->Get(); }
+	Texture* GetTexture() { return texture; }
 private:
 	void CreateMesh(Vector2 size, Vector2 startUV, Vector2 endUV);
 

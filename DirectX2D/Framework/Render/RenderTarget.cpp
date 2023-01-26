@@ -7,18 +7,24 @@ RenderTarget::RenderTarget(UINT width, UINT height)
 	CreateRTVTexture();
 	CreateRTV();
 	CreateSRV();
+    CreateProjection();
 }
 
 RenderTarget::~RenderTarget()
 {
 	rtvTexture->Release();
 	rtv->Release();
+
+    delete projectionBuffer;
 }
 
 void RenderTarget::Set(Float4 clearColor)
 {
 	DC->OMSetRenderTargets(1, &rtv, nullptr);
 	DC->ClearRenderTargetView(rtv, (float*)&clearColor);
+
+    Environment::Get()->SetViewport(width, height);
+    projectionBuffer->SetVS(2);
 }
 
 void RenderTarget::CreateRTVTexture()
@@ -54,4 +60,14 @@ void RenderTarget::CreateSRV()
     desc.Texture2D.MipLevels = 1;
 
     DEVICE->CreateShaderResourceView(rtvTexture, &desc, &srv);
+}
+
+void RenderTarget::CreateProjection()
+{
+    //¿Þ¼Õ ÁÂÇ¥°è·Î ¿øÁ¡ÀÌ ¼¾ÅÍ·Î ¸ÂÃçÁø ¼³Á¤À» ²ô°Ú´Ù
+    Matrix orthographic = XMMatrixOrthographicOffCenterLH(
+        0.0f, width, 0.0f, height, -1.0f, 1.0f);
+
+    projectionBuffer = new MatrixBuffer();
+    projectionBuffer->Set(orthographic);
 }

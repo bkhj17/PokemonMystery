@@ -4,7 +4,14 @@ struct PixelInput
     float4 pos : SV_POSITION;
     float2 uv : UV;
 };
-
+/*
+struct LightPos
+{
+    int active;
+    float2 lightPos;
+    float padding;
+};
+*/
 Texture2D map : register(t0);
 SamplerState samp : register(s0);
 
@@ -24,8 +31,8 @@ cbuffer SizeBuffer : register(b2)
 
 cbuffer PosBuffer : register(b3)
 {
-    float2 firstPos;
-    float2 secondPos;
+    float2 lightPos1;
+    float2 lightPos2;
 }
 
 float4 Light(float2 uv)
@@ -50,10 +57,24 @@ float4 LightIntensity(float2 uv)
     float dist = distance(lightPos, pixelCoord);
     
     float value = saturate(dist / range);
+    
     float3 color = albedo.rgb - pow(value, squared);
     
     return float4(color, albedo.a);
 }
+
+
+float LightIntensity(float2 uv, float2 lightPos)
+{         
+    uv.y = 1.0 - uv.y;
+    
+    float2 pixelCoord = uv * imageSize;
+    
+    float dist = distance(lightPos, pixelCoord);
+    
+    return saturate(dist / range);
+}
+
 float4 Light2(float2 uv)
 {
     float4 albedo = map.Sample(samp, uv);
@@ -66,28 +87,38 @@ float4 Light2(float2 uv)
     return float4(albedo.rgb - value, albedo.a);
 }
 
+float4 Light(float2 uv, float2 lightPos)
+{
+    float4 albedo = map.Sample(samp, uv);
+    
+    float2 pixelCoord = uv * imageSize;
+    
+    float dist = distance(lightPos, pixelCoord);
+    
+    float value = saturate(dist / range);
+    float3 color = albedo.rgb - pow(value, squared);
+    
+    return float4(color, albedo.a);
+}
+
 float4 DualLight(float2 uv)
 {
     float4 albedo = map.Sample(samp, uv);
     
     float2 pixelCoord = uv * imageSize;
     
-    float2 coord1 = firstPos;
-    float2 coord2 = secondPos;
-    float dist = min(distance(coord1, pixelCoord), distance(coord2, pixelCoord));
+    float dist = min(distance(lightPos1, pixelCoord), distance(lightPos2, pixelCoord));
     
     if (dist < range)
         return albedo;
     return float4(albedo.rgb * 0.1f, albedo.a);
 }
 
-
 float4 PS(PixelInput input) : SV_TARGET
 {
-    if(index == 1)
-        return LightIntensity(input.uv);        
-    if(index == 2)
-        return DualLight(input.uv);
-    
-    return Light(input.uv);
+    float dist1 = LightIntensity(input.uv, lightPos1);
+    float dist2 = LightIntensity(input.uv, lightPos2);
+    float dist = saturate(dist1 * dist2);
+    float4 albedo = map.Sample(samp, input.uv);
+    return float4(albedo.rgb - dist, albedo.a);
 }
