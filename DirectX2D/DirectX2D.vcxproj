@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)Libraries;./;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Libraries;$(ProjectDir)Libraries/ImGui;./;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -141,9 +141,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Algorithm\Dijkstra.h" />
+    <ClInclude Include="Algorithm\DNode.h" />
+    <ClInclude Include="Homework\230126\EnemyTank0126.h" />
+    <ClInclude Include="Framework\Collision\LineCollider.h" />
+    <ClInclude Include="Scenes\DijkstraScene.h" />
     <ClInclude Include="Framework\Utilities\BinaryReader.h" />
     <ClInclude Include="Framework\Utilities\BinaryWriter.h" />
-    <ClInclude Include="Homework\230126\Object0126.h" />
+    <ClInclude Include="Objects\Tile\GameTileMap.h" />
+    <ClInclude Include="Libraries\ImGui\ImGuiFileDialog.h" />
     <ClInclude Include="Objects\Tile\EditTileMap.h" />
     <ClInclude Include="Framework\Environment\Camera.h" />
     <ClInclude Include="Objects\Puzzle\Card.h" />
@@ -233,6 +239,8 @@
     <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="Scenes\ShaderScene.h" />
     <ClInclude Include="Homework\230120\SichuanCard0120.h" />
+    <ClInclude Include="Scenes\TankScene.h" />
+    <ClInclude Include="Objects\Tile\Tank.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Framework\Shaders\VertexShader.h" />
     <ClInclude Include="Framework\Buffer\VertexBuffer.h" />
@@ -243,11 +251,17 @@
     <ClInclude Include="Test\TestScene.h" />
     <ClInclude Include="Scenes\TileScene.h" />
     <ClInclude Include="Objects\Tile\Tile.h" />
+    <ClInclude Include="Homework\230126\TileMap0126.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Algorithm\Dijkstra.cpp" />
+    <ClCompile Include="Algorithm\DNode.cpp" />
+    <ClCompile Include="Homework\230126\EnemyTank0126.cpp" />
+    <ClCompile Include="Framework\Collision\LineCollider.cpp" />
+    <ClCompile Include="Scenes\DijkstraScene.cpp" />
     <ClCompile Include="Framework\Utilities\BinaryReader.cpp" />
     <ClCompile Include="Framework\Utilities\BinaryWriter.cpp" />
-    <ClCompile Include="Homework\230126\Object0126.cpp" />
+    <ClCompile Include="Objects\Tile\GameTileMap.cpp" />
     <ClCompile Include="Objects\Tile\EditTileMap.cpp" />
     <ClCompile Include="Framework\Environment\Camera.cpp" />
     <ClCompile Include="Objects\Puzzle\Card.cpp" />
@@ -339,9 +353,12 @@
     <ClCompile Include="Framework\Render\Texture.cpp" />
     <ClCompile Include="Scenes\ShaderScene.cpp" />
     <ClCompile Include="Homework\230120\SichuanCard0120.cpp" />
+    <ClCompile Include="Scenes\TankScene.cpp" />
+    <ClCompile Include="Objects\Tile\Tank.cpp" />
     <ClCompile Include="Test\TestScene.cpp" />
     <ClCompile Include="Scenes\TileScene.cpp" />
     <ClCompile Include="Objects\Tile\Tile.cpp" />
+    <ClCompile Include="Homework\230126\TileMap0126.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX2D.rc" />

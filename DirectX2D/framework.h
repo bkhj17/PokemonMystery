@@ -37,6 +37,8 @@
 
 #define CAM Environment::Get()->GetMainCamera()
 
+#define DIALOG ImGuiFileDialog::Instance()
+
 // Windows 헤더 파일
 #include <windows.h>
 /*
@@ -84,9 +86,12 @@ using namespace std;
 using namespace DirectX;
 
 //ImGui
-#include <ImGui/imgui.h>
-#include <ImGui/imgui_impl_dx11.h>
-#include <ImGui/imgui_impl_win32.h>
+#include <imgui.h>
+#include <imgui_impl_dx11.h>
+#include <imgui_impl_win32.h>
+#include <dirent/dirent.h>
+#include <ImGuiFileDialog.h>
+#include <ImGuiFileDialogConfig.h>
 
 #pragma comment(lib, "ImGui.lib")
 
@@ -149,6 +154,7 @@ using namespace GameMath;
 #include "Framework/Collision/Collider.h"
 #include "Framework/Collision/RectCollider.h"
 #include "Framework/Collision/CircleCollider.h"
+#include "Framework/Collision/LineCollider.h"
 
 #include "Framework/Environment/Camera.h"
 #include "Framework/Environment/Environment.h"
@@ -159,8 +165,14 @@ using namespace GameMath;
 #include "Objects/Basic/Effect.h"
 
 #include "Objects/UI/Button.h"
+
+#include "Algorithm/DNode.h"
+#include "Algorithm/Dijkstra.h"
+
 #include "Objects/Tile/Tile.h"
 #include "Objects/Tile/EditTileMap.h"
+#include "Objects/Tile/GameTileMap.h"
+#include "Objects/Tile/Tank.h"
 
 #include "Objects/Manager/EffectManager.h"
 #include "Objects/Manager/CommandManager.h"

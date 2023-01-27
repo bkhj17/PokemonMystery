@@ -17,6 +17,10 @@ public:
 private:
 	float radius = 1.0f;
 
+
+	// Collider을(를) 통해 상속됨
+	virtual bool PushCollider(Collider* collider) override;
+
 	// Collider을(를) 통해 상속됨
 };
 

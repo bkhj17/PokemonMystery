@@ -8,6 +8,10 @@ TileScene::TileScene()
 	editTileMap->Pos() = { 80, 80 };
 
 	selectSample = new Quad(Vector2(SAMPLE_SIZE, SAMPLE_SIZE));
+
+	char path[128];
+	GetCurrentDirectoryA(sizeof(path), path);
+	projectPath = path;
 }
 
 TileScene::~TileScene()
@@ -21,28 +25,26 @@ TileScene::~TileScene()
 
 void TileScene::Update()
 {
-	if (KEY_PRESS(VK_LBUTTON)) {
-		if (selectSample->GetTexture())
-			editTileMap->ClickTile(selectSample, Tile::BG);
-	}
-	if (KEY_PRESS(VK_RBUTTON)) {
-		if (selectSample->GetTexture())
-			editTileMap->ClickTile(selectSample, Tile::OBJ);
+	//ImGui 창에 마우스가 안 올라갔다
+	if (!ImGui::GetIO().WantCaptureMouse) {
+		if (KEY_PRESS(VK_LBUTTON)) {
+			if (selectSample->GetTexture())
+				editTileMap->ClickTile(selectSample, selectType);
+		}
+		if (KEY_DOWN(VK_RBUTTON)) {
+			editTileMap->DeleteObjTile();
+		}
 	}
 
-	if (KEY_PRESS(VK_SPACE)) {
+
+	if (KEY_PRESS(VK_SPACE))
 		selectSample->SetTexture(nullptr);
-	}
+	
 
 	if (KEY_DOWN(VK_F1))
-	{
 		editTileMap->Save("Textures/Tile/Tile.map");
-	}
-
 	if (KEY_DOWN(VK_F2))
-	{
 		editTileMap->Load("Textures/Tile/Tile.map");
-	}
 
 
 
@@ -87,6 +89,12 @@ void TileScene::Render()
 
 void TileScene::PostRender()
 {
+
+	const char* list[] = { "BG", "OBJ" };
+	ImGui::ListBox("Type", (int*)&selectType, list, 2);
+
+	Save();
+	Load();
 }
 
 void TileScene::ClickSampleBtn(void* sampleBtn)
@@ -124,5 +132,39 @@ void TileScene::CreateSample()
 		button->SetObject(button);
 
 		sampleBtns.push_back(button);
+	}
+}
+
+void TileScene::Save()
+{
+	if (ImGui::Button("MapSave"))
+		DIALOG->OpenDialog("Save", "SaveFile", ".map", ".");
+
+	if (DIALOG->Display("Save")) {
+		if (DIALOG->IsOk()) {
+			string file = DIALOG->GetFilePathName();
+			file = file.substr(projectPath.length() + 1, file.length());
+
+			editTileMap->Save(file);
+		}
+
+		DIALOG->Close();
+	}
+}
+
+void TileScene::Load()
+{
+	if (ImGui::Button("MapLoad"))
+		DIALOG->OpenDialog("Load", "LoadFile", ".map", ".");
+
+	if (DIALOG->Display("Load")) {
+		if (DIALOG->IsOk()) {
+			string file = DIALOG->GetFilePathName();
+			file = file.substr(projectPath.length() + 1, file.length());
+
+			editTileMap->Load(file);
+		}
+
+		DIALOG->Close();
 	}
 }

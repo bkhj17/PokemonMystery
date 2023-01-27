@@ -25,7 +25,7 @@ bool RectCollider::IsPointCollision(Vector2 point)
 
     Vector2 half = size * 0.5f;
 
-    return (abs(point.x) < half.x && abs(point.y) < half.y);
+    return abs(point.x) < half.x && abs(point.y) < half.y;
 }
 
 bool RectCollider::IsRectCollision(RectCollider* rect, Vector2* overlap)
@@ -182,12 +182,71 @@ bool RectCollider::IsSeperate(Vector2 seperateAxis, ObbDesc box1, ObbDesc box2)
     Vector2 right = box1.axis[0] * box1.halfSize.x;
     Vector2 up = box1.axis[1] * box1.halfSize.y;
 
-    float a = abs(Dot(seperateAxis, right) + abs(Dot(seperateAxis, up)));
+    float a = abs(Dot(seperateAxis, right)) + abs(Dot(seperateAxis, up));
 
     right = box2.axis[0] * box2.halfSize.x;
     up = box2.axis[1] * box2.halfSize.y;
 
-    float b = abs(Dot(seperateAxis, right) + abs(Dot(seperateAxis, up)));
+    float b = abs(Dot(seperateAxis, right)) + abs(Dot(seperateAxis, up));
 
-    return a+b < d;
+    return d > (a+b);
+}
+
+bool RectCollider::PushCollider(Collider* collider)
+{
+    if (!IsCollision(collider))
+        return false;
+
+    Direction dir = GetDirection(collider);
+
+    Transform* object = collider->GetParent();
+
+    switch (dir)
+    {
+    case GameMath::Direction::UP:
+        object->Pos() += Up() * PUSH_SPEED * DELTA;
+        break;
+    case GameMath::Direction::DOWN:
+        object->Pos() += Down() * PUSH_SPEED * DELTA;
+        break;
+    case GameMath::Direction::LEFT:
+        object->Pos() += Left() * PUSH_SPEED * DELTA;
+        break;
+    case GameMath::Direction::RIGHT:
+        object->Pos() += Right() * PUSH_SPEED * DELTA;
+        break;
+    }
+
+    return true;
+}
+
+Direction RectCollider::GetDirection(Collider* collider)
+{
+    if (collider->GlobalPos() == GlobalPos()) {
+        return Direction::NONE;
+    }
+
+    //외적을 이용한 상하좌우 판정
+    Vector2 leftTop = LeftTop() - GlobalPos();
+    Vector2 rightTop = RightTop() - GlobalPos();
+
+    Vector2 direction = collider->GlobalPos() - GlobalPos();
+
+    float crossLeft = Cross(leftTop, direction);
+    float crossRight = Cross(rightTop, direction);
+
+    if (crossLeft * crossRight < 0) {
+        //UP || DOWN
+        float dot = Dot(Up(), direction.GetNormalized());
+        float angle = acosf(dot);
+
+        return (abs(angle) < XM_PIDIV2) ? Direction::UP : Direction::DOWN;
+    }
+    else {
+        //RIGHT || LEFT
+        float dot = Dot(Right(), direction.GetNormalized());
+        float angle = acosf(dot);
+
+        return (abs(angle) < XM_PIDIV2) ? Direction::RIGHT : Direction::LEFT;
+    }
 }

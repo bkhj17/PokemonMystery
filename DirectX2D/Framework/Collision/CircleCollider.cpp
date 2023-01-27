@@ -39,3 +39,8 @@ bool CircleCollider::IsCircleCollision(CircleCollider* circle)
 	float distance = Distance(circle->GlobalPos(), GlobalPos());
 	return distance < circle->Radius() + Radius();
 }
+
+bool CircleCollider::PushCollider(Collider* collider)
+{
+	return false;
+}

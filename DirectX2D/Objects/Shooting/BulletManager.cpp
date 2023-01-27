@@ -5,8 +5,11 @@ BulletManager::BulletManager()
 {
 	bullets.resize(30);
 
-	for (auto& bullet : bullets)
+	for (auto& bullet : bullets) {
 		bullet = new Bullet;
+		bullet->Scale() *= 0.5f;
+		bullet->GetCollider()->Scale() *= { 0.9f, 0.6f};
+	}
 }
 
 BulletManager::~BulletManager()
@@ -28,24 +31,29 @@ void BulletManager::Render()
 		bullet->Render();
 }
 
-void BulletManager::Fire(Vector2 pos, Vector2 velocity)
+
+void BulletManager::Fire(Vector2 pos, Vector2 velocity, string tag)
 {
 	for (auto bullet : bullets) {
 		if (!bullet->Active()) {
-			bullet->Fire(pos, velocity);
+			bullet->Fire(pos, velocity, tag);
 			return;
 		}
 	}
 }
 
-void BulletManager::CheckCollision(Collider* collider, Event event)
+void BulletManager::CheckCollision(Collider* collider, Event event, string tag)
 {
+	if (!collider->Active())
+		return;
+
 	for (auto bullet : bullets) {
 		if (!bullet->Active())
 			continue;
 
-		if (bullet->IsCollision(collider)) {
-			event();
+		if (bullet->IsCollision(collider, tag)) {
+			if(event != nullptr)
+				event();
 			bullet->SetActive(false);
 		}
 	}

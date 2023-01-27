@@ -30,6 +30,11 @@ void Bullet::Update()
 		isActive = false;
 
 	UpdateWorld();
+}
+
+void Bullet::UpdateWorld()
+{
+	__super::UpdateWorld();
 	collider->UpdateWorld();
 }
 
@@ -42,17 +47,25 @@ void Bullet::Render()
 	collider->Render();
 }
 
-void Bullet::Fire(Vector2 pos, Vector2 velocity)
+void Bullet::Fire(Vector2 pos, Vector2 velocity, string tag)
 {
 	isActive = true;
+
+	shooterTag = tag;
 
 	localPosition = pos;
 	this->velocity = velocity;
 
 	localRotation.z = velocity.Angle();
+	UpdateWorld();
 }
 
-bool Bullet::IsCollision(Collider* other)
+bool Bullet::IsCollision(Collider* other, string tag)
 { 
+	if (shooterTag == tag)
+		return false;
+
+	Vector2 bpos = GlobalPos();
+	Vector2 cpos = other->GlobalPos();
 	return collider->IsCollision(other);
 }

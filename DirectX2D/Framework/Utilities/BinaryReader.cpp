@@ -65,3 +65,4 @@ void BinaryReader::Byte(void** data, UINT dataSize)
 {
     ReadFile(file, &data, dataSize, &size, nullptr);
 }
+

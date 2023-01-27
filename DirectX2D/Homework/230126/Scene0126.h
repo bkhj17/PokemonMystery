@@ -4,6 +4,14 @@
 
 class Scene0126 : public Scene
 {
+private:
+	const int MAX_SPAWN_ENEMY = 3;
+
+	enum GameState {
+		PLAY,
+		CLEAR,
+		GAME_OVER
+	};
 public:
 	Scene0126();
 	~Scene0126();
@@ -14,16 +22,29 @@ public:
 	virtual void PostRender() override;
 
 private:
-	void LoadMap(wstring file);
+	void UpdatePlay();
 
-
+	void EnemySpawn();
+	void PlayerSpawn();
+	void BreakEnemy();
+	void BreakPlayer();
+	void Win();
+	void GameOver();
 private:
-	UINT width = 0, height = 0;
+	GameState state = PLAY;
 
-	vector<Quad*> bgTiles;
+	class TileMap0126* gameTileMap;
+	Tank* tank;
 
-	vector<class Object0126*> objects;
+	vector<class EnemyTank0126*> enemies;
+	int enemyNum = 15;
+	int spawnEnemy = 0;
+	
+	float spawnRate = 3.0f;
+	float enemySpawnTime = 0.0f;
+	float playerSpawnTime = 0.0f;
 
-	Vector2 offset = { 80.0f, 80.0f };
+	Quad* gameOver;
+	Quad* gameClear;
 };
 

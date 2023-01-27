@@ -1,120 +1,148 @@
 #include "Framework.h"
 #include "Scene0126.h"
-#include "Object0126.h"
+#include "TileMap0126.h"
+#include "EnemyTank0126.h"
 
 Scene0126::Scene0126()
 {
-	LoadMap(L"Textures/Tile/Tile.map");
+	gameTileMap = new TileMap0126("TextData/TestMap.map");
+	gameTileMap->SetLoseEvent(bind(&Scene0126::GameOver, this));
+
+	tank = new Tank();
+	tank->Pos() = gameTileMap->PlayerSpawnPoint();
+	tank->SetDestroyEvent(bind(&Scene0126::BreakPlayer, this));
+
+	enemies.resize(MAX_SPAWN_ENEMY);
+	for (auto& enemy : enemies) {
+		enemy = new EnemyTank0126;
+		enemy->SetDestroyEvent(bind(&Scene0126::BreakEnemy, this));
+		enemy->SetTileMap(gameTileMap);
+	}
+	enemyNum = 15;
+
 	BulletManager::Get();
+
+	gameOver = new Quad(L"Textures/Shooting/GameOver.png");
+	gameOver->Pos() = { CENTER_X, CENTER_Y };
+	gameOver->UpdateWorld();
+	gameClear = new Quad(L"Textures/Shooting/GameClear.png");
+	gameClear->Pos() = { CENTER_X, CENTER_Y };
+	gameClear->UpdateWorld();
 }
 
 Scene0126::~Scene0126()
 {
-	for (auto tile : bgTiles)
-		delete tile;
+	delete gameTileMap;
+	delete tank;
+	for (auto enemy : enemies)
+		delete enemy;
 
-	for (auto obj : objects)
-		delete obj;
+	delete gameOver;
+	delete gameClear;
+	BulletManager::Delete();
 }
 
 void Scene0126::Update()
 {
-	for (auto tile : bgTiles)
-		tile->UpdateWorld();
-	
-	Vector2 velocity = {};
-	if (KEY_PRESS(VK_LEFT))	velocity.x -= 300.0f * DELTA;
-	if (KEY_PRESS(VK_RIGHT)) velocity.x += 300.0f * DELTA;
-	if (KEY_PRESS(VK_UP)) velocity.y += 300.0f * DELTA;
-	if (KEY_PRESS(VK_DOWN)) velocity.y -= 300.0f * DELTA;
-
-	objects[0]->Pos() += velocity;
-
-	for (auto obj : objects) {
-		if (obj == objects[0])
-			continue;
-
-		Vector2 overlap = {};
-		if (objects[0]->GetCollider()->IsRectCollision(obj->GetCollider(), &overlap)) {
-			//콜리전
-		}
-	}
-
-	if (KEY_PRESS(VK_SPACE)) {
-		BulletManager::Get()->Fire(objects[0]->GlobalPos(), Vector2(0.0f, 1.0f));
-	}
-
-	for (auto obj : objects)
-		obj->Update();
-
-	BulletManager::Get()->Update();
+	if (state == PLAY)
+		UpdatePlay();
 }
 
 void Scene0126::Render()
 {
-	for (auto tile : bgTiles)
-		tile->Render();
-	for (auto obj : objects)
-		obj->Render();
+	gameTileMap->Render();
+	tank->Render();
 
 	BulletManager::Get()->Render();
+
+	for (auto enemy : enemies)
+		enemy->Render();
 }
 
 void Scene0126::PostRender()
 {
-	objects[0]->RenderUI();
+	tank->PostRender();
+
+	switch (state)
+	{
+	case Scene0126::PLAY:
+		break;
+	case Scene0126::CLEAR:
+		gameClear->Render();
+		break;
+	case Scene0126::GAME_OVER:
+		gameOver->Render();
+		break;
+	default:
+		break;
+	}
 }
 
-void Scene0126::LoadMap(wstring file)
+void Scene0126::UpdatePlay()
 {
-	BinaryReader* reader = new BinaryReader(file);
-	if (!reader->IsValid()) {
-		wstring wstr = L"파일 열기 실패 : " + file;
-		MessageBox(hWnd, wstr.c_str(), L"Error", MB_OK);
-		return;
+
+	EnemySpawn();
+	for (auto enemy : enemies) {
+		enemy->Update();
+		gameTileMap->PushObject(enemy->GetCollider());
 	}
 
-	width = reader->UInt();
-	height = reader->UInt();
+	PlayerSpawn();
+	tank->Update();
+	if (KEY_DOWN(VK_SPACE))
+		tank->Fire();
 
-	UINT size = reader->UInt();
-	bgTiles.reserve(size);
+	gameTileMap->PushObject(tank->GetCollider());
+	gameTileMap->BulletCollision();
 
-	for (UINT i = 0; i < size; i++) {
-		Tile::Data data;
-		data.textureFile = reader->WString();
-		data.pos.x = reader->Float();
-		data.pos.y = reader->Float();
-		data.pos += offset;
-		data.angle = reader->Float();
-		data.type = (Tile::Type)reader->Int();
+	BulletManager::Get()->Update();
+}
 
-		Quad* quad = new Quad(data.textureFile);
-		quad->Pos() = data.pos;
-		quad->Rot().z = data.angle;
+void Scene0126::EnemySpawn()
+{
+	enemySpawnTime -= DELTA;
 
-		bgTiles.push_back(quad);
+	if (enemySpawnTime < min(MAX_SPAWN_ENEMY, enemyNum) && enemySpawnTime < 0.0f) {
+		for (auto enemy : enemies) {
+			if (!enemy->Active()) {
+				spawnEnemy++;
+				enemySpawnTime = spawnRate;
+				enemy->Spawn(gameTileMap->EnemySpawnPoint());
+				break;
+			}
+		}
 	}
+}
 
-	size = reader->UInt();
-	for (int i = 0; i < size; i++) {
-		//부르긴 다 불러야 함
-		bool active = reader->Int();
-		wstring textureFile = reader->WString();
-		Vector2 pos;
-		pos.x = reader->Float();
-		pos.y = reader->Float();
-
-		float angle = reader->Float();
-		reader->Int();
-
-		if (!active)
-			continue;
-
-		Object0126* obj = new Object0126(textureFile);
-		obj->Pos() = pos + offset;
-		obj->Rot().z = angle;
-		obj->Update();
-		objects.push_back(obj);
+void Scene0126::PlayerSpawn()
+{
+	if (!tank->Active()) {
+		playerSpawnTime -= DELTA;
+		if (playerSpawnTime < 0.0f) {
+			tank->SetActive(true);
+			tank->Pos() = gameTileMap->PlayerSpawnPoint();
+		}
 	}
+}
+
+void Scene0126::BreakEnemy()
+{
+	--spawnEnemy;
+	if (--enemyNum <= 0)
+		Win();
+}
+
+void Scene0126::BreakPlayer()
+{
+	playerSpawnTime = spawnRate;
+}
+
+void Scene0126::Win()
+{
+	state = CLEAR;
+}
+
+void Scene0126::GameOver()
+{
+	state = GAME_OVER;
 }

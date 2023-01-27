@@ -8,14 +8,19 @@ public:
 		Vector2 halfSize;
 	};
 
+
 public:
 	RectCollider(Vector2 size);
 	~RectCollider() = default;
 	// Collider을(를) 통해 상속됨
 	virtual bool IsPointCollision(Vector2 point) override;
-	virtual bool IsRectCollision(RectCollider* rect, Vector2* overlap) override;
+	virtual bool IsRectCollision(RectCollider* rect, Vector2* overlap = nullptr) override;
 	virtual bool IsCircleCollision(CircleCollider* circle) override;
 	bool IsCircleCollision(CircleCollider* circle, Vector2* overlap);
+
+	virtual bool PushCollider(Collider* collider) override;
+	
+	Direction GetDirection(Collider* collider);
 
 	Vector2 Size() { return { size.x * GlobalScale().x, size.y * GlobalScale().y }; }
 	Vector2 Half() { return Size() * 0.5f; }
@@ -42,5 +47,7 @@ private:
 	Vector2 size;
 
 	ObbDesc obbDesc = {};
+
+	// Collider을(를) 통해 상속됨
 };
 

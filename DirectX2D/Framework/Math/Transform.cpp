@@ -33,32 +33,42 @@ void Transform::UpdateWorld()
 	XMStoreFloat2(&tempScale, outS);
 
 	globalPosition = tempPos;
-	globalScale = { tempScale.x, tempScale.y };
+	globalScale = tempScale;
 }
 
 void Transform::RenderUI()
 {
-	ImGui::Text(tag.c_str());
+	if (ImGui::TreeNode((tag + "_Transform").c_str())) {
+		ImGui::Text(tag.c_str());
 
-	string temp = tag + "_Pos";
+		string temp = tag + "_Pos";
 
-	float* f = (float*)&localPosition;
-	ImGui::DragFloat2(temp.c_str(), (float*)&localPosition, 1.0f);
+		float* f = (float*)&localPosition;
+		ImGui::DragFloat2(temp.c_str(), (float*)&localPosition, 1.0f);
 
-	temp = tag + "_Rot";
-	Float3 rot;
-	rot.x = XMConvertToDegrees(localRotation.x);
-	rot.y = XMConvertToDegrees(localRotation.y);
-	rot.z = XMConvertToDegrees(localRotation.z);
+		temp = tag + "_Rot";
+		Float3 rot = {};
+		rot.x = XMConvertToDegrees(localRotation.x);
+		rot.y = XMConvertToDegrees(localRotation.y);
+		rot.z = XMConvertToDegrees(localRotation.z);
 
-	ImGui::DragFloat3(temp.c_str(), (float*)&rot, 1.0f, -180.0f, 180.0f);
+		ImGui::DragFloat3(temp.c_str(), (float*)&rot, 1.0f, -180.0f, 180.0f);
 
-	localRotation.x = XMConvertToRadians(rot.x);
-	localRotation.y = XMConvertToRadians(rot.y);
-	localRotation.z = XMConvertToRadians(rot.z);
+		localRotation.x = XMConvertToRadians(rot.x);
+		localRotation.y = XMConvertToRadians(rot.y);
+		localRotation.z = XMConvertToRadians(rot.z);
 
-	temp = tag + "_Scale";
-	ImGui::DragFloat2(temp.c_str(), (float*)&localScale, 0.1f);
+		temp = tag + "_Scale";
+		ImGui::DragFloat2(temp.c_str(), (float*)&localScale, 0.1f);
+
+		
+		if (ImGui::Button("Save"))
+			Save();
+		ImGui::SameLine();
+		if (ImGui::Button("Load"))
+			Load();
+		ImGui::TreePop();
+	}
 }
 
 bool Transform::Active()
@@ -67,4 +77,44 @@ bool Transform::Active()
 		return isActive;
 
 	return isActive && parent->Active();
+}
+
+void Transform::Save()
+{
+	BinaryWriter* writer = new BinaryWriter("TextData/Transforms/" + tag + ".srt");
+	
+	writer->Float(localPosition.x);
+	writer->Float(localPosition.y);
+	writer->Float(localRotation.x);
+	writer->Float(localRotation.y);
+	writer->Float(localRotation.z);
+	writer->Float(localScale.x);
+	writer->Float(localScale.y);
+	
+	delete writer;
+}
+
+Transform* Transform::GetParent()
+{ 
+	if(parent != nullptr)
+		return parent; 
+	else
+		return this;
+}
+
+void Transform::Load()
+{
+	BinaryReader* reader = new BinaryReader("TextData/Transforms/" + tag + ".srt");
+	if (reader->IsFailed())
+		return;
+
+	localPosition.x = reader->Float();
+	localPosition.y = reader->Float();
+	localRotation.x = reader->Float();
+	localRotation.y = reader->Float();
+	localRotation.z = reader->Float();
+	localScale.x = reader->Float();
+	localScale.y = reader->Float();
+
+	delete reader;
 }

@@ -5,13 +5,13 @@ public:
 	Transform();
 	~Transform() = default;
 
-	void UpdateWorld();
+	virtual void UpdateWorld();
 	void RenderUI();
 
 	Vector2 Right() { return right.GetNormalized(); }
-	Vector2 Left() { return Right() * -1.0f; }
+	Vector2 Left() { return right.GetNormalized() * -1.0f; }
 	Vector2 Up() { return up.GetNormalized(); }
-	Vector2 Down() { return Up() * -1.0f; }
+	Vector2 Down() { return up.GetNormalized() * -1.0f; }
 
 	Vector2 GlobalPos() { return globalPosition; }
 	Vector2 GlobalScale() { return globalScale; }
@@ -27,7 +27,13 @@ public:
 	Vector2& Scale() { return localScale; }
 
 	void SetParent(Transform* transform) { parent = transform; }
+	Transform* GetParent();
 	void SetPivot(Vector2 pivot) { this->pivot = pivot; }
+
+	void Load();
+private:
+	void Save();
+
 protected:
 	string tag;
 
