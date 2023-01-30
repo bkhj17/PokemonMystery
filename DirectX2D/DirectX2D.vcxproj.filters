@@ -333,10 +333,10 @@
     <ClInclude Include="Scenes\DijkstraScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Algorithm\Dijkstra.h">
+    <ClInclude Include="Objects\Algorithm\Dijkstra.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Algorithm\DNode.h">
+    <ClInclude Include="Objects\Algorithm\DNode.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Framework\Collision\LineCollider.h">
@@ -346,6 +346,27 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Homework\230126\EnemyTank0126.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Algorithm\Node.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Algorithm\AStar.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Algorithm\Heap.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Homework\230130\Scene0130.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Homework\230130\Pacman0130.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Homework\230130\TileMap0130.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Homework\230130\Enemy0130.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -644,10 +665,10 @@
     <ClCompile Include="Scenes\DijkstraScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Algorithm\Dijkstra.cpp">
+    <ClCompile Include="Objects\Algorithm\Dijkstra.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Algorithm\DNode.cpp">
+    <ClCompile Include="Objects\Algorithm\DNode.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Framework\Collision\LineCollider.cpp">
@@ -657,6 +678,27 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Homework\230126\EnemyTank0126.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Algorithm\Node.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Algorithm\AStar.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Algorithm\Heap.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Homework\230130\Scene0130.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Homework\230130\Pacman0130.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Homework\230130\TileMap0130.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Homework\230130\Enemy0130.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

@@ -21,13 +21,16 @@ public:
 	virtual void PushObject(Collider* collider) override;
 	virtual void Render() override;
 
+
 	void SetLoseEvent(Event event) { loseEvent = event; }
 
 	Vector2 EnemySpawnPoint();
 	Vector2 PlayerSpawnPoint() { return playerSpawn + GlobalPos(); }
-
+	
 	bool PointCollision(Vector2 pos);
 	Vector2 GetTileSize() { return tileSize; }
+
+	void PathToTarget(vector<Vector2>& path, Vector2 start);
 private:
 	void SetUp();
 

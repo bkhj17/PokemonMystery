@@ -166,8 +166,11 @@ using namespace GameMath;
 
 #include "Objects/UI/Button.h"
 
-#include "Algorithm/DNode.h"
-#include "Algorithm/Dijkstra.h"
+#include "Objects/Algorithm/DNode.h"
+#include "Objects/Algorithm/Dijkstra.h"
+#include "Objects/Algorithm/Node.h"
+#include "Objects/Algorithm/Heap.h"
+#include "Objects/Algorithm/AStar.h"
 
 #include "Objects/Tile/Tile.h"
 #include "Objects/Tile/EditTileMap.h"

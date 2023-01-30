@@ -13,6 +13,7 @@ public:
 
 private:
 	GameTileMap* gameTileMap;
+	AStar* astar;
 	Tank* tank;
 };
 

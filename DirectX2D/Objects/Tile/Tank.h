@@ -20,10 +20,8 @@ public:
 	virtual void Fire();
 	string GetShooterTag() { return shooterTag; }
 
-
 	void Destroy();
 	void SetDestroyEvent(Event event) { destroyEvent = event; }
-
 
 protected:
 	Vector2 GetFirePoint();

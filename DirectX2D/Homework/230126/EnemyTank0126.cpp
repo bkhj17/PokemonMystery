@@ -27,6 +27,24 @@ void EnemyTank0126::Update()
 
 void EnemyTank0126::Control()
 {
+	switch (state)
+	{
+	case EnemyTank0126::Patrol:
+		ControlPatrol();
+		break;
+	case Search:
+		SearchTarget();
+		break;
+	case EnemyTank0126::Assult:
+		ControlAssult();
+		break;
+	default:
+		break;
+	}
+}
+
+void EnemyTank0126::ControlPatrol()
+{
 	Vector2 forward = GlobalPos() + Right() * 50.0f;
 
 	if (moveDist < moveRate) {
@@ -43,8 +61,22 @@ void EnemyTank0126::Control()
 			return;
 		}
 		Rot().z -= XM_PIDIV2;
-	} else 
+	}
+	else
 		moveDist = 0.0f;
+}
+
+void EnemyTank0126::ControlAssult()
+{
+
+
+}
+
+void EnemyTank0126::SearchTarget()
+{
+
+
+
 }
 
 void EnemyTank0126::Fire()
@@ -72,5 +104,4 @@ void EnemyTank0126::SetTileMap(TileMap0126* tileMap)
 {
 	this->tileMap = tileMap;
 	moveRate = tileMap->GetTileSize().y;
-
 }

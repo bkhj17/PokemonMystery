@@ -19,9 +19,9 @@ wstring Utility::ToWString(string str)
 
 wstring Utility::ChangeWString(string value)
 {
-	int nLen = MultiByteToWideChar(CP_ACP, 0, &value[0], value.size(), nullptr, 0);
+	int nLen = MultiByteToWideChar(CP_ACP, 0, &value[0], (int)value.size(), nullptr, 0);
 	wstring strUni(nLen + 1, 0);
-	int len = MultiByteToWideChar(CP_ACP, 0, value.c_str(), value.size(), &strUni[0], nLen);
+	int len = MultiByteToWideChar(CP_ACP, 0, value.c_str(), (int)value.size(), &strUni[0], nLen);
 	strUni[len] = 0;
 
 	return strUni;

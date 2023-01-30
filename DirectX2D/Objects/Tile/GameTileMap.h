@@ -9,6 +9,11 @@ public:
 	virtual void Render();
 
 	virtual void PushObject(Collider* collider);
+
+	virtual void GetNodes(vector<Node*>& nodes);
+
+	UINT GetWidth() { return width; }
+	UINT GetHeight() { return height; }
 protected:
 	virtual void Load(string file);
 

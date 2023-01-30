@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:677009ce6875ecb690228df0ba8a3d55:09e283749a68fb9cc9972339e0289538:768830034113f9a44028c7d671a3281e$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="Dead.png" width="810" height="486">
+    <sprite n="Dead1.png" x="1" y="1" w="160" h="160" pX="0.5" pY="0.5"/>
+    <sprite n="Dead2.png" x="163" y="325" w="160" h="160" pX="0.5" pY="0.5"/>
+    <sprite n="Dead3.png" x="325" y="1" w="160" h="160" pX="0.5" pY="0.5"/>
+    <sprite n="Dead4.png" x="325" y="163" w="160" h="160" pX="0.5" pY="0.5"/>
+    <sprite n="Dead5.png" x="325" y="325" w="160" h="160" pX="0.5" pY="0.5"/>
+    <sprite n="Dead6.png" x="487" y="1" w="160" h="160" pX="0.5" pY="0.5"/>
+    <sprite n="Dead7.png" x="487" y="163" w="160" h="160" pX="0.5" pY="0.5"/>
+    <sprite n="Dead8.png" x="487" y="325" w="160" h="160" pX="0.5" pY="0.5"/>
+    <sprite n="Dead9.png" x="649" y="1" w="160" h="160" pX="0.5" pY="0.5"/>
+    <sprite n="Dead10.png" x="1" y="163" w="160" h="160" pX="0.5" pY="0.5"/>
+    <sprite n="Dead11.png" x="1" y="325" w="160" h="160" pX="0.5" pY="0.5"/>
+    <sprite n="Dead12.png" x="163" y="1" w="160" h="160" pX="0.5" pY="0.5"/>
+    <sprite n="Dead13.png" x="163" y="163" w="160" h="160" pX="0.5" pY="0.5"/>
+</TextureAtlas>

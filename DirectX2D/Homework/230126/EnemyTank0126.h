@@ -2,6 +2,10 @@
 
 class EnemyTank0126 : public Tank
 {
+	enum ActState {
+		Patrol, Search, Assult
+	};
+
 public:
 	EnemyTank0126();
 	~EnemyTank0126();
@@ -9,12 +13,18 @@ public:
 	virtual void Update() override;
 
 	virtual void Control() override;
+
 	virtual void HeadControl() override {}
 
 	virtual void Fire() override;
 
 	void Spawn(Vector2 pos);
 	void SetTileMap(class TileMap0126* tileMap);
+
+private:
+	void ControlPatrol();
+	void ControlAssult();
+	void SearchTarget();
 private:
 	float shotRate = 2.0f;
 	float shotTime = 0.0f;
@@ -23,5 +33,7 @@ private:
 	float moveRate = 50.0f;
 
 	TileMap0126* tileMap = nullptr;
+
+	ActState state = Patrol;
 };
 

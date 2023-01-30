@@ -141,10 +141,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Algorithm\Dijkstra.h" />
-    <ClInclude Include="Algorithm\DNode.h" />
+    <ClInclude Include="Homework\230130\Enemy0130.h" />
+    <ClInclude Include="Objects\Algorithm\Heap.h" />
+    <ClInclude Include="Objects\Algorithm\Dijkstra.h" />
+    <ClInclude Include="Objects\Algorithm\DNode.h" />
+    <ClInclude Include="Objects\Algorithm\AStar.h" />
     <ClInclude Include="Homework\230126\EnemyTank0126.h" />
     <ClInclude Include="Framework\Collision\LineCollider.h" />
+    <ClInclude Include="Objects\Algorithm\Node.h" />
+    <ClInclude Include="Homework\230130\Scene0130.h" />
+    <ClInclude Include="Homework\230130\Pacman0130.h" />
     <ClInclude Include="Scenes\DijkstraScene.h" />
     <ClInclude Include="Framework\Utilities\BinaryReader.h" />
     <ClInclude Include="Framework\Utilities\BinaryWriter.h" />
@@ -252,12 +258,19 @@
     <ClInclude Include="Scenes\TileScene.h" />
     <ClInclude Include="Objects\Tile\Tile.h" />
     <ClInclude Include="Homework\230126\TileMap0126.h" />
+    <ClInclude Include="Homework\230130\TileMap0130.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Algorithm\Dijkstra.cpp" />
-    <ClCompile Include="Algorithm\DNode.cpp" />
+    <ClCompile Include="Homework\230130\Enemy0130.cpp" />
+    <ClCompile Include="Objects\Algorithm\Heap.cpp" />
+    <ClCompile Include="Objects\Algorithm\Dijkstra.cpp" />
+    <ClCompile Include="Objects\Algorithm\DNode.cpp" />
+    <ClCompile Include="Objects\Algorithm\AStar.cpp" />
     <ClCompile Include="Homework\230126\EnemyTank0126.cpp" />
     <ClCompile Include="Framework\Collision\LineCollider.cpp" />
+    <ClCompile Include="Objects\Algorithm\Node.cpp" />
+    <ClCompile Include="Homework\230130\Scene0130.cpp" />
+    <ClCompile Include="Homework\230130\Pacman0130.cpp" />
     <ClCompile Include="Scenes\DijkstraScene.cpp" />
     <ClCompile Include="Framework\Utilities\BinaryReader.cpp" />
     <ClCompile Include="Framework\Utilities\BinaryWriter.cpp" />
@@ -359,6 +372,7 @@
     <ClCompile Include="Scenes\TileScene.cpp" />
     <ClCompile Include="Objects\Tile\Tile.cpp" />
     <ClCompile Include="Homework\230126\TileMap0126.cpp" />
+    <ClCompile Include="Homework\230130\TileMap0130.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX2D.rc" />

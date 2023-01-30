@@ -18,7 +18,6 @@ RectCollider::RectCollider(Vector2 size)
 
 bool RectCollider::IsPointCollision(Vector2 point)
 {
-
     Matrix invWorld = XMMatrixInverse(nullptr, world);
 
     point *= invWorld;

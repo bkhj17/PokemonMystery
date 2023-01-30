@@ -4,7 +4,7 @@
 //#include "Scenes/TextureScene.h"
 //#include "Scenes/CollisionScene.h"
 //#include "Scenes/PinBallScene.h"
-//#include "Scenes/AnimationScene.h"
+#include "Scenes/AnimationScene.h"
 //#include "Scenes/ShaderScene.h"
 //#include "Scenes/PuzzleScene.h"
 //#include "Scenes/RenderTargetScene.h"
@@ -19,13 +19,14 @@
 //#include "Homework/230120/Scene0120.h"
 //#include "Homework/230125/Scene0125.h"
 #include "Homework/230126/Scene0126.h"
+#include "Homework/230130/Scene0130.h"
 
 GameManager::GameManager()
 {
 	Create();
 	uiViewBuffer = new MatrixBuffer;
 
-	scene = new Scene0126();
+	scene = new Scene0130();
 }
 
 GameManager::~GameManager()

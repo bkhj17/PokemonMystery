@@ -4,8 +4,9 @@
 TileScene::TileScene()
 {
 	CreateSample();
-	editTileMap = new EditTileMap(10, 10);
-	editTileMap->Pos() = { 80, 80 };
+	editTileMap = new EditTileMap(25, 25);
+	editTileMap->Pos() = { 40, 40 };
+	editTileMap->Scale() *= 0.4f;
 
 	selectSample = new Quad(Vector2(SAMPLE_SIZE, SAMPLE_SIZE));
 

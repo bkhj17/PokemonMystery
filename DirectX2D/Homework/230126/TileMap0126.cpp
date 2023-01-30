@@ -8,6 +8,7 @@ TileMap0126::TileMap0126(string file)
 	SetUp(); 
 }
 
+
 void TileMap0126::BulletCollision()
 {
 	for (auto obj : breakables)
@@ -42,6 +43,7 @@ void TileMap0126::Render()
 	}
 }
 
+
 Vector2 TileMap0126::EnemySpawnPoint()
 {
 	if (enemySpawns.empty())
@@ -54,16 +56,28 @@ Vector2 TileMap0126::EnemySpawnPoint()
 bool TileMap0126::PointCollision(Vector2 pos)
 {
 	for (auto obj : breakables) {
+		if (!obj->Active())
+			continue;
+
 		if (obj->GetCollider()->IsPointCollision(pos))
 			return true;
 	}
 
 	for (auto obj : unbreakables) {
+		if (!obj->Active())
+			continue;
+
 		if (obj->GetCollider()->IsPointCollision(pos))
 			return true;
 	}
 
 	return false;
+}
+
+void TileMap0126::PathToTarget(vector<Vector2>& path, Vector2 start)
+{
+
+
 }
 
 void TileMap0126::SetUp()

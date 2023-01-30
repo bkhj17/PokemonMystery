@@ -34,6 +34,23 @@ void GameTileMap::PushObject(Collider* collider)
 		tile->GetCollider()->PushCollider(collider);
 }
 
+void GameTileMap::GetNodes(vector<Node*>& nodes)
+{
+	for (auto tile : bgTiles) {
+		Vector2 tilePos = tile->GlobalPos();
+		Node* node = new Node(tilePos, nodes.size());
+
+		for (Tile* obj : objTiles) {
+			Vector2 objPos = obj->GlobalPos();
+
+			if (objPos == tilePos)
+				node->SetState(Node::OBSTACLE);
+		}
+
+		nodes.push_back(node);
+	}
+}
+
 void GameTileMap::Load(string file)
 {
 	BinaryReader* reader = new BinaryReader(file);

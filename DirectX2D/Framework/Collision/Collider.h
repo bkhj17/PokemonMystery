@@ -7,7 +7,7 @@ protected:
 		RECT, CIRCLE
 	};
 	
-	const float PUSH_SPEED = 500.0f;
+	const float PUSH_SPEED = 200.0f;
 
 public:
 	Collider();

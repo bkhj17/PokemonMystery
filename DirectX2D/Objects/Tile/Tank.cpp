@@ -21,9 +21,9 @@ Tank::~Tank()
 
 void Tank::Update()
 {
-	Control();
+	//Control();
 	HeadControl();
-	//MovePath();
+	MovePath();
 
 	UpdateWorld();
 
