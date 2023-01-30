@@ -46,7 +46,6 @@ private:
 
 	vector<Vector2> path;
 
-
 	Event destroyEvent;
 };
 
