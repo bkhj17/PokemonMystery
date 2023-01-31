@@ -11,7 +11,7 @@ TileMap0130::TileMap0130(string file)
 void TileMap0130::PushObject(Collider* collider)
 {
 	for (auto obj : walls) {
-		if(obj->GetCollider()->PushCollider(collider))
+		if (obj->GetCollider()->PushCollider(collider))
 			if (pushEvent)
 				pushEvent();
 	}
@@ -35,8 +35,7 @@ void TileMap0130::ItemCollision(Collider* collider)
 
 		if (collider->IsCollision(obj->GetCollider())) {
 			obj->SetActive(false);
-			if (powerEvent)
-				powerEvent();
+			Observer::Get()->ExecuteEvent("GainSuper");
 		}
 	}
 }
@@ -72,7 +71,7 @@ void TileMap0130::Render()
 	}
 
 	for (auto obj : powers) {
-		if(obj->Active())
+		if (obj->Active())
 			obj->Render();
 	}
 
@@ -87,7 +86,7 @@ void TileMap0130::UpdateWorld()
 	__super::UpdateWorld();
 	for (auto bg : bgTiles)
 		bg->UpdateWorld();
-	
+
 	for (auto obj : objTiles) {
 		obj->UpdateWorld();
 		obj->GetCollider()->UpdateWorld();
@@ -100,7 +99,7 @@ void TileMap0130::SetUp()
 	collideTable[L"Textures/Tile/path.png"] = WALL;
 	collideTable[L"Textures/Tile/path_curve.png"] = WALL;
 	collideTable[L"Textures/Tile/path_crossing.png"] = WALL;
-	
+
 	collideTable[L"Textures/Tile/barrel.png"] = CHIP;
 	collideTable[L"Textures/Tile/tree.png"] = POWER;
 

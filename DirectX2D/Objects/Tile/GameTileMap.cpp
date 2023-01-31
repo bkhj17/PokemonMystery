@@ -34,6 +34,33 @@ void GameTileMap::PushObject(Collider* collider)
 		tile->GetCollider()->PushCollider(collider);
 }
 
+void GameTileMap::PushRect(RectCollider* collider)
+{
+	Vector2 overlap;
+	for (Tile* tile : objTiles) {
+		Vector2 overlap = {};
+		if (collider->IsRectCollision(tile->GetCollider(), &overlap)) {
+			if (overlap.x > overlap.y) {
+				if (collider->GlobalPos().y > tile->GlobalPos().y) {
+					collider->Pos().y += overlap.y;
+					
+				}
+				else  {
+					collider->Pos().y -= overlap.y;
+				}
+			}
+			else {
+				if (collider->GlobalPos().x > tile->GlobalPos().x)
+					collider->Pos().x += overlap.x;
+				else
+					collider->Pos().x -= overlap.x;
+			}
+
+			collider->UpdateWorld();
+		}
+	}
+}
+
 void GameTileMap::GetNodes(vector<Node*>& nodes)
 {
 	for (auto tile : bgTiles) {

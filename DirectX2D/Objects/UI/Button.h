@@ -16,6 +16,7 @@ public:
 	~Button();
 
 	virtual void Update();
+	virtual void UpdateWorld() override;
 	virtual void Render();
 
 	void SetEvent(Event event) { this->event = event; }

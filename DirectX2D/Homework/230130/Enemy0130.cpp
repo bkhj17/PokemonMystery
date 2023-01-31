@@ -11,6 +11,8 @@ Enemy0130::Enemy0130()
 	Scale() = Scale() / actions[curAction]->GetCurFrameSize();
 	__super::UpdateWorld();
 
+	colorBuffer = new ColorBuffer;
+	colorBuffer->Get() = WHITE;
 }
 
 Enemy0130::~Enemy0130()
@@ -18,6 +20,7 @@ Enemy0130::~Enemy0130()
 	delete collider;
 	for (auto& action : actions)
 		delete action.second;
+	delete colorBuffer;
 }
 
 void Enemy0130::Update()
@@ -42,8 +45,8 @@ void Enemy0130::Render()
 	if (!isActive)
 		return;
 
-
 	SetRender();
+	colorBuffer->SetPS(0);
 	actions[curAction]->Render();
 }
 
@@ -96,7 +99,22 @@ void Enemy0130::SetAction(ActionState state)
 	if (curAction == state)
 		return;
 
-	path.clear();
+	switch (state)
+	{
+	case Enemy0130::PATROL:
+		colorBuffer->Get() = WHITE;
+		break;
+	case Enemy0130::CHASE:
+		path.clear();
+		colorBuffer->Get() = MAGENTA;
+		break;
+	case Enemy0130::SCARED:
+		path.clear();
+		break;
+	default:
+		break;
+	}
+
 	curAction = state;
 	actions[curAction]->Start();
 }

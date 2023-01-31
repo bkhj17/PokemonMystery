@@ -163,6 +163,7 @@ using namespace GameMath;
 #include "Objects/Basic/Quad.h"
 #include "Objects/Basic/Action.h"
 #include "Objects/Basic/Effect.h"
+#include "Objects/Basic/AnimObject.h"
 
 #include "Objects/UI/Button.h"
 
@@ -175,6 +176,9 @@ using namespace GameMath;
 #include "Objects/Tile/Tile.h"
 #include "Objects/Tile/EditTileMap.h"
 #include "Objects/Tile/GameTileMap.h"
+#include "Objects/Tile/TankState.h"
+#include "Objects/Tile/TankPatrol.h"
+#include "Objects/Tile/TankTrace.h"
 #include "Objects/Tile/Tank.h"
 
 #include "Objects/Manager/EffectManager.h"
@@ -198,6 +202,8 @@ using namespace GameMath;
 #include "Objects/Character/Ninja/NinjaJumpAttack.h"
 #include "Objects/Character/Ninja/NinjaThrow.h"
 #include "Objects/Character/Ninja/Ninja.h"
+
+#include "Objects/Character/Isaac/Isaac.h"
 
 #include "Objects/Puzzle/Card.h"
 

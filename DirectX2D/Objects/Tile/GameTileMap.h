@@ -9,6 +9,7 @@ public:
 	virtual void Render();
 
 	virtual void PushObject(Collider* collider);
+	virtual void PushRect(RectCollider* collider);
 
 	virtual void GetNodes(vector<Node*>& nodes);
 

@@ -17,7 +17,7 @@ public:
 	void PostRender();
 
 	string LastCommand() { return lastCommand; }
-	void ClearInputs() { tail = head; lastCommand = ""; }
+	void ClearInputs() { tail = headClips; lastCommand = ""; }
 private:
 	float waitTime = 0.0f;
 
@@ -26,7 +26,7 @@ private:
 	string CheckCommand();
 
 
-	int head = 0;
+	int headClips = 0;
 	int tail = 0;
 	vector<UINT> inputs;	//검사를 위한 서큘러 큐
 

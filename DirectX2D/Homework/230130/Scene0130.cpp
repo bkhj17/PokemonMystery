@@ -16,11 +16,10 @@ Scene0130::Scene0130()
 	pacman->SetPos({ 130.0f, 160.0f });
 	pacman->Scale() *= 25.0f;
 	pacman->SetMoveLength(tileMap->GetTileSize().x);
-	
+
 	tileMap->SetPushEvent([this]() {
 		pacman->SetPos(pacman->Pos());
-	});
-	tileMap->SetPowerEvent(bind(&Pacman0130::GainSuper, pacman));
+		});
 
 	gameOver = new Quad(L"Textures/Shooting/GameOver.png");
 	gameOver->Pos() = { CENTER_X, CENTER_Y };
@@ -68,16 +67,22 @@ void Scene0130::Update()
 	for (auto enemy : enemies) {
 		if (enemy->Active()) {
 			Vector2 vec = pacman->Pos() - enemy->Pos();
-			if (pacman->Active() && vec.Length() < 200.0f) {
+			if (pacman->Active() && vec.Length() < 250.0f) {
 				enemy->SetAction(Enemy0130::CHASE);
-			} else
+			}
+			else
 				enemy->SetAction(Enemy0130::PATROL);
 
 			enemy->Update();
 
 			if (enemy->GetCollider()->IsCollision(pacman->GetCollider())) {
-				pacman->Dead();
-				SetGameState(GAME_OVER);
+				if (pacman->IsSuper()) {
+					enemy->Destroy();
+				}
+				else {
+					pacman->Dead();
+					SetGameState(GAME_OVER);
+				}
 			}
 		}
 	}
@@ -89,7 +94,7 @@ void Scene0130::Render()
 	pacman->Render();
 
 	for (auto enemy : enemies) {
-		if(enemy->Active())
+		if (enemy->Active())
 			enemy->Render();
 	}
 }
@@ -116,7 +121,7 @@ void Scene0130::EnemyCallPath(void* caller)
 	auto enemy = (Enemy0130*)caller;
 	if (enemy == nullptr)
 		return;
-		
+
 	int curNode = astar->FindCloseNode(enemy->Pos());
 	int targetNode = astar->FindCloseNode(enemy->GetTargetPos());
 	if (targetNode == -1)

@@ -36,4 +36,3 @@ private:
 	vector<Enemy0130*> enemies;
 
 };
-

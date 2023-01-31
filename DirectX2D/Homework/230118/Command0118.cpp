@@ -20,8 +20,8 @@ void Command0118::SetCommand(string sign, vector<UINT>& keys)
 
 void Command0118::InputCommand(UINT in)
 {
-	if (head == (tail + 1) % inputs.size())
-		head = (head + 1) % inputs.size();
+	if (headClips == (tail + 1) % inputs.size())
+		headClips = (headClips + 1) % inputs.size();
 
 	inputs[tail] = in;
 	tail = (tail + 1) % inputs.size();
@@ -60,7 +60,7 @@ string Command0118::CheckCommand()
 void Command0118::PostRender()
 {
 	string s;
-	for (int i = head; i != tail; i = (i + 1) % inputs.size()) {
+	for (int i = headClips; i != tail; i = (i + 1) % inputs.size()) {
 		switch (inputs[i]) {
 		case VK_RIGHT:	s += ">";	break;
 		case VK_LEFT:	s += "<";	break;
@@ -80,8 +80,8 @@ int Command0118::InputsNum()
 {
 	int t = tail;
 
-	while (head > t)
+	while (headClips > t)
 		t += (int)inputs.size();
 
-	return t - head;
+	return t - headClips;
 }

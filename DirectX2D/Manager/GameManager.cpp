@@ -18,15 +18,16 @@
 //#include "Homework/230119/Scene0119.h"
 //#include "Homework/230120/Scene0120.h"
 //#include "Homework/230125/Scene0125.h"
-#include "Homework/230126/Scene0126.h"
-#include "Homework/230130/Scene0130.h"
+//#include "Homework/230126/Scene0126.h"
+//#include "Homework/230130/Scene0130.h"
+#include "Homework/230131/Scene0131.h"
 
 GameManager::GameManager()
 {
 	Create();
 	uiViewBuffer = new MatrixBuffer;
 
-	scene = new Scene0130();
+	scene = new Scene0131();
 }
 
 GameManager::~GameManager()

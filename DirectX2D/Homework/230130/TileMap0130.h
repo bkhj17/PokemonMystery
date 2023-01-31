@@ -13,23 +13,18 @@ public:
 	TileMap0130(string file);
 	~TileMap0130() = default;
 
-
 	virtual void PushObject(Collider* collider) override;
 	void ItemCollision(Collider* collider);
-	
+
 	virtual void GetNodes(vector<Node*>& nodes);
-	
+
 	virtual void Render() override;
-
-
-
 	virtual void UpdateWorld() override;
 
 	Vector2 GetTileSize() { return tileSize * Scale(); }
 
 	void SetPushEvent(Event event) { pushEvent = event; }
 	void SetWinEvent(Event event) { winEvent = event; }
-	void SetPowerEvent(Event event) { powerEvent = event; }
 private:
 	void SetUp();
 
@@ -41,8 +36,6 @@ private:
 
 	Event pushEvent;
 	Event winEvent;
-	Event powerEvent;
 
 	int numItem = 0;
 };
-

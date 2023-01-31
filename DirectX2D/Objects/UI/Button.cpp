@@ -65,6 +65,11 @@ void Button::Update()
 	}
 
 	UpdateWorld();
+}
+
+void Button::UpdateWorld()
+{
+	__super::UpdateWorld();
 	collider->UpdateWorld();
 }
 
@@ -76,4 +81,6 @@ void Button::Render()
 	colorBuffer->SetPS(0);
 
 	__super::Render();
+
+	collider->Render();
 }

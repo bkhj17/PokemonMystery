@@ -15,5 +15,7 @@ private:
 	GameTileMap* gameTileMap;
 	AStar* astar;
 	Tank* tank;
+
+	Isaac* isaac;
 };
 

@@ -16,6 +16,14 @@ AStar::~AStar()
 	delete heap;
 }
 
+void AStar::Update()
+{
+	if (KEY_DOWN(VK_RBUTTON))
+		for (Node* node : nodes)
+			if (node->collider->IsPointCollision(mousePos))
+				node->SetState(Node::OBSTACLE);
+}
+
 void AStar::Render()
 {
 	for (auto node : nodes)
@@ -27,6 +35,9 @@ int AStar::FindCloseNode(Vector2 pos)
 	float minCost = FLT_MAX;
 	int index = -1;
 	for (UINT i = 0; i < nodes.size(); i++) {
+		if (nodes[i]->state == Node::OBSTACLE)
+			continue;
+
 		float cost = Distance(nodes[i]->pos, pos);
 		if (minCost > cost) {
 			minCost = cost;
@@ -36,6 +47,23 @@ int AStar::FindCloseNode(Vector2 pos)
 
 	return index;
 }
+
+int AStar::FindRandomPos(Vector2 pos, float range)
+{
+	vector<Node*> findNodes;
+
+	for (Node* node : nodes) {
+		float distance = Distance(pos, node->pos);
+		if (distance < range && node->state != Node::OBSTACLE) {
+			findNodes.push_back(node);
+		}
+	}
+
+	Node* findNode = findNodes[Random(0, findNodes.size())];
+
+	return findNode->index;
+}
+
 
 void AStar::GetPath(IN int start, IN int end, OUT vector<Vector2>& path)
 {
@@ -65,13 +93,13 @@ void AStar::GetPath(IN int start, IN int end, OUT vector<Vector2>& path)
 	}
 
 	int curIndex = end;
-	while (curIndex != start) {
+	while (curIndex >= 0 && curIndex != nodes[curIndex]->via) {
 		nodes[curIndex]->state = Node::USING;
 		path.push_back(nodes[curIndex]->pos);
 		curIndex = nodes[curIndex]->via;
 	}
 
-	path.push_back(nodes[start]->pos);
+	//path.push_back(nodes[start]->pos);
 }
 
 void AStar::Reset()
@@ -175,24 +203,25 @@ void AStar::SetEdge(UINT width)
 			nodes[i + width]->AddEdge(nodes[i]);
 		}
 
+		if (isDiagonal) {
+			if ((i + 1) % width != 0 && i < nodes.size() - width) {
+				nodes[i]->AddEdge(nodes[i + width + 1]);
+				nodes[i + width + 1]->AddEdge(nodes[i]);
+			}
+
+			if (i % width != 0 && i < nodes.size() - width) {
+				nodes[i]->AddEdge(nodes[i + width - 1]);
+				nodes[i + width - 1]->AddEdge(nodes[i]);
+			}
+		}
 	}
 	
-	if(isDiagonal)
 		SetEdgeDiagonal(width);
 }
 
 void AStar::SetEdgeDiagonal(UINT width)
 {
 	for (int i = 0; i < nodes.size(); i++) {
-		if ((i + 1) % width != 0 && i < nodes.size() - width) {
-			nodes[i]->AddEdge(nodes[i + width + 1]);
-			nodes[i + width + 1]->AddEdge(nodes[i]);
-		}
-
-		if (i % width != 0 && i < nodes.size() - width) {
-			nodes[i]->AddEdge(nodes[i + width - 1]);
-			nodes[i + width - 1]->AddEdge(nodes[i]);
-		}
 	}
 
 }

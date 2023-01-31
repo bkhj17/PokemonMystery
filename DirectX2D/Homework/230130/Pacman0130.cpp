@@ -13,12 +13,14 @@ Pacman0130::Pacman0130()
 
 	colorBuffer = new ColorBuffer;
 	colorBuffer->Get() = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+	Observer::Get()->AddEvent("GainSuper", bind(&Pacman0130::GainSuper, this));
 }
 
 Pacman0130::~Pacman0130()
 {
 	delete collider;
-	for(auto& action : actions) 
+	for (auto& action : actions)
 		delete action.second;
 
 	delete colorBuffer;
@@ -33,9 +35,11 @@ void Pacman0130::Update()
 		else
 			SetAction(IDLE);
 	}
-	
+
 	if (superTime > 0.0f) {
 		superTime -= DELTA;
+		if (superTime <= 0.0f)
+			SetAction(IDLE);
 	}
 
 	Control();
@@ -47,9 +51,9 @@ void Pacman0130::Render()
 {
 	if (spawnTime > 0.0f)
 		return;
-	colorBuffer->SetPS(0);
 
 	SetRender();
+	colorBuffer->SetPS(0);
 	actions[curAction]->Render();
 }
 
@@ -67,11 +71,13 @@ void Pacman0130::SetPos(Vector2 pos)
 void Pacman0130::GainSuper()
 {
 	superTime = superRate;
+	SetAction(SUPER);
 }
 
 void Pacman0130::CreateActions()
 {
 	actions[IDLE] = new Action("Textures/Pacman/", "Idle.xml", true);
+	actions[SUPER] = new Action("Textures/Pacman/", "Idle.xml", true);
 	actions[DEAD] = new Action("Textures/Pacman/", "Dead.xml", false);
 	actions[DEAD]->SetEvent(bind(&Pacman0130::Dead, this));
 }
@@ -123,6 +129,20 @@ void Pacman0130::SetAction(ActionState state)
 {
 	if (curAction == state)
 		return;
+
+	switch (state)
+	{
+	case Pacman0130::IDLE:
+		colorBuffer->Get() = YELLOW;
+		break;
+	case Pacman0130::SUPER:
+		colorBuffer->Get() = RED;
+		break;
+	case Pacman0130::DEAD:
+		break;
+	default:
+		break;
+	}
 
 	curAction = state;
 	actions[curAction]->Start();

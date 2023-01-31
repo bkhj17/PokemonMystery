@@ -1,8 +1,7 @@
 #include "Framework.h"
-#include "Tank.h"
 
-Tank::Tank() 
-	: Quad(L"Textures/Shooting/Tank_Body.png")
+Tank::Tank()
+	: Quad(L"Textures/Shooting/Tank_Body.png"), astar(nullptr)
 {
 	collider = new RectCollider(texture->GetSize());
 	collider->SetTag("TankCollider");
@@ -11,19 +10,44 @@ Tank::Tank()
 
 	head = new Quad(L"Textures/Shooting/Tank_Head.png");
 	head->SetParent(this);
+
+	Observer::Get()->AddIntParamEvent("TankState", bind(&Tank::SetState, this, placeholders::_1));
+}
+
+Tank::Tank(AStar* astar)
+	: Quad(L"Textures/Shooting/Tank_Body.png"), astar(astar)
+{
+	CreateStates();
+	curState = states[PATROL];
+
+	collider = new RectCollider(texture->GetSize());
+	collider->SetTag("TankCollider");
+	collider->Load();
+	collider->SetParent(this);
+
+	head = new Quad(L"Textures/Shooting/Tank_Head.png");
+	head->SetParent(this);
+
+	Observer::Get()->AddIntParamEvent("TankState",
+		bind(&Tank::SetState, this, placeholders::_1));
 }
 
 Tank::~Tank()
 {
 	delete collider;
 	delete head;
+
+	for (auto& state : states)
+		delete state.second;
 }
 
 void Tank::Update()
 {
+	Action();
 	//Control();
-	HeadControl();
-	MovePath();
+	//HeadControl();
+	//MovePath();
+	curState->Update();
 
 	UpdateWorld();
 
@@ -46,6 +70,8 @@ void Tank::Render()
 	head->Render();
 
 	collider->Render();
+
+	curState->Render();
 }
 
 void Tank::PostRender()
@@ -53,21 +79,23 @@ void Tank::PostRender()
 	collider->RenderUI();
 }
 
-void Tank::Fire()
+void Tank::CreateStates()
 {
-	if (!isActive)
-		return;
+	auto patrol = new TankPatrol(this);
+	patrol->SetAStar(astar);
+	states[PATROL] = patrol;
 
-	Vector2 pos = GetFirePoint();
-	BulletManager::Get()->Fire(pos, head->Right(), shooterTag);
+	auto trace = new TankTrace(this);
+	trace->SetAStar(astar);
+	states[TRACE] = trace;
 }
 
-void Tank::Destroy()
+void Tank::SetState(int state)
 {
-	isActive = false;
-
-	if (destroyEvent)
-		destroyEvent();
+	if (curState != states[(State)state]) {
+		curState = states[(State)state];
+		curState->Start();
+	}
 }
 
 Vector2 Tank::GetFirePoint()
@@ -105,4 +133,21 @@ void Tank::MovePath()
 	if (direction.Length() < 5.0f)
 		path.pop_back();
 
+}
+
+void Tank::Fire()
+{
+	if (!isActive)
+		return;
+
+	Vector2 pos = GetFirePoint();
+	BulletManager::Get()->Fire(pos, head->Right(), shooterTag);
+}
+
+void Tank::Destroy()
+{
+	isActive = false;
+
+	if (destroyEvent)
+		destroyEvent();
 }

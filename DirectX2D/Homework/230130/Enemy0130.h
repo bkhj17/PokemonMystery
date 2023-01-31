@@ -43,5 +43,5 @@ private:
 	ActionState curAction = PATROL;
 	map<UINT, Action*> actions;
 
+	ColorBuffer* colorBuffer;
 };
-

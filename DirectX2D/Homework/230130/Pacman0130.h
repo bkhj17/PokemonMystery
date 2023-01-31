@@ -1,11 +1,10 @@
 #pragma once
 
-class TileMap0130;
 class Pacman0130 : public GameObject
 {
 private:
 	enum ActionState {
-		IDLE, DEAD
+		IDLE, SUPER, DEAD
 	};
 
 public:
@@ -25,6 +24,8 @@ public:
 
 	void GainSuper();
 	void Dead();
+
+	bool IsSuper() { return superTime > 0.0f; }
 private:
 	void CreateActions();
 
@@ -33,7 +34,6 @@ private:
 
 	void SetAction(ActionState state);
 
-	
 private:
 	RectCollider* collider;
 
@@ -57,4 +57,3 @@ private:
 
 	ColorBuffer* colorBuffer;
 };
-
