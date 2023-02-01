@@ -29,6 +29,12 @@ void VertexBuffer::Set(D3D11_PRIMITIVE_TOPOLOGY type)
 	DC->IASetPrimitiveTopology(type);
 }
 
+void VertexBuffer::Set(UINT slot, D3D11_PRIMITIVE_TOPOLOGY type)
+{
+	DC->IASetVertexBuffers(slot, 1, &buffer, &stride, &offset);
+	DC->IASetPrimitiveTopology(type);
+}
+
 void VertexBuffer::Update(void* data, UINT count)
 {
 	DC->UpdateSubresource(buffer, 0, nullptr, data, stride, count);

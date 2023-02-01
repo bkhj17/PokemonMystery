@@ -32,5 +32,7 @@ private:
 	string projectPath;
 
 	Tile::Type selectType = Tile::BG;
+
+	RenderTarget* renderTarget;
 };
 

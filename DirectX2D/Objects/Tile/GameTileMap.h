@@ -15,6 +15,9 @@ public:
 
 	UINT GetWidth() { return width; }
 	UINT GetHeight() { return height; }
+
+	Vector2 LeftBottom();
+	Vector2 RightTop();
 protected:
 	virtual void Load(string file);
 

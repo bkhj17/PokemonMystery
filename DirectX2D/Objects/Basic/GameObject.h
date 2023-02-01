@@ -5,13 +5,13 @@ public:
 	GameObject(wstring shaderFile = L"UV.hlsl");
 	virtual ~GameObject();
 
-	void SetRender();
+	virtual void SetRender();
 
+	void SetVertexShader(wstring shaderFile);
 	void SetPixelShader(wstring shaderFile);
 protected:
 	VertexShader* vertexShader;
 	PixelShader* pixelShader;
 	MatrixBuffer* worldBuffer;
-
 };
 

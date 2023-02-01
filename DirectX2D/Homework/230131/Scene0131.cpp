@@ -7,6 +7,7 @@ Scene0131::Scene0131()
 	windowManager = new WindowManager0131;
 
 	buttons.resize(5);
+
 	for (int i = 0; i < 5; i++) {
 		buttons[i] = new Button(Vector2(50.0f, 50.0f));
 		buttons[i]->SetTexture(Texture::Add(L"Textures/WindowTest/b1.png"));
@@ -25,9 +26,8 @@ void Scene0131::Update()
 {
 	windowManager->Update();
 
-	if (KEY_DOWN(VK_ESCAPE)) {
+	if (KEY_DOWN(VK_ESCAPE))
 		Observer::Get()->ExecuteEvent("CloseWindow");
-	}
 
 	for (auto button : buttons)
 		button->Update();

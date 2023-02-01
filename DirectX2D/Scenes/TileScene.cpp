@@ -4,9 +4,8 @@
 TileScene::TileScene()
 {
 	CreateSample();
-	editTileMap = new EditTileMap(25, 25);
+	editTileMap = new EditTileMap(30, 30);
 	editTileMap->Pos() = { 40, 40 };
-	editTileMap->Scale() *= 0.4f;
 
 	selectSample = new Quad(Vector2(SAMPLE_SIZE, SAMPLE_SIZE));
 
@@ -47,8 +46,6 @@ void TileScene::Update()
 	if (KEY_DOWN(VK_F2))
 		editTileMap->Load("Textures/Tile/Tile.map");
 
-
-
 	for (auto button : sampleBtns)
 		button->Update();
 
@@ -78,18 +75,18 @@ void TileScene::Update()
 
 void TileScene::Render()
 {
-	for (auto button : sampleBtns)
-		button->Render();
 
 	editTileMap->Render();
 
-	if (selectSample->GetTexture()) {
-		selectSample->Render();
-	}
 }
 
 void TileScene::PostRender()
 {
+	for (auto button : sampleBtns)
+		button->Render();
+
+	if (selectSample->GetTexture())
+		selectSample->Render();
 
 	const char* list[] = { "BG", "OBJ" };
 	ImGui::ListBox("Type", (int*)&selectType, list, 2);

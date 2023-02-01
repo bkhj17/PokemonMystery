@@ -13,7 +13,9 @@ public:
 	Vector2 Up() { return up.GetNormalized(); }
 	Vector2 Down() { return up.GetNormalized() * -1.0f; }
 
-	Vector2 GlobalPos() { return globalPosition; }
+	Vector2 GlobalPos() { 
+		return globalPosition; 
+	}
 	Vector2 GlobalScale() { return globalScale; }
 
 	bool Active();
@@ -26,8 +28,10 @@ public:
 	Float3& Rot() { return localRotation; }
 	Vector2& Scale() { return localScale; }
 
-	void SetParent(Transform* transform) { parent = transform; }
 	Transform* GetParent();
+	Matrix GetWorld() { return world; }
+
+	void SetParent(Transform* transform) { parent = transform; }
 	void SetPivot(Vector2 pivot) { this->pivot = pivot; }
 
 	void Load();

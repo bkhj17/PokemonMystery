@@ -9,8 +9,10 @@
 //#include "Scenes/PuzzleScene.h"
 //#include "Scenes/RenderTargetScene.h"
 #include "Scenes/TileScene.h"
-#include "Scenes/TankScene.h"
-#include "Scenes/DijkstraScene.h"
+//#include "Scenes/TankScene.h"
+//#include "Scenes/DijkstraScene.h"
+#include "Scenes/UIScene.h"
+#include "Scenes/InstancingScene.h"
 //#include "Homework/230112/Scene0112.h"
 //#include "Homework/230113/Scene0113.h"
 //#include "Homework/230116/Scene0116.h"
@@ -27,7 +29,7 @@ GameManager::GameManager()
 	Create();
 	uiViewBuffer = new MatrixBuffer;
 
-	scene = new Scene0131();
+	scene = new InstancingScene();
 }
 
 GameManager::~GameManager()
@@ -62,7 +64,6 @@ void GameManager::Render()
 	Environment::Get()->SetViewport();
 	Environment::Get()->SetProjection();
 
-	uiViewBuffer->SetVS(1);
 	scene->Render();
 
 	ImGui_ImplDX11_NewFrame();
@@ -74,6 +75,7 @@ void GameManager::Render()
 
 	CAM->RenderUI();
 
+	uiViewBuffer->SetVS(1);
 	scene->PostRender();
 
 	ImGui::Render();

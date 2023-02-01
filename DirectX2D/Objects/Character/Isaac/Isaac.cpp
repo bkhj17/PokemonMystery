@@ -15,7 +15,6 @@ Isaac::Isaac()
 	body->SetParent(this);
 	body->SetClip((int)Direction::DOWN);
 	body->Pos().y = -5.0f;
-
 }
 
 Isaac::~Isaac()
@@ -108,7 +107,6 @@ void Isaac::CreateClips()
 	//Body//////////////////////////////////////////////////////////////////////////////////////////////////////
 	textureFile = L"Textures/Shooting/Isaac_Body.png";
 	cutSize = Texture::Add(textureFile)->GetSize() / Vector2(8.0f, 4.0f);
-
 
 	//UP;
 	frames.push_back(new Frame(textureFile, cutSize.x * 1, cutSize.y * 2, cutSize.x, cutSize.y));

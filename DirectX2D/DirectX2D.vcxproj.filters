@@ -393,6 +393,18 @@
     <ClInclude Include="Homework\230131\Scene0131.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Scenes\UIScene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\UI\Panel.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Manager\UIManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\InstancingScene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectX2D.cpp">
@@ -749,6 +761,18 @@
     <ClCompile Include="Homework\230131\Scene0131.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Scenes\UIScene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\UI\Panel.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Manager\UIManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\InstancingScene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX2D.rc">
@@ -777,5 +801,7 @@
     <FxCompile Include="Shaders\PixelLight.hlsl" />
     <FxCompile Include="Shaders\PixelProgress0120.hlsl" />
     <FxCompile Include="Shaders\PixelOutline.hlsl" />
+    <FxCompile Include="Shaders\VertexInstancing.hlsl" />
+    <FxCompile Include="Shaders\PixelInstancing.hlsl" />
   </ItemGroup>
 </Project>

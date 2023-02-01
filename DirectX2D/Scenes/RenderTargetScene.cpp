@@ -30,7 +30,7 @@ RenderTargetScene::RenderTargetScene()
 	renderTexture->Pos() = { CENTER_X / 2 * 3, CENTER_Y};
 	renderTexture->UpdateWorld();
 	renderTexture->SetTexture(texture);
-	renderTexture->SetPixelShader(L"Light.hlsl");
+	//renderTexture->SetPixelShader(L"Light.hlsl");
 	renderTextures.push_back(renderTexture);
 
 	intValueBuffer = new IntValueBuffer();
@@ -92,6 +92,7 @@ void RenderTargetScene::Update()
 	lightBuffer->Get()[1] = planePos.y;
 	lightBuffer->Get()[2] = ninjaPos.x;
 	lightBuffer->Get()[3] = ninjaPos.y;
+
 }
 
 void RenderTargetScene::PreRender()

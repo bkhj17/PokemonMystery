@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Scenes\InstancingScene.h" />
     <ClInclude Include="Objects\Basic\AnimObject.h" />
     <ClInclude Include="Homework\230130\Enemy0130.h" />
     <ClInclude Include="Objects\Character\Isaac\Isaac.h" />
@@ -154,6 +155,7 @@
     <ClInclude Include="Homework\230130\Scene0130.h" />
     <ClInclude Include="Homework\230130\Pacman0130.h" />
     <ClInclude Include="Homework\230131\Scene0131.h" />
+    <ClInclude Include="Objects\UI\Panel.h" />
     <ClInclude Include="Scenes\DijkstraScene.h" />
     <ClInclude Include="Framework\Utilities\BinaryReader.h" />
     <ClInclude Include="Framework\Utilities\BinaryWriter.h" />
@@ -267,8 +269,11 @@
     <ClInclude Include="Homework\230130\TileMap0130.h" />
     <ClInclude Include="Homework\230131\Window0131.h" />
     <ClInclude Include="Homework\230131\WindowManager0131.h" />
+    <ClInclude Include="Scenes\UIScene.h" />
+    <ClInclude Include="Objects\Manager\UIManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Scenes\InstancingScene.cpp" />
     <ClCompile Include="Objects\Basic\AnimObject.cpp" />
     <ClCompile Include="Homework\230130\Enemy0130.cpp" />
     <ClCompile Include="Objects\Character\Isaac\Isaac.cpp" />
@@ -282,6 +287,7 @@
     <ClCompile Include="Homework\230130\Scene0130.cpp" />
     <ClCompile Include="Homework\230130\Pacman0130.cpp" />
     <ClCompile Include="Homework\230131\Scene0131.cpp" />
+    <ClCompile Include="Objects\UI\Panel.cpp" />
     <ClCompile Include="Scenes\DijkstraScene.cpp" />
     <ClCompile Include="Framework\Utilities\BinaryReader.cpp" />
     <ClCompile Include="Framework\Utilities\BinaryWriter.cpp" />
@@ -389,6 +395,8 @@
     <ClCompile Include="Homework\230130\TileMap0130.cpp" />
     <ClCompile Include="Homework\230131\Window0131.cpp" />
     <ClCompile Include="Homework\230131\WindowManager0131.cpp" />
+    <ClCompile Include="Scenes\UIScene.cpp" />
+    <ClCompile Include="Objects\Manager\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX2D.rc" />
@@ -405,6 +413,12 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Shaders\PixelFilter.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shaders\PixelInstancing.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
@@ -466,6 +480,13 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Shaders\VertexInstancing.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
     </FxCompile>
     <FxCompile Include="Shaders\VertexPos.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>

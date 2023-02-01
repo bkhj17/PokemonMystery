@@ -44,7 +44,7 @@ void Transform::RenderUI()
 		string temp = tag + "_Pos";
 
 		float* f = (float*)&localPosition;
-		ImGui::DragFloat2(temp.c_str(), (float*)&localPosition, 1.0f);
+		ImGui::DragFloat2(temp.c_str(), f, 1.0f);
 
 		temp = tag + "_Rot";
 		Float3 rot = {};

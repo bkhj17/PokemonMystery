@@ -61,6 +61,7 @@
 #include <deque>
 #include <set>
 #include <map>
+#include <list>
 #include <unordered_set>
 #include <unordered_map>
 #include <algorithm>
@@ -166,6 +167,7 @@ using namespace GameMath;
 #include "Objects/Basic/AnimObject.h"
 
 #include "Objects/UI/Button.h"
+#include "Objects/UI/Panel.h"
 
 #include "Objects/Algorithm/DNode.h"
 #include "Objects/Algorithm/Dijkstra.h"
@@ -183,6 +185,7 @@ using namespace GameMath;
 
 #include "Objects/Manager/EffectManager.h"
 #include "Objects/Manager/CommandManager.h"
+#include "Objects/Manager/UIManager.h"
 
 #include "Objects/Shooting/Plane.h"
 #include "Objects/Shooting/Bullet.h"

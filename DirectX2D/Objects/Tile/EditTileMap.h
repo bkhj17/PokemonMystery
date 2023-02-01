@@ -25,5 +25,7 @@ private:
 	deque<Tile*> objTiles;
 
 	Vector2 tileSize;
+
+	Vector2 clickedPos;
 };
 

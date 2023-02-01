@@ -78,9 +78,21 @@ void GameTileMap::GetNodes(vector<Node*>& nodes)
 	}
 }
 
+Vector2 GameTileMap::LeftBottom()
+{
+	return Pos() - tileSize * 0.5f;
+}
+
+Vector2 GameTileMap::RightTop()
+{
+	return LeftBottom() + Vector2(width, height) * tileSize;
+}
+
 void GameTileMap::Load(string file)
 {
 	BinaryReader* reader = new BinaryReader(file);
+	if (reader->IsFailed())
+		return;
 
 	width = reader->UInt();
 	height = reader->UInt();
@@ -119,7 +131,6 @@ void GameTileMap::Load(string file)
 	}
 
 	delete reader;
-
 
 	tileSize = bgTiles[0]->GetSize();
 }

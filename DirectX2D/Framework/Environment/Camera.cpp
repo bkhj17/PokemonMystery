@@ -53,7 +53,6 @@ void Camera::FreeMode()
 			Pos().x -= speed * DELTA;
 	}
 	FixPosition(localPosition);
-
 }
 
 void Camera::FollowMode()

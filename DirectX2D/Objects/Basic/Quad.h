@@ -7,6 +7,8 @@ public:
 
 	virtual void Render();
 
+	virtual void SetRender();
+
 	void SetTexture(wstring file);
 	void SetTexture(Texture* texture) { this->texture = texture; }
 

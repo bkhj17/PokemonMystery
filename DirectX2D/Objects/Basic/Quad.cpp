@@ -29,7 +29,14 @@ void Quad::Render()
 	if (!isActive)
 		return;
 
-	if(texture != nullptr)
+	SetRender();
+
+	DC->DrawIndexed((UINT)indices.size(), 0, 0);
+}
+
+void Quad::SetRender()
+{
+	if (texture != nullptr)
 		texture->PSSet();
 
 	vertexBuffer->Set();
@@ -37,9 +44,7 @@ void Quad::Render()
 
 	colorBuffer->SetPS(0);
 
-	SetRender();
-
-	DC->DrawIndexed((UINT)indices.size(), 0, 0);
+	GameObject::SetRender();
 }
 
 void Quad::SetTexture(wstring file)

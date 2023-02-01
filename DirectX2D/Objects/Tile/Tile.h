@@ -18,6 +18,8 @@ public:
 	Tile(Data data);
 	~Tile();
 
+	void Update() override;
+
 	void SetTexture(wstring file);
 	void SetAngle(float angle);
 

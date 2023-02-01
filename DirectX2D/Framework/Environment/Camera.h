@@ -15,7 +15,9 @@ public:
     void SetTarget(Transform* target) { this->target = target; }
     void SetOffset(float x, float y) { targetOffset = { x, y }; }
     void SetLeftBottom(float x, float y) { leftBottom = { x, y }; }
+    void SetLeftBottom(Vector2 pos) { leftBottom = pos; }
     void SetRightTop(float x, float y) { rightTop = { x, y }; }
+    void SetRightTop(Vector2 pos) { rightTop = pos; }
 
     void SetDeviceSize(float x, float y) { deviceSize = { x, y }; }
 
@@ -31,7 +33,7 @@ private:
     MatrixBuffer* viewBuffer;
     Matrix view;
 
-    float speed = 100.0f;
+    float speed = 300.0f;
 
     Transform* target = nullptr;
 

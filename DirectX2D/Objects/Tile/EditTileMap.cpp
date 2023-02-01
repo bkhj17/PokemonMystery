@@ -4,6 +4,11 @@ EditTileMap::EditTileMap(UINT width, UINT height)
 	: width(width), height(height)
 {
 	CreateTile();
+
+	Vector2 rightTop(width * tileSize.x, height * tileSize.y);
+	rightTop += {80.0f, 80.0f};
+
+	CAM->SetRightTop(rightTop + tileSize * 10);
 }
 
 EditTileMap::~EditTileMap()
@@ -17,17 +22,22 @@ EditTileMap::~EditTileMap()
 
 void EditTileMap::Update()
 {
+	clickedPos = CAM->ScreenToWorld(mousePos);
+
+
 	for (auto tile : bgTiles)
 		tile->Update();
 
 	for (auto tile : objTiles)
 		tile->Update();
 
+
 	UpdateWorld();
 }
 
 void EditTileMap::Render()
 {
+
 	for (auto tile : bgTiles)
 		tile->Render();
 
@@ -169,7 +179,7 @@ void EditTileMap::SetBGTile(wstring file, float angle)
 {
 	for (Tile* tile : bgTiles)
 	{
-		if (tile->GetCollider()->IsPointCollision(mousePos))
+		if (tile->GetCollider()->IsPointCollision(clickedPos))
 		{
 			tile->SetTexture(file);
 			tile->SetAngle(angle);
@@ -183,7 +193,7 @@ void EditTileMap::SetOBJTile(wstring file, float angle)
 
 	for (Tile* tile : bgTiles)
 	{
-		if (tile->GetCollider()->IsPointCollision(mousePos))
+		if (tile->GetCollider()->IsPointCollision(clickedPos))
 		{
 			Tile::Data data = tile->GetData();
 			data.textureFile = file;

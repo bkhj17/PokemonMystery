@@ -24,7 +24,7 @@ public:
 	void SetObject(void * object) { this->object = object; }
 
 	RectCollider* GetCollider() { return collider; }
-private:
+protected:
 	RectCollider* collider;
 
 	State state = NONE;

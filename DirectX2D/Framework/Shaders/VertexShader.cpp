@@ -95,6 +95,14 @@ void VertexShader::CreateInputLayout()
 		if (temp == "POSITION")
 			elementDesc.Format = DXGI_FORMAT_R32G32B32_FLOAT;
 
+		int n = temp.find_first_of('_');
+
+		if (temp.substr(0, n) == "INSTANCE") {
+			elementDesc.InputSlot = 1;
+			elementDesc.InputSlotClass = D3D11_INPUT_PER_INSTANCE_DATA;
+			elementDesc.InstanceDataStepRate = 1;
+		}
+
 		inputLayouts.push_back(elementDesc);
 	}
 
