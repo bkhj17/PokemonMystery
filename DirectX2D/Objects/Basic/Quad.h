@@ -12,13 +12,16 @@ public:
 	void SetTexture(wstring file);
 	void SetTexture(Texture* texture) { this->texture = texture; }
 
-	Vector2 GetSize() { return size; }
 	Vector2 Half() { return size * 0.5f; }
 
 	Float4& GetColor() { return colorBuffer->Get(); }
 	Texture* GetTexture() { return texture; }
+
+	void ModifyUV(Vector2 startUV, Vector2 endUV);
 private:
 	void CreateMesh(Vector2 size, Vector2 startUV, Vector2 endUV);
+
+protected:
 
 protected:
 	VertexBuffer* vertexBuffer;
@@ -30,6 +33,4 @@ protected:
 
 	vector<Vertex> vertices;
 	vector<UINT> indices;
-
-	Vector2 size;
 };

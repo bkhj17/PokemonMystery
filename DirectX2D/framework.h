@@ -8,7 +8,7 @@
 #define WIN32_LEAN_AND_MEAN             // 거의 사용되지 않는 내용을 Windows 헤더에서 제외합니다.
 
 //사용자 정의 상수
-#define WIN_WIDTH	1700
+#define WIN_WIDTH	1280
 #define WIN_HEIGHT	720
 
 #define WIN_START_X 100

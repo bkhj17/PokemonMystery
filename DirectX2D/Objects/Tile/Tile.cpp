@@ -8,8 +8,12 @@ Tile::Tile(Data data)
 	localRotation.z = data.angle;
 }
 
-Tile::~Tile()
+Tile::Tile(Data data, Vector2 size)
+	: Button(size), data(data)
 {
+	SetTexture(data.textureFile);
+	localPosition = data.pos;
+	localRotation.z = data.angle;
 }
 
 void Tile::Update()
@@ -34,4 +38,21 @@ void Tile::SetTexture(wstring file)
 void Tile::SetAngle(float angle)
 {
 	data.angle = localRotation.z = angle;
+}
+
+void Tile::PushRect(RectCollider* collider)
+{
+	Vector2 overlap = {};
+	if (collider->IsRectCollision(this->collider, &overlap)) {
+		if (overlap.x > overlap.y) {
+			bool isUp = collider->GetParent()->GlobalPos().y > GlobalPos().y;
+			collider->GetParent()->Pos().y += isUp ? overlap.y : -overlap.y;
+		}
+		else {
+			bool isRight = collider->GetParent()->GlobalPos().x > GlobalPos().x;
+			collider->GetParent()->Pos().x += isRight ? overlap.x : -overlap.x;
+		}
+
+		collider->GetParent()->UpdateWorld();
+	}
 }

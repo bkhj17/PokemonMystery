@@ -2,6 +2,7 @@
 class EditTileMap : public Transform
 {
 public:
+public:
 	EditTileMap(UINT width, UINT height);
 	~EditTileMap();
 
@@ -13,11 +14,14 @@ public:
 
 	void Save(string file);
 	void Load(string file);
+
+	void SetBGUV(Vector2 startUV, Vector2 endUV);
 private:
 	void CreateTile();
 
 	void SetBGTile(wstring file, float angle);
 	void SetOBJTile(wstring file, float angle);
+
 private:
 	UINT width, height;
 

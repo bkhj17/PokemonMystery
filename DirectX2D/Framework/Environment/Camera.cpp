@@ -40,6 +40,21 @@ Vector2 Camera::WorldToScreen(Vector2 pos)
 	return pos * view;
 }
 
+bool Camera::ContainFrustum(Vector2 pos, Vector2 size)
+{
+	float left = pos.x - size.x * 0.5f;
+	float right = pos.x + size.x * 0.5f;
+	float top = pos.y + size.y * 0.5f;
+	float bottom = pos.y - size.y * 0.5f;
+
+	if (Pos().x < right && Pos().x + deviceSize.x > left) {
+		if (Pos().y < top && Pos().y + deviceSize.y > bottom)
+			return true;
+	}
+
+	return false;
+}
+
 void Camera::FreeMode()
 {
 	if (KEY_PRESS(VK_RBUTTON)) {

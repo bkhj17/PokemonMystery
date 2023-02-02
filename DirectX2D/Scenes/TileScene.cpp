@@ -3,11 +3,19 @@
 
 TileScene::TileScene()
 {
-	CreateSample();
+	float x = 0.33f;
+	float y = 1.0f / 24.0f;
+	sampleStartUV = { x, y * 4.0f };
+	sampleEndUV = { x * 2.0f, y * 5.0f };
+
+	CreateSample(L"Textures/pokemon/TinyWood/");
 	editTileMap = new EditTileMap(30, 30);
 	editTileMap->Pos() = { 40, 40 };
 
+	editTileMap->SetBGUV(sampleStartUV, sampleEndUV);
+
 	selectSample = new Quad(Vector2(SAMPLE_SIZE, SAMPLE_SIZE));
+	selectSample->ModifyUV(sampleStartUV, sampleEndUV);
 
 	char path[128];
 	GetCurrentDirectoryA(sizeof(path), path);
@@ -28,7 +36,12 @@ void TileScene::Update()
 	//ImGui 창에 마우스가 안 올라갔다
 	if (!ImGui::GetIO().WantCaptureMouse) {
 		if (KEY_PRESS(VK_LBUTTON)) {
-			if (selectSample->GetTexture())
+			bool sampleClicked = false;
+			for (auto sampleBtn : sampleBtns)
+				sampleClicked |= (sampleBtn->GetCollider()->IsPointCollision(mousePos));
+			
+
+			if (!sampleClicked && selectSample->GetTexture())
 				editTileMap->ClickTile(selectSample, selectType);
 		}
 		if (KEY_DOWN(VK_RBUTTON)) {
@@ -36,10 +49,11 @@ void TileScene::Update()
 		}
 	}
 
-
 	if (KEY_PRESS(VK_SPACE))
 		selectSample->SetTexture(nullptr);
 	
+
+	//9 * 8 카메라
 
 	if (KEY_DOWN(VK_F1))
 		editTileMap->Save("Textures/Tile/Tile.map");
@@ -69,8 +83,6 @@ void TileScene::Update()
 		selectSample->Pos() = mousePos;
 		selectSample->UpdateWorld();
 	}
-
-
 }
 
 void TileScene::Render()
@@ -103,10 +115,12 @@ void TileScene::ClickSampleBtn(void* sampleBtn)
 		selectSample->SetTexture(button->GetTexture());
 }
 
-void TileScene::CreateSample()
+void TileScene::CreateSample(wstring path)
 {
 	WIN32_FIND_DATA findData;
-	HANDLE handle = FindFirstFile(L"Textures/Tile/*png", &findData);
+
+	wstring fileSet = path + +L"*png";
+	HANDLE handle = FindFirstFile(fileSet.c_str(), &findData);
 
 	bool result = true;
 	wstring fileName;
@@ -116,7 +130,7 @@ void TileScene::CreateSample()
 	Vector2 startPos(WIN_WIDTH - size.x, WIN_HEIGHT - size.y);
 
 	while (result) {
-		fileName = L"Textures/Tile/";
+		fileName = path;
 		fileName += findData.cFileName;
 		result = FindNextFile(handle, &findData);
 
@@ -125,6 +139,7 @@ void TileScene::CreateSample()
 
 		Button* button = new Button(size);
 		button->SetTexture(Texture::Add(fileName));
+		button->ModifyUV(sampleStartUV, sampleEndUV);
 		button->Pos() = startPos - (pos * size);
 		button->SetParamEvent(bind(&TileScene::ClickSampleBtn, this, placeholders::_1));
 		button->SetObject(button);

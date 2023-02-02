@@ -3,9 +3,11 @@
 class GameTileMap : public Transform
 {
 public:
+	GameTileMap() {};
 	GameTileMap(string file);
 	virtual ~GameTileMap();
 
+	virtual void UpdateWorld() override;
 	virtual void Render();
 
 	virtual void PushObject(Collider* collider);
@@ -22,7 +24,7 @@ protected:
 	virtual void Load(string file);
 
 protected:
-	UINT width, height;
+	UINT width = 0, height = 0;
 
 	Vector2 tileSize;
 

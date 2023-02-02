@@ -24,7 +24,6 @@ void EditTileMap::Update()
 {
 	clickedPos = CAM->ScreenToWorld(mousePos);
 
-
 	for (auto tile : bgTiles)
 		tile->Update();
 
@@ -151,6 +150,13 @@ void EditTileMap::Load(string file)
 	}
 
 	delete reader;
+}
+
+void EditTileMap::SetBGUV(Vector2 startUV, Vector2 endUV)
+{
+	for (auto tile : bgTiles) {
+		tile->ModifyUV(startUV, endUV);
+	}
 }
 
 void EditTileMap::CreateTile()

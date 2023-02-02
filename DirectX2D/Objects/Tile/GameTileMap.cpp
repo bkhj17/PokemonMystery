@@ -1,13 +1,10 @@
 #include "Framework.h"
-#include "GameTileMap.h"
 
 GameTileMap::GameTileMap(string file)
 {
-	Pos() = { 80.0f, 80.0f };
 	UpdateWorld();
 
 	Load(file);
-
 }
 
 GameTileMap::~GameTileMap()
@@ -17,6 +14,15 @@ GameTileMap::~GameTileMap()
 
 	for (auto tile : objTiles)
 		delete tile;
+}
+
+void GameTileMap::UpdateWorld()
+{
+	__super::UpdateWorld();
+	for (auto tile : bgTiles)
+		tile->UpdateWorld();
+	for (auto tile : objTiles)
+		tile->UpdateWorld();
 }
 
 void GameTileMap::Render()
@@ -38,26 +44,7 @@ void GameTileMap::PushRect(RectCollider* collider)
 {
 	Vector2 overlap;
 	for (Tile* tile : objTiles) {
-		Vector2 overlap = {};
-		if (collider->IsRectCollision(tile->GetCollider(), &overlap)) {
-			if (overlap.x > overlap.y) {
-				if (collider->GlobalPos().y > tile->GlobalPos().y) {
-					collider->Pos().y += overlap.y;
-					
-				}
-				else  {
-					collider->Pos().y -= overlap.y;
-				}
-			}
-			else {
-				if (collider->GlobalPos().x > tile->GlobalPos().x)
-					collider->Pos().x += overlap.x;
-				else
-					collider->Pos().x -= overlap.x;
-			}
-
-			collider->UpdateWorld();
-		}
+		tile->PushRect(collider);
 	}
 }
 

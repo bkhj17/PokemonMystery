@@ -1,8 +1,8 @@
 #include "Framework.h"
 
 Quad::Quad(Vector2 size, Vector2 pos)
-	: size(size)
 {
+	this->size = size;
 	CreateMesh(size, {}, {1.0f, 1.0f});
 
 	colorBuffer = new ColorBuffer();
@@ -30,7 +30,6 @@ void Quad::Render()
 		return;
 
 	SetRender();
-
 	DC->DrawIndexed((UINT)indices.size(), 0, 0);
 }
 
@@ -68,5 +67,14 @@ void Quad::CreateMesh(Vector2 size, Vector2 startUV, Vector2 endUV)
 
 	vertexBuffer = new VertexBuffer(vertices.data(), sizeof(Vertex), (UINT)vertices.size());
 	indexBuffer = new IndexBuffer(indices.data(), (UINT)indices.size());
+}
 
+void Quad::ModifyUV(Vector2 startUV, Vector2 endUV)
+{
+	vertices[0].uv = { startUV.x, startUV.y };
+	vertices[1].uv = { endUV.x, startUV.y };
+	vertices[2].uv = { startUV.x, endUV.y };
+	vertices[3].uv = { endUV.x, endUV.y };
+
+	vertexBuffer->Update(vertices.data(), (UINT)vertices.size());
 }

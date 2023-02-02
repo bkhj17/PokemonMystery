@@ -16,7 +16,8 @@ public:
 
 public:
 	Tile(Data data);
-	~Tile();
+	Tile(Data data, Vector2 size);
+	~Tile() = default;
 
 	void Update() override;
 
@@ -24,6 +25,8 @@ public:
 	void SetAngle(float angle);
 
 	Data& GetData() { return data; }
+
+	void PushRect(RectCollider* collider);
 private:
 	Data data;
 };

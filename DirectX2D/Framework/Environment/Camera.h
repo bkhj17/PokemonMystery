@@ -23,6 +23,8 @@ public:
 
     Vector2 ScreenToWorld(Vector2 pos);
     Vector2 WorldToScreen(Vector2 pos);
+
+    bool ContainFrustum(Vector2 pos, Vector2 size);
 private:
 
     void FreeMode();

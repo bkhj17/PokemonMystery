@@ -18,7 +18,7 @@ public:
 private:
 	void ClickSampleBtn(void* sampleBtn);
 
-	void CreateSample();
+	void CreateSample(wstring path);
 
 	void Save();
 	void Load();
@@ -28,10 +28,13 @@ private:
 	EditTileMap* editTileMap;
 
 	Quad* selectSample = nullptr;
+	Vector2 sampleStartUV;
+	Vector2 sampleEndUV;
 
 	string projectPath;
 
 	Tile::Type selectType = Tile::BG;
+
 
 	RenderTarget* renderTarget;
 };
