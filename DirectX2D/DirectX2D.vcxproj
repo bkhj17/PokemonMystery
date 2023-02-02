@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="_Pokemon\DungeonTileMap.h" />
     <ClInclude Include="Scenes\InstancingScene.h" />
     <ClInclude Include="Objects\Basic\AnimObject.h" />
     <ClInclude Include="Homework\230130\Enemy0130.h" />
@@ -273,6 +274,7 @@
     <ClInclude Include="Objects\Manager\UIManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="_Pokemon\DungeonTileMap.cpp" />
     <ClCompile Include="Scenes\InstancingScene.cpp" />
     <ClCompile Include="Objects\Basic\AnimObject.cpp" />
     <ClCompile Include="Homework\230130\Enemy0130.cpp" />
