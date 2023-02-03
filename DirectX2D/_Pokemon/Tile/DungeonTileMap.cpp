@@ -46,13 +46,8 @@ void DungeonTileMap::UpdateWorld()
 	for (int i = 0; i < bgTiles.size(); i++) {
 		auto tile = (DungeonBgTile*)bgTiles[i];
 		tile->GetGridFlag();
-		Transform transform;
 
-		transform.Pos() = bgTiles[i]->GlobalPos();
-		transform.Scale() = Scale();
-		transform.UpdateWorld();
-		instances[i].transform = XMMatrixTranspose(transform.GetWorld());
-
+		instances[i].transform = DirectX::XMMatrixTranspose(tile->GetWorld());
 		instances[i].curFrame = BgTileManager::Get()->GetGrid(tile->GetGridFlag());
 
 		UINT type = BgTileManager::Get()->GetTileType(bgTiles[i]->GetTexture());
