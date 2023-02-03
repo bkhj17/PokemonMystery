@@ -9,24 +9,70 @@ DungeonTileMap::DungeonTileMap(string file)
 	tileSize = { 100, 100 };
 	Pos() = tileSize * 0.5f;
 	Load(file);
-	UpdateWorld();
 
-    for (int y = 0; y < height; y++)
-        for (int x = 0; x < width; x++)
-            SetGrid(x, y);
+	for (int y = 0; y < height; y++)
+		for (int x = 0; x < width; x++)
+			SetGrid(x, y);
+
+	Vector2 maxFrame = BgTileManager::Get()->GRID_SIZE;
+	quad = new Quad(BgTileManager::Get()->GetWallTexture()->GetFile(), Vector2(), Vector2(1, 1) / maxFrame);
+	quad->SetSize(tileSize);
+
+	quad->SetVertexShader(L"DungeonTile.hlsl");
+	quad->SetPixelShader(L"DungeonTile.hlsl");
+
+	instances.resize(width * height);
+	instanceBuffer = new VertexBuffer(instances.data(), sizeof(TileInstanceData), instances.size());
+	for (int i = 0; i < bgTiles.size(); i++) {
+		instances[i].maxFrame = maxFrame;
+	}
+	instanceBuffer->Update(instances.data(), instances.size());
+	UpdateWorld();
 
 	astar = new DungeonAStar(this);
 }
 
 DungeonTileMap::~DungeonTileMap()
 {
+	delete instanceBuffer;
+	delete quad;
 	delete astar;
+}
+
+void DungeonTileMap::UpdateWorld()
+{
+	__super::UpdateWorld();
+	//카메라 움직일 때만 해야 함. 안 그러면 의미 없음
+	for (int i = 0; i < bgTiles.size(); i++) {
+		auto tile = (DungeonBgTile*)bgTiles[i];
+		tile->GetGridFlag();
+		Transform transform;
+
+		transform.Pos() = bgTiles[i]->GlobalPos();
+		transform.Scale() = Scale();
+		transform.UpdateWorld();
+		instances[i].transform = XMMatrixTranspose(transform.GetWorld());
+
+		instances[i].curFrame = BgTileManager::Get()->GetGrid(tile->GetGridFlag());
+
+		UINT type = BgTileManager::Get()->GetTileType(bgTiles[i]->GetTexture());
+		instances[i].tileType = (int)type;
+	}
+	instanceBuffer->Update(instances.data(), instances.size());
 }
 
 void DungeonTileMap::Render()
 {
-	__super::Render();
-	astar->Render();
+	//__super::Render();
+	//astar->Render();
+
+	Vector2 maxFrame = BgTileManager::Get()->GRID_SIZE;
+
+	instanceBuffer->Set(1);
+	quad->SetRender();
+	BgTileManager::Get()->GetLandTexture()->PSSet(1);
+	BgTileManager::Get()->GetWaterTexture()->PSSet(2);
+	DC->DrawIndexedInstanced(6, instances.size(), 0, 0, 0);
 }
 
 void DungeonTileMap::GetNodes(vector<Node*>& nodes)
@@ -127,8 +173,8 @@ void DungeonTileMap::Load(string file)
 		data.angle = reader->Float();
 		data.type = (Tile::Type)reader->Int();
 
-		tile = new DungeonBgTile(data);
-		tile->SetSize(tileSize);
+		tile = new DungeonBgTile(data, tileSize);
+		
 		tile->SetParent(this);
 		tile->UpdateWorld();
 	}

@@ -15,7 +15,7 @@ public:
 		ALL			= 0xFF
 	};
 
-	enum TileType {
+	enum TileType : int {
 		INVALID, WALL, WATER, LAND
 	};
 	const POINT GRID_SIZE = { 3, 24 };
@@ -33,6 +33,12 @@ public:
 	TileType GetTileType(Texture* texture);
 
 	bool CheckMovable(int tileFlag, int dirX, int dirY);
+
+	Texture* GetWallTexture() { return wallTexture; }
+	Texture* GetLandTexture() { return landTexture; }
+	Texture* GetWaterTexture() { return waterTexture; }
+
+
 private:
 	void InitVCheck();
 	void InitRoomCheck();

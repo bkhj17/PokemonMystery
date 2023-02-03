@@ -158,7 +158,7 @@ BgTileManager::TileType BgTileManager::GetTileType(Texture* texture)
     if (texture == landTexture)
         return LAND;
 
-    return INVALID;
+    return WALL;
 }
 
 bool BgTileManager::CheckMovable(int tileFlag, int dirX, int dirY)
@@ -193,7 +193,7 @@ bool BgTileManager::CheckMovable(int tileFlag, int dirX, int dirY)
     {
     case BgTileManager::LEFT_UP:    return (tileFlag & (LEFT_UP | LEFT | UP)) == (LEFT_UP | LEFT | UP);
     case BgTileManager::UP:         return (tileFlag & UP) == UP;
-    case BgTileManager::RIGHT_UP:   return (tileFlag & (LEFT_UP | LEFT | UP)) == (LEFT_UP | LEFT | UP);
+    case BgTileManager::RIGHT_UP:   return (tileFlag & (RIGHT_UP | RIGHT | UP)) == (RIGHT_UP | RIGHT | UP);
     case BgTileManager::LEFT:       return (tileFlag & LEFT) == LEFT;
     case BgTileManager::RIGHT:      return (tileFlag & RIGHT) == RIGHT;
     case BgTileManager::LEFT_DOWN:  return (tileFlag & (LEFT_DOWN | LEFT | DOWN)) == (LEFT_DOWN | LEFT | DOWN);

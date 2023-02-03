@@ -57,7 +57,8 @@ void Quad::SetTexture(wstring file)
 
 void Quad::SetSize(Vector2 size)
 {
-	this->size = size; UpdateVertices();
+	this->size = size; 
+	UpdateVertices();
 }
 
 void Quad::UpdateVertices()

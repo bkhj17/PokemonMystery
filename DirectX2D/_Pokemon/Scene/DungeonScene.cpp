@@ -16,7 +16,7 @@ DungeonScene::DungeonScene()
 	testUnit = new Unit(Vector2(50, 60));
 	testUnit->GetMovement()->SetTargetPos(testStart, 0.0f);
 
-	//CAM->SetTarget(testUnit);
+	CAM->SetTarget(testUnit);
 }
 
 DungeonScene::~DungeonScene()
@@ -43,12 +43,8 @@ void DungeonScene::Update()
 			if(tileMap->SetMove(unitPoint.x, unitPoint.y, x, y, destPos))
 				testUnit->GetMovement()->SetTargetPos(destPos);
 		}
-			
-
-
 	}
 	testUnit->Update();
-
 }
 
 void DungeonScene::Render()

@@ -3,9 +3,20 @@
 class DungeonTileMap : public GameTileMap
 {
 public:
+    struct TileInstanceData {
+        Matrix transform;
+
+        Vector2 maxFrame;
+        Vector2 curFrame;
+
+        int tileType;
+        Float3 padding;
+    };
+
     DungeonTileMap(string file);
     ~DungeonTileMap();
 
+    virtual void UpdateWorld() override;
     virtual void Render() override;
 
     virtual void GetNodes(vector<Node*>& nodes) override;
@@ -18,5 +29,11 @@ private:
     void Load(string file) override;
 
     class DungeonAStar* astar;
+
+    vector<TileInstanceData> instances;
+    VertexBuffer* instanceBuffer;
+
+    Quad* quad;
+
 };
 

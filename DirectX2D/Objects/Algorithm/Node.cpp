@@ -27,21 +27,19 @@ void Node::Render()
 		break;
 	case CLOSED:
 		collider->GetColor() = { 1, 1, 0, 1 };
-
 		break;
 	case USING:
 		collider->GetColor() = { 0, 1, 0, 1 };
-
 		break;
 	case OBSTACLE:
 		collider->GetColor() = { 1, 0, 0, 1 };
-
 		break;
 	default:
 		break;
 	}
 
-	collider->Render();
+	if (CAM->ContainFrustum(collider->GlobalPos(), { 10, 10 }))
+		collider->Render();
 
 	for (Edge* edge : edges)
 		edge->line->Render();
