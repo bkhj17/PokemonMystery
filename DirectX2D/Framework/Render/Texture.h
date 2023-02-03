@@ -12,6 +12,7 @@ public:
 	}
 
 	wstring GetFile() { return file; }
+	ID3D11ShaderResourceView* GetSRV() { return srv; }
 public:
 	static Texture* Add(wstring file);
 	static Texture* Add(wstring key, ID3D11ShaderResourceView* srv);

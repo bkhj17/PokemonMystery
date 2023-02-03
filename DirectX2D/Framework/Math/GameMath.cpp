@@ -11,6 +11,11 @@ float GameMath::Random(const float& min, const float& max)
 	return (max - min) * normal + min;			
 }
 
+Vector2 GameMath::Random(const Vector2& min, const Vector2& max)
+{
+	return Vector2(Random(min.x, max.x), Random(min.y, max.y));
+}
+
 float GameMath::Clamp(const float& min, const float& max, float value)
 {
 	if (value < min)

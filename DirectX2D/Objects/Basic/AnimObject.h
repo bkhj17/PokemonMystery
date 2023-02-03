@@ -7,8 +7,8 @@ public:
     AnimObject();
     ~AnimObject();
 
-    void Update();
-    void Render();
+    virtual void Update();
+    virtual void Render();
 
     void AddClip(int key, Clip* clip) { clips[key] = clip; }
     void SetClip(int key);

@@ -70,6 +70,7 @@ void Button::Update()
 void Button::UpdateWorld()
 {
 	__super::UpdateWorld();
+
 	collider->UpdateWorld();
 }
 
@@ -82,5 +83,5 @@ void Button::Render()
 
 	__super::Render();
 
-	collider->Render();
+	//collider->Render();
 }

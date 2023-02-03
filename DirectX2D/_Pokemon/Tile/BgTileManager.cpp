@@ -6,92 +6,82 @@ BgTileManager::BgTileManager()
     InitGridInfo();
     InitVCheck();
     InitRoomCheck();
+
 }
 
 void BgTileManager::InitGridInfo()
-{
-    int none        = 0;
-    int all         = 0xFF;
+{                    
     
-    int leftUp      = 0x01;
-    int up          = leftUp << 1;
-    int rightUp     = leftUp << 2;
-    int left        = leftUp << 3;
-    int right       = leftUp << 4;
-    int leftDown    = leftUp << 5;
-    int down        = leftUp << 6;
-    int rightDown   = leftUp << 7;
+    tileGrid[DOWN | RIGHT | RIGHT_DOWN] = { 0, 0 };
+    tileGrid[DOWN | RIGHT | RIGHT_DOWN | LEFT | LEFT_DOWN] = { 1, 0 };
+    tileGrid[DOWN | LEFT | LEFT_DOWN] = { 2, 0 };
     
-    tileGrid[down | right | rightDown] = { 0, 0 };
-    tileGrid[down | right | rightDown | left | leftDown] = { 1, 0 };
-    tileGrid[down | left | leftDown] = { 2, 0 };
+    tileGrid[UP | RIGHT_UP | RIGHT | DOWN | RIGHT_DOWN] = { 0, 1 };
+    tileGrid[ALL] = { 1, 1 };
+    tileGrid[LEFT_UP | UP | LEFT | LEFT_DOWN | DOWN] = { 2, 1 };
+
+    tileGrid[UP | RIGHT_UP | RIGHT] = { 0, 2 };
+    tileGrid[LEFT_UP | UP | RIGHT_UP | LEFT | RIGHT] = { 1, 2 };
+    tileGrid[LEFT_UP | UP | LEFT] = { 2, 2 };
     
-    tileGrid[up | rightUp | right | down | rightDown] = { 0, 1 };
-    tileGrid[all] = { 1, 1 };
-    tileGrid[leftUp | up | left | leftDown | down] = { 2, 1 };
+    tileGrid[RIGHT | DOWN] = { 0, 3 };
+    tileGrid[LEFT | RIGHT] = { 1, 3 };
+    tileGrid[LEFT | DOWN] = { 2, 3 };
 
-    tileGrid[up | rightUp | right] = { 0, 2 };
-    tileGrid[leftUp | up | rightUp | left | right ] = { 1, 2 };
-    tileGrid[leftUp | up | left ] = { 2, 2 };
+    tileGrid[UP | DOWN] = { 0, 4 };
+    tileGrid[NONE] = { 1, 4 };
+
+    tileGrid[RIGHT | UP] = { 0, 5 };
+    tileGrid[LEFT | UP] = { 2, 5 };
+
+    tileGrid[DOWN] = { 1, 6 };
+
+    tileGrid[RIGHT] = { 0, 7 };
+    tileGrid[RIGHT | LEFT | UP | DOWN] = { 1, 7 };
+    tileGrid[LEFT] = { 2, 7 };
+
+    tileGrid[UP] = { 1, 8 };
+
+    tileGrid[LEFT | DOWN | RIGHT] = { 1, 9 };
+
+    tileGrid[UP | RIGHT | DOWN] = { 0, 10 };
+    tileGrid[UP | LEFT | DOWN] = { 2, 10 };
+
+    tileGrid[LEFT | UP | RIGHT] = { 1, 11 };
+
+    tileGrid[ALL & ~(LEFT_DOWN | RIGHT_DOWN)] = { 1, 12 };
+
+    tileGrid[ALL & ~(RIGHT_UP | RIGHT_DOWN)] = { 0, 13 };
+    tileGrid[ALL & ~(LEFT_UP | LEFT_DOWN)] = { 2, 13 };
+
+    tileGrid[ALL & ~(LEFT_UP | RIGHT_UP)] = { 1, 14 };
+
+    tileGrid[ALL & ~RIGHT_DOWN] = { 0, 15 };
+    tileGrid[ALL & ~LEFT_DOWN] = { 1, 15 };
+
+    tileGrid[ALL & ~RIGHT_UP] = { 0, 16 };
+    tileGrid[ALL & ~LEFT_UP] = { 1, 16 };
+
+    tileGrid[UP | RIGHT_UP | RIGHT | DOWN] = { 0, 17 };
+    tileGrid[UP | LEFT_UP | LEFT | DOWN] = { 1, 17 };
+
+    tileGrid[UP | RIGHT_DOWN | RIGHT | DOWN] = { 0, 18 };
+    tileGrid[UP | LEFT_DOWN | LEFT | DOWN] = { 1, 18 };
     
-    tileGrid[right | down] = { 0, 3 };
-    tileGrid[left | right] = { 1, 3 };
-    tileGrid[left | down] = { 2, 3 };
+    tileGrid[LEFT | RIGHT | LEFT_DOWN | DOWN] = { 0, 19 };
+    tileGrid[LEFT | RIGHT | DOWN | RIGHT_DOWN] = { 1, 19 };
 
-    tileGrid[up | down] = { 0, 4 };
-    tileGrid[none] = { 1, 4 };
+    tileGrid[RIGHT_UP | UP | RIGHT | LEFT] = { 0, 20 };
+    tileGrid[UP | LEFT_UP | RIGHT | LEFT] = { 1, 20 };
 
-    tileGrid[right | up] = { 0, 5 };
-    tileGrid[left | up] = { 2, 5 };
+    tileGrid[ALL & ~(LEFT_UP | RIGHT_UP | LEFT_DOWN)] = { 0, 21 };
+    tileGrid[ALL & ~(LEFT_UP | RIGHT_UP | RIGHT_DOWN)] = { 1, 21 };
 
-    tileGrid[down] = { 1, 6 };
+    tileGrid[ALL & ~(LEFT_UP | LEFT_DOWN | RIGHT_DOWN)] = { 0, 22 };
+    tileGrid[ALL & ~(RIGHT_UP | LEFT_DOWN | RIGHT_DOWN)] = { 1, 22 };
 
-    tileGrid[right] = { 0, 7 };
-    tileGrid[right | left | up | down] = { 1, 7 };
-    tileGrid[left] = { 2, 7 };
-
-    tileGrid[up] = { 1, 8 };
-
-    tileGrid[left | down | right] = { 1, 9 };
-
-    tileGrid[up | right | down] = { 0, 10 };
-    tileGrid[up | left | down] = { 2, 10 };
-
-    tileGrid[left | up | right] = { 1, 11 };
-
-    tileGrid[all & ~(leftDown | rightDown)] = { 1, 12 };
-
-    tileGrid[all & ~rightUp & ~rightDown] = { 0, 13 };
-    tileGrid[all & ~leftUp & ~leftDown] = { 2, 13 };
-
-    tileGrid[all & ~leftUp & ~rightUp] = { 1, 14 };
-
-    tileGrid[all & ~rightDown] = { 0, 15 };
-    tileGrid[all & ~leftDown] = { 1, 15 };
-
-    tileGrid[all & ~rightUp] = { 0, 16 };
-    tileGrid[all & ~leftUp] = { 1, 16 };
-
-    tileGrid[up | rightUp | right | down] = { 0, 17 };
-    tileGrid[up | leftUp | left | down] = { 1, 17 };
-
-    tileGrid[up | rightDown | right | down] = { 0, 18 };
-    tileGrid[up | leftDown | left | down] = { 1, 18 };
-    
-    tileGrid[left | right | leftDown | down] = { 0, 19 };
-    tileGrid[left | right | down | rightDown] = { 1, 19 };
-
-    tileGrid[rightUp | up | right | left] = { 0, 20 };
-    tileGrid[up | leftUp | right | left] = { 1, 20 };
-
-    tileGrid[all & ~(leftUp | rightUp | leftDown)] = { 0, 21 };
-    tileGrid[all & ~(leftUp | rightUp | rightDown)] = { 1, 21 };
-
-    tileGrid[all & ~(leftUp | leftDown | rightDown)] = { 0, 22 };
-    tileGrid[all & ~(rightUp | leftDown | rightDown)] = { 1, 22 };
-
-    tileGrid[all & ~(leftUp | rightDown)] = { 0, 23 };
-    tileGrid[all & ~(rightUp | leftDown)] = { 1, 23 };
+    tileGrid[ALL & ~(LEFT_UP | RIGHT_DOWN)] = { 0, 23 };
+    tileGrid[ALL & ~(RIGHT_UP | LEFT_DOWN)] = { 1, 23 };
 }
 
 void BgTileManager::SetTexture(wstring path)
@@ -132,52 +122,31 @@ bool BgTileManager::CheckGrid(const int& flag, int check, int uncheck)
 void BgTileManager::InitVCheck()
 {
     //판별
-    int all = 0xFF;
-
-    int leftUp = 0x01;
-    int up = leftUp << 1;
-    int rightUp = leftUp << 2;
-    int left = leftUp << 3;
-    int right = leftUp << 4;
-    int leftDown = leftUp << 5;
-    int down = leftUp << 6;
-    int rightDown = leftUp << 7;
-
     vcheck.reserve(12);
-    vcheck.push_back({ down | right | rightDown | left | leftDown, up });
-    vcheck.push_back({ down | right | rightDown | rightUp | up, left });
-    vcheck.push_back({ down | up | leftUp | left | leftDown, right });
-    vcheck.push_back({ up | right | rightUp | left | leftUp, down });
-    vcheck.push_back({ down | right | rightDown, up | left });
-    vcheck.push_back({ down | left | leftDown, up | right });
-    vcheck.push_back({ up | right | rightUp , left | down });
-    vcheck.push_back({ up | left | leftUp, down | right });
-    vcheck.push_back({ down, up | right | left });
-    vcheck.push_back({ left, down | right | up });
-    vcheck.push_back({ right, down | up | left });
-    vcheck.push_back({ up, down | right | left });
+    vcheck.push_back({ DOWN | RIGHT | RIGHT_DOWN | LEFT | LEFT_DOWN, UP });
+    vcheck.push_back({ DOWN | RIGHT | RIGHT_DOWN | RIGHT_UP | UP, LEFT });
+    vcheck.push_back({ DOWN | UP | LEFT_UP | LEFT | LEFT_DOWN, RIGHT });
+    vcheck.push_back({ UP | RIGHT | RIGHT_UP | LEFT | LEFT_UP, DOWN });
+    vcheck.push_back({ DOWN | RIGHT | RIGHT_DOWN, UP | LEFT });
+    vcheck.push_back({ DOWN | LEFT | LEFT_DOWN, UP | RIGHT });
+    vcheck.push_back({ UP | RIGHT | RIGHT_UP , LEFT | DOWN });
+    vcheck.push_back({ UP | LEFT | LEFT_UP, DOWN | RIGHT });
+    vcheck.push_back({ DOWN, UP | RIGHT | LEFT });
+    vcheck.push_back({ LEFT, DOWN | RIGHT | UP });
+    vcheck.push_back({ RIGHT, DOWN | UP | LEFT });
+    vcheck.push_back({ UP, DOWN | RIGHT | LEFT });
 }
 
 void BgTileManager::InitRoomCheck()
 {
 
     //방 판별기
-    int all = 0xFF;
-
-    int leftUp = 0x01;
-    int up = leftUp << 1;
-    int rightUp = leftUp << 2;
-    int left = leftUp << 3;
-    int right = leftUp << 4;
-    int leftDown = leftUp << 5;
-    int down = leftUp << 6;
-    int rightDown = leftUp << 7;
 
     roomCheck.reserve(4);
-    roomCheck.push_back({ left | up | leftUp, 0 });
-    roomCheck.push_back({ left | down | leftDown, 0 });
-    roomCheck.push_back({ right | up | rightUp, 0 });
-    roomCheck.push_back({ right | down | rightDown, 0 });
+    roomCheck.push_back({ LEFT | UP | LEFT_UP, 0 });
+    roomCheck.push_back({ LEFT | DOWN | LEFT_DOWN, 0 });
+    roomCheck.push_back({ RIGHT | UP | RIGHT_UP, 0 });
+    roomCheck.push_back({ RIGHT | DOWN | RIGHT_DOWN, 0 });
 }
 
 BgTileManager::TileType BgTileManager::GetTileType(Texture* texture)
@@ -189,5 +158,47 @@ BgTileManager::TileType BgTileManager::GetTileType(Texture* texture)
     if (texture == landTexture)
         return LAND;
 
-    return NONE;
+    return INVALID;
+}
+
+bool BgTileManager::CheckMovable(int tileFlag, int dirX, int dirY)
+{
+    GridFlag dirFlag = NONE;
+    if (dirX == -1) {
+        switch (dirY) {
+        case -1: dirFlag = LEFT_DOWN; break;
+        case 0: dirFlag = LEFT; break;
+        case 1: dirFlag = LEFT_UP; break;
+        }
+    }
+    if (dirX == 0) {
+        switch (dirY) {
+        case -1: dirFlag = DOWN; break;
+        case 0: dirFlag = NONE; break;
+        case 1: dirFlag = UP; break;
+        }
+    }
+    if (dirX == 1) {
+        switch (dirY) {
+        case -1: dirFlag = RIGHT_DOWN; break;
+        case 0: dirFlag = RIGHT; break;
+        case 1: dirFlag = RIGHT_UP; break;
+        }
+    }
+
+    if (dirFlag == NONE)
+        return false;
+
+    switch (dirFlag)
+    {
+    case BgTileManager::LEFT_UP:    return (tileFlag & (LEFT_UP | LEFT | UP)) == (LEFT_UP | LEFT | UP);
+    case BgTileManager::UP:         return (tileFlag & UP) == UP;
+    case BgTileManager::RIGHT_UP:   return (tileFlag & (LEFT_UP | LEFT | UP)) == (LEFT_UP | LEFT | UP);
+    case BgTileManager::LEFT:       return (tileFlag & LEFT) == LEFT;
+    case BgTileManager::RIGHT:      return (tileFlag & RIGHT) == RIGHT;
+    case BgTileManager::LEFT_DOWN:  return (tileFlag & (LEFT_DOWN | LEFT | DOWN)) == (LEFT_DOWN | LEFT | DOWN);
+    case BgTileManager::DOWN:       return (tileFlag & DOWN) == DOWN;
+    case BgTileManager::RIGHT_DOWN: return (tileFlag & (RIGHT_DOWN | RIGHT | DOWN)) == (RIGHT_DOWN | RIGHT | DOWN);
+    default: return false;
+    }
 }

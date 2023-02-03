@@ -15,8 +15,11 @@ public:
 
 	virtual void GetNodes(vector<Node*>& nodes);
 
+	Vector2 PointToPos(POINT point);
+
 	UINT GetWidth() { return width; }
 	UINT GetHeight() { return height; }
+	Vector2 GetTileSize() { return tileSize; }
 
 	Vector2 LeftBottom();
 	Vector2 RightTop();
@@ -26,7 +29,7 @@ protected:
 protected:
 	UINT width = 0, height = 0;
 
-	Vector2 tileSize;
+	Vector2 tileSize = { 80.0f, 80.f };
 
 	vector<Quad*> bgTiles;
 	vector<Tile*> objTiles;

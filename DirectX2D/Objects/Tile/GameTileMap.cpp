@@ -27,7 +27,7 @@ void GameTileMap::UpdateWorld()
 
 void GameTileMap::Render()
 {
-	for (auto tile : bgTiles)
+	for (auto tile : bgTiles)	
 		tile->Render();
 
 	for (auto tile : objTiles)
@@ -65,6 +65,12 @@ void GameTileMap::GetNodes(vector<Node*>& nodes)
 	}
 }
 
+Vector2 GameTileMap::PointToPos(POINT point)
+{
+	return GlobalPos() + tileSize * point;
+}
+
+
 Vector2 GameTileMap::LeftBottom()
 {
 	return Pos() - tileSize * 0.5f;
@@ -90,13 +96,15 @@ void GameTileMap::Load(string file)
 	for (auto& tile : bgTiles) {
 		Tile::Data data;
 		data.textureFile = reader->WString();
-		data.pos.x = reader->Float();
-		data.pos.y = reader->Float();
+//		data.pos.x = reader->Float();
+//		data.pos.y = reader->Float();
+		data.pos.x = reader->UInt() * tileSize.x;
+		data.pos.y = reader->UInt() * tileSize.y;
 		data.angle = reader->Float();
 		data.type = (Tile::Type)reader->Int();
 
 		tile = new Quad(data.textureFile);
-		tile->Pos() = data.pos;
+		tile->Pos() = data.pos * tileSize;
 		tile->Rot().z = data.angle;
 		tile->SetParent(this);
 		tile->UpdateWorld();
@@ -107,8 +115,10 @@ void GameTileMap::Load(string file)
 	for (auto& tile : objTiles) {
 		Tile::Data data;
 		data.textureFile = reader->WString();
-		data.pos.x = reader->Float();
-		data.pos.y = reader->Float();
+//		data.pos.x = reader->Float();
+//		data.pos.y = reader->Float();
+		data.pos.x = reader->UInt() * tileSize.x;
+		data.pos.y = reader->UInt() * tileSize.y;
 		data.angle = reader->Float();
 		data.type = (Tile::Type)reader->Int();
 
@@ -118,6 +128,4 @@ void GameTileMap::Load(string file)
 	}
 
 	delete reader;
-
-	tileSize = bgTiles[0]->GetSize();
 }

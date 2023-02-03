@@ -3,6 +3,8 @@
 EditTileMap::EditTileMap(UINT width, UINT height)
 	: width(width), height(height)
 {
+
+
 	CreateTile();
 
 	Vector2 rightTop(width * tileSize.x, height * tileSize.y);
@@ -37,11 +39,21 @@ void EditTileMap::Update()
 void EditTileMap::Render()
 {
 
-	for (auto tile : bgTiles)
-		tile->Render();
+	for (auto tile : bgTiles) {
+		if (!CAM->ContainFrustum(tile->GlobalPos(), tile->GetSize() * tile->GetSize()))
+			continue;
 
-	for (auto tile : objTiles)
 		tile->Render();
+		tile->GetCollider()->Render();
+	}
+
+	for (auto tile : objTiles) {
+		if (!CAM->ContainFrustum(tile->GlobalPos(), tile->GetSize() * tile->GetSize()))
+			continue;
+
+		tile->Render();
+		tile->GetCollider()->Render();
+	}
 }
 
 void EditTileMap::ClickTile(Quad* selectSample, Tile::Type type)
@@ -87,24 +99,36 @@ void EditTileMap::Save(string file)
 	writer->UInt(height);
 
 	writer->UInt(bgTiles.size());
+
+	UINT i = 0;
 	for (Tile* tile : bgTiles) {
 		Tile::Data data = tile->GetData();
 
 		writer->WString(data.textureFile);
-		writer->Float(data.pos.x);
-		writer->Float(data.pos.y);
+		writer->UInt(i % width);
+		writer->UInt(i / width);
+//		writer->Float(data.pos.x);
+//		writer->Float(data.pos.y);
 		writer->Float(data.angle);
 		writer->Int(data.type);
+
+		i++;
 	}
 
+
 	writer->UInt(objTiles.size());
+	i = 0;
 	for (auto tile : objTiles) {
 		Tile::Data data = tile->GetData();
 		writer->WString(data.textureFile);
-		writer->Float(data.pos.x);
-		writer->Float(data.pos.y);
+		writer->UInt(i % width);
+		writer->UInt(i / width);
+//		writer->Float(data.pos.x);
+//		writer->Float(data.pos.y);
 		writer->Float(data.angle);
 		writer->Int(data.type);
+
+		i++;
 	}
 
 	delete writer;
@@ -121,8 +145,8 @@ void EditTileMap::Load(string file)
 	for (auto tile : bgTiles) {
 		Tile::Data data;
 		data.textureFile = reader->WString();
-		data.pos.x = reader->Float();
-		data.pos.y = reader->Float();
+		data.pos.x = reader->UInt() * tileSize.x;
+		data.pos.y = reader->UInt() * tileSize.y;
 		data.angle = reader->Float();
 		data.type = (Tile::Type)reader->Int();
 
@@ -173,7 +197,7 @@ void EditTileMap::CreateTile()
 			Tile::Data data = {};
 			data.textureFile = baseTile;
 			data.pos = { tileSize.x * x, tileSize.y * y };
-			Tile* tile = new Tile(data);
+			Tile* tile = new Tile(data, tileSize);
 			tile->SetParent(this);
 			bgTiles.push_back(tile);
 		}

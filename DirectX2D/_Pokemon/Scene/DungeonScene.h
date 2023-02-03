@@ -15,5 +15,6 @@ public:
 	virtual void PostRender() override;
 private:
 	class DungeonTileMap* tileMap;
+	class Unit* testUnit;
 };
 

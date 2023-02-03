@@ -2,21 +2,70 @@
 #include "DungeonTileMap.h"
 #include "DungeonBgTile.h"
 #include "BgTileManager.h"
+#include "DungeonAStar.h"
 
 DungeonTileMap::DungeonTileMap(string file)
 {
-	tileSize = { 80.0f, 80.0f };
-	Pos() = tileSize;
+	tileSize = { 100, 100 };
+	Pos() = tileSize * 0.5f;
 	Load(file);
 	UpdateWorld();
 
     for (int y = 0; y < height; y++)
         for (int x = 0; x < width; x++)
             SetGrid(x, y);
+
+	astar = new DungeonAStar(this);
 }
 
 DungeonTileMap::~DungeonTileMap()
 {
+	delete astar;
+}
+
+void DungeonTileMap::Render()
+{
+	__super::Render();
+	astar->Render();
+}
+
+void DungeonTileMap::GetNodes(vector<Node*>& nodes)
+{
+	for (auto tile : bgTiles) {
+		Vector2 tilePos = tile->GlobalPos();
+		Node* node = new Node(tilePos, nodes.size());
+
+		nodes.push_back(node);
+	}
+}
+
+POINT DungeonTileMap::PosToPoint(Vector2 pos)
+{
+	POINT result = { +0, +0 };
+	for (UINT i = 0; i < bgTiles.size(); i++) {
+		auto curTile = (DungeonBgTile*)bgTiles[i];
+		if (curTile->GetCollider()->IsPointCollision(pos)) {
+			result.x = i % width;
+			result.y = i / width;
+			break;
+		}
+	}
+
+	return result;
+}
+
+bool DungeonTileMap::SetMove(IN int startX, IN int startY, IN int dirX, IN int dirY, OUT Vector2& destPos)
+{
+	auto curTile = (DungeonBgTile*)bgTiles[startY * width + startX]; 
+	int flag = curTile->GetGridFlag();
+
+	bool result = BgTileManager::Get()->CheckMovable(flag, dirX, dirY);
+
+	if (result) {
+		destPos = { tileSize.x * dirX, tileSize.y * dirY };
+		destPos += curTile->GlobalPos();
+	}
+	return result;
 }
 
 void DungeonTileMap::SetGrid(int x, int y)
@@ -69,23 +118,19 @@ void DungeonTileMap::Load(string file)
 	UINT size = reader->UInt();
 	bgTiles.resize(size);
 
-	UINT i = 0;
 	for (auto& tile : bgTiles) {
 		Tile::Data data;
 		data.textureFile = reader->WString();
-
-		data.pos.x = tileSize.x * (i % width);
-		reader->Float();
-		data.pos.y = tileSize.x * (i / width);
-		reader->Float();
+		data.pos.x = reader->UInt() * tileSize.x;
+		data.pos.y = reader->UInt() * tileSize.y;
 		
 		data.angle = reader->Float();
 		data.type = (Tile::Type)reader->Int();
 
-		tile = new DungeonBgTile(data, tileSize);
+		tile = new DungeonBgTile(data);
+		tile->SetSize(tileSize);
 		tile->SetParent(this);
 		tile->UpdateWorld();
-		i++;
 	}
 
 	//맵 타일의 경로를 인식해 매니저에 타일 종류를 인식시킨다
@@ -99,15 +144,15 @@ void DungeonTileMap::Load(string file)
 	for (auto& tile : objTiles) {
 		Tile::Data data;
 		data.textureFile = reader->WString();
-		data.pos.x = reader->Float();
-		data.pos.y = reader->Float();
+		data.pos.x = reader->UInt() * tileSize.x;
+		data.pos.y = reader->UInt() * tileSize.y;
 		data.angle = reader->Float();
 		data.type = (Tile::Type)reader->Int();
 
-		tile = new Tile(data);
+		tile = new Tile(data, tileSize);
 		tile->SetParent(this);
 		tile->Update();
-	}
+	}	
 
 	delete reader;
 }

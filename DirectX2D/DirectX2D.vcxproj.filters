@@ -48,13 +48,13 @@
     <ClInclude Include="Framework\System\Device.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\Shaders\Shader.h">
+    <ClInclude Include="Framework\Shader\Shader.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\Shaders\VertexShader.h">
+    <ClInclude Include="Framework\Shader\VertexShader.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\Shaders\PixelShader.h">
+    <ClInclude Include="Framework\Shader\PixelShader.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Framework\Buffer\VertexBuffer.h">
@@ -423,6 +423,21 @@
     <ClInclude Include="Stair.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="_Pokemon\Unit\Unit.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Basic\Particle.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\ParticleScene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_Pokemon\Unit\UnitMovement.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_Pokemon\Tile\DungeonAStar.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectX2D.cpp">
@@ -446,13 +461,13 @@
     <ClCompile Include="Framework\System\Device.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\Shaders\VertexShader.cpp">
+    <ClCompile Include="Framework\Shader\VertexShader.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\Shaders\PixelShader.cpp">
+    <ClCompile Include="Framework\Shader\PixelShader.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\Shaders\Shader.cpp">
+    <ClCompile Include="Framework\Shader\Shader.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Framework\Buffer\VertexBuffer.cpp">
@@ -809,6 +824,21 @@
     <ClCompile Include="Stair.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="_Pokemon\Unit\Unit.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Basic\Particle.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\ParticleScene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="_Pokemon\Unit\UnitMovement.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="_Pokemon\Tile\DungeonAStar.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX2D.rc">
@@ -839,5 +869,6 @@
     <FxCompile Include="Shaders\PixelOutline.hlsl" />
     <FxCompile Include="Shaders\VertexInstancing.hlsl" />
     <FxCompile Include="Shaders\PixelInstancing.hlsl" />
+    <FxCompile Include="Shaders\PixelProgressBar.hlsl" />
   </ItemGroup>
 </Project>

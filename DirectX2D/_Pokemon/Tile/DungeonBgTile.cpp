@@ -2,21 +2,31 @@
 #include "DungeonBgTile.h"
 #include "BgTileManager.h"
 
+DungeonBgTile::DungeonBgTile(Tile::Data data)
+	: Tile(data)
+{
+	cutSize = GetTexture()->GetSize() / BgTileManager::Get()->GRID_SIZE;
+	size = cutSize;
+	UpdateVertices();
+}
+
 DungeonBgTile::DungeonBgTile(Tile::Data data, Vector2 size)
 	: Tile(data, size)
 {
 	cutSize = GetTexture()->GetSize() / BgTileManager::Get()->GRID_SIZE;
-	
-	BgTileManager::Get();
+}
+
+void DungeonBgTile::Render()
+{
+	__super::Render();
+
+	collider->Render();
+
 }
 
 void DungeonBgTile::UpdateGrid(int flag)
 {
 	gridFrag = flag;
-
-	if (IsRoom()) {
-		colorBuffer->Get() = { 0.5f, 1.0f, 0.5f, 1.0f };
-	}
 
 	auto gridCoord = BgTileManager::Get()->GetGrid(flag);
 	Vector2 uvSize = cutSize / GetTexture()->GetSize();

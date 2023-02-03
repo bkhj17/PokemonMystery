@@ -1,18 +1,20 @@
 #include "Framework.h"
 
-Quad::Quad(Vector2 size, Vector2 pos)
+Quad::Quad(Vector2 size)
+	: startUV(Vector2(0, 0)), endUV(Vector2(1, 1))
 {
 	this->size = size;
-	CreateMesh(size, {}, {1.0f, 1.0f});
+	CreateMesh();
 
 	colorBuffer = new ColorBuffer();
 }
 
 Quad::Quad(wstring file, Vector2 startUV, Vector2 endUV)
+	: startUV(startUV), endUV(endUV)
 {
 	SetTexture(file);
 	size = (endUV - startUV) * texture->GetSize();
-	CreateMesh(size, startUV, endUV);
+	CreateMesh();
 	
 	colorBuffer = new ColorBuffer();
 }
@@ -27,6 +29,8 @@ Quad::~Quad()
 void Quad::Render()
 {
 	if (!isActive)
+		return;
+	if (!CAM->ContainFrustum(GlobalPos(), GetGlobalSize()))
 		return;
 
 	SetRender();
@@ -51,7 +55,27 @@ void Quad::SetTexture(wstring file)
 	texture = Texture::Add(file);
 }
 
-void Quad::CreateMesh(Vector2 size, Vector2 startUV, Vector2 endUV)
+void Quad::SetSize(Vector2 size)
+{
+	this->size = size; UpdateVertices();
+}
+
+void Quad::UpdateVertices()
+{
+	float left = -size.x * 0.5f;
+	float right = +size.x * 0.5f;
+	float top = +size.y * 0.5f;
+	float bottom = -size.y * 0.5f;
+
+	vertices[0] = Vertex(left, top, startUV.x, startUV.y);
+	vertices[1] = Vertex(right, top, endUV.x, startUV.y);
+	vertices[2] = Vertex(left, bottom, startUV.x, endUV.y);
+	vertices[3] = Vertex(right, bottom, endUV.x, endUV.y);
+
+	vertexBuffer->Update(vertices.data(), vertices.size());
+}
+
+void Quad::CreateMesh()
 {
 	float left = -size.x * 0.5f;
 	float right = size.x * 0.5f;
@@ -71,6 +95,9 @@ void Quad::CreateMesh(Vector2 size, Vector2 startUV, Vector2 endUV)
 
 void Quad::ModifyUV(Vector2 startUV, Vector2 endUV)
 {
+	this->startUV = startUV;
+	this->endUV = endUV;
+
 	vertices[0].uv = { startUV.x, startUV.y };
 	vertices[1].uv = { endUV.x, startUV.y };
 	vertices[2].uv = { startUV.x, endUV.y };

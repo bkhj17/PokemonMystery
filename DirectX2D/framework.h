@@ -118,28 +118,31 @@ typedef function<void(void*)> ParamEvent;
 typedef function<void(int)> IntParamEvent;
 
 //Framework Header
+
 #include "Framework/Utilities/Singleton.h"
+#include "Framework/Utilities/Keyboard.h"
 #include "Framework/Utilities/Timer.h"
-#include "Framework/Utilities/KeyBoard.h"
-#include "Framework/Utilities/Audio.h"
 #include "Framework/Utilities/Utility.h"
 #include "Framework/Utilities/Observer.h"
 #include "Framework/Utilities/tinyxml2.h"
 #include "Framework/Utilities/Font.h"
-#include "Framework/Utilities/BinaryWriter.h"
 #include "Framework/Utilities/BinaryReader.h"
+#include "Framework/Utilities/BinaryWriter.h"
+#include "Framework/Utilities/Audio.h"
+
 using namespace Utility;
 
 #include "Framework/Math/Vector2.h"
 #include "Framework/Math/GameMath.h"
 #include "Framework/Math/Transform.h"
+
 using namespace GameMath;
 
 #include "Framework/System/Device.h"
 
-#include "Framework/Shaders/Shader.h"
-#include "Framework/Shaders/VertexShader.h"
-#include "Framework/Shaders/PixelShader.h"
+#include "Framework/Shader/Shader.h"
+#include "Framework/Shader/VertexShader.h"
+#include "Framework/Shader/PixelShader.h"
 
 #include "Framework/Buffer/VertexBuffer.h"
 #include "Framework/Buffer/IndexBuffer.h"
@@ -160,20 +163,46 @@ using namespace GameMath;
 #include "Framework/Environment/Camera.h"
 #include "Framework/Environment/Environment.h"
 
+//Object Header
 #include "Objects/Basic/GameObject.h"
 #include "Objects/Basic/Quad.h"
 #include "Objects/Basic/Action.h"
 #include "Objects/Basic/Effect.h"
 #include "Objects/Basic/AnimObject.h"
+#include "Objects/Basic/Particle.h"
 
 #include "Objects/UI/Button.h"
 #include "Objects/UI/Panel.h"
+#include "Objects/UI/ImageFont.h"
+#include "Objects/UI/ProgressBar.h"
 
 #include "Objects/Algorithm/DNode.h"
 #include "Objects/Algorithm/Dijkstra.h"
 #include "Objects/Algorithm/Node.h"
 #include "Objects/Algorithm/Heap.h"
 #include "Objects/Algorithm/AStar.h"
+
+#include "Objects/Shooting/Plane.h"
+#include "Objects/Shooting/Bullet.h"
+#include "Objects/Shooting/BulletManager.h"
+
+#include "Objects/PinBall/Bat.h"
+#include "Objects/PinBall/Ball.h"
+
+#include "Objects/Puzzle/Card.h"
+
+#include "Objects/Character/Ninja/Ninja.h"
+#include "Objects/Character/Ninja/NinjaRun.h"
+#include "Objects/Character/Ninja/NinjaJump.h"
+#include "Objects/Character/Ninja/NinjaJumpUp.h"
+#include "Objects/Character/Ninja/NinjaJumpDown.h"
+#include "Objects/Character/Ninja/NinjaAttack.h"
+#include "Objects/Character/Ninja/NinjaMeleeAttack.h"
+#include "Objects/Character/Ninja/NinjaJumpAttack.h"
+#include "Objects/Character/Ninja/NinjaThrow.h"
+#include "Objects/Character/Ninja/NinjaGlide.h"
+
+#include "Objects/Character/Isaac/Isaac.h"
 
 #include "Objects/Tile/Tile.h"
 #include "Objects/Tile/EditTileMap.h"
@@ -186,32 +215,10 @@ using namespace GameMath;
 #include "Objects/Manager/EffectManager.h"
 #include "Objects/Manager/CommandManager.h"
 #include "Objects/Manager/UIManager.h"
+#include "Objects/Manager/RenderManager.h"
 
-#include "Objects/Shooting/Plane.h"
-#include "Objects/Shooting/Bullet.h"
-#include "Objects/Shooting/BulletManager.h"
-
-#include "Objects/PinBall/Bat.h"
-#include "Objects/PinBall/Ball.h"
-
-#include "Objects/Character/Ninja/NinjaIdle.h"
-#include "Objects/Character/Ninja/NinjaRun.h"
-#include "Objects/Character/Ninja/NinjaJump.h"
-#include "Objects/Character/Ninja/NinjaJumpUp.h"
-#include "Objects/Character/Ninja/NinjaJumpDown.h"
-#include "Objects/Character/Ninja/NinjaGlide.h"
-#include "Objects/Character/Ninja/NinjaAttack.h"
-#include "Objects/Character/Ninja/NinjaMeleeAttack.h"
-#include "Objects/Character/Ninja/NinjaJumpAttack.h"
-#include "Objects/Character/Ninja/NinjaThrow.h"
-#include "Objects/Character/Ninja/Ninja.h"
-
-#include "Objects/Character/Isaac/Isaac.h"
-
-#include "Objects/Puzzle/Card.h"
-
+//Scene Header
 #include "Scenes/Scene.h"
-
 #include "Manager/GameManager.h"
 
 extern HWND hWnd;

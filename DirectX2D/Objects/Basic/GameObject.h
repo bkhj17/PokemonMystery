@@ -11,6 +11,7 @@ public:
 	void SetPixelShader(wstring shaderFile);
 
 	virtual Vector2 GetSize() { return size; }
+	virtual Vector2 GetGlobalSize() { return size * GlobalScale(); }
 protected:
 	VertexShader* vertexShader;
 	PixelShader* pixelShader;

@@ -1,8 +1,8 @@
 #pragma once
 class Quad : public GameObject {
 public:
-	Quad(Vector2 size, Vector2 pos = {});
-	Quad(wstring file, Vector2 startUV = {}, Vector2 endUV = { 1.0f, 1.0f });
+	Quad(Vector2 size);
+	Quad(wstring file, Vector2 startUV = Vector2(), Vector2 endUV = Vector2(1.0f, 1.0f));
 	~Quad();
 
 	virtual void Render();
@@ -12,16 +12,18 @@ public:
 	void SetTexture(wstring file);
 	void SetTexture(Texture* texture) { this->texture = texture; }
 
+	void SetSize(Vector2 size);
+	
+	void UpdateVertices();
+	void ModifyUV(Vector2 startUV, Vector2 endUV);
+
 	Vector2 Half() { return size * 0.5f; }
 
 	Float4& GetColor() { return colorBuffer->Get(); }
 	Texture* GetTexture() { return texture; }
 
-	void ModifyUV(Vector2 startUV, Vector2 endUV);
 private:
-	void CreateMesh(Vector2 size, Vector2 startUV, Vector2 endUV);
-
-protected:
+	void CreateMesh();
 
 protected:
 	VertexBuffer* vertexBuffer;
@@ -33,4 +35,7 @@ protected:
 
 	vector<Vertex> vertices;
 	vector<UINT> indices;
+
+	Vector2 startUV;
+	Vector2 endUV;
 };

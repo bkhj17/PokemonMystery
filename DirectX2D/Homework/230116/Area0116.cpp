@@ -2,7 +2,7 @@
 #include "Area0116.h"
 
 Area0116::Area0116(Vector2 size, Vector2 pos)
-	: Quad(size, pos)
+	: Quad(size)
 {
 	SetTexture(L"Textures/Shooting/background.png");
 }

@@ -5,7 +5,7 @@
 #include "Block0116.h"
 
 Ball0116::Ball0116(float radius)
-	: Quad(Vector2(radius * 2, radius * 2), {}), radius(radius)
+	: Quad(Vector2(radius * 2, radius * 2)), radius(radius)
 {
 	SetTexture(L"Textures/Shooting/cursor.png");
 
