@@ -25,15 +25,9 @@ Unit::~Unit()
 
 void Unit::Update()
 {
-
-
 	movement->Update();
 	
-
-
-	animObject->Update();
-
-
+	//animObject->Update();
 	UpdateWorld();
 }
 

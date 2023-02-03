@@ -9,14 +9,12 @@ void UnitMovement::Update()
 	if (time < 0.0f)
 		return;
 
-	time -= DELTA * DELTA * speed;
+	time -= speed * DELTA;
 
-	owner->Pos().x = Lerp(startPos.x, targetPos.x, (timeRate - time) * invTimeRate);
-	owner->Pos().y = Lerp(startPos.y, targetPos.y, (timeRate - time) * invTimeRate);
+	owner->Pos() = Lerp(startPos, targetPos, (timeRate - time) * invTimeRate);
 
-	if (Distance(targetPos, owner->Pos()) < 1.0f) {
+	if (Distance(targetPos, owner->Pos()) < 1.0f)
 		Teleport();
-	}
 }
 
 void UnitMovement::SetTargetPos(Vector2 pos, float time)

@@ -23,6 +23,6 @@ private:
 	float invTimeRate = 1.0f;
 	float time = -1.0f;
 
-	float speed = 1000.0f;
+	float speed = 5.0f;
 };
 

@@ -23,9 +23,8 @@ DungeonTileMap::DungeonTileMap(string file)
 
 	instances.resize(width * height);
 	instanceBuffer = new VertexBuffer(instances.data(), sizeof(TileInstanceData), instances.size());
-	for (int i = 0; i < bgTiles.size(); i++) {
+	for (int i = 0; i < bgTiles.size(); i++)
 		instances[i].maxFrame = maxFrame;
-	}
 	instanceBuffer->Update(instances.data(), instances.size());
 	UpdateWorld();
 
@@ -60,8 +59,6 @@ void DungeonTileMap::Render()
 {
 	//__super::Render();
 	//astar->Render();
-
-	Vector2 maxFrame = BgTileManager::Get()->GRID_SIZE;
 
 	instanceBuffer->Set(1);
 	quad->SetRender();
