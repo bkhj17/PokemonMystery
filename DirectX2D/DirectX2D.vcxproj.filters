@@ -438,6 +438,9 @@
     <ClInclude Include="_Pokemon\Tile\DungeonAStar.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="_Pokemon\Control\Controller.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectX2D.cpp">
@@ -837,6 +840,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="_Pokemon\Tile\DungeonAStar.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="_Pokemon\Control\Controller.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

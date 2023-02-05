@@ -43,9 +43,8 @@ void GameTileMap::PushObject(Collider* collider)
 void GameTileMap::PushRect(RectCollider* collider)
 {
 	Vector2 overlap;
-	for (Tile* tile : objTiles) {
+	for (Tile* tile : objTiles)
 		tile->PushRect(collider);
-	}
 }
 
 void GameTileMap::GetNodes(vector<Node*>& nodes)

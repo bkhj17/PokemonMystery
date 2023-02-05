@@ -4,6 +4,7 @@
 #include "../Tile/BgTileManager.h"
 #include "../Unit/Unit.h"
 #include "../Unit/UnitMovement.h"
+#include "../Control/Controller.h"
 
 DungeonScene::DungeonScene()
 {
@@ -11,38 +12,47 @@ DungeonScene::DungeonScene()
 	CAM->SetLeftBottom(tileMap->LeftBottom());
 	CAM->SetRightTop(tileMap->RightTop());
 
-	Vector2 testStart = tileMap->PointToPos({23, 14});
-
-	testUnit = new Unit(Vector2(50, 60));
-	testUnit->GetMovement()->SetTargetPos(testStart, 0.0f);
-
+	Observer::Get()->AddGetEvent("CallTileMap", bind(&DungeonScene::CallTileMap, this, placeholders::_1));
+	
+	testUnit = new Unit(new Controller, Vector2(50, 60));
+	testUnit->SetPos(24, 14);
 	CAM->SetTarget(testUnit);
 }
 
 DungeonScene::~DungeonScene()
 {
-	delete testUnit;
 	delete tileMap;
 	BgTileManager::Delete();
 }
 
 void DungeonScene::Update()
 {
-	if (!testUnit->GetMovement()->IsMoving()) {
-		int x = 0, y = 0;
-		if (KEY_PRESS(VK_DOWN)) --y;
-		if (KEY_PRESS(VK_UP))	++y;
-		if (KEY_PRESS(VK_LEFT))	--x;
-		if (KEY_PRESS(VK_RIGHT))++x;
+	switch (actState)
+	{
+	case DungeonScene::ENTER_DUNGEON:
+		actState = WAIT_COMMAND;
+		break;
+	case DungeonScene::WAIT_COMMAND:
+	{
+		testUnit->GetController()->SetCommand();
+		if (testUnit->IsActing())
+			actState = ACTING;
+	}
+		break;
+	case DungeonScene::ACTING:
+		
+		//후에 유닛 목록으로 교체
+		if (testUnit->IsActing())
+			break;
 
-		if (x != 0 || y != 0) {
-			Vector2 unitPos = testUnit->GlobalPos();
-
-			POINT unitPoint = tileMap->PosToPoint(unitPos);
-			Vector2 destPos = {};
-			if(tileMap->SetMove(unitPoint.x, unitPoint.y, x, y, destPos))
-				testUnit->GetMovement()->SetTargetPos(destPos);
-		}
+		actState = WAIT_COMMAND;
+		break;
+	case DungeonScene::FLOOR_MOVE:
+		break;
+	case DungeonScene::PLAYER_DEAD:
+		break;
+	default:
+		break;
 	}
 	testUnit->Update();
 }

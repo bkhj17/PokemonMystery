@@ -16,6 +16,11 @@ void Observer::AddIntParamEvent(string key, IntParamEvent paramEvent)
 	totalIntParamEvent[key].push_back(paramEvent);
 }
 
+void Observer::AddGetEvent(string key, function<void(void**)> getEvent)
+{
+	totalGetEvent[key] = getEvent;
+}
+
 void Observer::ExecuteEvent(string key)
 {
 	for (auto& e : totalEvent[key]) {
@@ -36,3 +41,10 @@ void Observer::ExecuteIntParamEvent(string key, int param)
 		pe(param);
 	}
 }
+
+void Observer::ExecuteGetEvent(string key, void** param)
+{
+	if(totalGetEvent.find(key) != totalGetEvent.end())
+		totalGetEvent[key](param);
+}
+
