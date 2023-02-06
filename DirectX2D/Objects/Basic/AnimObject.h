@@ -18,7 +18,6 @@ public:
     virtual void Render();
 
     void AddClip(int key, Clip* clip) { clips[key] = clip; }
-    void SetDir(int x, int y);
     void SetClip(int key);
 private:
     ColorBuffer* colorBuffer;

@@ -19,12 +19,12 @@ void UnitMovement::Update()
 
 void UnitMovement::SetTargetPos(Vector2 pos, float time)
 {
-	if (time <= 0.0f) {
-		Teleport();
-	}
-
 	startPos = owner->Pos();
 	targetPos = pos;
+	if (time <= 0.0f) {
+		Teleport();
+		return;
+	}
 	this->time = timeRate = time;
 	invTimeRate = 1.0f / timeRate;
 }

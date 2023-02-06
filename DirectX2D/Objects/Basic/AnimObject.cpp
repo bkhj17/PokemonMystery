@@ -33,10 +33,6 @@ void AnimObject::Render()
 	curClip->Render();
 }
 
-void AnimObject::SetDir(int x, int y)
-{
-}
-
 void AnimObject::SetClip(int key)
 {
 	if (curClip != clips[key]) {

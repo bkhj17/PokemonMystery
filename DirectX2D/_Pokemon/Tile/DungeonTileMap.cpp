@@ -2,7 +2,9 @@
 #include "DungeonTileMap.h"
 #include "DungeonBgTile.h"
 #include "BgTileManager.h"
+#include "DungeonObjTile.h"
 #include "DungeonAStar.h"
+#include "ObjTileManager.h"
 
 DungeonTileMap::DungeonTileMap(string file)
 {
@@ -65,6 +67,9 @@ void DungeonTileMap::Render()
 	BgTileManager::Get()->GetLandTexture()->PSSet(1);
 	BgTileManager::Get()->GetWaterTexture()->PSSet(2);
 	DC->DrawIndexedInstanced(6, instances.size(), 0, 0, 0);
+
+	for (auto obj : objTiles)
+		obj->Render();
 }
 
 void DungeonTileMap::GetNodes(vector<Node*>& nodes)
@@ -177,20 +182,27 @@ void DungeonTileMap::Load(string file)
 	path = path.substr(0, p+1);
 	BgTileManager::Get()->SetTexture(path);
 
+
+	for (auto tile : objTiles)
+		delete tile;
+
 	size = reader->UInt();
 	objTiles.resize(size);
 	for (auto& tile : objTiles) {
 		Tile::Data data;
 		data.textureFile = reader->WString();
-		data.pos.x = reader->UInt() * tileSize.x;
-		data.pos.y = reader->UInt() * tileSize.y;
+		UINT x = reader->UInt(), y = reader->UInt();
+
+		data.pos = tileSize * Vector2(x, y);
 		data.angle = reader->Float();
 		data.type = (Tile::Type)reader->Int();
 
-		tile = new Tile(data, tileSize);
+		tile = new DungeonObjTile(data, tileSize);
 		tile->SetParent(this);
-		tile->Update();
-	}	
+		tile->UpdateWorld();
+
+		ObjTileManager::Get()->Register(x, y, (DungeonObjTile*)tile);
+	}
 
 	delete reader;
 }

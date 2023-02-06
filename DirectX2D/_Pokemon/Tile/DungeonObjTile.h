@@ -3,13 +3,14 @@
 class DungeonObjTile : public Tile
 {
 public:
-	DungeonObjTile();
-	~DungeonObjTile();
+	DungeonObjTile(Tile::Data data, Vector2 size);
+	~DungeonObjTile() = default;
 
+	void Update() {};
+	void Render();
 
 	string GetType() { return Type; }
 protected:
 	string Type = "";
-
 };
 

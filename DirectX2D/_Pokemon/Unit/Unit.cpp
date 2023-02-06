@@ -5,67 +5,162 @@
 #include "../Tile/DungeonTileMap.h"
 
 Unit::Unit(Vector2 size)
+	: DungeonObject(size)
 {
-	this->size = size;
+	CreateClipData();
 
-	animObject = new AnimObject();
-	animObject->SetParent(this);
-
-	collider = new RectCollider(size);
-	collider->SetParent(this);
-
-	movement = new UnitMovement();
-	movement->SetOwner(this);
 }
 
 Unit::Unit(Controller* controller, Vector2 size)
-	: controller(controller)
+	: DungeonObject(size)
 {
-	this->size = size;
+	CreateClipData();
 
-	animObject = new AnimObject();
-	animObject->SetParent(this);
-
-	collider = new RectCollider(size);
-	collider->SetParent(this);
-
-	movement = new UnitMovement();
-	movement->SetOwner(this);
-
-	controller->SetUnit(this);
+	SetController(controller);
 }
 
 Unit::~Unit()
 {
 	delete animObject;
-	delete collider;
-	delete movement;
 }
 
 void Unit::Update()
 {
-	movement->Update();
+	MovementUpdate();
 	
-	//animObject->Update();
+	SetAction();
+	animObject->Update();
 	UpdateWorld();
 }
 
 void Unit::Render()
 {
 	__super::SetRender();
-	//animObject->Render();
+	animObject->Render();
 	collider->Render();
 }
 
-void Unit::SetClipData()
+void Unit::CreateClipData()
 {
+	animObject = new AnimObject();
+	animObject->SetParent(this);
+	//애니메이션 클립 설정
+	wstring textureFile = L"Textures/pokemon/이상해씨.png";
+	Vector2 cutSize = Texture::Add(textureFile)->GetSize() / Vector2(10, 8);
+	vector<Frame*> frames;
+
+	//LeftUp : 0
+	int dirCode = 0;
+	//IDLE
+	dirCode = 0;
+	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 3, cutSize.x, cutSize.y));
+	animObject->AddClip(dirCode * 100, new Clip(frames));
+	frames.clear();
+	//MOVING
+	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 3, cutSize.x, cutSize.y));
+	frames.push_back(new Frame(textureFile, cutSize.x * 1, cutSize.y * 3, cutSize.x, cutSize.y));
+	frames.push_back(new Frame(textureFile, cutSize.x * 2, cutSize.y * 3, cutSize.x, cutSize.y));
+	animObject->AddClip(dirCode * 100 + 1, new Clip(frames));
+	frames.clear();
+
+	//Up : 1
+	dirCode = 1;
+	//IDLE
+	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 4, cutSize.x, cutSize.y));
+	animObject->AddClip(dirCode * 100, new Clip(frames));
+	frames.clear();
+	//MOVING
+	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 4, cutSize.x, cutSize.y));
+	frames.push_back(new Frame(textureFile, cutSize.x * 1, cutSize.y * 4, cutSize.x, cutSize.y));
+	frames.push_back(new Frame(textureFile, cutSize.x * 2, cutSize.y * 4, cutSize.x, cutSize.y));
+	animObject->AddClip(dirCode * 100+1, new Clip(frames));
+	frames.clear();
+
+
+	//RightUp : 2
+	dirCode = 2;
+	//IDLE
+	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 5, cutSize.x, cutSize.y));
+	animObject->AddClip(dirCode * 100, new Clip(frames));
+	frames.clear();
+	//MOVING
+	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 5, cutSize.x, cutSize.y));
+	frames.push_back(new Frame(textureFile, cutSize.x * 1, cutSize.y * 5, cutSize.x, cutSize.y));
+	frames.push_back(new Frame(textureFile, cutSize.x * 2, cutSize.y * 5, cutSize.x, cutSize.y));
+	animObject->AddClip(dirCode * 100 + 1, new Clip(frames));
+	frames.clear();
+
+	//Left : 3
+	dirCode = 3;
+	//IDLE
+	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 2, cutSize.x, cutSize.y));
+	animObject->AddClip(dirCode * 100, new Clip(frames));
+	frames.clear();
+	//MOVING
+	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 2, cutSize.x, cutSize.y));
+	frames.push_back(new Frame(textureFile, cutSize.x * 1, cutSize.y * 2, cutSize.x, cutSize.y));
+	frames.push_back(new Frame(textureFile, cutSize.x * 2, cutSize.y * 2, cutSize.x, cutSize.y));
+	animObject->AddClip(dirCode * 100 + 1, new Clip(frames));
+	frames.clear();
+
+	//Right : 5
+	dirCode = 5;
+	//IDLE
+	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 6, cutSize.x, cutSize.y));
+	animObject->AddClip(dirCode * 100, new Clip(frames));
+	frames.clear();
+	//MOVING
+	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 6, cutSize.x, cutSize.y));
+	frames.push_back(new Frame(textureFile, cutSize.x * 1, cutSize.y * 6, cutSize.x, cutSize.y));
+	frames.push_back(new Frame(textureFile, cutSize.x * 2, cutSize.y * 6, cutSize.x, cutSize.y));
+	animObject->AddClip(dirCode * 100 + 1, new Clip(frames));
+	frames.clear();
+	
+	//LeftDown : 6
+	dirCode = 6;
+	//IDLE
+	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 1, cutSize.x, cutSize.y));
+	animObject->AddClip(dirCode * 100, new Clip(frames));
+	frames.clear();
+	//MOVING
+	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 1, cutSize.x, cutSize.y));
+	frames.push_back(new Frame(textureFile, cutSize.x * 1, cutSize.y * 1, cutSize.x, cutSize.y));
+	frames.push_back(new Frame(textureFile, cutSize.x * 2, cutSize.y * 1, cutSize.x, cutSize.y));
+	animObject->AddClip(dirCode * 100 + 1, new Clip(frames));
+	frames.clear();
+
+	//Down : 7, default
+	dirCode = 7;
+	//IDLE
+	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 0, cutSize.x, cutSize.y));
+	animObject->AddClip(dirCode * 100, new Clip(frames));
+	frames.clear();
+	//MOVING
+	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 0, cutSize.x, cutSize.y));
+	frames.push_back(new Frame(textureFile, cutSize.x * 1, cutSize.y * 0, cutSize.x, cutSize.y));
+	frames.push_back(new Frame(textureFile, cutSize.x * 2, cutSize.y * 0, cutSize.x, cutSize.y));
+	animObject->AddClip(dirCode * 100 + 1, new Clip(frames));
+	frames.clear();
+	//DAMAGE	
+	
+	//RightDown : 8
+	dirCode = 8;
+	//IDLE
+	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 7, cutSize.x, cutSize.y));
+	animObject->AddClip(dirCode * 100, new Clip(frames));
+	frames.clear();
+	//MOVING
+	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 7, cutSize.x, cutSize.y));
+	frames.push_back(new Frame(textureFile, cutSize.x * 1, cutSize.y * 7, cutSize.x, cutSize.y));
+	frames.push_back(new Frame(textureFile, cutSize.x * 2, cutSize.y * 7, cutSize.x, cutSize.y));
+	animObject->AddClip(dirCode * 100 + 1, new Clip(frames));
+	frames.clear();
 }
 
 void Unit::UpdateWorld()
 {
 	__super::UpdateWorld();
 	animObject->UpdateWorld();
-	collider->UpdateWorld();
 }
 
 void Unit::SetController(Controller* controller)
@@ -76,39 +171,50 @@ void Unit::SetController(Controller* controller)
 
 void Unit::SetDir(int x, int y)
 {
-	animObject->SetDir(x, y);
+	animDirX = x;
+	animDirY = y;
+	SetAction();
+
 }
 
-void Unit::SetPos(int x, int y)
+void Unit::TurnEnd()
 {
-	DungeonTileMap* tileMap = nullptr;
-	Observer::Get()->ExecuteGetEvent("CallTileMap", (void**)&tileMap);
+	//상태 이상 다 턴 감소
 
-	if (!tileMap)
-		return;
 
-	Vector2 pos = tileMap->PointToPos({ x, y });
-	movement->SetTargetPos(pos, 0.0f);
 }
 
-void Unit::SetMove(int dirX, int dirY)
+void Unit::SetAction()
 {
-	DungeonTileMap* tileMap = nullptr;
-	Observer::Get()->ExecuteGetEvent("CallTileMap", (void**)&tileMap);
 
-	if (!tileMap)
-		return;
+	/*
+	dir
+	  -1
+	-1 0 1
+	   1
+	dirCode
+	0 1 2
+	3 4 5
+	6 7 8
+	*/
 
-	POINT unitPoint = tileMap->PosToPoint(GlobalPos());
-	Vector2 destPos = {};
-	if (tileMap->SetMove(unitPoint.x, unitPoint.y, dirX, dirY, destPos))
-		movement->SetTargetPos(destPos);
+	int center = 4;
+
+	int dirCode = (4 + -animDirY * 3 + animDirX) * 100;
+	if (movement->IsMoving())
+		dirCode += 1;
+	
+	animObject->SetClip(dirCode);
 }
 
 bool Unit::IsActing()
 {
-	if (movement->IsMoving())
+	if (__super::IsActing())
 		return true;
+	//이동하는 경우
+	//스킬 시전 중인 경우
+
+	//스킬 발동 중인건 스킬이 직접 알린다
 
 	return false;
 }

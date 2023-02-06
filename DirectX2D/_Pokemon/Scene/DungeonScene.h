@@ -10,6 +10,7 @@ private:
 		ENTER_DUNGEON,
 		WAIT_COMMAND,
 		ACTING,
+		TURN_END,
 		FLOOR_MOVE,
 		PLAYER_DEAD
 	};
@@ -31,5 +32,9 @@ private:
 	Unit* testUnit;
 
 	ActState actState = ENTER_DUNGEON;
-};
 
+	class PlayerController* controller = nullptr;
+
+	vector<Unit*> actionUnits;
+	vector<Unit*> movingUnits;
+};

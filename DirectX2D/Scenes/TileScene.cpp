@@ -3,14 +3,20 @@
 
 TileScene::TileScene()
 {
-	float x = 0.33f;
-	float y = 1.0f / 24.0f;
-	sampleStartUV = { x, y * 4.0f };
-	sampleEndUV = { x * 2.0f, y * 5.0f };
+	sampleStartUV = { 0,0 };
+	sampleEndUV = { 1, 1 };
 
-	CreateSample(L"Textures/pokemon/TinyWood/");
+	CreateSample(L"Textures/pokemon/ObjectTile/");
 	editTileMap = new EditTileMap(30, 30);
 	editTileMap->Pos() = { 40, 40 };
+
+	float x = 0.33f;
+	float y = 1.0f / 24.0f;
+
+	sampleStartUV = { x, y * 4.0f };
+	sampleEndUV = { x * 2.0f, y * 5.0f };
+	CreateSample(L"Textures/pokemon/TinyWood/");
+
 
 	editTileMap->SetBGUV(sampleStartUV, sampleEndUV);
 
@@ -40,7 +46,6 @@ void TileScene::Update()
 			for (auto sampleBtn : sampleBtns)
 				sampleClicked |= (sampleBtn->GetCollider()->IsPointCollision(mousePos));
 			
-
 			if (!sampleClicked && selectSample->GetTexture())
 				editTileMap->ClickTile(selectSample, selectType);
 		}
@@ -111,8 +116,9 @@ void TileScene::ClickSampleBtn(void* sampleBtn)
 {
 	Button* button = (Button*)sampleBtn;
 
-	if(button)
+	if (button) {
 		selectSample->SetTexture(button->GetTexture());
+	}
 }
 
 void TileScene::CreateSample(wstring path)

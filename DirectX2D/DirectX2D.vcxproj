@@ -141,6 +141,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="_Pokemon\Tile\ObjTileManager.h" />
+    <ClInclude Include="_Pokemon\Control\PlayerController.h" />
+    <ClInclude Include="_Pokemon\Object\DungeonObject.h" />
+    <ClInclude Include="Skill.h" />
     <ClInclude Include="_Pokemon\Control\Controller.h" />
     <ClInclude Include="_Pokemon\Tile\DungeonAStar.h" />
     <ClInclude Include="Objects\Basic\Particle.h" />
@@ -285,7 +289,10 @@
     <ClInclude Include="Objects\Manager\UIManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="_Pokemon\Control\Controller.cpp" />
+    <ClCompile Include="_Pokemon\Tile\ObjTileManager.cpp" />
+    <ClCompile Include="_Pokemon\Control\PlayerController.cpp" />
+    <ClCompile Include="_Pokemon\Object\DungeonObject.cpp" />
+    <ClCompile Include="Skill.cpp" />
     <ClCompile Include="_Pokemon\Tile\DungeonAStar.cpp" />
     <ClCompile Include="Objects\Basic\Particle.cpp" />
     <ClCompile Include="Scenes\ParticleScene.cpp" />

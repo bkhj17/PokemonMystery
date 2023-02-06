@@ -4,15 +4,15 @@ class Controller
 {
 	friend class Unit;
 public:
-	Controller();
-	Controller(Unit* unit);
-	~Controller();
+	Controller() = default;
+	Controller(Unit* unit) : unit(unit) {};
+	virtual ~Controller() = default;
 
-	void SetCommand();
-private:
+	virtual void SetCommand() = 0;
+protected:
 	void SetUnit(Unit* unit) { this->unit = unit; }
 
-private:
+protected:
 	Unit* unit = nullptr;
 
 };

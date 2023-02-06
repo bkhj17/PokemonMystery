@@ -99,7 +99,6 @@ void EditTileMap::Save(string file)
 	writer->UInt(height);
 
 	writer->UInt(bgTiles.size());
-
 	UINT i = 0;
 	for (Tile* tile : bgTiles) {
 		Tile::Data data = tile->GetData();
@@ -115,16 +114,15 @@ void EditTileMap::Save(string file)
 		i++;
 	}
 
-
 	writer->UInt(objTiles.size());
-	i = 0;
+
 	for (auto tile : objTiles) {
 		Tile::Data data = tile->GetData();
 		writer->WString(data.textureFile);
-		writer->UInt(i % width);
-		writer->UInt(i / width);
-//		writer->Float(data.pos.x);
-//		writer->Float(data.pos.y);
+		//writer->UInt(i % width);
+		//writer->UInt(i / width);
+		writer->UInt((UINT)floorf(data.pos.x / tileSize.x));
+		writer->UInt((UINT)floorf(data.pos.y / tileSize.y));
 		writer->Float(data.angle);
 		writer->Int(data.type);
 
@@ -150,7 +148,6 @@ void EditTileMap::Load(string file)
 		data.angle = reader->Float();
 		data.type = (Tile::Type)reader->Int();
 
-
 		tile->SetTexture(data.textureFile);
 		tile->Pos() = data.pos;
 		tile->Rot().z = data.angle;
@@ -164,12 +161,12 @@ void EditTileMap::Load(string file)
 	for (auto& tile : objTiles) {
 		Tile::Data data;
 		data.textureFile = reader->WString();
-		data.pos.x = reader->Float();
-		data.pos.y = reader->Float();
+		data.pos.x = reader->UInt() * tileSize.x;
+		data.pos.y = reader->UInt() * tileSize.y;
 		data.angle = reader->Float();
 		data.type = (Tile::Type)reader->Int();
 
-		tile = new Tile(data);
+		tile = new Tile(data, tileSize);
 		tile->SetParent(this);
 	}
 
@@ -230,25 +227,10 @@ void EditTileMap::SetOBJTile(wstring file, float angle)
 			data.angle = angle;
 			data.type = Tile::OBJ;
 
-			Tile* obj = new Tile(data);
+			Tile* obj = new Tile(data, tile->GetSize());
 			obj->SetParent(this);
 			obj->Pos() = tile->Pos();
 			objTiles.push_back(obj);
 		}
 	}
-
-	/*
-	int i = 0;
-	for (; i < bgTiles.size(); i++) {
-		if (bgTiles[i]->GetCollider()->IsPointCollision(mousePos))
-			break;
-	}
-
-	if (i == bgTiles.size())
-		return;
-
-	objTiles[i]->SetActive(true);
-	objTiles[i]->SetTexture(file);
-	objTiles[i]->SetAngle(angle);
-	*/
 }
