@@ -22,6 +22,7 @@ Unit::Unit(Controller* controller, Vector2 size)
 Unit::~Unit()
 {
 	delete animObject;
+	delete controller;
 }
 
 void Unit::Update()
