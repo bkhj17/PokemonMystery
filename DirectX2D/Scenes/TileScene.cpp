@@ -7,8 +7,8 @@ TileScene::TileScene()
 	sampleEndUV = { 1, 1 };
 
 	CreateSample(L"Textures/pokemon/ObjectTile/");
-	editTileMap = new EditTileMap(30, 30);
-	editTileMap->Pos() = { 40, 40 };
+	editTileMap = new EditTileMap(32, 37);
+	editTileMap->Pos() = { 30, 30 };
 
 	float x = 0.33f;
 	float y = 1.0f / 24.0f;
@@ -17,12 +17,10 @@ TileScene::TileScene()
 	sampleEndUV = { x * 2.0f, y * 5.0f };
 	CreateSample(L"Textures/pokemon/TinyWood/");
 
-
 	editTileMap->SetBGUV(sampleStartUV, sampleEndUV);
-
 	selectSample = new Quad(Vector2(SAMPLE_SIZE, SAMPLE_SIZE));
 	selectSample->ModifyUV(sampleStartUV, sampleEndUV);
-
+	
 	char path[128];
 	GetCurrentDirectoryA(sizeof(path), path);
 	projectPath = path;
@@ -100,10 +98,10 @@ void TileScene::Render()
 void TileScene::PostRender()
 {
 	for (auto button : sampleBtns)
-		button->Render();
+		button->PostRender();
 
 	if (selectSample->GetTexture())
-		selectSample->Render();
+		selectSample->PostRender();
 
 	const char* list[] = { "BG", "OBJ" };
 	ImGui::ListBox("Type", (int*)&selectType, list, 2);

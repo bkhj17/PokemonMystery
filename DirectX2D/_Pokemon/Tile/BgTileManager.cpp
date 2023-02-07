@@ -71,8 +71,8 @@ void BgTileManager::InitGridInfo()
     tileGrid[LEFT | RIGHT | LEFT_DOWN | DOWN] = { 0, 19 };
     tileGrid[LEFT | RIGHT | DOWN | RIGHT_DOWN] = { 1, 19 };
 
-    tileGrid[RIGHT_UP | UP | RIGHT | LEFT] = { 0, 20 };
-    tileGrid[UP | LEFT_UP | RIGHT | LEFT] = { 1, 20 };
+    tileGrid[UP | LEFT_UP | RIGHT | LEFT] = { 0, 20 };
+    tileGrid[RIGHT_UP | UP | RIGHT | LEFT] = { 1, 20 };
 
     tileGrid[ALL & ~(LEFT_UP | RIGHT_UP | LEFT_DOWN)] = { 0, 21 };
     tileGrid[ALL & ~(LEFT_UP | RIGHT_UP | RIGHT_DOWN)] = { 1, 21 };
@@ -123,14 +123,29 @@ void BgTileManager::InitVCheck()
 {
     //판별
     vcheck.reserve(12);
+    //5
     vcheck.push_back({ DOWN | RIGHT | RIGHT_DOWN | LEFT | LEFT_DOWN, UP });
     vcheck.push_back({ DOWN | RIGHT | RIGHT_DOWN | RIGHT_UP | UP, LEFT });
     vcheck.push_back({ DOWN | UP | LEFT_UP | LEFT | LEFT_DOWN, RIGHT });
     vcheck.push_back({ UP | RIGHT | RIGHT_UP | LEFT | LEFT_UP, DOWN });
+    //4
+    vcheck.push_back({ UP | LEFT | RIGHT | LEFT_UP, DOWN | RIGHT_UP });
+    vcheck.push_back({ UP | LEFT | RIGHT | RIGHT_UP, DOWN | LEFT_UP });
+    vcheck.push_back({ DOWN | LEFT | RIGHT | LEFT_DOWN, DOWN | RIGHT_DOWN });
+    vcheck.push_back({ DOWN | LEFT | RIGHT | RIGHT_DOWN, DOWN | LEFT_DOWN });
+
+    vcheck.push_back({ UP | DOWN | RIGHT | RIGHT_UP, LEFT | RIGHT_DOWN });
+    vcheck.push_back({ UP | DOWN | LEFT | LEFT_UP, RIGHT |LEFT_DOWN });
+    vcheck.push_back({ UP | DOWN | LEFT | LEFT_DOWN, RIGHT | LEFT_UP});
+    vcheck.push_back({ UP | DOWN | RIGHT | RIGHT_DOWN, LEFT | RIGHT_UP });
+    //3
     vcheck.push_back({ DOWN | RIGHT | RIGHT_DOWN, UP | LEFT });
     vcheck.push_back({ DOWN | LEFT | LEFT_DOWN, UP | RIGHT });
     vcheck.push_back({ UP | RIGHT | RIGHT_UP , LEFT | DOWN });
     vcheck.push_back({ UP | LEFT | LEFT_UP, DOWN | RIGHT });
+    //2
+    vcheck.push_back({ UP | DOWN, LEFT | RIGHT });
+    vcheck.push_back({ LEFT | RIGHT,  UP | DOWN});
     vcheck.push_back({ DOWN, UP | RIGHT | LEFT });
     vcheck.push_back({ LEFT, DOWN | RIGHT | UP });
     vcheck.push_back({ RIGHT, DOWN | UP | LEFT });
@@ -141,7 +156,6 @@ void BgTileManager::InitRoomCheck()
 {
 
     //방 판별기
-
     roomCheck.reserve(4);
     roomCheck.push_back({ LEFT | UP | LEFT_UP, 0 });
     roomCheck.push_back({ LEFT | DOWN | LEFT_DOWN, 0 });

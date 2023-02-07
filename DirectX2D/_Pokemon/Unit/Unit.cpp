@@ -180,14 +180,11 @@ void Unit::SetDir(int x, int y)
 
 void Unit::TurnEnd()
 {
-	//상태 이상 다 턴 감소
-
 
 }
 
 void Unit::SetAction()
 {
-
 	/*
 	dir
 	  -1
@@ -218,4 +215,15 @@ bool Unit::IsActing()
 	//스킬 발동 중인건 스킬이 직접 알린다
 
 	return false;
+}
+
+pair<int, int> Unit::GetPoint()
+{
+	DungeonTileMap* tileMap = nullptr;
+	Observer::Get()->ExecuteGetEvent("CallTileMap", (void**)&tileMap);
+	if (tileMap == nullptr)
+		return { -1, -1 };
+
+	POINT point = tileMap->PosToPoint(Pos());
+	return { point.x, point.y };
 }

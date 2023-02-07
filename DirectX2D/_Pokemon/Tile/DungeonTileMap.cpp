@@ -5,31 +5,27 @@
 #include "DungeonObjTile.h"
 #include "DungeonAStar.h"
 #include "ObjTileManager.h"
+#include "../Data/DungeonDataManager.h"
 
-DungeonTileMap::DungeonTileMap(string file)
+DungeonTileMap::DungeonTileMap()
 {
 	tileSize = { 100, 100 };
 	Pos() = tileSize * 0.5f;
-	Load(file);
-
-	for (int y = 0; y < height; y++)
-		for (int x = 0; x < width; x++)
-			SetGrid(x, y);
+	
 
 	Vector2 maxFrame = BgTileManager::Get()->GRID_SIZE;
-	quad = new Quad(BgTileManager::Get()->GetWallTexture()->GetFile(), Vector2(), Vector2(1, 1) / maxFrame);
-	quad->SetSize(tileSize);
+	quad = new Quad(tileSize);
+	quad->ModifyUV(Vector2(), Vector2(1, 1) / maxFrame);
 
 	quad->SetVertexShader(L"DungeonTile.hlsl");
 	quad->SetPixelShader(L"DungeonTile.hlsl");
 
-	instances.resize(width * height);
-	instanceBuffer = new VertexBuffer(instances.data(), sizeof(TileInstanceData), instances.size());
-	for (int i = 0; i < bgTiles.size(); i++)
-		instances[i].maxFrame = maxFrame;
-	instanceBuffer->Update(instances.data(), instances.size());
-	UpdateWorld();
-
+	instances.resize(MAX_WIDTH * MAX_HEIGHT);	
+	for (auto& instance : instances)
+		instance.maxFrame = maxFrame;
+	
+	instanceBuffer = new VertexBuffer(instances.data(), sizeof(TileInstanceData), MAX_WIDTH * MAX_HEIGHT);
+	
 	astar = new DungeonAStar(this);
 }
 
@@ -38,6 +34,21 @@ DungeonTileMap::~DungeonTileMap()
 	delete instanceBuffer;
 	delete quad;
 	delete astar;
+}
+
+void DungeonTileMap::Init(string key, int floorNum)
+{
+	floorData = DungeonDataManager::Get()->GetData(key, floorNum);
+	if (!floorData)
+		return;
+
+	Load(floorData->file);
+
+	for (int y = 0; y < height; y++)
+		for (int x = 0; x < width; x++)
+			SetGrid(x, y);
+
+	UpdateWorld();
 }
 
 void DungeonTileMap::UpdateWorld()
@@ -66,7 +77,7 @@ void DungeonTileMap::Render()
 	quad->SetRender();
 	BgTileManager::Get()->GetLandTexture()->PSSet(1);
 	BgTileManager::Get()->GetWaterTexture()->PSSet(2);
-	DC->DrawIndexedInstanced(6, instances.size(), 0, 0, 0);
+	DC->DrawIndexedInstanced(6, bgTiles.size(), 0, 0, 0);
 
 	for (auto obj : objTiles)
 		obj->Render();
@@ -85,6 +96,11 @@ void DungeonTileMap::GetNodes(vector<Node*>& nodes)
 POINT DungeonTileMap::PosToPoint(Vector2 pos)
 {
 	POINT result = { +0, +0 };
+	Vector2 p = pos / tileSize;
+	
+	result = { (LONG)p.x, (LONG)p.y };
+
+	/*
 	for (UINT i = 0; i < bgTiles.size(); i++) {
 		auto curTile = (DungeonBgTile*)bgTiles[i];
 		if (curTile->GetCollider()->IsPointCollision(pos)) {
@@ -93,7 +109,7 @@ POINT DungeonTileMap::PosToPoint(Vector2 pos)
 			break;
 		}
 	}
-
+	*/
 	return result;
 }
 
@@ -159,6 +175,11 @@ void DungeonTileMap::Load(string file)
 	height = reader->UInt();
 
 	UINT size = reader->UInt();
+
+	while (size < bgTiles.size()) {
+		delete bgTiles.back();
+		bgTiles.pop_back();
+	}
 	bgTiles.resize(size);
 
 	for (auto& tile : bgTiles) {
@@ -170,10 +191,15 @@ void DungeonTileMap::Load(string file)
 		data.angle = reader->Float();
 		data.type = (Tile::Type)reader->Int();
 
-		tile = new DungeonBgTile(data, tileSize);
-		
-		tile->SetParent(this);
-		tile->UpdateWorld();
+		if (!tile) {
+			tile = new DungeonBgTile(data, tileSize);
+			tile->SetParent(this);
+			tile->UpdateWorld();
+		}
+		else {
+			auto bgTile = ((DungeonBgTile*)tile);
+			bgTile->SetData(data);
+		}
 	}
 
 	//맵 타일의 경로를 인식해 매니저에 타일 종류를 인식시킨다
@@ -181,28 +207,34 @@ void DungeonTileMap::Load(string file)
 	auto p = path.find_last_of(L"/");
 	path = path.substr(0, p+1);
 	BgTileManager::Get()->SetTexture(path);
+	quad->SetTexture(BgTileManager::Get()->GetWallTexture()->GetFile());
 
-
-	for (auto tile : objTiles)
-		delete tile;
+	ObjTileManager::Get()->Clear(); 
+	for (auto tile : objTiles) {
+		if(tile != nullptr)
+			delete tile;
+	}
+	objTiles.clear();
 
 	size = reader->UInt();
-	objTiles.resize(size);
-	for (auto& tile : objTiles) {
+	objTiles.reserve(size);
+	for (int i = 0; i < size; i++) {
 		Tile::Data data;
 		data.textureFile = reader->WString();
-		UINT x = reader->UInt(), y = reader->UInt();
+		if (data.textureFile.empty())
+			continue;
 
+		UINT x = reader->UInt(), y = reader->UInt();
 		data.pos = tileSize * Vector2(x, y);
 		data.angle = reader->Float();
 		data.type = (Tile::Type)reader->Int();
 
-		tile = new DungeonObjTile(data, tileSize);
+		Tile* tile = new DungeonObjTile(data, tileSize);
 		tile->SetParent(this);
 		tile->UpdateWorld();
-
+		objTiles.push_back(tile);
 		ObjTileManager::Get()->Register(x, y, (DungeonObjTile*)tile);
 	}
-
+	objTiles.shrink_to_fit();
 	delete reader;
 }

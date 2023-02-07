@@ -9,6 +9,7 @@ public:
     ~Camera();
 
     void Update();
+    void RenderUI() override;
 
     void SetView();
 

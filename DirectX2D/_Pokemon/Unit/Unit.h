@@ -34,6 +34,8 @@ public:
 
 	bool IsActing();
 
+	pair<int, int> GetPoint();
+
 	//bool UseSkill(/*스킬 키, 시전 위치, 시전 방향 */); 
 	//스킬 끝날 때까지 acting 유지? 
 	//스킬 객체가 acting을 하고 있으면 되지 않나?

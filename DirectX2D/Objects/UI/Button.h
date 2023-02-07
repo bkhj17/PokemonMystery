@@ -20,8 +20,14 @@ public:
 	virtual void Render();
 
 	void SetEvent(Event event) { this->event = event; }
-	void SetParamEvent(ParamEvent event) { this->paramEvent = event; }
-	void SetObject(void * object) { this->object = object; }
+	void SetParamEvent(ParamEvent event) { 
+		this->paramEvent = event; 
+	}
+	void SetObject(void * object) { 
+		this->object = object; 
+	}
+
+	void ExecuteEvent();
 
 	RectCollider* GetCollider() { return collider; }
 protected:
@@ -31,8 +37,7 @@ protected:
 
 	bool isDownCheck = false;
 
-	Event event = nullptr;
-	ParamEvent paramEvent = nullptr;
-
+	Event event;
+	ParamEvent paramEvent;
 	void* object = nullptr;
 };

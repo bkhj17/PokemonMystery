@@ -141,15 +141,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="_Pokemon\Data\DungeonDataManager.h" />
+    <ClInclude Include="_Pokemon\UI\StatusUI.h" />
+    <ClInclude Include="_Pokemon\UI\UIWindow.h" />
+    <ClInclude Include="_Pokemon\UI\PokemonUIManager.h" />
     <ClInclude Include="_Pokemon\Tile\ObjTileManager.h" />
     <ClInclude Include="_Pokemon\Control\PlayerController.h" />
     <ClInclude Include="_Pokemon\Object\DungeonObject.h" />
-    <ClInclude Include="Skill.h" />
+    <ClInclude Include="_Pokemon\Skill\Skill.h" />
     <ClInclude Include="_Pokemon\Control\Controller.h" />
     <ClInclude Include="_Pokemon\Tile\DungeonAStar.h" />
     <ClInclude Include="Objects\Basic\Particle.h" />
     <ClInclude Include="Scenes\ParticleScene.h" />
-    <ClInclude Include="Stair.h" />
     <ClInclude Include="_Pokemon\Unit\UnitMovement.h" />
     <ClInclude Include="_Pokemon\Unit\Unit.h" />
     <ClInclude Include="_Pokemon\Tile\BgTileManager.h" />
@@ -289,14 +292,17 @@
     <ClInclude Include="Objects\Manager\UIManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="_Pokemon\Data\DungeonDataManager.cpp" />
+    <ClCompile Include="_Pokemon\UI\StatusUI.cpp" />
+    <ClCompile Include="_Pokemon\UI\UIWindow.cpp" />
+    <ClCompile Include="_Pokemon\UI\PokemonUIManager.cpp" />
     <ClCompile Include="_Pokemon\Tile\ObjTileManager.cpp" />
     <ClCompile Include="_Pokemon\Control\PlayerController.cpp" />
     <ClCompile Include="_Pokemon\Object\DungeonObject.cpp" />
-    <ClCompile Include="Skill.cpp" />
+    <ClCompile Include="_Pokemon\Skill\Skill.cpp" />
     <ClCompile Include="_Pokemon\Tile\DungeonAStar.cpp" />
     <ClCompile Include="Objects\Basic\Particle.cpp" />
     <ClCompile Include="Scenes\ParticleScene.cpp" />
-    <ClCompile Include="Stair.cpp" />
     <ClCompile Include="_Pokemon\Unit\UnitMovement.cpp" />
     <ClCompile Include="_Pokemon\Unit\Unit.cpp" />
     <ClCompile Include="_Pokemon\Tile\BgTileManager.cpp" />

@@ -14,6 +14,6 @@ protected:
 
 protected:
 	Unit* unit = nullptr;
-
+	string tag;
 };
 

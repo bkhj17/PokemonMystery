@@ -7,16 +7,15 @@ private:
 	ObjTileManager();
 	~ObjTileManager();
 
-
 public:
-	DungeonObjTile* Register(UINT x, UINT y, DungeonObjTile* obj);
+	DungeonObjTile* Register(int x, int y, DungeonObjTile* obj);
 	void Clear();
 
-	DungeonObjTile* GetTile(UINT x, UINT y);
+	DungeonObjTile* GetTile(int x, int y);
 
-	void ReserveActivate(void* unit);
+	void Activate(void* unitptr);
 
 private:
-	map<pair<UINT, UINT>, DungeonObjTile*> objTiles;
+	map<pair<int, int>, DungeonObjTile*> objTiles;	
 };
 

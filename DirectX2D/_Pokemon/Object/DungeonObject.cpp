@@ -65,6 +65,8 @@ void DungeonObject::MovementUpdate()
 			SetMove();
 		else {
 			//이동이 끝났음을 알려야 한다
+			if(movement->IsMoved())
+				Observer::Get()->ExecuteParamEvent("MoveEnd", (void*)this);
 		}
 	}
 	movement->Update();

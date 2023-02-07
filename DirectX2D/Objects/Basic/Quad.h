@@ -6,6 +6,7 @@ public:
 	~Quad();
 
 	virtual void Render();
+	virtual void PostRender();
 
 	virtual void SetRender();
 

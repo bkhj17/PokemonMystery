@@ -37,6 +37,15 @@ void Quad::Render()
 	DC->DrawIndexed((UINT)indices.size(), 0, 0);
 }
 
+void Quad::PostRender()
+{
+	if (!isActive)
+		return;
+
+	SetRender();
+	DC->DrawIndexed((UINT)indices.size(), 0, 0);
+}
+
 void Quad::SetRender()
 {
 	if (texture != nullptr)

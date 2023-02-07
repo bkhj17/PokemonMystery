@@ -1,0 +1,5 @@
+dungeon,floor,name,file,postFloor,nextFloor,items,minItemNum,maxItemNum,minGold,maxGold,Monsters,MonstersLevel,MonsterNum
+TinyWood,-1,累篮 剑,TextData/TinyWood1.map,0,-2,Apple OrenBerry,1,1,10,18,部房 备备,2 2,5
+TinyWood,-2,累篮 剑,TextData/TinyWood2.map,-1,-3,Apple OrenBerry,1,2,10,18,部房 备备,2 2,7
+TinyWood,-3,累篮 剑,TextData/TinyWood3.map,-2,-4,Apple OrenBerry,1,3,10,18,部房 备备,2 3,9
+TinyWood,-4,累篮 剑,TextData/TinyWood4.map,-3,0,Apple OrenBerry,2,2,10,18,部房 备备,3 3,10

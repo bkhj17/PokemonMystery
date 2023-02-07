@@ -3,10 +3,10 @@ class Transform
 {
 public:
 	Transform();
-	~Transform() = default;
+	virtual ~Transform() = default;
 
 	virtual void UpdateWorld();
-	void RenderUI();
+	virtual void RenderUI();
 
 	Vector2 Right() { return right.GetNormalized(); }
 	Vector2 Left() { return right.GetNormalized() * -1.0f; }

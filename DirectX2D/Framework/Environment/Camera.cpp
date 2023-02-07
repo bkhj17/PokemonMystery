@@ -20,6 +20,14 @@ void Camera::Update()
 	SetView();
 }
 
+void Camera::RenderUI()
+{
+	__super::RenderUI();
+
+	string temp = tag + "_speed";
+	ImGui::InputFloat(temp.c_str(), &speed);
+}
+
 void Camera::SetView()
 {
 	UpdateWorld();

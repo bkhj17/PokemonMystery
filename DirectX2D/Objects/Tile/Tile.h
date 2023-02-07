@@ -25,6 +25,8 @@ public:
 	void SetAngle(float angle);
 
 	Data& GetData() { return data; }
+	void SetData(Data data);
+
 
 	void PushRect(RectCollider* collider);
 private:

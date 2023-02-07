@@ -4,6 +4,9 @@
 Button::Button(wstring textureFile)
 	: Quad(textureFile)
 {
+	event = nullptr;
+	paramEvent = nullptr;
+	object = nullptr;
 	collider = new RectCollider(size);
 	collider->SetParent(this);
 }
@@ -11,6 +14,10 @@ Button::Button(wstring textureFile)
 Button::Button(Vector2 size)
 	: Quad(size)
 {
+	event = nullptr;
+	paramEvent = nullptr;
+	object = nullptr;
+
 	collider = new RectCollider(size);
 	collider->SetParent(this);
 }
@@ -35,11 +42,7 @@ void Button::Update()
 			state = OVER;
 
 		if (isDownCheck && KEY_UP(VK_LBUTTON)) {
-			if (event != nullptr)
-				event();
-			if (paramEvent != nullptr)
-				paramEvent(object);
-
+			ExecuteEvent();
 			isDownCheck = false;
 		}
 	}
@@ -84,4 +87,12 @@ void Button::Render()
 	__super::Render();
 
 	//collider->Render();
+}
+
+void Button::ExecuteEvent()
+{
+	if (event) 
+		event();
+	if (paramEvent && object != nullptr)
+		paramEvent(object);
 }

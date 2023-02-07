@@ -11,6 +11,7 @@ public:
 	void SetOwner(Transform* owner) { this->owner = owner; }
 
 	bool IsMoving() { return time > 0.0f; }
+	bool IsMoved() { return isMoved; }
 private:
 	void Teleport();
 private:
@@ -25,5 +26,6 @@ private:
 	float speed = 5.0f;
 
 	//이동 거리 - 2칸 가거나 뭔가에 부딫힐 때까지 움직이는 객체도 있다
+	bool isMoved = false;
 };
 

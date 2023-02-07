@@ -118,6 +118,9 @@ void EditTileMap::Save(string file)
 
 	for (auto tile : objTiles) {
 		Tile::Data data = tile->GetData();
+		if (data.textureFile.empty())
+			continue;
+
 		writer->WString(data.textureFile);
 		//writer->UInt(i % width);
 		//writer->UInt(i / width);
@@ -185,7 +188,7 @@ void EditTileMap::CreateTile()
 	wstring baseTile = L"Textures/Tile/tile.png";
 	Texture* texture = Texture::Add(baseTile);
 
-	tileSize = texture->GetSize();
+	//tileSize = texture->GetSize();
 
 	bgTiles.reserve(width * height);
 

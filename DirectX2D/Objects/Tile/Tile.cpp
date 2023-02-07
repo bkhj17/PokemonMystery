@@ -40,6 +40,20 @@ void Tile::SetAngle(float angle)
 	data.angle = localRotation.z = angle;
 }
 
+void Tile::SetData(Data data)
+{
+	this->data.textureFile = data.textureFile;
+	this->data.pos = data.pos;
+	this->data.angle = data.angle;
+	this->data.type = data.type;
+
+	SetTexture(data.textureFile);
+	localPosition = data.pos;
+	localRotation.z = data.angle;
+	
+	UpdateWorld();
+}
+
 void Tile::PushRect(RectCollider* collider)
 {
 	Vector2 overlap = {};

@@ -2,8 +2,7 @@
 #include "Controller.h"
 
 class Unit;
-class PlayerController :
-    public Controller
+class PlayerController : public Controller
 {
 public:
     PlayerController() = default;

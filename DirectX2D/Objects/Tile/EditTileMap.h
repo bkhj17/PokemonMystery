@@ -28,7 +28,7 @@ private:
 	vector<Tile*> bgTiles;
 	deque<Tile*> objTiles;
 
-	Vector2 tileSize = { 60.0f, 60.0f };
+	Vector2 tileSize = { 30.0f, 30.0f };
 
 	Vector2 clickedPos;
 };

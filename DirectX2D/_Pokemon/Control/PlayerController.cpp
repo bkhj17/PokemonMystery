@@ -5,6 +5,7 @@
 PlayerController::PlayerController(Unit* unit)
 	: Controller(unit)
 {
+	tag = "Player";
 }
 
 void PlayerController::SetCommand()
