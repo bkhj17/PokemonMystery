@@ -6,7 +6,7 @@ class Controller
 public:
 	Controller() = default;
 	Controller(Unit* unit) : unit(unit) {};
-	virtual ~Controller() = default;
+	virtual ~Controller();
 
 	virtual bool SetCommand() = 0;
 

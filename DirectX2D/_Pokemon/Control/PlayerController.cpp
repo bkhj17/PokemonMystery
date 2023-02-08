@@ -1,6 +1,8 @@
 #include "Framework.h"
 #include "PlayerController.h"
 #include "../Unit/Unit.h"
+#include "../Unit/UnitManager.h"
+#include "../Tile/DungeonTileMap.h"
 
 PlayerController::PlayerController()
 {
@@ -27,8 +29,13 @@ bool PlayerController::SetCommand()
 	if (dirX != 0 || dirY != 0) {
 		unit->SetDir(dirX, dirY);
 		if (!KEY_PRESS(VK_LSHIFT)) {
+			POINT curPoint = unit->GetPoint();
+			if (!UnitManager::Get()->CheckMovablePoint(curPoint, dirX, dirY))
+				return false;
+
 			unit->SetMovePlan(dirX, dirY, 1);
-			return true;
+			if(unit->IsMoving())
+				return true;
 		}
 	}
 

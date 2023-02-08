@@ -144,7 +144,7 @@ POINT DungeonTileMap::GetRandomPointByCondition(function<bool(POINT)> condition)
 void DungeonTileMap::SetGrid(int x, int y)
 {
     //유효하지 않은 위치
-    if (x < 0 || x >= width || y < 0 || y >= height)
+    if (x < 0 || x >= (int)width || y < 0 || y >= (int)height)
         return;
 
     auto targetTile = (DungeonBgTile*)bgTiles[(size_t)y * width + x];
@@ -241,7 +241,7 @@ void DungeonTileMap::Load(string file)
 			continue;
 
 		UINT x = reader->UInt(), y = reader->UInt();
-		data.pos = tileSize * Vector2(x, y);
+		data.pos = tileSize * Vector2((float)x, (float)y);
 		data.angle = reader->Float();
 		data.type = (Tile::Type)reader->Int();
 
@@ -274,8 +274,8 @@ void DungeonTileMap::SetUpTrap()
 		return BgTileManager::Get()->IsRoom(tile->GetGridFlag());
 	});
 	//셔플
-	if (roomPoints.size() <= trapNum) {
-		trapNum = roomPoints.size();
+	if ((int)roomPoints.size() <= trapNum) {
+		trapNum = (int)roomPoints.size();
 	}
 	else {
 		for (int i = 0; i < trapNum; i++) {
@@ -285,7 +285,7 @@ void DungeonTileMap::SetUpTrap()
 	}
 	//오브젝트 타일 생성 및 배치
 	for (int i = 0; i < trapNum; i++) {
-		string trapKey = floorData->traps[Random(0, floorData->traps.size())];
+		string trapKey = floorData->traps[Random(0, (int)floorData->traps.size())];
 
 		Tile::Data data;
 

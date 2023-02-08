@@ -23,12 +23,12 @@ void ObjTileManager::Activate(void* unitptr)
 	if (unit == nullptr)
 		return;
 
-	pair<int, int> point = unit->GetPoint();
+	pair<int, int> point = {unit->GetPoint().x, unit->GetPoint().y};
 	if (objTiles.find(point) == objTiles.end())
 		return;
 
-	objTiles[unit->GetPoint()]->SetObject(unitptr);
-	objTiles[unit->GetPoint()]->ExecuteEvent();
+	objTiles[point]->SetObject(unitptr);
+	objTiles[point]->ExecuteEvent();
 }
 
 wstring ObjTileManager::GetTextureFile(string key)

@@ -3,6 +3,7 @@
 #include "Unit.h"
 #include "../Control/PlayerController.h"
 #include "../Control/EnemyController.h"
+#include "../Tile/DungeonTileMap.h"
 
 UnitManager::UnitManager()
 {
@@ -170,6 +171,52 @@ void UnitManager::GetPokemonData(IN int key, IN int level, OUT PokemonData*& dat
 	data->level = level;
 	ApplyLevel(level, data);
 
+}
+
+bool UnitManager::IsUnitOnPoint(POINT point)
+{
+	POINT p = player->GetPoint();
+
+	if (p.x == point.x	&& p.y ==  point.y)
+		return true;
+
+	for (auto f : friends) {
+		p = f->GetPoint();
+		if (p.x == point.x && p.y == point.y)
+			return true;
+	}
+
+	for (auto e : enemies)
+	{
+		p = e->GetPoint();
+		if (p.x == point.x && p.y == point.y)
+			return true;
+	}
+
+	return false;
+}
+
+bool UnitManager::CheckMovablePoint(POINT point, int dirX, int dirY)
+{
+	//맵 정보 불러올 수 있는지 확인
+	DungeonTileMap* tileMap = nullptr;
+	Observer::Get()->ExecuteGetEvent("CallTileMap", (void**)&tileMap);
+	if (tileMap == nullptr)
+		return false;
+
+	Vector2 destPos = {};	//함수 호출용 더미
+	//갈 수 있는 위치인지 확인
+	if (!tileMap->SetMove(point.x, point.y, dirX, dirY, destPos))
+		return false;
+
+	POINT nextPos = point;
+	nextPos.x += dirX;
+	nextPos.y += dirY;
+	//가야 할 자리에 누가 먼저 자리잡고 있는지도 알아야 함
+	if (IsUnitOnPoint(nextPos))
+		return false;
+
+	return true;
 }
 
 void UnitManager::ApplyLevel(IN int level, OUT PokemonData* data)

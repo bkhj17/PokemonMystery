@@ -43,19 +43,36 @@ void DungeonObject::SetPoint(int x, int y)
 	movement->SetTargetPos(pos, 0.0f);
 }
 
+POINT DungeonObject::GetPoint()
+{
+	POINT point = { -1, -1 };
+	DungeonTileMap* tileMap = nullptr;
+	Observer::Get()->ExecuteGetEvent("CallTileMap", (void**)&tileMap);
+	if (tileMap == nullptr)
+		return { -1, -1 };
+
+	return tileMap->PosToPoint(IsMoving() ? movement->GetTargetPos() : Pos());
+}
+
 void DungeonObject::SetMovePlan(int dirX, int dirY, int dist)
 {
 	moveDirX = dirX;
 	moveDirY = dirY;
 	moveDist = dist;
+	MovementUpdate();
 }
 
 bool DungeonObject::IsActing()
 {
-	if (movement->IsMoving() || moveDist > 0)
+	if (IsMoving())
 		return true;
 
 	return false;
+}
+
+bool DungeonObject::IsMoving()
+{
+	return movement->IsMoving() || moveDist > 0;
 }
 
 void DungeonObject::MovementUpdate()

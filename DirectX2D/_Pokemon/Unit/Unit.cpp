@@ -230,21 +230,9 @@ bool Unit::IsActing()
 {
 	if (__super::IsActing())
 		return true;
-	//이동하는 경우
-	//스킬 시전 중인 경우
 
+	//스킬 시전 중인 경우
 	//스킬 발동 중인건 스킬이 직접 알린다
 
 	return false;
-}
-
-pair<int, int> Unit::GetPoint()
-{
-	DungeonTileMap* tileMap = nullptr;
-	Observer::Get()->ExecuteGetEvent("CallTileMap", (void**)&tileMap);
-	if (tileMap == nullptr)
-		return { -1, -1 };
-
-	POINT point = tileMap->PosToPoint(Pos());
-	return { point.x, point.y };
 }

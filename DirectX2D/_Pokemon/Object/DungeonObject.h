@@ -14,9 +14,13 @@ public:
 
     void SetPoint(int x, int y);
     void SetPoint(POINT point) { SetPoint(point.x, point.y); }
+
+    POINT GetPoint();
+
     void SetMovePlan(int dirX, int dirY, int dist);
 
     virtual bool IsActing();
+    bool IsMoving();
     
 protected:
     void MovementUpdate();

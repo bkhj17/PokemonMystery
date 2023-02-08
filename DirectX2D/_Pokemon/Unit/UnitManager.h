@@ -96,6 +96,9 @@ public:
 	Unit* GetPlayer() { return player; }
 	vector<Unit*>& GetFriends() { return friends; }
 	vector<Unit*>& GetEnemies() { return enemies; }
+
+	bool IsUnitOnPoint(POINT point);
+	bool CheckMovablePoint(POINT point, int dirX, int dirY);
 private:
 	void ApplyLevel(IN int level, OUT PokemonData* data);
 	void LoadPokemonTable(string fileName);

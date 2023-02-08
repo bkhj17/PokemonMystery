@@ -12,6 +12,8 @@ public:
 
 	bool IsMoving() { return time > 0.0f; }
 	bool IsMoved() { return isMoved; }
+
+	Vector2 GetTargetPos() { return targetPos; }
 private:
 	void Teleport();
 private:

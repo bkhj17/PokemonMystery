@@ -20,8 +20,6 @@ DungeonScene::DungeonScene()
 	tileMap = new DungeonTileMap();
 	Observer::Get()->AddGetEvent("CallTileMap", bind(&DungeonScene::CallTileMap, this, placeholders::_1));
 	
-	//testUnit = UnitManager::Get()->GetPlayer();
-
 	Observer::Get()->AddEvent("ExitDungeon", bind(&DungeonScene::SetFloorMove, this, EXIT));
 	Observer::Get()->AddEvent("ShiftNextFloor", bind(&DungeonScene::SetFloorMove, this, NEXT));
 	Observer::Get()->AddEvent("ShiftPostFloor", bind(&DungeonScene::SetFloorMove, this, POST));
@@ -36,8 +34,6 @@ DungeonScene::~DungeonScene()
 	PokemonUIManager::Delete();
 	ItemDataManager::Delete();
 	UnitManager::Delete();
-
-	//delete testUnit;
 }
 
 void DungeonScene::InitFloor(string name, int floor)

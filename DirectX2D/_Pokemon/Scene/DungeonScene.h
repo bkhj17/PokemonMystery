@@ -44,7 +44,6 @@ private:
 	void InitFloor(string name, int floor);
 private:
 	DungeonTileMap* tileMap;
-	//Unit* testUnit;
 
 	ActState actState = ENTER_DUNGEON;
 

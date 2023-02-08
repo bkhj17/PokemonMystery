@@ -2,7 +2,7 @@
 #include "EnemyController.h"
 #include "../Unit/Unit.h"
 #include "../Unit/UnitManager.h"
-#include "../Tile/DungeonTileMap.h"
+//#include "../Tile/DungeonTileMap.h"
 EnemyController::EnemyController()
 {
 	tag = "Enemy";
@@ -50,12 +50,6 @@ void EnemyController::SetMoveCommand()
 	if (unit->GetWait() != 0)
 		return;
 
-	//맵 정보 불러올 수 있는지 확인
-	DungeonTileMap* tileMap = nullptr;
-	Observer::Get()->ExecuteGetEvent("CallTileMap", (void**)&tileMap);
-	if (tileMap == nullptr)
-		return;
-
 	////방향 가중치 사용
 	int dirX = unit->GetDirX();
 	int dirY = unit->GetDirY();
@@ -66,10 +60,11 @@ void EnemyController::SetMoveCommand()
 		{{1, -1}, 0 },
 		{{-1, 0}, 0 },
 		{{1, 0}, 0 },
-		{{-1, 1}, 0 }, 
-		{{0, 1}, 0 }, 
-		{{1, 1}, 0 }, 
+		{{-1, 1}, 0 },
+		{{0, 1}, 0 },
+		{{1, 1}, 0 },
 	};
+
 	//가중치 계산
 	for (int i = 0; i < 8; i++) {
 		//x가 dirX와 일치 혹은 dirX가 0이면 가중치 1 추가
@@ -88,15 +83,15 @@ void EnemyController::SetMoveCommand()
 	//가중치 순으로 정렬
 	sort(points, points + 8, [](const pair<POINT, int>& l, const pair<POINT, int>& r) -> bool {
 		return l.second > r.second;
-	});
-	
-	auto curPoint = unit->GetPoint();
-	Vector2 destPos = {}; //함수 호출용 더미
+		});
+
+	POINT curPoint = unit->GetPoint();
 	for (int i = 0; i < 8; i++) {
-		if (tileMap->SetMove(curPoint.first, curPoint.second, points[i].first.x, points[i].first.y, destPos)) {
-			unit->SetMovePlan(points[i].first.x, points[i].first.y, 1);
-			unit->SetDir(points[i].first.x, points[i].first.y);
-			break;
-		}
+		POINT dir = points[i].first;
+		if(!UnitManager::Get()->CheckMovablePoint(curPoint, dir.x, dir.y))
+			continue;
+		unit->SetMovePlan(dir.x, dir.y, 1);
+		unit->SetDir(dir.x, dir.y);
+		break;
 	}
 }
