@@ -170,7 +170,8 @@ void Unit::UpdateWorld()
 void Unit::SetController(Controller* controller)
 {
 	this->controller = controller;
-	controller->SetUnit(this);
+	if(controller != nullptr)
+		controller->SetUnit(this);
 }
 
 void Unit::SetDir(int x, int y)

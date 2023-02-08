@@ -256,7 +256,6 @@ void UnitManager::LoadPokemonTable(string fileName)
 			continue;
 		}
 
-
 		if (tmp.empty())
 			break;
 
