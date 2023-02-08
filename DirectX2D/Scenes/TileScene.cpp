@@ -7,7 +7,7 @@ TileScene::TileScene()
 	sampleEndUV = { 1, 1 };
 
 	CreateSample(L"Textures/pokemon/ObjectTile/");
-	editTileMap = new EditTileMap(32, 37);
+	editTileMap = new EditTileMap(34, 33);
 	editTileMap->Pos() = { 30, 30 };
 
 	float x = 0.33f;

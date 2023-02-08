@@ -2,15 +2,17 @@
 
 class DungeonObjTile : public Tile
 {
+private:
+	friend class ObjTileManager;
 public:
-	DungeonObjTile(Tile::Data data, Vector2 size);
+	DungeonObjTile(string type, Tile::Data data, Vector2 size);
 	~DungeonObjTile() = default;
 
 	void Update() {};
 	void Render();
 
-	string GetType() { return Type; }
+	string GetType() { return type; }
 protected:
-	string Type = "";
+	string type = "";
 };
 

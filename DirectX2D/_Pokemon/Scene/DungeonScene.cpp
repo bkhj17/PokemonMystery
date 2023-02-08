@@ -5,19 +5,22 @@
 #include "../Unit/Unit.h"
 #include "../Unit/UnitMovement.h"
 #include "../Control/PlayerController.h"
+#include "../Data/ItemDataManager.h"
 #include "../Data/DungeonDataManager.h"
 #include "../UI/PokemonUIManager.h"
+#include "../Unit/UnitManager.h"
 
 DungeonScene::DungeonScene()
 {
+	ItemDataManager::Get();
 	DungeonDataManager::Get();
 	PokemonUIManager::Get();
+	UnitManager::Get()->Init();
 
 	tileMap = new DungeonTileMap();
 	Observer::Get()->AddGetEvent("CallTileMap", bind(&DungeonScene::CallTileMap, this, placeholders::_1));
 	
-	testUnit = new Unit(new PlayerController, Vector2(80, 80));
-	CAM->SetTarget(testUnit);
+	//testUnit = UnitManager::Get()->GetPlayer();
 
 	Observer::Get()->AddEvent("ExitDungeon", bind(&DungeonScene::SetFloorMove, this, EXIT));
 	Observer::Get()->AddEvent("ShiftNextFloor", bind(&DungeonScene::SetFloorMove, this, NEXT));
@@ -31,8 +34,10 @@ DungeonScene::~DungeonScene()
 	delete tileMap;
 	BgTileManager::Delete();
 	PokemonUIManager::Delete();
+	ItemDataManager::Delete();
+	UnitManager::Delete();
 
-	delete testUnit;
+	//delete testUnit;
 }
 
 void DungeonScene::InitFloor(string name, int floor)
@@ -42,12 +47,15 @@ void DungeonScene::InitFloor(string name, int floor)
 		return;
 	}
 	tileMap->Init(name, floor);
+	
+	auto player = UnitManager::Get()->GetPlayer();
+	player->SetDir(0, -1);
+	player->SetPoint(tileMap->GetPlayerStartPoint());
+	CAM->SetTarget(UnitManager::Get()->GetPlayer());
 
-	CAM->SetLeftBottom(tileMap->LeftBottom());
-	CAM->SetRightTop(tileMap->RightTop());
+	UnitManager::Get()->GetEnemies()[0]->SetPoint(8, 12);
 
-	testUnit->SetDir(0, -1);
-	testUnit->SetPos(24, 14);
+
 
 	floorMove = 0;
 	actState = ENTER_DUNGEON;
@@ -77,28 +85,20 @@ void DungeonScene::Update()
 		break;
 	case DungeonScene::WAIT_COMMAND:
 	{
-		//플레이어의 입력을 대기
-		PokemonUIManager::Get()->Update();
-
-		int turn = 1e9;
-		turn = min(turn, testUnit->GetWait());
-
-		testUnit->GetWait() -= turn;
-		if (testUnit->GetWait() == 0) {
-			testUnit->GetController()->SetCommand();
-		}
-
 		bool isActing = false;
-		isActing |= testUnit->IsActing();
-
-		if (KEY_DOWN(VK_SPACE)) {
-			InitFloor("TinyWood", -2);
-			actState = ENTER_DUNGEON;
+		//유닛들 행동 중
+		isActing |= UnitManager::Get()->IsActing();
+		if (isActing) {
+			actState = ACTING;
 			break;
 		}
 
-		if (isActing)
-			actState = PLAYER_ACTING;
+		//열린 UI가 있다면 그 쪽을 우선
+
+		PokemonUIManager::Get()->Update();
+		
+		//턴 진행
+		UnitManager::Get()->RunPhase();
 
 		//주인공 유닛 행동
 		//동료 행동
@@ -106,13 +106,15 @@ void DungeonScene::Update()
 		//적 이동
 	}
 		break;
-	case DungeonScene::PLAYER_ACTING:
+	case DungeonScene::ACTING:
 	{
 		bool isActing = false;
 
 		//행동 중인 유닛이 있는지 검사
 		//후에 유닛 목록으로 교체
-		isActing |= testUnit->IsActing();
+		
+		isActing |= UnitManager::Get()->IsActing();
+
 
 		//스킬도 발동 중인지 검사
 		
@@ -120,17 +122,6 @@ void DungeonScene::Update()
 		if (!isActing)
 			actState = TURN_END;
 	}
-		break;
-	case DungeonScene::PARTNER_COMMAND:
-		break;
-	case DungeonScene::PARTNER_ACTING:
-		break;
-	case DungeonScene::ELSE_COMMAND:
-		break;
-	case DungeonScene::ELSE_ACTING:
-
-
-
 		break;
 	case DungeonScene::TURN_END:
 	{
@@ -143,17 +134,19 @@ void DungeonScene::Update()
 	case DungeonScene::FLOOR_MOVE:
 		break;
 	case DungeonScene::PLAYER_DEAD:
+		//게임 오버
 		break;
 	default:
 		break;
 	}
-	testUnit->Update();
+
+	UnitManager::Get()->Update();
 }
 
 void DungeonScene::Render()
 {
 	tileMap->Render();
-	testUnit->Render();
+	UnitManager::Get()->Render();
 }
 
 void DungeonScene::PostRender()
@@ -165,11 +158,7 @@ void DungeonScene::PostRender()
 		break;
 	case DungeonScene::WAIT_COMMAND:
 		break;
-	case DungeonScene::PLAYER_ACTING:
-		break;
-	case DungeonScene::PARTNER_ACTING:
-		break;
-	case DungeonScene::ELSE_ACTING:
+	case DungeonScene::ACTING:
 		break;
 	case DungeonScene::FLOOR_MOVE:
 		break;

@@ -13,9 +13,13 @@ public:
 
 	DungeonObjTile* GetTile(int x, int y);
 
+
 	void Activate(void* unitptr);
 
+	wstring GetTextureFile(string key);
+
 private:
-	map<pair<int, int>, DungeonObjTile*> objTiles;	
+	unordered_map<string, wstring> textures;
+	map<pair<int, int>, DungeonObjTile*> objTiles;
 };
 

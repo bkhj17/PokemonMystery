@@ -8,7 +8,11 @@ public:
 	Controller(Unit* unit) : unit(unit) {};
 	virtual ~Controller() = default;
 
-	virtual void SetCommand() = 0;
+	virtual bool SetCommand() = 0;
+
+	void UseSkill(int i);
+
+	string GetTag() { return tag; }
 protected:
 	void SetUnit(Unit* unit) { this->unit = unit; }
 

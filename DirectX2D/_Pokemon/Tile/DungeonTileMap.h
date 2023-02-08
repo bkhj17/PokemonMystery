@@ -29,12 +29,19 @@ public:
     POINT PosToPoint(Vector2 pos);
     bool SetMove(IN int startX, IN int startY, IN int dirX, IN int dirY, OUT Vector2& destPos);
 
-    
     FloorData* GetFloorData() { return floorData; }
+
+    vector<POINT> GetPointsByCondition(function<bool(POINT)> condition);
+    POINT GetRandomPointByCondition(function<bool(POINT)> condition);
+
+    POINT GetPlayerStartPoint() { return playerStartPoint; }
+
 private:
     void SetGrid(int x, int y);
     void Load(string file) override;
 
+    void SetUpTrap();
+    void SetUpPlayerStart();
 private:
     class DungeonAStar* astar;
 
@@ -45,7 +52,7 @@ private:
 
     FloorData* floorData = nullptr;
 
-
+    POINT playerStartPoint = {};
 
 };
 

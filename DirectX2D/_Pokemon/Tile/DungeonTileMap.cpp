@@ -48,7 +48,13 @@ void DungeonTileMap::Init(string key, int floorNum)
 		for (int x = 0; x < width; x++)
 			SetGrid(x, y);
 
+	SetUpTrap();
+	SetUpPlayerStart();
+
 	UpdateWorld();
+
+	CAM->SetLeftBottom(LeftBottom());
+	CAM->SetRightTop(RightTop());
 }
 
 void DungeonTileMap::UpdateWorld()
@@ -70,15 +76,14 @@ void DungeonTileMap::UpdateWorld()
 
 void DungeonTileMap::Render()
 {
-	//__super::Render();
-	//astar->Render();
-
+	//배경 타일에는 인스턴싱 사용
 	instanceBuffer->Set(1);
 	quad->SetRender();
 	BgTileManager::Get()->GetLandTexture()->PSSet(1);
 	BgTileManager::Get()->GetWaterTexture()->PSSet(2);
 	DC->DrawIndexedInstanced(6, bgTiles.size(), 0, 0, 0);
 
+	//
 	for (auto obj : objTiles)
 		obj->Render();
 }
@@ -100,16 +105,6 @@ POINT DungeonTileMap::PosToPoint(Vector2 pos)
 	
 	result = { (LONG)p.x, (LONG)p.y };
 
-	/*
-	for (UINT i = 0; i < bgTiles.size(); i++) {
-		auto curTile = (DungeonBgTile*)bgTiles[i];
-		if (curTile->GetCollider()->IsPointCollision(pos)) {
-			result.x = i % width;
-			result.y = i / width;
-			break;
-		}
-	}
-	*/
 	return result;
 }
 
@@ -125,6 +120,25 @@ bool DungeonTileMap::SetMove(IN int startX, IN int startY, IN int dirX, IN int d
 		destPos += curTile->GlobalPos();
 	}
 	return result;
+}
+
+vector<POINT> DungeonTileMap::GetPointsByCondition(function<bool(POINT)> condition)
+{
+	vector<POINT> points;
+	for (int i = 0; i < bgTiles.size(); i++) {
+		POINT tilePoint = { i % (LONG)width, i / (LONG)width };
+		//애초에 벽
+		if (condition(tilePoint))
+			points.push_back(tilePoint);
+	}
+
+	return points;
+}
+
+POINT DungeonTileMap::GetRandomPointByCondition(function<bool(POINT)> condition)
+{
+	vector<POINT> roomPoints = GetPointsByCondition(condition);
+	return roomPoints[Random(0, roomPoints.size())];
 }
 
 void DungeonTileMap::SetGrid(int x, int y)
@@ -209,13 +223,15 @@ void DungeonTileMap::Load(string file)
 	BgTileManager::Get()->SetTexture(path);
 	quad->SetTexture(BgTileManager::Get()->GetWallTexture()->GetFile());
 
-	ObjTileManager::Get()->Clear(); 
+	//오브젝트 타일은 삭제로 초기화 - 이쪽이 깔끔하다 생각했다
+	ObjTileManager::Get()->Clear();
 	for (auto tile : objTiles) {
 		if(tile != nullptr)
 			delete tile;
 	}
 	objTiles.clear();
 
+	//고정 오브젝트 설정
 	size = reader->UInt();
 	objTiles.reserve(size);
 	for (int i = 0; i < size; i++) {
@@ -229,7 +245,7 @@ void DungeonTileMap::Load(string file)
 		data.angle = reader->Float();
 		data.type = (Tile::Type)reader->Int();
 
-		Tile* tile = new DungeonObjTile(data, tileSize);
+		Tile* tile = new DungeonObjTile("Stair", data, tileSize);
 		tile->SetParent(this);
 		tile->UpdateWorld();
 		objTiles.push_back(tile);
@@ -237,4 +253,78 @@ void DungeonTileMap::Load(string file)
 	}
 	objTiles.shrink_to_fit();
 	delete reader;
+}
+
+void DungeonTileMap::SetUpTrap()
+{
+	if (floorData->maxTrapNum == 0)
+		return;
+	
+	int trapNum = Random(1, floorData->maxTrapNum);
+
+	vector<POINT> roomPoints = GetPointsByCondition([this](POINT point) -> bool {
+		//잘못된 좌표다
+		if (point.y * width + point.x >= bgTiles.size()) return false;
+		auto tile = (DungeonBgTile*)bgTiles[point.y * width + point.x];
+		//벽 혹은 물이다
+		if (tile->GetTexture() != BgTileManager::Get()->GetLandTexture()) return false;
+		//다른 타일이 있다
+		if (ObjTileManager::Get()->GetTile(point.x, point.y)) return false;
+		//방이다
+		return BgTileManager::Get()->IsRoom(tile->GetGridFlag());
+	});
+	//셔플
+	if (roomPoints.size() <= trapNum) {
+		trapNum = roomPoints.size();
+	}
+	else {
+		for (int i = 0; i < trapNum; i++) {
+			int j = Random(i + 1, trapNum);
+			swap(roomPoints[i], roomPoints[j]);
+		}
+	}
+	//오브젝트 타일 생성 및 배치
+	for (int i = 0; i < trapNum; i++) {
+		string trapKey = floorData->traps[Random(0, floorData->traps.size())];
+
+		Tile::Data data;
+
+		//유효하지 않은 키
+		data.textureFile = ObjTileManager::Get()->GetTextureFile(trapKey);
+		if(data.textureFile.empty())
+			continue;
+
+		data.pos = { roomPoints[i].x * tileSize.x, roomPoints[i].y * tileSize.y };
+		data.angle = 0.0f;
+		data.type = Tile::OBJ;
+
+		DungeonObjTile* objTile = new DungeonObjTile(trapKey, data, tileSize);
+		objTile->SetParent(this);
+		objTiles.push_back(objTile);
+		auto post = ObjTileManager::Get()->Register(roomPoints[i].x, roomPoints[i].y, objTile);
+		if (post != nullptr) {
+			//그럴 일은 없겠지만 만약 위치가 중복되었다면 원래 있던걸 없애버린다 
+			auto it = find(objTiles.begin(), objTiles.end(), post);
+			if (it != objTiles.end())
+				objTiles.erase(it);
+			delete post;
+		}
+	}
+}
+
+void DungeonTileMap::SetUpPlayerStart()
+{
+	vector<POINT> roomPoints = GetPointsByCondition([this](POINT point) -> bool {
+		//잘못된 좌표다
+		if (point.y * width + point.x >= bgTiles.size()) return false;
+		auto tile = (DungeonBgTile*)bgTiles[point.y * width + point.x];
+		//벽 혹은 물이다
+		if (tile->GetTexture() != BgTileManager::Get()->GetLandTexture()) return false;
+		//다른 타일이 있다
+		if (ObjTileManager::Get()->GetTile(point.x, point.y)) return false;
+		//방이다
+		return BgTileManager::Get()->IsRoom(tile->GetGridFlag());
+	});
+
+	playerStartPoint = roomPoints[Random(0, roomPoints.size())];
 }

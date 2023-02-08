@@ -31,7 +31,7 @@ void DungeonObject::Render()
 	collider->Render();
 }
 
-void DungeonObject::SetPos(int x, int y)
+void DungeonObject::SetPoint(int x, int y)
 {
 	DungeonTileMap* tileMap = nullptr;
 	Observer::Get()->ExecuteGetEvent("CallTileMap", (void**)&tileMap);
@@ -60,16 +60,23 @@ bool DungeonObject::IsActing()
 
 void DungeonObject::MovementUpdate()
 {
-	if (!movement->IsMoving()) {
-		if (moveDist > 0)
-			SetMove();
-		else {
-			//이동이 끝났음을 알려야 한다
-			if(movement->IsMoved())
-				Observer::Get()->ExecuteParamEvent("MoveEnd", (void*)this);
-		}
-	}
 	movement->Update();
+	if (movement->IsMoving())
+		return;
+
+	//지점에 도착했지만 아직 더 갈 수 있다
+	if (moveDist > 0) {
+		if (IsCollide())	//뭔가에 부딪혔다
+			CollideFunc();
+		else	//아니면 속행
+			SetMove();
+
+		return;
+	}
+	
+	//이동한 직후인 거라면 이동이 끝났음을 알려야 한다
+	if(movement->IsMoved())
+		Observer::Get()->ExecuteParamEvent("MoveEnd", (void*)this);
 }
 
 void DungeonObject::SetMove()

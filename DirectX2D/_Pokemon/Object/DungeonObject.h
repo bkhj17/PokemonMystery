@@ -12,10 +12,9 @@ public:
     virtual void UpdateWorld();
     virtual void Render();
 
-    void SetPos(int x, int y);
+    void SetPoint(int x, int y);
+    void SetPoint(POINT point) { SetPoint(point.x, point.y); }
     void SetMovePlan(int dirX, int dirY, int dist);
-
-    UnitMovement* GetMovement() { return movement; }
 
     virtual bool IsActing();
     
@@ -24,6 +23,9 @@ protected:
 
 private:
     void SetMove();
+
+    virtual bool IsCollide() = 0;
+    virtual void CollideFunc() { moveDist = 0; };
 protected:
     //콜라이더 없이 하는 게 낫다는 조언을 받았다
     RectCollider* collider;

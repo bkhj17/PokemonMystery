@@ -2,6 +2,8 @@
 #include "GameMath.h"
 
 int GameMath::Random(const int& min, const int& max) {
+	if (min == max)
+		return min;
 	 return rand() % (max - min) + min;
 }
 

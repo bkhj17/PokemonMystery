@@ -67,6 +67,9 @@ void DungeonDataManager::LoadData(string fileName)
 			data.monsters.emplace_back(make_pair(vMonster[i], stoi(vLevel[i])));
 		data.monsterNum = stoi(v[13]);
 
+		data.traps = SplitString(v[14], " ");
+		data.maxTrapNum = stoi(v[15]);
+
 		dungeonDatas[make_pair(data.dungeonKey, data.floorNum)] = data;
 	}
 

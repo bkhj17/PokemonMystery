@@ -16,7 +16,6 @@ void UnitMovement::Update()
 	owner->Pos() = Lerp(startPos, targetPos, (timeRate - time) * invTimeRate);
 	isMoved = true;
 
-
 	if (Distance(targetPos, owner->Pos()) < 1.0f)
 		Teleport();
 }

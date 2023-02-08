@@ -5,10 +5,10 @@ class Unit;
 class PlayerController : public Controller
 {
 public:
-    PlayerController() = default;
+    PlayerController();
     PlayerController(Unit* unit);
     ~PlayerController() = default;
 
-    virtual void SetCommand() override;
+    virtual bool SetCommand() override;
 };
 

@@ -1,14 +1,33 @@
 #include "Framework.h"
 #include "DungeonObjTile.h"
+#include "../Unit/Unit.h"
+#include "../Control/Controller.h"
 
-DungeonObjTile::DungeonObjTile(Tile::Data data, Vector2 size)
-	: Tile(data, size)
+DungeonObjTile::DungeonObjTile(string type, Tile::Data data, Vector2 size)
+	: type(type), Tile(data, size)
 {
-	event = []() {
-		Observer::Get()->ExecuteEvent("ShiftNextFloor");
-	};
-
+	//밟은 유닛을 알아야만 한다......
+	this->event = nullptr;
 	paramEvent = nullptr;
+	if (type == "Stair") {
+		paramEvent = [](void* ptr) {
+			Unit* unit = (Unit*)ptr;
+			//밟은 Unit을 알아야 한다
+			//Unit->Controller를 받아야 한다
+			if (unit->GetController()->GetTag() != "Player")
+				return;
+
+			Observer::Get()->ExecuteEvent("ShiftNextFloor");
+		};
+	}
+	else if (type == "Refresh") {
+		paramEvent = [](void* ptr) {
+			//밟은 유닛이 플레이어거나 동료라면 상태 회복
+
+
+		};
+	}
+
 	object = nullptr;
 }
 

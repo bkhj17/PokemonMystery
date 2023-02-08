@@ -6,12 +6,10 @@ BgTileManager::BgTileManager()
     InitGridInfo();
     InitVCheck();
     InitRoomCheck();
-
 }
 
 void BgTileManager::InitGridInfo()
-{                    
-    
+{
     tileGrid[DOWN | RIGHT | RIGHT_DOWN] = { 0, 0 };
     tileGrid[DOWN | RIGHT | RIGHT_DOWN | LEFT | LEFT_DOWN] = { 1, 0 };
     tileGrid[DOWN | LEFT | LEFT_DOWN] = { 2, 0 };

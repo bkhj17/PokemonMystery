@@ -5,6 +5,8 @@
 
 ObjTileManager::ObjTileManager()
 {
+	textures["Resfresh"] = L"Textures/pokemon/ObjectTile/Refresh.png";
+
 	Observer::Get()->AddParamEvent("MoveEnd", 
 		bind(&ObjTileManager::Activate, this, placeholders::_1)
 	);
@@ -25,7 +27,16 @@ void ObjTileManager::Activate(void* unitptr)
 	if (objTiles.find(point) == objTiles.end())
 		return;
 
+	objTiles[unit->GetPoint()]->SetObject(unitptr);
 	objTiles[unit->GetPoint()]->ExecuteEvent();
+}
+
+wstring ObjTileManager::GetTextureFile(string key)
+{
+	if (textures.find(key) == textures.end())
+		return L"";
+
+	return textures[key];
 }
 
 DungeonObjTile* ObjTileManager::Register(int x, int y, DungeonObjTile* obj)

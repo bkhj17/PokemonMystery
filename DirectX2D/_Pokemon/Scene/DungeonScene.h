@@ -9,11 +9,7 @@ private:
 	enum ActState {
 		ENTER_DUNGEON,
 		WAIT_COMMAND,
-		PLAYER_ACTING,
-		PARTNER_COMMAND,
-		PARTNER_ACTING,
-		ELSE_COMMAND,
-		ELSE_ACTING,
+		ACTING,
 		TURN_END,
 		FLOOR_MOVE,
 		PLAYER_DEAD
@@ -48,7 +44,7 @@ private:
 	void InitFloor(string name, int floor);
 private:
 	DungeonTileMap* tileMap;
-	Unit* testUnit;
+	//Unit* testUnit;
 
 	ActState actState = ENTER_DUNGEON;
 

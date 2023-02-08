@@ -141,6 +141,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="_Pokemon\Control\EnemyController.h" />
+    <ClInclude Include="_Pokemon\Unit\UnitManager.h" />
+    <ClInclude Include="_Pokemon\Data\ItemDataManager.h" />
+    <ClInclude Include="_Pokemon\Item\ItemObject.h" />
     <ClInclude Include="_Pokemon\Data\DungeonDataManager.h" />
     <ClInclude Include="_Pokemon\UI\StatusUI.h" />
     <ClInclude Include="_Pokemon\UI\UIWindow.h" />
@@ -148,7 +152,6 @@
     <ClInclude Include="_Pokemon\Tile\ObjTileManager.h" />
     <ClInclude Include="_Pokemon\Control\PlayerController.h" />
     <ClInclude Include="_Pokemon\Object\DungeonObject.h" />
-    <ClInclude Include="_Pokemon\Skill\Skill.h" />
     <ClInclude Include="_Pokemon\Control\Controller.h" />
     <ClInclude Include="_Pokemon\Tile\DungeonAStar.h" />
     <ClInclude Include="Objects\Basic\Particle.h" />
@@ -281,7 +284,6 @@
     <ClInclude Include="Scenes\TextureScene.h" />
     <ClInclude Include="Framework\Math\Transform.h" />
     <ClInclude Include="Framework\Render\Texture.h" />
-    <ClInclude Include="Test\TestScene.h" />
     <ClInclude Include="Scenes\TileScene.h" />
     <ClInclude Include="Objects\Tile\Tile.h" />
     <ClInclude Include="Homework\230126\TileMap0126.h" />
@@ -292,6 +294,11 @@
     <ClInclude Include="Objects\Manager\UIManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="_Pokemon\Control\EnemyController.cpp" />
+    <ClCompile Include="_Pokemon\Control\Controller.cpp" />
+    <ClCompile Include="_Pokemon\Unit\UnitManager.cpp" />
+    <ClCompile Include="_Pokemon\Data\ItemDataManager.cpp" />
+    <ClCompile Include="_Pokemon\Item\ItemObject.cpp" />
     <ClCompile Include="_Pokemon\Data\DungeonDataManager.cpp" />
     <ClCompile Include="_Pokemon\UI\StatusUI.cpp" />
     <ClCompile Include="_Pokemon\UI\UIWindow.cpp" />
@@ -299,7 +306,6 @@
     <ClCompile Include="_Pokemon\Tile\ObjTileManager.cpp" />
     <ClCompile Include="_Pokemon\Control\PlayerController.cpp" />
     <ClCompile Include="_Pokemon\Object\DungeonObject.cpp" />
-    <ClCompile Include="_Pokemon\Skill\Skill.cpp" />
     <ClCompile Include="_Pokemon\Tile\DungeonAStar.cpp" />
     <ClCompile Include="Objects\Basic\Particle.cpp" />
     <ClCompile Include="Scenes\ParticleScene.cpp" />
@@ -425,7 +431,6 @@
     <ClCompile Include="Objects\Tile\TankPatrol.cpp" />
     <ClCompile Include="Objects\Tile\TankState.cpp" />
     <ClCompile Include="Objects\Tile\TankTrace.cpp" />
-    <ClCompile Include="Test\TestScene.cpp" />
     <ClCompile Include="Scenes\TileScene.cpp" />
     <ClCompile Include="Objects\Tile\Tile.cpp" />
     <ClCompile Include="Homework\230126\TileMap0126.cpp" />

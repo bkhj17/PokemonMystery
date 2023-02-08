@@ -21,6 +21,9 @@ struct FloorData {
 
 	int minGoldNum;
 	int maxGoldNum;
+
+	vector<string> traps;
+	int maxTrapNum;
 };
 
 class DungeonDataManager : public Singleton<DungeonDataManager>

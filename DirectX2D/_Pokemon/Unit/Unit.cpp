@@ -3,13 +3,7 @@
 #include "UnitMovement.h"
 #include "../Control/Controller.h"
 #include "../Tile/DungeonTileMap.h"
-
-Unit::Unit(Vector2 size)
-	: DungeonObject(size)
-{
-	CreateClipData();
-
-}
+#include "UnitManager.h"
 
 Unit::Unit(Controller* controller, Vector2 size)
 	: DungeonObject(size)
@@ -17,16 +11,22 @@ Unit::Unit(Controller* controller, Vector2 size)
 	CreateClipData();
 
 	SetController(controller);
+
+	data = new PokemonData;
 }
 
 Unit::~Unit()
 {
 	delete animObject;
 	delete controller;
+	delete data;
 }
 
 void Unit::Update()
 {
+	if (!isActive)
+		return;
+
 	MovementUpdate();
 	
 	SetAction();
@@ -36,6 +36,9 @@ void Unit::Update()
 
 void Unit::Render()
 {
+	if (!isActive)
+		return;
+
 	__super::SetRender();
 	animObject->Render();
 	collider->Render();
@@ -45,6 +48,7 @@ void Unit::CreateClipData()
 {
 	animObject = new AnimObject();
 	animObject->SetParent(this);
+
 	//애니메이션 클립 설정
 	wstring textureFile = L"Textures/pokemon/이상해씨.png";
 	Vector2 cutSize = Texture::Add(textureFile)->GetSize() / Vector2(10, 8);
@@ -76,7 +80,6 @@ void Unit::CreateClipData()
 	frames.push_back(new Frame(textureFile, cutSize.x * 2, cutSize.y * 4, cutSize.x, cutSize.y));
 	animObject->AddClip(dirCode * 100+1, new Clip(frames));
 	frames.clear();
-
 
 	//RightUp : 2
 	dirCode = 2;
@@ -175,11 +178,23 @@ void Unit::SetDir(int x, int y)
 	animDirX = x;
 	animDirY = y;
 	SetAction();
+}
 
+void Unit::SetData(int key, int level)
+{
+	UnitManager::Get()->GetPokemonData(key, level, data);
+}
+
+void Unit::SetLevelData(int level)
+{
+	SetData(data->key, level);
 }
 
 void Unit::TurnEnd()
 {
+	wait = max(0, wait - 2);
+	//상태이상도 
+
 
 }
 
@@ -195,14 +210,20 @@ void Unit::SetAction()
 	3 4 5
 	6 7 8
 	*/
-
 	int center = 4;
 
 	int dirCode = (4 + -animDirY * 3 + animDirX) * 100;
 	if (movement->IsMoving())
 		dirCode += 1;
 	
+
+
 	animObject->SetClip(dirCode);
+}
+
+bool Unit::IsCollide()
+{
+	return false;
 }
 
 bool Unit::IsActing()

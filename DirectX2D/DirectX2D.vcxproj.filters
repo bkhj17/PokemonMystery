@@ -117,9 +117,6 @@
     <ClInclude Include="Framework\Utilities\Audio.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Test\TestScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Scenes\CollisionScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -447,9 +444,6 @@
     <ClInclude Include="_Pokemon\Object\DungeonObject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="_Pokemon\Skill\Skill.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="_Pokemon\UI\PokemonUIManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -460,6 +454,18 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="_Pokemon\Data\DungeonDataManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_Pokemon\Item\ItemObject.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_Pokemon\Data\ItemDataManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_Pokemon\Unit\UnitManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_Pokemon\Control\EnemyController.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -543,9 +549,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Framework\Utilities\Audio.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\TestScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\CollisionScene.cpp">
@@ -869,9 +872,6 @@
     <ClCompile Include="_Pokemon\Object\DungeonObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="_Pokemon\Skill\Skill.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="_Pokemon\UI\PokemonUIManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -882,6 +882,21 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="_Pokemon\Data\DungeonDataManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="_Pokemon\Item\ItemObject.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="_Pokemon\Data\ItemDataManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="_Pokemon\Unit\UnitManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="_Pokemon\Control\Controller.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="_Pokemon\Control\EnemyController.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
