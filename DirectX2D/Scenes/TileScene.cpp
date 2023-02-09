@@ -116,6 +116,13 @@ void TileScene::ClickSampleBtn(void* sampleBtn)
 
 	if (button) {
 		selectSample->SetTexture(button->GetTexture());
+		if (selectType == Tile::BG) {
+			selectSample->ModifyUV(sampleStartUV, sampleEndUV);
+		}
+		else {
+			selectSample->ModifyUV(Vector2(), Vector2(1.0f, 1.0f));
+		}
+
 	}
 }
 
@@ -184,4 +191,6 @@ void TileScene::Load()
 
 		DIALOG->Close();
 	}
+
+	editTileMap->SetBGUV(sampleStartUV, sampleEndUV);
 }

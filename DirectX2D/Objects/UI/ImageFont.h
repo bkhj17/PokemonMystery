@@ -17,10 +17,12 @@ public:
 
     void Update();
     void Render();
+    void PostRender();
 
     void SetValue(UINT value) { this->value = value; }
     void SetAligned(AlignedType type) { alignedType = type; }
 
+    Vector2 GetSize();
 private:
     UINT value = 0;
     string strValue;

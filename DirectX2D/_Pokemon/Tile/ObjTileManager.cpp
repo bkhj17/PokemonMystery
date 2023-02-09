@@ -5,7 +5,7 @@
 
 ObjTileManager::ObjTileManager()
 {
-	textures["Resfresh"] = L"Textures/pokemon/ObjectTile/Refresh.png";
+	textures["Refresh"] = L"Textures/pokemon/ObjectTile/Refresh.png";
 
 	Observer::Get()->AddParamEvent("MoveEnd", 
 		bind(&ObjTileManager::Activate, this, placeholders::_1)

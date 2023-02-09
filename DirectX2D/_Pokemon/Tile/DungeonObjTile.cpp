@@ -22,9 +22,12 @@ DungeonObjTile::DungeonObjTile(string type, Tile::Data data, Vector2 size)
 	}
 	else if (type == "Refresh") {
 		paramEvent = [](void* ptr) {
-			//밟은 유닛이 플레이어거나 동료라면 상태 회복
+			Unit* unit = (Unit*)ptr;
+			//적이라면 무시
+			if (unit->GetController()->GetTag() == "Enemy")
+				return;
 
-
+			//밟은 유닛이 플레이어거나 동료라면 상태이상 제거
 		};
 	}
 

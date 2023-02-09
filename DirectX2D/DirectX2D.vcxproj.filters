@@ -468,6 +468,18 @@
     <ClInclude Include="_Pokemon\Control\EnemyController.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="_Pokemon\Skill\Skill.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\UI\ProgressBar.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_Pokemon\UI\HPProgressBar.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\UI\ImageFont.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectX2D.cpp">
@@ -899,6 +911,18 @@
     <ClCompile Include="_Pokemon\Control\EnemyController.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="_Pokemon\Skill\Skill.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\UI\ProgressBar.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="_Pokemon\UI\HPProgressBar.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\UI\ImageFont.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX2D.rc">
@@ -932,5 +956,8 @@
     <FxCompile Include="Shaders\PixelProgressBar.hlsl" />
     <FxCompile Include="Shaders\PixelDungeonTile.hlsl" />
     <FxCompile Include="Shaders\VertexDungeonTile.hlsl" />
+    <FxCompile Include="Shaders\PixelPokemonProgressBar.hlsl" />
+    <FxCompile Include="Shaders\PixelImageFont.hlsl" />
+    <FxCompile Include="Shaders\PixelWindowFrame.hlsl" />
   </ItemGroup>
 </Project>

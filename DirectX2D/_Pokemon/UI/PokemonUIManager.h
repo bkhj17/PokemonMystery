@@ -10,7 +10,7 @@ private:
 
 public:
 	void Update();
-	void Render();
+	void PostRender();
 
 	void OpenMenu();
 	void CloseAll();

@@ -141,6 +141,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Objects\UI\ImageFont.h" />
+    <ClInclude Include="_Pokemon\UI\HPProgressBar.h" />
+    <ClInclude Include="Objects\UI\ProgressBar.h" />
+    <ClInclude Include="_Pokemon\Skill\Skill.h" />
     <ClInclude Include="_Pokemon\Control\EnemyController.h" />
     <ClInclude Include="_Pokemon\Unit\UnitManager.h" />
     <ClInclude Include="_Pokemon\Data\ItemDataManager.h" />
@@ -294,6 +298,10 @@
     <ClInclude Include="Objects\Manager\UIManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Objects\UI\ImageFont.cpp" />
+    <ClCompile Include="_Pokemon\UI\HPProgressBar.cpp" />
+    <ClCompile Include="Objects\UI\ProgressBar.cpp" />
+    <ClCompile Include="_Pokemon\Skill\Skill.cpp" />
     <ClCompile Include="_Pokemon\Control\EnemyController.cpp" />
     <ClCompile Include="_Pokemon\Control\Controller.cpp" />
     <ClCompile Include="_Pokemon\Unit\UnitManager.cpp" />
@@ -466,6 +474,15 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
+    <FxCompile Include="Shaders\PixelWindowFrame.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shaders\PixelImageFont.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="Shaders\PixelInstancing.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
@@ -491,6 +508,12 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Shaders\PixelOutline.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shaders\PixelPokemonProgressBar.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>

@@ -8,7 +8,6 @@ public:
 
 private:
 	static T* instance;
-
 };
 
 template <typename T>

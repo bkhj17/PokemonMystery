@@ -39,7 +39,7 @@
 
 #define DIALOG ImGuiFileDialog::Instance()
 
-#define SAFE_DELETE(ptr) {if(ptr != nullptr) delete ptr; }
+#define SAFE_DELETE(ptr) {if(ptr) {delete ptr; ptr = nullptr;}}
 
 // Windows 헤더 파일
 #include <windows.h>

@@ -6,6 +6,12 @@
 PokemonUIManager::PokemonUIManager()
 {
 	statusUI = new StatusUI();
+	statusUI->Pos() = { CENTER_X, WIN_HEIGHT - 40.0f };
+	statusUI->UpdateWorld();
+
+	UIWindow* testWindow = new UIWindow(Vector2(CENTER_X, CENTER_Y), Vector2(CENTER_X, CENTER_Y));
+	totalUI["test"] = testWindow;
+	openned.push_back(testWindow);
 }
 
 PokemonUIManager::~PokemonUIManager()
@@ -20,10 +26,13 @@ void PokemonUIManager::Update()
 {
 	if(!openned.empty())
 		openned.back()->Update();
+
 }
 
-void PokemonUIManager::Render()
+void PokemonUIManager::PostRender()
 {
+	statusUI->PostRender();
+
 	for (auto window : openned)
 		window->PostRender();
 }

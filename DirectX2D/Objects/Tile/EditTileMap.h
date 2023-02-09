@@ -16,6 +16,10 @@ public:
 	void Load(string file);
 
 	void SetBGUV(Vector2 startUV, Vector2 endUV);
+
+
+	void Resize(UINT width, UINT height);
+
 private:
 	void CreateTile();
 

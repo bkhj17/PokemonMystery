@@ -19,6 +19,8 @@ void GameObject::SetRender()
 	worldBuffer->SetVS(0);
 
 	vertexShader->Set();
+
+	auto shader = Shader::AddPS(L"PixelPokemonProgressBar.hlsl");
 	pixelShader->Set();
 }
 

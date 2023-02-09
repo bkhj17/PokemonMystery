@@ -4,13 +4,14 @@ class ProgressBar : public Quad
 {
 public:
     ProgressBar(wstring frontImageFile, wstring backImageFile);
-    ~ProgressBar();
+    virtual ~ProgressBar();
 
     void Render();
+    void PostRender();
 
     void SetAmount(float value);
 
-private:
+protected:
     FloatValueBuffer* valueBuffer;
     Texture* backImage;
 

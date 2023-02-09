@@ -24,6 +24,16 @@ void ProgressBar::Render()
     Quad::Render();
 }
 
+void ProgressBar::PostRender()
+{
+    pixelShader->Set();
+
+    valueBuffer->SetPS(1);
+    backImage->PSSet(1);
+
+    Quad::PostRender();
+}
+
 void ProgressBar::SetAmount(float value)
 {
     valueBuffer->Get()[0] = value;

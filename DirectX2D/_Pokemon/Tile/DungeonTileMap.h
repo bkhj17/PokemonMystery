@@ -1,5 +1,5 @@
 #pragma once
-class FloorData;
+struct FloorData;
 class DungeonTileMap : public GameTileMap
 {
 private:

@@ -50,11 +50,11 @@ void UnitManager::Update()
 
 void UnitManager::Render()
 {
-	player->Render();
-	for (auto f : friends)
-		f->Render();
 	for (auto e : enemies)
 		e->Render();
+	for (auto f : friends)
+		f->Render();
+	player->Render();
 }
 
 void UnitManager::RunPhase()

@@ -2,6 +2,7 @@
 #include "../Object/DungeonObject.h"
 
 class Controller;
+struct PokemonData;
 class Unit : public DungeonObject
 {
 private:
@@ -33,6 +34,7 @@ public:
 	int GetDirY() { return animDirY; };
 
 	void SetData(int key, int level);
+	PokemonData* GetData() { return data; }
 	void SetLevelData(int level);
 
 	bool IsActing();
@@ -62,7 +64,7 @@ private:
 	//불가사의 던전에서 버프 == 상태이상
 
 	//포켓몬 정보
-	class PokemonData* data;
+	PokemonData* data;
 
 	// DungeonObject을(를) 통해 상속됨
 	virtual bool IsCollide() override;

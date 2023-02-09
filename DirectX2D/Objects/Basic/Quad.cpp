@@ -32,7 +32,6 @@ void Quad::Render()
 		return;
 	if (!CAM->ContainFrustum(GlobalPos(), GetGlobalSize()))
 		return;
-
 	SetRender();
 	DC->DrawIndexed((UINT)indices.size(), 0, 0);
 }

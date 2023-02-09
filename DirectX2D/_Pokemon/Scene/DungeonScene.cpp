@@ -43,7 +43,8 @@ void DungeonScene::InitFloor(string name, int floor)
 		return;
 	}
 	tileMap->Init(name, floor);
-	
+	Observer::Get()->ExecuteEvent("UpdateStatusUI");
+
 	auto player = UnitManager::Get()->GetPlayer();
 	player->SetDir(0, -1);
 	player->SetPoint(tileMap->GetPlayerStartPoint());
@@ -147,6 +148,9 @@ void DungeonScene::Render()
 
 void DungeonScene::PostRender()
 {
+	PokemonUIManager::Get()->PostRender();
+
+
 	switch (actState)
 	{
 	case DungeonScene::ENTER_DUNGEON:

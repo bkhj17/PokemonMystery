@@ -82,8 +82,8 @@ void EditTileMap::DeleteObjTile()
 	*/
 	
 	for (auto it = objTiles.begin(); it != objTiles.end();) {
-		if ((*it)->GetCollider()->IsPointCollision(mousePos)) {
-			delete* it;
+		if ((*it)->GetCollider()->IsPointCollision(CAM->ScreenToWorld(mousePos))) {
+			delete *it;
 			it = objTiles.erase(it);
 		}
 		else
@@ -101,6 +101,9 @@ void EditTileMap::Save(string file)
 	writer->UInt(bgTiles.size());
 	UINT i = 0;
 	for (Tile* tile : bgTiles) {
+		if (!tile->Active())
+			continue;
+
 		Tile::Data data = tile->GetData();
 
 		writer->WString(data.textureFile);
@@ -117,6 +120,9 @@ void EditTileMap::Save(string file)
 	writer->UInt(objTiles.size());
 
 	for (auto tile : objTiles) {
+		if (!tile->Active())
+			continue;
+
 		Tile::Data data = tile->GetData();
 		if (data.textureFile.empty())
 			continue;
@@ -124,8 +130,8 @@ void EditTileMap::Save(string file)
 		writer->WString(data.textureFile);
 		//writer->UInt(i % width);
 		//writer->UInt(i / width);
-		writer->UInt((UINT)floorf(data.pos.x / tileSize.x));
-		writer->UInt((UINT)floorf(data.pos.y / tileSize.y));
+		writer->UInt((UINT)floorf(tile->Pos().x / tileSize.x));
+		writer->UInt((UINT)floorf(tile->Pos().y / tileSize.y));
 		writer->Float(data.angle);
 		writer->Int(data.type);
 
@@ -143,6 +149,30 @@ void EditTileMap::Load(string file)
 	height = reader->UInt();
 
 	UINT size = reader->UInt();
+	Resize(width, height);
+
+	for (UINT i = 0; i < width * height; i++) {
+		Tile::Data data;
+		data.textureFile = reader->WString();
+		data.pos.x = reader->UInt() * tileSize.x;
+		data.pos.y = reader->UInt() * tileSize.y;
+		data.angle = reader->Float();
+		data.type = (Tile::Type)reader->Int();
+
+		if (!bgTiles[i]) {
+			bgTiles[i] = new Tile(data, tileSize);
+		}
+		else {
+			bgTiles[i]->SetTexture(data.textureFile);
+			bgTiles[i]->Pos() = data.pos;
+			bgTiles[i]->Rot().z = data.angle;
+		}
+	}
+	for (UINT i = width * height; i < bgTiles.size(); i++) {
+		bgTiles[i]->SetActive(false);
+	}
+
+	/*
 	for (auto tile : bgTiles) {
 		Tile::Data data;
 		data.textureFile = reader->WString();
@@ -155,15 +185,21 @@ void EditTileMap::Load(string file)
 		tile->Pos() = data.pos;
 		tile->Rot().z = data.angle;
 	}
-
+	*/
 	for (auto tile : objTiles)
 		delete tile;
+	objTiles.clear();
 
 	size = reader->UInt();
 	objTiles.resize(size);
+
+
 	for (auto& tile : objTiles) {
 		Tile::Data data;
 		data.textureFile = reader->WString();
+		if (data.textureFile.empty())
+			continue;
+
 		data.pos.x = reader->UInt() * tileSize.x;
 		data.pos.y = reader->UInt() * tileSize.y;
 		data.angle = reader->Float();
@@ -172,8 +208,11 @@ void EditTileMap::Load(string file)
 		tile = new Tile(data, tileSize);
 		tile->SetParent(this);
 	}
+	objTiles.shrink_to_fit();
 
 	delete reader;
+
+	UpdateWorld();
 }
 
 void EditTileMap::SetBGUV(Vector2 startUV, Vector2 endUV)
@@ -181,6 +220,47 @@ void EditTileMap::SetBGUV(Vector2 startUV, Vector2 endUV)
 	for (auto tile : bgTiles) {
 		tile->ModifyUV(startUV, endUV);
 	}
+}
+
+void EditTileMap::Resize(UINT width, UINT height)
+{
+	this->width = width;
+	this->height = height;
+
+	if (bgTiles.size() > width * height) {
+		for (UINT i = width * height; i < bgTiles.size(); i++) {
+			delete bgTiles[i];
+		}
+		bgTiles.resize(width * height);
+	}
+	else if (bgTiles.size() < width * height) {
+		bgTiles.reserve(width * height);
+		wstring baseTile = L"Textures/Tile/tile.png";
+		Texture* texture = Texture::Add(baseTile);
+		for (UINT i = bgTiles.size(); i < width * height; i++) {
+			int x = i % width;
+			int y = i / width;
+
+			Tile::Data data = {};
+			data.textureFile = baseTile;
+			data.pos = { tileSize.x * x, tileSize.y * y };
+			Tile* tile = new Tile(data, tileSize);
+			tile->SetParent(this);
+			bgTiles.push_back(tile);
+		}
+	}
+
+
+	for (int i = 0; i < bgTiles.size(); i++) {
+		int x = i % width;
+		int y = i / width;
+
+		bgTiles[i]->GetData().pos = { tileSize.x * x, tileSize.y * y };
+		bgTiles[i]->Pos() = bgTiles[i]->GetData().pos * tileSize;
+
+	}
+
+	UpdateWorld();
 }
 
 void EditTileMap::CreateTile()
