@@ -22,6 +22,10 @@ private:
 	class StatusUI* statusUI;
 	UIWindow* logUI = nullptr; 
 
+	class MiniMap* miniMap;
+
 	unordered_map<string, UIWindow*> totalUI;
 	list<UIWindow*> openned;
+
+
 };

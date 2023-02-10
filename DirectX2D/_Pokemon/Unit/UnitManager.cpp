@@ -50,11 +50,28 @@ void UnitManager::Update()
 
 void UnitManager::Render()
 {
-	for (auto e : enemies)
-		e->Render();
-	for (auto f : friends)
-		f->Render();
-	player->Render();
+	vector<Unit*> v;
+
+	for (auto e : enemies) {
+		if (e->Active()) {
+			v.push_back(e);
+		}
+	}
+	for (auto f : friends) {
+		if (f->Active()) {
+			v.push_back(f);
+		}
+	}
+
+	v.push_back(player);
+
+	sort(v.begin(), v.end(), [](Unit* l, Unit* r) {
+		return l->GlobalPos().y < r->GlobalPos().y;
+	});
+
+	for (auto unit : v) {
+		unit->Render();
+	}
 }
 
 void UnitManager::RunPhase()
@@ -86,9 +103,13 @@ void UnitManager::RunPhase()
 					continue;
 				//행동권 존재
 				if (f->GetWait() == 0) {
-					//만약 스킬을 쓴다면 
-					//시전자의 턴을 증가시키고 
-					//리턴
+					//만약 스킬을 쓴다면
+					if (false) {
+						//시전자의 턴을 증가시키고
+						//리턴
+						f->GetWait() += 2;
+						return;
+					}
 				}
 			}
 			if (!skillCall)
@@ -97,9 +118,11 @@ void UnitManager::RunPhase()
 		break;
 		case UnitManager::FRIEND_MOVE:
 			//이동의 경우 전원이 동시에 판단
-
-
 			curPhase = ENEMY_SKILL;
+
+			for (auto f : friends) {
+
+			}
 			break;
 		case UnitManager::ENEMY_SKILL:
 		{

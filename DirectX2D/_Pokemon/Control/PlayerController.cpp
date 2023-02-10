@@ -7,12 +7,14 @@
 PlayerController::PlayerController()
 {
 	tag = "Player";
+	controllerType = ControllerType::PLAYER;
 }
 
 PlayerController::PlayerController(Unit* unit)
 	: Controller(unit)
 {
 	tag = "Player";
+	controllerType = ControllerType::PLAYER;
 }
 
 bool PlayerController::SetCommand()

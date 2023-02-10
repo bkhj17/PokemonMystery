@@ -12,11 +12,6 @@ ObjTileManager::ObjTileManager()
 	);
 }
 
-ObjTileManager::~ObjTileManager()
-{
-	//타일은 타일맵에서 지우기 때문에 삭제는 하지 않는다
-}
-
 void ObjTileManager::Activate(void* unitptr)
 {
 	auto unit = (Unit*)unitptr;
@@ -45,7 +40,6 @@ DungeonObjTile* ObjTileManager::Register(int x, int y, DungeonObjTile* obj)
 	if (objTiles.find(make_pair(x, y)) != objTiles.end())
 		post = objTiles[make_pair(x, y)];
 	
-
 	objTiles[make_pair(x, y)] = obj;
 	//새로운 게 들어오면 먼저 것은 빼도록 한다 -> 보통 지워 없앨 용도
 

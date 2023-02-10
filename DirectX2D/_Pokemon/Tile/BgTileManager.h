@@ -38,7 +38,6 @@ public:
 	Texture* GetLandTexture() { return landTexture; }
 	Texture* GetWaterTexture() { return waterTexture; }
 
-
 private:
 	void InitVCheck();
 	void InitRoomCheck();

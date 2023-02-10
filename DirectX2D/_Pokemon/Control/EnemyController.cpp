@@ -6,15 +6,13 @@
 EnemyController::EnemyController()
 {
 	tag = "Enemy";
+	controllerType = ControllerType::ENEMY;
 }
 
 EnemyController::EnemyController(Unit* unit)
 {
 	tag = "Enemy";
-}
-
-EnemyController::~EnemyController()
-{
+	controllerType = ControllerType::ENEMY;
 }
 
 bool EnemyController::UseSkill(int i)

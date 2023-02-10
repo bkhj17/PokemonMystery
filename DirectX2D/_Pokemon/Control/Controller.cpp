@@ -9,5 +9,5 @@ Controller::~Controller()
 
 void Controller::UseSkill(int i)
 {
-	//유닛이 
+	//유닛이 i번 스킬을 사용
 }

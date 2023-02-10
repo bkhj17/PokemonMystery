@@ -94,7 +94,6 @@ POINT BgTileManager::GetGrid(int flag)
     if(tileGrid.find(flag) != tileGrid.end())
         return tileGrid[flag];
     
-
     for (auto& c : vcheck) {
         if (CheckGrid(flag, c.first, c.second))
             return tileGrid[c.first];

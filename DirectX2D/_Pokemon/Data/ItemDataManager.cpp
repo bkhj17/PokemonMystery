@@ -4,15 +4,16 @@
 ItemDataManager::ItemDataManager()
 {
 	Load("TextData/ItemData.csv");
+
 }
 
 ItemDataManager::~ItemDataManager()
 {
+	datas.clear();
 }
 
 void ItemDataManager::Load(string fileName)
 {
-
 	ifstream ifs;
 	ifs.open(fileName);
 	if (ifs.fail())
@@ -50,6 +51,4 @@ void ItemDataManager::Load(string fileName)
 		}
 		datas[data.key] = data;
 	}
-
-
 }

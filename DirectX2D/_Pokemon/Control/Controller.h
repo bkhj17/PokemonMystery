@@ -2,8 +2,17 @@
 class Unit;
 class Controller
 {
+private:
 	friend class Unit;
+
 public:
+	enum class ControllerType : int {
+		UNKNOWN,
+		PLAYER,
+		FRIEND,
+		ENEMY,
+	};
+
 	Controller() = default;
 	Controller(Unit* unit) : unit(unit) {};
 	virtual ~Controller();
@@ -19,5 +28,5 @@ protected:
 protected:
 	Unit* unit = nullptr;
 	string tag;
+	ControllerType controllerType = ControllerType::UNKNOWN;
 };
-

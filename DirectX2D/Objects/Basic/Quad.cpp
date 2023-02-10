@@ -90,7 +90,7 @@ void Quad::CreateMesh()
 	float right = size.x * 0.5f;
 	float top = size.y * 0.5f;
 	float bottom = -size.y * 0.5f;
-
+	
 	vertices.emplace_back(left, top, startUV.x, startUV.y);
 	vertices.emplace_back(right, top, endUV.x, startUV.y);
 	vertices.emplace_back(left, bottom, startUV.x, endUV.y);

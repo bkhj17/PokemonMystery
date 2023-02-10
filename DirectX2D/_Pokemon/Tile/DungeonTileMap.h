@@ -1,5 +1,6 @@
 #pragma once
 struct FloorData;
+class DungeonBgTile;
 class DungeonTileMap : public GameTileMap
 {
 private:
@@ -36,6 +37,21 @@ public:
 
     POINT GetPlayerStartPoint() { return playerStartPoint; }
 
+    DungeonBgTile* GetBgTile(POINT point);
+
+    struct DetectNode {
+        POINT point;
+        int flag = 0;
+        int dist; //시작점에서의 거리
+
+        bool operator<(const DetectNode& node) const {
+            return flag == node.flag ? dist < node.dist : flag > node.flag;
+        }
+    };
+
+    //현 위치에서 인식할 수 있는 타일들
+    vector<POINT> DetectableTiles(POINT curPoint);
+
 private:
     void SetGrid(int x, int y);
     void Load(string file) override;
@@ -53,6 +69,5 @@ private:
     FloorData* floorData = nullptr;
 
     POINT playerStartPoint = {};
-
 };
 

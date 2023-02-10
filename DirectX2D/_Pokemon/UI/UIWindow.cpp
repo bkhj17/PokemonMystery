@@ -42,11 +42,10 @@ void UIWindow::SetShaderInfo()
 	SetTexture(Texture::Add(L"Textures/pokemon/UI/Blueframe.png"));
 	floatBuffer = new FloatValueBuffer;
 
-	floatBuffer->Get()[0] = 0.1f;
-	floatBuffer->Get()[1] = 0.1f;
-	floatBuffer->Get()[2] = 0.8f;
-
 	SetPixelShader(L"WindowFrame.hlsl");
-
+	//
 	colorBuffer->Get() = { 0.062f, 0.140f, 0.203f, 1.0f };
+	floatBuffer->Get()[0] = 0.05f;
+	floatBuffer->Get()[1] = 0.05f;
+	floatBuffer->Get()[2] = 0.8f;
 }

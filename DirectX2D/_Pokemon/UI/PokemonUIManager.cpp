@@ -2,6 +2,7 @@
 #include "PokemonUIManager.h"
 #include "UIWindow.h"
 #include "StatusUI.h"
+#include "MiniMap.h"
 
 PokemonUIManager::PokemonUIManager()
 {
@@ -11,7 +12,8 @@ PokemonUIManager::PokemonUIManager()
 
 	UIWindow* testWindow = new UIWindow(Vector2(CENTER_X, CENTER_Y), Vector2(CENTER_X, CENTER_Y));
 	totalUI["test"] = testWindow;
-	openned.push_back(testWindow);
+
+	miniMap = new MiniMap();
 }
 
 PokemonUIManager::~PokemonUIManager()
@@ -20,6 +22,7 @@ PokemonUIManager::~PokemonUIManager()
 	
 	for (auto& ui : totalUI)
 		delete ui.second;
+	delete miniMap;
 }
 
 void PokemonUIManager::Update()
@@ -44,7 +47,7 @@ void PokemonUIManager::OpenMenu()
 
 void PokemonUIManager::CloseAll()
 {
-	totalUI.clear();
+	openned.clear();
 }
 
 void PokemonUIManager::OpenUI(string key)
@@ -52,7 +55,6 @@ void PokemonUIManager::OpenUI(string key)
 	if (totalUI.find(key) == totalUI.end())
 		return;
 
-	
 	openned.push_back(totalUI[key]);
 	openned.back()->Init();
 }

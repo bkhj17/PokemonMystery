@@ -8,7 +8,7 @@ class EnemyController : public Controller
 public:
 	EnemyController();
 	EnemyController(Unit* unit);
-	virtual ~EnemyController();
+	virtual ~EnemyController() = default;
 
 	// Controller을(를) 통해 상속됨
 	virtual bool SetCommand() override;

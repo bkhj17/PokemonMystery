@@ -51,6 +51,7 @@ POINT DungeonObject::GetPoint()
 	if (tileMap == nullptr)
 		return { -1, -1 };
 
+	Vector2 pos = IsMoving() ? movement->GetTargetPos() : Pos();
 	return tileMap->PosToPoint(IsMoving() ? movement->GetTargetPos() : Pos());
 }
 

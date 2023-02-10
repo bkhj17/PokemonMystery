@@ -9,6 +9,8 @@
 
 DungeonTileMap::DungeonTileMap()
 {
+	ObjTileManager::Get();
+
 	tileSize = { 100, 100 };
 	Pos() = tileSize * 0.5f;
 	
@@ -34,6 +36,7 @@ DungeonTileMap::~DungeonTileMap()
 	delete instanceBuffer;
 	delete quad;
 	delete astar;
+	ObjTileManager::Delete();
 }
 
 void DungeonTileMap::Init(string key, int floorNum)
@@ -139,6 +142,71 @@ POINT DungeonTileMap::GetRandomPointByCondition(function<bool(POINT)> condition)
 {
 	vector<POINT> roomPoints = GetPointsByCondition(condition);
 	return roomPoints[Random(0, roomPoints.size())];
+}
+
+vector<POINT> DungeonTileMap::DetectableTiles(POINT curPoint)
+{
+	//
+	map<pair<int, int>, int> check;
+	//3 : 플레이어에 의한 주변 확인
+	//2 : 방 타일에 의한 주변 확인
+	//1 : 길 타일에 의한 주변 확인
+	priority_queue<DetectNode> pq;
+	pq.push({ curPoint, 3, 0 });
+
+	POINT dir[8] = {
+		{-1, 1}, //leftUp
+		{0, 1}, //up
+		{1, 1}, //rightUp
+		{-1, 0}, //left
+		{1, 0}, //right
+		{-1, -1}, //leftDown
+		{0, -1}, //down
+		{1, -1}, //rightDown
+	};
+
+	while (!pq.empty()) {
+		DetectNode curNode = pq.top();
+		pq.pop();
+
+		if (check[{curNode.point.x, curNode.point.y}] >= curNode.flag)
+			continue;
+		check[{curNode.point.x, curNode.point.y}] = curNode.flag;
+
+		auto curTile = (DungeonBgTile*)bgTiles[curNode.point.y * width + curNode.point.x];
+		int nextFlag = 1;
+		if (curNode.flag >= 2 && BgTileManager::Get()->IsRoom(curTile->GetGridFlag()))
+			nextFlag = 2;
+		else if (curNode.flag == 1)
+			nextFlag = 0;
+
+		int gridFlag = curTile->GetGridFlag();
+		if (curNode.flag >= 1) {
+			for (int i = 0; i < 8; i++) {
+				if (!(gridFlag & 1 << i))
+					continue;
+
+				DetectNode nextNode;
+				nextNode.point = { curPoint.x + dir[i].x, curPoint.y + dir[i].y };
+				nextNode.flag = nextFlag;
+				nextNode.dist = curNode.dist + 1;
+				pq.push(nextNode);
+			}
+		}
+	}
+	vector<POINT> result;
+	for (auto& point : check)
+		result.push_back({ point.first.first, point.first.second });
+
+	return result;
+}
+
+DungeonBgTile* DungeonTileMap::GetBgTile(POINT point)
+{
+	if(point.x >= width || point.x < 0 || point.y >= height || point.y)
+		return nullptr;
+
+	return (DungeonBgTile*)bgTiles[point.y * width + point.x];
 }
 
 void DungeonTileMap::SetGrid(int x, int y)

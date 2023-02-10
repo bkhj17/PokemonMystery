@@ -28,14 +28,11 @@ void Effect::Update()
 		return;
 
 	frameTime += speed * DELTA;
-
 	if (frameTime >= delayTime)
 	{
 		frameTime -= delayTime;
-
-		if (++curFrameNum >= maxFrameNum) {
+		if (++curFrameNum >= maxFrameNum)
 			End();
-		}
 
 		frameBuffer->GetCurFrame().x = (float)(curFrameNum % maxFrameX);
 		frameBuffer->GetCurFrame().y = (float)(curFrameNum / maxFrameX);

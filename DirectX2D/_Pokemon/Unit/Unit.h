@@ -3,6 +3,7 @@
 
 class Controller;
 struct PokemonData;
+struct ItemData;
 class Unit : public DungeonObject
 {
 private:
@@ -49,6 +50,8 @@ public:
 	int& GetWait() { return wait; }
 
 	void TurnEnd();
+
+	bool PickUpItem(ItemData* itemData);
 private:
 	void SetAction();
 private:
@@ -71,7 +74,7 @@ private:
 
 	vector<class Skill*> skills;
 
-
-
+	//지닌 아이템 키
+	ItemData* carryItem = nullptr;
 };
 

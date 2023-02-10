@@ -9,6 +9,7 @@
 #include "../Data/DungeonDataManager.h"
 #include "../UI/PokemonUIManager.h"
 #include "../Unit/UnitManager.h"
+#include "../Item/ItemObjectManager.h"
 
 DungeonScene::DungeonScene()
 {
@@ -16,6 +17,8 @@ DungeonScene::DungeonScene()
 	DungeonDataManager::Get();
 	PokemonUIManager::Get();
 	UnitManager::Get()->Init();
+	ItemObjectManager::Get();
+	BgTileManager::Get();
 
 	tileMap = new DungeonTileMap();
 	Observer::Get()->AddGetEvent("CallTileMap", bind(&DungeonScene::CallTileMap, this, placeholders::_1));
@@ -30,10 +33,11 @@ DungeonScene::DungeonScene()
 DungeonScene::~DungeonScene()
 {
 	delete tileMap;
-	BgTileManager::Delete();
 	PokemonUIManager::Delete();
-	ItemDataManager::Delete();
 	UnitManager::Delete();
+	ItemObjectManager::Delete();
+	BgTileManager::Delete();
+	ItemDataManager::Delete();	//사실은 여기서 안 하는게 좋다
 }
 
 void DungeonScene::InitFloor(string name, int floor)
@@ -50,9 +54,11 @@ void DungeonScene::InitFloor(string name, int floor)
 	player->SetPoint(tileMap->GetPlayerStartPoint());
 	CAM->SetTarget(UnitManager::Get()->GetPlayer());
 
+	vector<POINT> points = tileMap->DetectableTiles(player->GetPoint());
+
+	ItemObjectManager::Get()->InitItem("OrenBerry", { 20, 13 });
+	ItemObjectManager::Get()->InitItem("OrenBerry", { 9, 13 });
 	UnitManager::Get()->GetEnemies()[0]->SetPoint(8, 12);
-
-
 
 	floorMove = 0;
 	actState = ENTER_DUNGEON;
@@ -138,11 +144,13 @@ void DungeonScene::Update()
 	}
 
 	UnitManager::Get()->Update();
+	ItemObjectManager::Get()->Update();
 }
 
 void DungeonScene::Render()
 {
 	tileMap->Render();
+	ItemObjectManager::Get()->Render();
 	UnitManager::Get()->Render();
 }
 

@@ -4,11 +4,12 @@
 #include "../Control/Controller.h"
 #include "../Tile/DungeonTileMap.h"
 #include "UnitManager.h"
+#include "../Item/PlayerInventory.h"
 
 Unit::Unit(Controller* controller, Vector2 size)
 	: DungeonObject(size)
 {
-	CreateClipData();
+	//CreateClipData();
 
 	SetController(controller);
 
@@ -38,127 +39,97 @@ void Unit::Render()
 {
 	if (!isActive)
 		return;
-
-	__super::SetRender();
+	__super::Render();
 	animObject->Render();
-	collider->Render();
 }
 
 void Unit::CreateClipData()
 {
+	SAFE_DELETE(animObject);
+		
 	animObject = new AnimObject();
 	animObject->SetParent(this);
 
 	//애니메이션 클립 설정
+	//데이터화 가능하면 좋겠다만
 	wstring textureFile = L"Textures/pokemon/이상해씨.png";
-	Vector2 cutSize = Texture::Add(textureFile)->GetSize() / Vector2(10, 8);
-	vector<Frame*> frames;
-
+	map<pair<int, int>, vector<POINT>> clipMap;
 	//LeftUp : 0
 	int dirCode = 0;
-	//IDLE
-	dirCode = 0;
-	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 3, cutSize.x, cutSize.y));
-	animObject->AddClip(dirCode * 100, new Clip(frames));
-	frames.clear();
-	//MOVING
-	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 3, cutSize.x, cutSize.y));
-	frames.push_back(new Frame(textureFile, cutSize.x * 1, cutSize.y * 3, cutSize.x, cutSize.y));
-	frames.push_back(new Frame(textureFile, cutSize.x * 2, cutSize.y * 3, cutSize.x, cutSize.y));
-	animObject->AddClip(dirCode * 100 + 1, new Clip(frames));
-	frames.clear();
+	//0 IDLE
+	//1 MOVING
+	clipMap[{1, dirCode * 100 + IDLE}].push_back({ 0, 3 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 0, 3 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 1, 3 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 2, 3 });
 
 	//Up : 1
 	dirCode = 1;
-	//IDLE
-	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 4, cutSize.x, cutSize.y));
-	animObject->AddClip(dirCode * 100, new Clip(frames));
-	frames.clear();
-	//MOVING
-	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 4, cutSize.x, cutSize.y));
-	frames.push_back(new Frame(textureFile, cutSize.x * 1, cutSize.y * 4, cutSize.x, cutSize.y));
-	frames.push_back(new Frame(textureFile, cutSize.x * 2, cutSize.y * 4, cutSize.x, cutSize.y));
-	animObject->AddClip(dirCode * 100+1, new Clip(frames));
-	frames.clear();
+	clipMap[{1, dirCode * 100 + IDLE}].push_back({ 0, 4 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 0, 4 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 1, 4 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 2, 4 });
 
 	//RightUp : 2
 	dirCode = 2;
-	//IDLE
-	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 5, cutSize.x, cutSize.y));
-	animObject->AddClip(dirCode * 100, new Clip(frames));
-	frames.clear();
-	//MOVING
-	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 5, cutSize.x, cutSize.y));
-	frames.push_back(new Frame(textureFile, cutSize.x * 1, cutSize.y * 5, cutSize.x, cutSize.y));
-	frames.push_back(new Frame(textureFile, cutSize.x * 2, cutSize.y * 5, cutSize.x, cutSize.y));
-	animObject->AddClip(dirCode * 100 + 1, new Clip(frames));
-	frames.clear();
+	clipMap[{1, dirCode * 100 + IDLE}].push_back({ 0, 5 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 0, 5 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 1, 5 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 2, 5 });
 
 	//Left : 3
 	dirCode = 3;
-	//IDLE
-	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 2, cutSize.x, cutSize.y));
-	animObject->AddClip(dirCode * 100, new Clip(frames));
-	frames.clear();
-	//MOVING
-	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 2, cutSize.x, cutSize.y));
-	frames.push_back(new Frame(textureFile, cutSize.x * 1, cutSize.y * 2, cutSize.x, cutSize.y));
-	frames.push_back(new Frame(textureFile, cutSize.x * 2, cutSize.y * 2, cutSize.x, cutSize.y));
-	animObject->AddClip(dirCode * 100 + 1, new Clip(frames));
-	frames.clear();
+	clipMap[{1, dirCode * 100 + IDLE}].push_back({ 0, 2 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 0, 2 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 1, 2 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 2, 2 });
+
+	//4는 중앙 => 계산에 좋지 않아 쓰지 않는다
 
 	//Right : 5
 	dirCode = 5;
-	//IDLE
-	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 6, cutSize.x, cutSize.y));
-	animObject->AddClip(dirCode * 100, new Clip(frames));
-	frames.clear();
-	//MOVING
-	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 6, cutSize.x, cutSize.y));
-	frames.push_back(new Frame(textureFile, cutSize.x * 1, cutSize.y * 6, cutSize.x, cutSize.y));
-	frames.push_back(new Frame(textureFile, cutSize.x * 2, cutSize.y * 6, cutSize.x, cutSize.y));
-	animObject->AddClip(dirCode * 100 + 1, new Clip(frames));
-	frames.clear();
-	
+	clipMap[{1, dirCode * 100 + IDLE}].push_back({ 0, 6 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 0, 6 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 1, 6 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 2, 6 });
+
 	//LeftDown : 6
 	dirCode = 6;
-	//IDLE
-	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 1, cutSize.x, cutSize.y));
-	animObject->AddClip(dirCode * 100, new Clip(frames));
-	frames.clear();
-	//MOVING
-	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 1, cutSize.x, cutSize.y));
-	frames.push_back(new Frame(textureFile, cutSize.x * 1, cutSize.y * 1, cutSize.x, cutSize.y));
-	frames.push_back(new Frame(textureFile, cutSize.x * 2, cutSize.y * 1, cutSize.x, cutSize.y));
-	animObject->AddClip(dirCode * 100 + 1, new Clip(frames));
-	frames.clear();
+	clipMap[{1, dirCode * 100 + IDLE}].push_back({ 0, 1 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 0, 1 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 1, 1 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 2, 1 });
 
 	//Down : 7, default
 	dirCode = 7;
-	//IDLE
-	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 0, cutSize.x, cutSize.y));
-	animObject->AddClip(dirCode * 100, new Clip(frames));
-	frames.clear();
-	//MOVING
-	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 0, cutSize.x, cutSize.y));
-	frames.push_back(new Frame(textureFile, cutSize.x * 1, cutSize.y * 0, cutSize.x, cutSize.y));
-	frames.push_back(new Frame(textureFile, cutSize.x * 2, cutSize.y * 0, cutSize.x, cutSize.y));
-	animObject->AddClip(dirCode * 100 + 1, new Clip(frames));
-	frames.clear();
-	//DAMAGE	
-	
+	clipMap[{1, dirCode * 100 + IDLE}].push_back({ 0, 0 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 0, 0 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 1, 0 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 2, 0 });
+
 	//RightDown : 8
 	dirCode = 8;
-	//IDLE
-	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 7, cutSize.x, cutSize.y));
-	animObject->AddClip(dirCode * 100, new Clip(frames));
-	frames.clear();
-	//MOVING
-	frames.push_back(new Frame(textureFile, cutSize.x * 0, cutSize.y * 7, cutSize.x, cutSize.y));
-	frames.push_back(new Frame(textureFile, cutSize.x * 1, cutSize.y * 7, cutSize.x, cutSize.y));
-	frames.push_back(new Frame(textureFile, cutSize.x * 2, cutSize.y * 7, cutSize.x, cutSize.y));
-	animObject->AddClip(dirCode * 100 + 1, new Clip(frames));
-	frames.clear();
+	clipMap[{1, dirCode * 100 + IDLE}].push_back({ 0, 7 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 0, 7 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 1, 7 });
+	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 2, 7 });
+
+
+	Vector2 cutSize = Texture::Add(textureFile)->GetSize() / Vector2(10, 8);
+	vector<Frame*> frames;
+	int pokemonKey = 1;
+	for (int dir = 0; dir < 9; dir++) {
+		if (dir == 4)
+			continue;
+
+		for (int action = 0; action <= 1; action++) {
+			int clipCode = dir * 100 + action;
+			for (POINT p : clipMap[{pokemonKey, clipCode}])
+				frames.push_back(new Frame(textureFile, cutSize.x * p.x, cutSize.y * p.y, cutSize.x, cutSize.y));
+			animObject->AddClip(clipCode, new Clip(frames));
+			frames.clear();
+		}
+	}
 }
 
 void Unit::UpdateWorld()
@@ -183,7 +154,11 @@ void Unit::SetDir(int x, int y)
 
 void Unit::SetData(int key, int level)
 {
-	UnitManager::Get()->GetPokemonData(key, level, data);
+	int postKey = data->key;
+		UnitManager::Get()->GetPokemonData(key, level, data);
+	
+	if (postKey != key)
+		CreateClipData();
 }
 
 void Unit::SetLevelData(int level)
@@ -194,9 +169,28 @@ void Unit::SetLevelData(int level)
 void Unit::TurnEnd()
 {
 	wait = max(0, wait - 2);
-	//상태이상도 
+	//상태이상 턴 감소
+}
 
+bool Unit::PickUpItem(ItemData* itemData)
+{
+	if (controller->GetTag() == "Player" 
+		|| controller->GetTag() == "Friend") {
+		if(PlayerInventory::Get()->InputItem(itemData)) {
 
+			//아이템 획득 로그
+			return true;
+		}
+	}
+
+	if (carryItem == nullptr) {
+		carryItem = itemData;
+		//아이템 획득 로그
+		return true;
+	}
+	
+	//못 먹음
+	return false;
 }
 
 void Unit::SetAction()
@@ -215,7 +209,7 @@ void Unit::SetAction()
 
 	int dirCode = (4 + -animDirY * 3 + animDirX) * 100;
 	if (movement->IsMoving())
-		dirCode += 1;
+		dirCode += MOVING;
 	
 
 
