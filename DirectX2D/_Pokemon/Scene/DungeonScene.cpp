@@ -54,7 +54,7 @@ void DungeonScene::InitFloor(string name, int floor)
 	player->SetPoint(tileMap->GetPlayerStartPoint());
 	CAM->SetTarget(UnitManager::Get()->GetPlayer());
 
-	vector<POINT> points = tileMap->DetectableTiles(player->GetPoint());
+	//vector<POINT> points = tileMap->DetectableTiles(player->GetPoint());
 
 	ItemObjectManager::Get()->InitItem("OrenBerry", { 20, 13 });
 	ItemObjectManager::Get()->InitItem("OrenBerry", { 9, 13 });
