@@ -59,7 +59,7 @@ int AStar::FindRandomPos(Vector2 pos, float range)
 		}
 	}
 
-	Node* findNode = findNodes[Random(0, findNodes.size())];
+	Node* findNode = findNodes[Random(0, (int)findNodes.size())];
 
 	return findNode->index;
 }

@@ -8,7 +8,7 @@ CommandManager::CommandManager()
 	commandTable["661"] = 10;
 
 	for (const auto& command : commandTable) {
-		maxCommandLength = max(command.first.size(), maxCommandLength);
+		maxCommandLength = max((UINT)command.first.size(), maxCommandLength);
 	}
 }
 

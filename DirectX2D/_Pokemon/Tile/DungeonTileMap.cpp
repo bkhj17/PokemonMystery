@@ -147,7 +147,7 @@ POINT DungeonTileMap::GetRandomPointByCondition(function<bool(POINT)> condition)
 vector<POINT> DungeonTileMap::DetectableTiles(POINT curPoint)
 {
 	//
-	map<pair<int, int>, int> check;
+	map<POINT, int> check;
 	//3 : 플레이어에 의한 주변 확인
 	//2 : 방 타일에 의한 주변 확인
 	//1 : 길 타일에 의한 주변 확인
@@ -194,10 +194,12 @@ vector<POINT> DungeonTileMap::DetectableTiles(POINT curPoint)
 			}
 		}
 	}
+	
 	vector<POINT> result;
+	
 	for (auto& point : check)
-		result.push_back({ point.first.first, point.first.second });
-
+		result.push_back({ point.first.x, point.first.y });
+		
 	return result;
 }
 

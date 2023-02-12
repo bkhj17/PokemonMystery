@@ -40,11 +40,11 @@ public:
     DungeonBgTile* GetBgTile(POINT point);
 
     struct DetectNode {
-        POINT point;
+        POINT point = { -1, -1 };
         int flag = 0;
-        int dist; //시작점에서의 거리
-
-        bool operator<(const DetectNode& node) const {
+        int dist = 1000000000; //시작점에서의 거리
+        
+        bool operator<(const DetectNode& node) {
             return flag == node.flag ? dist < node.dist : flag > node.flag;
         }
     };
