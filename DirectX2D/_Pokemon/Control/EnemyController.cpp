@@ -64,8 +64,10 @@ void EnemyController::SetMoveCommand()
 	POINT pPlayer = UnitManager::Get()->GetPlayer()->GetPoint();
 	if (find(detectables.begin(), detectables.end(), pair<int, int>({ pPlayer.x, pPlayer.y })) != detectables.end()) {
 		pair<int, int> next = tileMap->ChasingPoint({unit->GetPoint().x, unit->GetPoint().y}, {pPlayer.x, pPlayer.y});
-		unit->SetMovePlan(next.first - uPoint.x, next.second - uPoint.y, 1);
-		unit->SetDir(next.first - uPoint.x, next.second - uPoint.y);
+		int dx = next.first - uPoint.x;
+		int dy = next.second - uPoint.y;
+		unit->SetMovePlan(dx, dy, 1);
+		unit->SetDir(dx, dy);
 		return;
 	}
 	

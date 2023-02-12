@@ -14,7 +14,6 @@ DungeonTileMap::DungeonTileMap()
 	tileSize = { 100, 100 };
 	Pos() = tileSize * 0.5f;
 	
-
 	Vector2 maxFrame = BgTileManager::Get()->GRID_SIZE;
 	quad = new Quad(tileSize);
 	quad->ModifyUV(Vector2(), Vector2(1, 1) / maxFrame);
@@ -223,21 +222,15 @@ pair<int, int> DungeonTileMap::ChasingPoint(const pair<int, int>& start, const p
 		{0, -1}, //down
 		{1, -1}, //rightDown
 	};
-	
-	int x, y;
-	x = start.first;
-	y = start.second;
 
-	pair<int, int> lastPoint;
-	lastPoint = start;
+	pair<int, int> lastPoint = start;
 	while (!pq.empty()) {
 		ChaseNode curNode = pq.top();
 		pq.pop();
 
 		if (points.find(curNode.point) != points.end()) {
-			if (points[curNode.point].dist <= curNode.dist) {
+			if (points[curNode.point].dist <= curNode.dist)
 				continue;
-			}
 		}
 
 		points[curNode.point] = curNode;
@@ -245,13 +238,14 @@ pair<int, int> DungeonTileMap::ChasingPoint(const pair<int, int>& start, const p
 		if (curNode.point == target)
 			break;
 
-
 		auto curTile = (DungeonBgTile*)bgTiles[curNode.point.second * width + curNode.point.first];
 		int gridFlag = curTile->GetGridFlag();
 
 		for (int i = 0; i < 8; i++) {
-			if (!(gridFlag & 1 << i))
+			if ((gridFlag & (1 << i)) == 0)
 				continue;
+
+			//갈 수 있는 위치만 받아야 하는데?
 
 			ChaseNode nextNode;
 			nextNode.point = { curNode.point.first + dir[i].x, curNode.point.second + dir[i].y };
@@ -263,8 +257,9 @@ pair<int, int> DungeonTileMap::ChasingPoint(const pair<int, int>& start, const p
 	}
 
 	//lastPoint를 기점으로 역추적
-	while (points[lastPoint].post != start)
+	while (points[lastPoint].post != start) {
 		lastPoint = points[lastPoint].post;
+	}
 	return lastPoint;
 }
 

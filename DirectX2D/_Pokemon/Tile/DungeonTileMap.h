@@ -19,7 +19,7 @@ public:
 
     DungeonTileMap();
     ~DungeonTileMap();
-
+    
     void Init(string key, int floorNum);
 
     virtual void UpdateWorld() override;
@@ -56,7 +56,7 @@ public:
         int dist = 1000000000;
 
         bool operator<(const ChaseNode& node) const {
-            return dist < node.dist;
+            return dist > node.dist;
         }
     };
 
