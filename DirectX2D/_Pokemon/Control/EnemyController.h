@@ -13,6 +13,10 @@ public:
 	// Controller을(를) 통해 상속됨
 	virtual bool SetCommand() override;
 	void SetMoveCommand();
+
+private:
+	void SetPatrolMoveCommand();
+
 private:
 	virtual bool UseSkill(int i);
 };

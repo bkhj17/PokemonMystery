@@ -47,8 +47,8 @@ void DungeonTileMap::Init(string key, int floorNum)
 
 	Load(floorData->file);
 
-	for (int y = 0; y < height; y++)
-		for (int x = 0; x < width; x++)
+	for (UINT y = 0; y < height; y++)
+		for (UINT x = 0; x < width; x++)
 			SetGrid(x, y);
 
 	SetUpTrap();
@@ -74,7 +74,7 @@ void DungeonTileMap::UpdateWorld()
 		UINT type = BgTileManager::Get()->GetTileType(bgTiles[i]->GetTexture());
 		instances[i].tileType = (int)type;
 	}
-	instanceBuffer->Update(instances.data(), instances.size());
+	instanceBuffer->Update(instances.data(), (int)instances.size());
 }
 
 void DungeonTileMap::Render()
@@ -84,7 +84,7 @@ void DungeonTileMap::Render()
 	quad->SetRender();
 	BgTileManager::Get()->GetLandTexture()->PSSet(1);
 	BgTileManager::Get()->GetWaterTexture()->PSSet(2);
-	DC->DrawIndexedInstanced(6, bgTiles.size(), 0, 0, 0);
+	DC->DrawIndexedInstanced(6, (UINT)bgTiles.size(), 0, 0, 0);
 
 	//
 	for (auto obj : objTiles)
@@ -95,7 +95,7 @@ void DungeonTileMap::GetNodes(vector<Node*>& nodes)
 {
 	for (auto tile : bgTiles) {
 		Vector2 tilePos = tile->GlobalPos();
-		Node* node = new Node(tilePos, nodes.size());
+		Node* node = new Node(tilePos, (int)nodes.size());
 
 		nodes.push_back(node);
 	}
@@ -141,18 +141,75 @@ vector<POINT> DungeonTileMap::GetPointsByCondition(function<bool(POINT)> conditi
 POINT DungeonTileMap::GetRandomPointByCondition(function<bool(POINT)> condition)
 {
 	vector<POINT> roomPoints = GetPointsByCondition(condition);
-	return roomPoints[Random(0, roomPoints.size())];
+	return roomPoints[Random(0, (int)roomPoints.size())];
 }
 
-vector<POINT> DungeonTileMap::DetectableTiles(POINT curPoint)
+vector<pair<int, int>> DungeonTileMap::DetectableTiles(POINT curPoint)
 {
-	//
-	map<POINT, int> check;
+	map<pair<int, int>, int> check;
 	//3 : 플레이어에 의한 주변 확인
 	//2 : 방 타일에 의한 주변 확인
 	//1 : 길 타일에 의한 주변 확인
 	priority_queue<DetectNode> pq;
-	pq.push({ curPoint, 3, 0 });
+	
+	pq.push({ {curPoint.x, curPoint.y}, 3, 0 });
+	POINT dir[8] = {
+		{-1, 1}, //leftUp
+		{0, 1}, //up
+		{1, 1}, //rightUp
+		{-1, 0}, //left
+		{1, 0}, //right
+		{-1, -1}, //leftDown
+		{0, -1}, //down
+		{1, -1}, //rightDown
+	};
+	
+	while (!pq.empty()) {
+		DetectNode curNode = pq.top();
+		pq.pop();
+		
+		if (check.find(curNode.point) != check.end() && check[curNode.point] >= curNode.flag)
+			continue;
+		check[curNode.point] = curNode.flag;
+		
+		int gridFlag = ((DungeonBgTile*)bgTiles[curNode.point.second * width + curNode.point.first])->GetGridFlag();
+
+		int nextFlag = 1;
+		if (curNode.flag == 3 || (curNode.flag == 2 && BgTileManager::Get()->IsRoom(gridFlag)))
+			nextFlag = 2;
+		else if (curNode.flag == 1)
+			nextFlag = 0;
+		
+		if (curNode.flag >= 1) {
+			for (int i = 0; i < 8; i++) {
+				if (!(gridFlag & (1 << i)))
+					continue;
+				
+				DetectNode nextNode;
+				nextNode.point = { curNode.point.first + dir[i].x, curNode.point.second + dir[i].y };
+				nextNode.flag = nextFlag;
+				nextNode.dist = curNode.dist + 1;
+				
+				pq.push(nextNode);
+			}
+		}
+	}
+	
+	vector<pair<int, int>> result;
+	result.reserve(check.size());
+	for (auto& point : check) {
+		if (point.first.first == curPoint.x && point.first.second == curPoint.y)
+			continue;
+		result.push_back(point.first);
+	}
+	return result;
+}
+
+pair<int, int> DungeonTileMap::ChasingPoint(const pair<int, int>& start, const pair<int, int>& target) const
+{
+	map<pair<int, int>, ChaseNode> points;
+	priority_queue<ChaseNode> pq;
+	pq.push({ start, start, 0});
 
 	POINT dir[8] = {
 		{-1, 1}, //leftUp
@@ -164,48 +221,49 @@ vector<POINT> DungeonTileMap::DetectableTiles(POINT curPoint)
 		{0, -1}, //down
 		{1, -1}, //rightDown
 	};
-
+	
+	pair<int, int> lastPoint;
 	while (!pq.empty()) {
-		DetectNode curNode = pq.top();
+		ChaseNode curNode = pq.top();
 		pq.pop();
 
-		if (check[{curNode.point.x, curNode.point.y}] >= curNode.flag)
-			continue;
-		check[{curNode.point.x, curNode.point.y}] = curNode.flag;
-
-		auto curTile = (DungeonBgTile*)bgTiles[curNode.point.y * width + curNode.point.x];
-		int nextFlag = 1;
-		if (curNode.flag >= 2 && BgTileManager::Get()->IsRoom(curTile->GetGridFlag()))
-			nextFlag = 2;
-		else if (curNode.flag == 1)
-			nextFlag = 0;
-
-		int gridFlag = curTile->GetGridFlag();
-		if (curNode.flag >= 1) {
-			for (int i = 0; i < 8; i++) {
-				if (!(gridFlag & 1 << i))
-					continue;
-
-				DetectNode nextNode;
-				nextNode.point = { curPoint.x + dir[i].x, curPoint.y + dir[i].y };
-				nextNode.flag = nextFlag;
-				nextNode.dist = curNode.dist + 1;
-				pq.push(nextNode);
+		if (points.find(curNode.point) != points.end()) {
+			if (points[curNode.point].dist <= curNode.dist) {
+				continue;
 			}
 		}
+
+		points[curNode.point] = curNode;
+		lastPoint = curNode.point;
+		if (curNode.point == target)
+			break;
+
+
+		auto curTile = (DungeonBgTile*)bgTiles[curNode.point.second * width + curNode.point.first];
+		int gridFlag = curTile->GetGridFlag();
+
+		for (int i = 0; i < 8; i++) {
+			if (!(gridFlag & 1 << i))
+				continue;
+
+			ChaseNode nextNode;
+			nextNode.point = { curNode.point.first + dir[i].x, curNode.point.second + dir[i].y };
+			nextNode.post = curNode.point;
+			nextNode.dist = curNode.dist + 1;
+
+			pq.push(nextNode);
+		}
 	}
-	
-	vector<POINT> result;
-	
-	for (auto& point : check)
-		result.push_back({ point.first.x, point.first.y });
-		
-	return result;
+
+	//lastPoint를 기점으로 역추적
+	while (points[lastPoint].post != start)
+		lastPoint = points[lastPoint].post;
+	return lastPoint;
 }
 
 DungeonBgTile* DungeonTileMap::GetBgTile(POINT point)
 {
-	if(point.x >= width || point.x < 0 || point.y >= height || point.y)
+	if(point.x >= (int)width || point.x < 0 || point.y >= (int)height || point.y)
 		return nullptr;
 
 	return (DungeonBgTile*)bgTiles[point.y * width + point.x];
@@ -235,9 +293,9 @@ void DungeonTileMap::SetGrid(int x, int y)
     for (int i = 0; i < 8; i++) {
         pair<int, int> check = { x + dir[i].first, y + dir[i].second };
         //주변타일 좌표 유효성 검사
-        if (check.first >= width || check.first < 0)
+        if (check.first >= (int)width || check.first < 0)
             continue;
-        if (check.second >= height || check.second < 0)
+        if (check.second >= (int)height || check.second < 0)
             continue;
 
         auto nearTile = bgTiles[check.second * width + check.first];
@@ -304,7 +362,7 @@ void DungeonTileMap::Load(string file)
 	//고정 오브젝트 설정
 	size = reader->UInt();
 	objTiles.reserve(size);
-	for (int i = 0; i < size; i++) {
+	for (UINT i = 0; i < size; i++) {
 		Tile::Data data;
 		data.textureFile = reader->WString();
 		if (data.textureFile.empty())
@@ -396,5 +454,5 @@ void DungeonTileMap::SetUpPlayerStart()
 		return BgTileManager::Get()->IsRoom(tile->GetGridFlag());
 	});
 
-	playerStartPoint = roomPoints[Random(0, roomPoints.size())];
+	playerStartPoint = roomPoints[Random(0, (int)roomPoints.size())];
 }

@@ -327,9 +327,6 @@
     <ClInclude Include="Objects\Tile\Tank.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\DijkstraScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Objects\Algorithm\Dijkstra.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -489,13 +486,10 @@
     <ClInclude Include="_Pokemon\Item\PlayerInventory.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="_Pokemon\Log\GameLog.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="LogManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="_Pokemon\UI\MiniMap.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_Pokemon\Log\GameLog.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -788,9 +782,6 @@
     <ClCompile Include="Objects\Tile\Tank.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\DijkstraScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Objects\Algorithm\Dijkstra.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -950,13 +941,10 @@
     <ClCompile Include="_Pokemon\Item\PlayerInventory.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="_Pokemon\Log\GameLog.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="LogManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="_Pokemon\UI\MiniMap.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="_Pokemon\Log\GameLog.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

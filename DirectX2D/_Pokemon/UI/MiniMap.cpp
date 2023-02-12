@@ -30,10 +30,11 @@ void MiniMap::UpdateMap(void* pointPtr)
 
 	if (!tileMap)
 		return;
-
-	vector<POINT> detectPoints = tileMap->DetectableTiles(*point);
+	
+	vector<pair<int, int>> detectPoints = tileMap->DetectableTiles(*point);
+	
 	for (const auto& detect : detectPoints)
-		info[detect] = tileMap->GetBgTile(detect)->GetGridFlag();
+		info[detect] = tileMap->GetBgTile({ detect.first, detect.second })->GetGridFlag();
 }
 
 void MiniMap::Render()

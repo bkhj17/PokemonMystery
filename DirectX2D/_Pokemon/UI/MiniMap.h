@@ -11,10 +11,10 @@ public:
 
 	void Clear();
 private:
-	map<POINT, int> info; //공개타일 : 해당 위치의 배경 타일의 그리드 플래그
-	set<POINT> objTilePos;
-	set<POINT> itemPos;	
-	set<POINT> unitPos;
+	map<pair<int, int>, int> info; //공개타일 : 해당 위치의 배경 타일의 그리드 플래그
+	set<pair<int, int>> objTilePos;
+	set<pair<int, int>> itemPos;	
+	set<pair<int, int>> unitPos;
 	Quad* quad;
 };
 

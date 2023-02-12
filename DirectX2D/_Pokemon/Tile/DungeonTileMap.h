@@ -38,19 +38,31 @@ public:
     POINT GetPlayerStartPoint() { return playerStartPoint; }
 
     DungeonBgTile* GetBgTile(POINT point);
-
+    
     struct DetectNode {
-        POINT point = { -1, -1 };
+        pair<int, int> point = { -1, -1 };
         int flag = 0;
         int dist = 1000000000; //시작점에서의 거리
         
-        bool operator<(const DetectNode& node) {
+
+        bool operator<(const DetectNode& node) const {
             return flag == node.flag ? dist < node.dist : flag > node.flag;
         }
     };
 
+    struct ChaseNode {
+        pair<int, int> point = { -1, -1 };
+        pair<int, int> post = { -1, -1 };
+        int dist = 1000000000;
+
+        bool operator<(const ChaseNode& node) const {
+            return dist < node.dist;
+        }
+    };
+
     //현 위치에서 인식할 수 있는 타일들
-    vector<POINT> DetectableTiles(POINT curPoint);
+    vector<pair<int, int>> DetectableTiles(POINT curPoint);
+    pair<int, int> ChasingPoint(const pair<int, int>& start, const pair<int, int>& target) const;
 
 private:
     void SetGrid(int x, int y);

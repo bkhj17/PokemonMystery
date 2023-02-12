@@ -22,15 +22,15 @@ InstancingScene::InstancingScene()
 	instances.resize(SIZE);
 	for (auto& instance : instances) {
 		Transform transform;
-		transform.Pos().x = Random(0, WIN_WIDTH);
-		transform.Pos().y = Random(0, WIN_HEIGHT);
+		transform.Pos().x = (float)Random(0, WIN_WIDTH);
+		transform.Pos().y = (float)Random(0, WIN_HEIGHT);
 		transform.Scale().x = Random(1.0f, 3.0f);
 		transform.Scale().y = Random(1.0f, 3.0f);
 		transform.UpdateWorld();
 
-		instance.maxFrame = { 4, 3 };
-		instance.curFrame.x = Random(0, 4);
-		instance.curFrame.y = Random(0, 3);
+		instance.maxFrame = { 4.0f, 3.0f };
+		instance.curFrame.x = Random(0.0f, 4.0f);
+		instance.curFrame.y = Random(0.0f, 3.0f);
 
 		instance.transform = XMMatrixTranspose(transform.GetWorld());
 	}

@@ -2,7 +2,8 @@
 #include "EnemyController.h"
 #include "../Unit/Unit.h"
 #include "../Unit/UnitManager.h"
-//#include "../Tile/DungeonTileMap.h"
+#include "../Tile/DungeonTileMap.h"
+
 EnemyController::EnemyController()
 {
 	tag = "Enemy";
@@ -48,6 +49,30 @@ void EnemyController::SetMoveCommand()
 	if (unit->GetWait() != 0)
 		return;
 
+
+	DungeonTileMap* tileMap = nullptr;
+	Observer::Get()->ExecuteGetEvent("CallTileMap", (void**)&tileMap);
+	if (tileMap == nullptr) {
+		//이상사태 : 맵 인식 불가
+		return;
+	}
+
+	vector<pair<int, int>> detectables = tileMap->DetectableTiles(unit->GetPoint());
+	//플레이어, 동료 위치 받아오기
+	POINT uPoint = unit->GetPoint();
+	POINT pPlayer = UnitManager::Get()->GetPlayer()->GetPoint();
+	if (find(detectables.begin(), detectables.end(), pair<int, int>({ pPlayer.x, pPlayer.y })) != detectables.end()) {
+		pair<int, int> next = tileMap->ChasingPoint({unit->GetPoint().x, unit->GetPoint().y}, {pPlayer.x, pPlayer.y});
+		unit->SetMovePlan(next.first - uPoint.x, next.second - uPoint.y, 1);
+		unit->SetDir(next.first - uPoint.x, next.second - uPoint.y);
+		return;
+	}
+	
+	SetPatrolMoveCommand();
+}
+
+void EnemyController::SetPatrolMoveCommand()
+{
 	////방향 가중치 사용
 	int dirX = unit->GetDirX();
 	int dirY = unit->GetDirY();
@@ -86,7 +111,7 @@ void EnemyController::SetMoveCommand()
 	POINT curPoint = unit->GetPoint();
 	for (int i = 0; i < 8; i++) {
 		POINT dir = points[i].first;
-		if(!UnitManager::Get()->CheckMovablePoint(curPoint, dir.x, dir.y))
+		if (!UnitManager::Get()->CheckMovablePoint(curPoint, dir.x, dir.y))
 			continue;
 		unit->SetMovePlan(dir.x, dir.y, 1);
 		unit->SetDir(dir.x, dir.y);
