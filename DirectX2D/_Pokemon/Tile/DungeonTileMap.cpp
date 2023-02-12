@@ -151,7 +151,7 @@ vector<pair<int, int>> DungeonTileMap::DetectableTiles(POINT curPoint)
 	//2 : 방 타일에 의한 주변 확인
 	//1 : 길 타일에 의한 주변 확인
 	priority_queue<DetectNode> pq;
-	
+
 	pq.push({ {curPoint.x, curPoint.y}, 3, 0 });
 	POINT dir[8] = {
 		{-1, 1}, //leftUp
@@ -163,44 +163,46 @@ vector<pair<int, int>> DungeonTileMap::DetectableTiles(POINT curPoint)
 		{0, -1}, //down
 		{1, -1}, //rightDown
 	};
-	
+
 	while (!pq.empty()) {
 		DetectNode curNode = pq.top();
 		pq.pop();
-		
+
 		if (check.find(curNode.point) != check.end() && check[curNode.point] >= curNode.flag)
 			continue;
 		check[curNode.point] = curNode.flag;
-		
+
 		int gridFlag = ((DungeonBgTile*)bgTiles[curNode.point.second * width + curNode.point.first])->GetGridFlag();
 
 		int nextFlag = 1;
-		if (curNode.flag == 3 || (curNode.flag == 2 && BgTileManager::Get()->IsRoom(gridFlag)))
+		bool isRoom = BgTileManager::Get()->IsRoom(gridFlag);
+		if (curNode.flag == 3 || (curNode.flag == 2 && isRoom))
 			nextFlag = 2;
 		else if (curNode.flag == 1)
 			nextFlag = 0;
-		
+
 		if (curNode.flag >= 1) {
 			for (int i = 0; i < 8; i++) {
 				if (!(gridFlag & (1 << i)))
 					continue;
-				
+
+				if (!isRoom && abs(dir[i].x) + abs(dir[i].y) >= 2)
+					continue;
+
 				DetectNode nextNode;
 				nextNode.point = { curNode.point.first + dir[i].x, curNode.point.second + dir[i].y };
 				nextNode.flag = nextFlag;
 				nextNode.dist = curNode.dist + 1;
-				
+
 				pq.push(nextNode);
 			}
 		}
 	}
-	
+
 	vector<pair<int, int>> result;
-	result.reserve(check.size());
-	for (auto& point : check) {
-		if (point.first.first == curPoint.x && point.first.second == curPoint.y)
-			continue;
-		result.push_back(point.first);
+	for (pair<pair<int, int>, int> const& point : check) {
+		pair<int, int> p = point.first;
+		result.emplace_back(p); //왜 안 들어가?
 	}
 	return result;
 }
@@ -222,7 +224,12 @@ pair<int, int> DungeonTileMap::ChasingPoint(const pair<int, int>& start, const p
 		{1, -1}, //rightDown
 	};
 	
+	int x, y;
+	x = start.first;
+	y = start.second;
+
 	pair<int, int> lastPoint;
+	lastPoint = start;
 	while (!pq.empty()) {
 		ChaseNode curNode = pq.top();
 		pq.pop();

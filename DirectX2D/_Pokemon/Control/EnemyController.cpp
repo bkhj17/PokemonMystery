@@ -11,6 +11,7 @@ EnemyController::EnemyController()
 }
 
 EnemyController::EnemyController(Unit* unit)
+	: Controller(unit)
 {
 	tag = "Enemy";
 	controllerType = ControllerType::ENEMY;
@@ -106,7 +107,7 @@ void EnemyController::SetPatrolMoveCommand()
 	//가중치 순으로 정렬
 	sort(points, points + 8, [](const pair<POINT, int>& l, const pair<POINT, int>& r) -> bool {
 		return l.second > r.second;
-		});
+	});
 
 	POINT curPoint = unit->GetPoint();
 	for (int i = 0; i < 8; i++) {

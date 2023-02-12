@@ -54,10 +54,8 @@ ItemObject* ItemObjectManager::ItemOnPoint(POINT point)
 			continue;
 
 		POINT itemPoint = item->GetPoint();
-		if (itemPoint.x == point.x
-			&& itemPoint.y == item->GetPoint().y) {
+		if (itemPoint.x == point.x && itemPoint.y == point.y)
 			return item;
-		}
 	}
 
 	return nullptr;
