@@ -56,9 +56,6 @@ void DungeonScene::InitFloor(string name, int floor)
 
 	//vector<POINT> points = tileMap->DetectableTiles(player->GetPoint());
 
-	ItemObjectManager::Get()->InitItem("OrenBerry", { 20, 13 });
-	ItemObjectManager::Get()->InitItem("OrenBerry", { 9, 13 });
-	
 	UnitManager::Get()->GetEnemies()[0]->SetPoint(8, 12);
 
 	floorMove = 0;
@@ -99,8 +96,12 @@ void DungeonScene::Update()
 
 		//열린 UI가 있다면 그 쪽을 우선
 
-		PokemonUIManager::Get()->Update();
-		
+
+
+
+		if (PokemonUIManager::Get()->IsActing())
+			break;
+
 		//턴 진행
 		UnitManager::Get()->RunPhase();
 
@@ -144,6 +145,7 @@ void DungeonScene::Update()
 		break;
 	}
 
+	PokemonUIManager::Get()->Update();
 	UnitManager::Get()->Update();
 	ItemObjectManager::Get()->Update();
 }

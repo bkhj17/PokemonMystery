@@ -14,10 +14,11 @@ public:
 
 	void OpenMenu();
 	void CloseAll();
-private:
-	void OpenUI(string key);
+
+	UIWindow* OpenUI(string key);
 	void CloseUI();
 
+	bool IsActing();
 private:
 	class StatusUI* statusUI;
 	UIWindow* logUI = nullptr; 
@@ -26,6 +27,4 @@ private:
 
 	unordered_map<string, UIWindow*> totalUI;
 	list<UIWindow*> openned;
-
-
 };

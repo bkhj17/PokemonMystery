@@ -220,6 +220,10 @@ void Unit::SetIdle()
 void Unit::SkillActivate()
 {
 	//curSkill에 대응하는 effectObject를 생성
+
+
+
+
 	SetIdle();
 }
 

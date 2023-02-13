@@ -65,8 +65,13 @@ private:
 	void SkillActivate();
 
 private:
+	//포켓몬 정보
+	PokemonData* data;
+
+	//animObject 방향
 	int animDirX = 0, animDirY = -1;
-	
+	//현재의 행동 코드
+	int dirCode = 0;
 	AnimObject* animObject;
 	//갔다 온다....
 
@@ -77,19 +82,10 @@ private:
 	//가속 때 1, 평시에 2, 감속 때 4 감소시키며 0이면 행동.... 근데 이러면 버프는 어떡하냐
 	//불가사의 던전에서 버프 == 상태이상
 
-	//포켓몬 정보
-	PokemonData* data;
-
+	int curSkill = -1;
 	vector<class Skill*> skills;
 
 	//지닌 아이템 키
 	ItemData* carryItem = nullptr;
-
-	//
-	int curSkill = -1;
-
-	//현재의 행동 코드
-	int dirCode = 0;
-
 };
 

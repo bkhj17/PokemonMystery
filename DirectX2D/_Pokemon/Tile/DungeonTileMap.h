@@ -59,6 +59,7 @@ private:
 
     void SetUpTrap();
     void SetUpPlayerStart();
+    void SetUpItems();
 private:
     class DungeonAStar* astar;
 

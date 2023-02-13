@@ -141,6 +141,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="_Pokemon\UI\YesNoUI.h" />
+    <ClInclude Include="_Pokemon\Effect\EffectObjectManager.h" />
     <ClInclude Include="_Pokemon\UI\MiniMap.h" />
     <ClInclude Include="_Pokemon\Item\PlayerInventory.h" />
     <ClInclude Include="_Pokemon\Item\ItemObjectManager.h" />
@@ -301,6 +303,8 @@
     <ClInclude Include="Objects\Manager\UIManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="_Pokemon\UI\YesNoUI.cpp" />
+    <ClCompile Include="_Pokemon\Effect\EffectObjectManager.cpp" />
     <ClCompile Include="_Pokemon\UI\MiniMap.cpp" />
     <ClCompile Include="_Pokemon\Item\PlayerInventory.cpp" />
     <ClCompile Include="_Pokemon\Item\ItemObjectManager.cpp" />

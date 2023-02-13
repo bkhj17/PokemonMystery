@@ -10,6 +10,8 @@ public:
     virtual void Init();
 
     virtual void Update();
+
+    virtual void RenderCursor() = 0;
     virtual void PostRender() override;
 private:
     void SetShaderInfo();

@@ -10,7 +10,7 @@ UnitManager::UnitManager()
 	LoadPokemonTable("TextData/PokemonData.csv");
 	LoadAnimData();
 
-	player = new Unit(new PlayerController(), Vector2(80, 80));
+	player = new Unit(new PlayerController(), UNIT_SIZE);
 
 	friends.reserve(4);
 	enemies.reserve(100);
@@ -34,7 +34,7 @@ void UnitManager::Init()
 {
 	player->SetData(1, 5);
 
-	Unit* testEnemy = new Unit(new EnemyController(), Vector2(80, 80));
+	Unit* testEnemy = new Unit(new EnemyController(), UNIT_SIZE);
 	testEnemy->SetData(19, 2);
 
 	enemies.push_back(testEnemy);

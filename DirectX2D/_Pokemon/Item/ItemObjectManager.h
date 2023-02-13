@@ -10,12 +10,13 @@ private:
 
 public:
 	void InitItem(string key, POINT point);
-	
+	void Clear();
+
 	void Update();
 	void Render();
 
 	ItemObject* ItemOnPoint(POINT point);
-	
+
 	void PickUp(void* ptr);
 private:
 	int numActive = 0;

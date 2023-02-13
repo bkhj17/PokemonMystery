@@ -6,6 +6,7 @@
 #include "DungeonAStar.h"
 #include "ObjTileManager.h"
 #include "../Data/DungeonDataManager.h"
+#include "../Item/ItemObjectManager.h"
 
 DungeonTileMap::DungeonTileMap()
 {
@@ -51,6 +52,7 @@ void DungeonTileMap::Init(string key, int floorNum)
 			SetGrid(x, y);
 
 	SetUpTrap();
+	SetUpItems();
 	SetUpPlayerStart();
 
 	UpdateWorld();
@@ -385,7 +387,7 @@ void DungeonTileMap::SetUpTrap()
 
 void DungeonTileMap::SetUpPlayerStart()
 {
-	vector<POINT> roomPoints = GetPointsByCondition([this](POINT point) -> bool {
+	playerStartPoint = GetRandomPointByCondition([this](POINT point) -> bool {
 		//잘못된 좌표다
 		if (point.y * width + point.x >= bgTiles.size()) return false;
 		auto tile = (DungeonBgTile*)bgTiles[point.y * width + point.x];
@@ -396,6 +398,33 @@ void DungeonTileMap::SetUpPlayerStart()
 		//방이다
 		return BgTileManager::Get()->IsRoom(tile->GetGridFlag());
 	});
+}
 
-	playerStartPoint = roomPoints[Random(0, (int)roomPoints.size())];
+void DungeonTileMap::SetUpItems()
+{
+	ItemObjectManager::Get()->Clear();
+
+	int itemNum = Random(floorData->minItemNum, floorData->maxItemNum);
+
+	vector<POINT> points = GetPointsByCondition([this](POINT point) -> bool {
+		//잘못된 좌표다
+		if (point.y * width + point.x >= bgTiles.size()) return false;
+		auto tile = (DungeonBgTile*)bgTiles[point.y * width + point.x];
+		//벽 혹은 물이다
+		if (tile->GetTexture() != BgTileManager::Get()->GetLandTexture()) return false;
+		//오브젝트 타일이 있다
+		if (ObjTileManager::Get()->GetTile(point.x, point.y)) return false;
+		//방이다
+		return BgTileManager::Get()->IsRoom(tile->GetGridFlag());
+	});
+
+	
+
+	for (int i = 0; i < itemNum; i++) {
+		int pos = Random(i + 1, points.size());
+		swap(points[i], points[pos]);
+
+		string key = floorData->items[Random(0, floorData->items.size())];
+		ItemObjectManager::Get()->InitItem(key, points[i]);
+	}
 }

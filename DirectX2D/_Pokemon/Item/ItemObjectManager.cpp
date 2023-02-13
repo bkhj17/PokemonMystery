@@ -35,6 +35,12 @@ void ItemObjectManager::InitItem(string key, POINT point)
 	}
 }
 
+void ItemObjectManager::Clear()
+{
+	for (auto& item : itemObjs)
+		item->SetActive(false);
+}
+
 void ItemObjectManager::Update()
 {
 	for (auto& item : itemObjs)

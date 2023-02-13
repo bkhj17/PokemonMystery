@@ -2,6 +2,8 @@
 #include "DungeonObjTile.h"
 #include "../Unit/Unit.h"
 #include "../Control/Controller.h"
+#include "../UI/PokemonUIManager.h"
+#include "../UI/YesNoUI.h"
 
 DungeonObjTile::DungeonObjTile(string type, Tile::Data data, Vector2 size)
 	: type(type), Tile(data, size)
@@ -17,7 +19,10 @@ DungeonObjTile::DungeonObjTile(string type, Tile::Data data, Vector2 size)
 			if (unit->GetController()->GetTag() != "Player")
 				return;
 
-			Observer::Get()->ExecuteEvent("ShiftNextFloor");
+			auto ynUi = (YesNoUI*)PokemonUIManager::Get()->OpenUI("YesNo");
+			if (ynUi == nullptr)
+				return;
+			ynUi->SetYesEvent("ShiftNextFloor");
 		};
 	}
 	else if (type == "Refresh") {

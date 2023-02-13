@@ -1,6 +1,7 @@
 #include "Framework.h"
 #include "PokemonUIManager.h"
 #include "UIWindow.h"
+#include "YesNoUI.h"
 #include "StatusUI.h"
 #include "MiniMap.h"
 
@@ -10,8 +11,7 @@ PokemonUIManager::PokemonUIManager()
 	statusUI->Pos() = { CENTER_X, WIN_HEIGHT - 40.0f };
 	statusUI->UpdateWorld();
 
-	UIWindow* testWindow = new UIWindow(Vector2(CENTER_X, CENTER_Y), Vector2(CENTER_X, CENTER_Y));
-	totalUI["test"] = testWindow;
+	totalUI["YesNo"] = new YesNoUI({ 150, 100 }, { WIN_WIDTH - 150, CENTER_Y });
 
 	miniMap = new MiniMap();
 }
@@ -27,9 +27,11 @@ PokemonUIManager::~PokemonUIManager()
 
 void PokemonUIManager::Update()
 {
-	if(!openned.empty())
+	while (!openned.empty() && !openned.back()->Active())
+		openned.pop_back();
+	
+	if (!openned.empty())
 		openned.back()->Update();
-
 }
 
 void PokemonUIManager::PostRender()
@@ -38,6 +40,9 @@ void PokemonUIManager::PostRender()
 
 	for (auto window : openned)
 		window->PostRender();
+
+	if (!openned.empty())
+		openned.back()->RenderCursor();
 }
 
 void PokemonUIManager::OpenMenu()
@@ -50,13 +55,15 @@ void PokemonUIManager::CloseAll()
 	openned.clear();
 }
 
-void PokemonUIManager::OpenUI(string key)
+UIWindow* PokemonUIManager::OpenUI(string key)
 {
 	if (totalUI.find(key) == totalUI.end())
-		return;
+		return nullptr;
 
 	openned.push_back(totalUI[key]);
 	openned.back()->Init();
+
+	return openned.back();
 }
 
 void PokemonUIManager::CloseUI()
@@ -64,4 +71,9 @@ void PokemonUIManager::CloseUI()
 	if (openned.empty())
 		return;
 	openned.pop_back();
+}
+
+bool PokemonUIManager::IsActing()
+{
+	return !openned.empty();
 }

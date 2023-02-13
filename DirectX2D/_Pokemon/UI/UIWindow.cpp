@@ -4,6 +4,7 @@
 UIWindow::UIWindow(Vector2 size, Vector2 pos)
 	: Quad(size)
 {
+	isActive = false;
 	localPosition = pos;
 	SetShaderInfo();
 }
@@ -22,6 +23,7 @@ UIWindow::~UIWindow()
 
 void UIWindow::Init()
 {
+	isActive = true;
 }
 
 void UIWindow::Update()

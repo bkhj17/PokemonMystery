@@ -63,6 +63,9 @@ struct PokemonData {
 class UnitManager : public Singleton<UnitManager>
 {
 private:
+	const Vector2 UNIT_SIZE = { 80.0f, 80.0f };
+
+private:
 	friend class Singleton;
 	UnitManager();
 	~UnitManager();
