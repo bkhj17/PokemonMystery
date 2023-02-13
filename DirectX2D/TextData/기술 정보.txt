@@ -1,0 +1,33 @@
+타입
+0 UNKNOWN = 0,	//???
+1 GRASS,		//풀
+2 FIRE,		//불
+2 WATER,		//물
+3 THUNDER,		//전기
+4 FLY,			//비행
+5 ICE,			//얼음
+6 ROCK,		//바위
+7 GROUND,		//땅
+8 POISON,		//독
+9 BUG,		//벌레
+10 NORMAL,	//노말
+11 FIGHT,		//격투
+12 PSYCHIC,		//에스퍼
+13 GHOST,		//유령
+14 DRAGON,		//드래곤
+15 DARK,		//악
+16 METAL,		//강철
+17 FAIRY,			//페어리
+END			//타입 종류 수
+
+
+분류 
+0 물리
+1 특수
+2 변화
+
+범위
+0 정면
+1 정면, 모퉁이
+2 직선
+3 방 전체

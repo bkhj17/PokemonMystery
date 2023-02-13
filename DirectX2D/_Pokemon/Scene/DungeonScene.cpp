@@ -58,6 +58,7 @@ void DungeonScene::InitFloor(string name, int floor)
 
 	ItemObjectManager::Get()->InitItem("OrenBerry", { 20, 13 });
 	ItemObjectManager::Get()->InitItem("OrenBerry", { 9, 13 });
+	
 	UnitManager::Get()->GetEnemies()[0]->SetPoint(8, 12);
 
 	floorMove = 0;

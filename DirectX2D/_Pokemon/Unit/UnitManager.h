@@ -98,13 +98,34 @@ public:
 	vector<Unit*>& GetEnemies() { return enemies; }
 
 	bool IsUnitOnPoint(POINT point);
+	Unit* GetUnitOnPoint(POINT point);
 	bool CheckMovablePoint(POINT point, int dirX, int dirY);
+
+
+
+	struct AnimData {
+		int pokemonNum = 1;
+		wstring textureFile;
+		Vector2 texcoord;
+		map<int, vector<POINT>> clipData;
+	};
+	AnimData* GetAnimData(int pokemonNum) {
+		if (animTable.find(pokemonNum) == animTable.end())
+			return nullptr;
+
+		return &animTable[pokemonNum];
+	}
+
 private:
 	void ApplyLevel(IN int level, OUT PokemonData* data);
 	void LoadPokemonTable(string fileName);
+	void LoadAnimData();
 private:
 	//선언 관련
 	map<int, PokemonTableData> pokemonTable;
+
+
+	map<int, AnimData> animTable;
 
 	//행동 관련
 	Unit* player = nullptr;

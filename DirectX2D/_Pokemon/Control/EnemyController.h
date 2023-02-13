@@ -14,10 +14,22 @@ public:
 	virtual bool SetCommand() override;
 	void SetMoveCommand();
 
-private:
+protected:
+	POINT ChooseTarget(vector<pair<int, int>>& detectables);
+
+	struct ChaseNode {
+		pair<int, int> point = { -1, -1 };
+		pair<int, int> post = { -1, -1 };
+		int dist = 1000000000;
+
+		bool operator<(const ChaseNode& node) const {
+			return dist > node.dist;
+		}
+	};
+	void ChaseMoveCommand(vector<pair<int, int>>& detectables, pair<int, int> target);
 	void SetPatrolMoveCommand();
 
-private:
+protected:
 	virtual bool UseSkill(int i);
 };
 

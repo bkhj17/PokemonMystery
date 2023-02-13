@@ -23,7 +23,6 @@ public:
 	virtual void Update() override;
 	virtual void Render() override;
 
-	virtual bool IsActing() override;
 private:
 	Unit* unit;								//이펙트 발생 주체
 	//발생시킨 스킬도 필요할까? 자식으로 스킬 이펙트 오브젝트를 만드는 게 나을까?

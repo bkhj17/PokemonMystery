@@ -8,6 +8,7 @@
 UnitManager::UnitManager()
 {
 	LoadPokemonTable("TextData/PokemonData.csv");
+	LoadAnimData();
 
 	player = new Unit(new PlayerController(), Vector2(80, 80));
 
@@ -34,7 +35,7 @@ void UnitManager::Init()
 	player->SetData(1, 5);
 
 	Unit* testEnemy = new Unit(new EnemyController(), Vector2(80, 80));
-	testEnemy->SetData(1, 5);
+	testEnemy->SetData(19, 2);
 
 	enemies.push_back(testEnemy);
 }
@@ -67,7 +68,7 @@ void UnitManager::Render()
 
 	sort(v.begin(), v.end(), [](Unit* l, Unit* r) {
 		return l->GlobalPos().y < r->GlobalPos().y;
-	});
+		});
 
 	for (auto unit : v) {
 		unit->Render();
@@ -200,7 +201,7 @@ bool UnitManager::IsUnitOnPoint(POINT point)
 {
 	POINT p = player->GetPoint();
 
-	if (p.x == point.x	&& p.y ==  point.y)
+	if (p.x == point.x && p.y == point.y)
 		return true;
 
 	for (auto f : friends) {
@@ -217,6 +218,29 @@ bool UnitManager::IsUnitOnPoint(POINT point)
 	}
 
 	return false;
+}
+
+Unit* UnitManager::GetUnitOnPoint(POINT point)
+{
+
+	POINT p = player->GetPoint();
+	if (p.x == point.x && p.y == point.y)
+		return player;
+
+	for (auto f : friends) {
+		p = f->GetPoint();
+		if (p.x == point.x && p.y == point.y)
+			return f;
+	}
+
+	for (auto e : enemies)
+	{
+		p = e->GetPoint();
+		if (p.x == point.x && p.y == point.y)
+			return e;
+	}
+
+	return nullptr;
 }
 
 bool UnitManager::CheckMovablePoint(POINT point, int dirX, int dirY)
@@ -299,4 +323,311 @@ void UnitManager::LoadPokemonTable(string fileName)
 
 		pokemonTable[data.key] = data;
 	}
+}
+
+void UnitManager::LoadAnimData()
+{	
+	AnimData data;
+	data.pokemonNum = 1;
+	data.textureFile = L"Textures/pokemon/이상해씨.png";
+	data.texcoord = Vector2(10, 8);
+	{
+		//LeftUp : 0
+		int dirCode = 0;
+		data.clipData[dirCode * 100 + Unit::IDLE].push_back({ 0, 3 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 0, 3 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 1, 3 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 2, 3 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 3, 3 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 3, 3 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, 3 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, 3 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 5, 3 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 5, 3 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 6, 3 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 6, 3 });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 7, 3 });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 7, 3 });
+
+		//Up : 1
+		dirCode = 1;
+		data.clipData[dirCode * 100 + Unit::IDLE].push_back({ 0, 4 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 0, 4 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 1, 4 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 2, 4 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 3, 4 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 3, 4 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, 4 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, 4 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 5, 4 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 5, 4 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 6, 4 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 6, 4 });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 7, 4 });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 7, 4 });
+
+		//RightUp : 2
+		dirCode = 2;
+		data.clipData[dirCode * 100 + Unit::IDLE].push_back({ 0, 5 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 0, 5 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 1, 5 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 2, 5 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 3, 5 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 3, 5 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, 5 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, 5 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 5, 5 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 5, 5 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 6, 5 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 6, 5 });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 7, 5 });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 7, 5 });
+
+		//Left : 3
+		dirCode = 3;
+		data.clipData[dirCode * 100 + Unit::IDLE].push_back({ 0, 2 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 0, 2 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 1, 2 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 2, 2 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 3, 2 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 3, 2 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, 2 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, 2 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 5, 2 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 5, 2 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 6, 2 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 6, 2 });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 7, 2 });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 7, 2 });
+
+		//4는 중앙 => 계산에 좋지 않아 쓰지 않는다
+
+		//Right : 5
+		dirCode = 5;
+		data.clipData[dirCode * 100 + Unit::IDLE].push_back({ 0, 6 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 0, 6 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 1, 6 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 2, 6 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 3, 6 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 3, 6 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, 6 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, 6 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 5, 6 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 5, 6 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 6, 6 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 6, 6 });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 7, 6 });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 7, 6 });
+
+		//LeftDown : 6
+		dirCode = 6;
+		data.clipData[dirCode * 100 + Unit::IDLE].push_back({ 0, 1 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 0, 1 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 1, 1 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 2, 1 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 3, 1 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 3, 1 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, 1 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, 1 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 5, 1 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 5, 1 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 6, 1 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 6, 1 });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 7, 1 });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 7, 1 });
+
+		//Down : 7, default
+		dirCode = 7;
+		data.clipData[dirCode * 100 + Unit::IDLE].push_back({ 0, 0 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 0, 0 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 1, 0 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 2, 0 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 3, 0 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 3, 0 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, 0 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, 0 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 5, 0 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 5, 0 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 6, 0 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 6, 0 });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 7, 0 });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 7, 0 });
+
+		//RightDown : 8
+		dirCode = 8;
+		data.clipData[dirCode * 100 + Unit::IDLE].push_back({ 0, 7 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 0, 7 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 1, 7 });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 2, 7 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 3, 7 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 3, 7 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, 7 });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, 7 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 5, 7 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 5, 7 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 6, 7 });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 6, 7 });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 7, 7 });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 7, 7 });
+	}
+	animTable[data.pokemonNum] = data;
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	data.pokemonNum = 19;
+	data.textureFile = L"Textures/pokemon/꼬렛.png";
+	data.texcoord = { 12, 8 };
+	data.clipData.clear();
+	{
+		//LeftUp : 0
+		int dirCode = 0;
+		int inTex = 3;
+		data.clipData[dirCode * 100 + Unit::IDLE].push_back({ 0, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 0, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 1, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 2, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 3, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 5, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 6, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 7, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 8, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 9, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 10, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+
+		//Up : 1
+		dirCode = 1;
+		inTex = 4;
+		data.clipData[dirCode * 100 + Unit::IDLE].push_back({ 0, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 0, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 1, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 2, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 3, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 5, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 6, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 7, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 8, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 9, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 10, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+
+		//RightUp : 2
+		dirCode = 2;
+		inTex = 5;
+		data.clipData[dirCode * 100 + Unit::IDLE].push_back({ 0, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 0, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 1, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 2, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 3, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 5, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 6, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 7, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 8, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 9, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 10, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+
+		//Left : 3
+		dirCode = 3;
+		inTex = 2;
+		data.clipData[dirCode * 100 + Unit::IDLE].push_back({ 0, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 0, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 1, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 2, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 3, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 5, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 6, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 7, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 8, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 9, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 10, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+
+		//4는 중앙 => 계산에 좋지 않아 쓰지 않는다
+
+		//Right : 5
+		dirCode = 5;
+		inTex = 6;
+		data.clipData[dirCode * 100 + Unit::IDLE].push_back({ 0, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 0, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 1, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 2, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 3, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 5, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 6, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 7, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 8, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 9, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 10, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+
+		//LeftDown : 6
+		dirCode = 6;
+		inTex = 1;
+		data.clipData[dirCode * 100 + Unit::IDLE].push_back({ 0, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 0, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 1, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 2, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 3, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 5, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 6, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 7, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 8, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 9, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 10, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+
+		//Down : 7, default
+		dirCode = 7;
+		inTex = 0;
+		data.clipData[dirCode * 100 + Unit::IDLE].push_back({ 0, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 0, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 1, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 2, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 3, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 5, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 6, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 7, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 8, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 9, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 10, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+
+		//RightDown : 8
+		dirCode = 8;
+		inTex = 7;
+		data.clipData[dirCode * 100 + Unit::IDLE].push_back({ 0, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 0, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 1, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 2, inTex });
+		data.clipData[dirCode * 100 + Unit::MOVING].push_back({ 3, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 4, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 5, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_PHYSICS].push_back({ 6, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 7, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 8, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 9, inTex });
+		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 10, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+	}
+	animTable[data.pokemonNum] = data;
+
+
 }

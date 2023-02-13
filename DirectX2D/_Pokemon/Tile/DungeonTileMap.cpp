@@ -182,10 +182,8 @@ vector<pair<int, int>> DungeonTileMap::DetectableTiles(POINT curPoint)
 
 		if (curNode.flag >= 1) {
 			for (int i = 0; i < 8; i++) {
-				if (!(gridFlag & (1 << i)))
-					continue;
-
-				if (!isRoom && abs(dir[i].x) + abs(dir[i].y) >= 2)
+				Vector2 dest;
+				if (!SetMove(curNode.point.first, curNode.point.second, dir[i].x, dir[i].y, dest))
 					continue;
 
 				DetectNode nextNode;
@@ -204,63 +202,6 @@ vector<pair<int, int>> DungeonTileMap::DetectableTiles(POINT curPoint)
 		result.emplace_back(p); //왜 안 들어가?
 	}
 	return result;
-}
-
-pair<int, int> DungeonTileMap::ChasingPoint(const pair<int, int>& start, const pair<int, int>& target) const
-{
-	map<pair<int, int>, ChaseNode> points;
-	priority_queue<ChaseNode> pq;
-	pq.push({ start, start, 0});
-
-	POINT dir[8] = {
-		{-1, 1}, //leftUp
-		{0, 1}, //up
-		{1, 1}, //rightUp
-		{-1, 0}, //left
-		{1, 0}, //right
-		{-1, -1}, //leftDown
-		{0, -1}, //down
-		{1, -1}, //rightDown
-	};
-
-	pair<int, int> lastPoint = start;
-	while (!pq.empty()) {
-		ChaseNode curNode = pq.top();
-		pq.pop();
-
-		if (points.find(curNode.point) != points.end()) {
-			if (points[curNode.point].dist <= curNode.dist)
-				continue;
-		}
-
-		points[curNode.point] = curNode;
-		lastPoint = curNode.point;
-		if (curNode.point == target)
-			break;
-
-		auto curTile = (DungeonBgTile*)bgTiles[curNode.point.second * width + curNode.point.first];
-		int gridFlag = curTile->GetGridFlag();
-
-		for (int i = 0; i < 8; i++) {
-			if ((gridFlag & (1 << i)) == 0)
-				continue;
-
-			//갈 수 있는 위치만 받아야 하는데?
-
-			ChaseNode nextNode;
-			nextNode.point = { curNode.point.first + dir[i].x, curNode.point.second + dir[i].y };
-			nextNode.post = curNode.point;
-			nextNode.dist = curNode.dist + 1;
-
-			pq.push(nextNode);
-		}
-	}
-
-	//lastPoint를 기점으로 역추적
-	while (points[lastPoint].post != start) {
-		lastPoint = points[lastPoint].post;
-	}
-	return lastPoint;
 }
 
 DungeonBgTile* DungeonTileMap::GetBgTile(POINT point)

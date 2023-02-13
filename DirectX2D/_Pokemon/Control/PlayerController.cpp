@@ -22,6 +22,11 @@ bool PlayerController::SetCommand()
 	if (unit->IsActing())
 		return false;
 
+	if (KEY_DOWN('Z')) {
+		unit->Test();
+		return true;
+	}
+
 	int dirX = 0, dirY = 0;
 	if (KEY_PRESS(VK_UP)) ++dirY;
 	if (KEY_PRESS(VK_DOWN)) --dirY;

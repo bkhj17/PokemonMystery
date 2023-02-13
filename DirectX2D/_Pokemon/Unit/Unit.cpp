@@ -32,6 +32,7 @@ void Unit::Update()
 	
 	SetAction();
 	animObject->Update();
+	
 	UpdateWorld();
 }
 
@@ -52,81 +53,26 @@ void Unit::CreateClipData()
 
 	//애니메이션 클립 설정
 	//데이터화 가능하면 좋겠다만
-	wstring textureFile = L"Textures/pokemon/이상해씨.png";
-	map<pair<int, int>, vector<POINT>> clipMap;
-	//LeftUp : 0
-	int dirCode = 0;
-	//0 IDLE
-	//1 MOVING
-	clipMap[{1, dirCode * 100 + IDLE}].push_back({ 0, 3 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 0, 3 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 1, 3 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 2, 3 });
-
-	//Up : 1
-	dirCode = 1;
-	clipMap[{1, dirCode * 100 + IDLE}].push_back({ 0, 4 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 0, 4 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 1, 4 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 2, 4 });
-
-	//RightUp : 2
-	dirCode = 2;
-	clipMap[{1, dirCode * 100 + IDLE}].push_back({ 0, 5 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 0, 5 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 1, 5 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 2, 5 });
-
-	//Left : 3
-	dirCode = 3;
-	clipMap[{1, dirCode * 100 + IDLE}].push_back({ 0, 2 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 0, 2 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 1, 2 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 2, 2 });
-
-	//4는 중앙 => 계산에 좋지 않아 쓰지 않는다
-
-	//Right : 5
-	dirCode = 5;
-	clipMap[{1, dirCode * 100 + IDLE}].push_back({ 0, 6 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 0, 6 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 1, 6 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 2, 6 });
-
-	//LeftDown : 6
-	dirCode = 6;
-	clipMap[{1, dirCode * 100 + IDLE}].push_back({ 0, 1 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 0, 1 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 1, 1 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 2, 1 });
-
-	//Down : 7, default
-	dirCode = 7;
-	clipMap[{1, dirCode * 100 + IDLE}].push_back({ 0, 0 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 0, 0 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 1, 0 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 2, 0 });
-
-	//RightDown : 8
-	dirCode = 8;
-	clipMap[{1, dirCode * 100 + IDLE}].push_back({ 0, 7 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 0, 7 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 1, 7 });
-	clipMap[{1, dirCode * 100 + MOVING}].push_back({ 2, 7 });
-
-
-	Vector2 cutSize = Texture::Add(textureFile)->GetSize() / Vector2(10, 8);
+	auto animData = UnitManager::Get()->GetAnimData(data->key);
+	Vector2 cutSize = Texture::Add(animData->textureFile)->GetSize() / animData->texcoord;
 	vector<Frame*> frames;
-	int pokemonKey = 1;
 	for (int dir = 0; dir < 9; dir++) {
 		if (dir == 4)
 			continue;
 
-		for (int action = 0; action <= 1; action++) {
+		for (int action = 0; action <= DAMAGE; action++) {
 			int clipCode = dir * 100 + action;
-			for (POINT p : clipMap[{pokemonKey, clipCode}])
-				frames.push_back(new Frame(textureFile, cutSize.x * p.x, cutSize.y * p.y, cutSize.x, cutSize.y));
-			animObject->AddClip(clipCode, new Clip(frames));
+
+			vector<POINT> vp = animData->clipData[clipCode];
+			for (POINT p : vp)
+				frames.push_back(new Frame(animData->textureFile, cutSize.x * p.x, cutSize.y * p.y, cutSize.x, cutSize.y));
+			
+			auto clip = new Clip(frames, action <= MOVING);
+			if (action > MOVING)
+				clip->SetEvent(bind(action <= SKILL_SPECIAL ? &Unit::SkillActivate : &Unit::SetIdle, this));
+
+			animObject->AddClip(clipCode, clip);
+			
 			frames.clear();
 		}
 	}
@@ -177,7 +123,6 @@ bool Unit::PickUpItem(ItemData* itemData)
 	if (controller->GetTag() == "Player" 
 		|| controller->GetTag() == "Friend") {
 		if(PlayerInventory::Get()->InputItem(itemData)) {
-
 			//아이템 획득 로그
 			return true;
 		}
@@ -205,29 +150,99 @@ void Unit::SetAction()
 	3 4 5
 	6 7 8
 	*/
-	int center = 4;
+	if (dirCode % 100 >= SKILL_PHYSICS)
+		return;
 
-	int dirCode = (4 + -animDirY * 3 + animDirX) * 100;
+	int center = 4;
+	dirCode = (4 + -animDirY * 3 + animDirX) * 100;
+	//스킬 사용 중일 경우
+
+	//이동 중일 경우
 	if (movement->IsMoving())
 		dirCode += MOVING;
 	
-
-
 	animObject->SetClip(dirCode);
 }
 
 bool Unit::IsCollide()
 {
+	Unit* check = UnitManager::Get()->GetPlayer();
+	if (check != this 
+		&& check->GetPoint().x == GetPoint().x
+		&& check->GetPoint().y == GetPoint().y) {
+		return true;
+	}
+
+	for (auto f : UnitManager::Get()->GetFriends()) {		
+		check = f;
+		if (check != this
+			&& check->GetPoint().x == GetPoint().x
+			&& check->GetPoint().y == GetPoint().y)
+			return true;
+	}
+
+	for (auto e : UnitManager::Get()->GetEnemies()) {
+		check = e;
+		if (check != this
+			&& check->GetPoint().x == GetPoint().x
+			&& check->GetPoint().y == GetPoint().y)
+			return true;
+	}
+
+
 	return false;
+}
+
+bool Unit::UseSkill(int index)
+{
+	//스킬이 사용 가능한지 확인해야 함
+	if (false) {
+		//사용 불가능 로그
+		return false;
+	}
+	
+	curSkill = index;
+	//스킬 종류에 따라 행동 종류 결정
+	bool IsPhysics = true;
+	int action = IsPhysics ? SKILL_PHYSICS : SKILL_SPECIAL;
+
+	dirCode = dirCode / 100 * 100 + action;
+	animObject->SetClip(dirCode);
+	return true;
+}
+
+void Unit::SetIdle()
+{
+	this->dirCode = 0;
+	SetAction();
+}
+
+void Unit::SkillActivate()
+{
+	//curSkill에 대응하는 effectObject를 생성
+	SetIdle();
 }
 
 bool Unit::IsActing()
 {
+	//스킬 시전 중인 경우, 혹은 데미지 입는 중인 경우
+	//스킬 발동 중인건 스킬이 직접 알린다
+	if (dirCode % 100 > IsMoving())
+		return true;
+
 	if (__super::IsActing())
 		return true;
 
-	//스킬 시전 중인 경우
-	//스킬 발동 중인건 스킬이 직접 알린다
-
 	return false;
+}
+
+bool Unit::Test()
+{
+	if (IsActing())
+		return false;
+
+	dirCode = dirCode / 100 * 100 + SKILL_PHYSICS;
+	animObject->SetClip(dirCode);
+
+	return true;
 }

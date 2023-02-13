@@ -50,19 +50,8 @@ public:
         }
     };
 
-    struct ChaseNode {
-        pair<int, int> point = { -1, -1 };
-        pair<int, int> post = { -1, -1 };
-        int dist = 1000000000;
-
-        bool operator<(const ChaseNode& node) const {
-            return dist > node.dist;
-        }
-    };
-
     //현 위치에서 인식할 수 있는 타일들
     vector<pair<int, int>> DetectableTiles(POINT curPoint);
-    pair<int, int> ChasingPoint(const pair<int, int>& start, const pair<int, int>& target) const;
 
 private:
     void SetGrid(int x, int y);

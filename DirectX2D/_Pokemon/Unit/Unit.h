@@ -9,18 +9,15 @@ class Unit : public DungeonObject
 private:
 	friend class Controller;
 
+public:
 	enum ActionState {
 		IDLE,
 		MOVING,
-		USE_SKILL_STANDING,
-		USE_SKILL_FORWARD,
+		SKILL_PHYSICS,
+		SKILL_SPECIAL,
 		DAMAGE,
-		//그 밖에 상태이상도 있다
-		//공격할 때 애니메이션 위치만 변경할까?
-		//앞으로 나갔다 오는 공격도 결국은 좌표 이동은 없다
 	};
 
-public:
 	Unit(Controller* controller, Vector2 size);
 	virtual ~Unit();
 
@@ -40,9 +37,10 @@ public:
 
 	bool IsActing();
 
+	bool Test();
+
 	//bool UseSkill(/*스킬 키, 시전 위치, 시전 방향 */); 
-	//스킬 끝날 때까지 acting 유지? 
-	//스킬 객체가 acting을 하고 있으면 되지 않나?
+	//
 
 	Controller* GetController() { return controller; }
 	void SetController(Controller* controller);
@@ -54,10 +52,23 @@ public:
 	bool PickUpItem(ItemData* itemData);
 private:
 	void SetAction();
+
+	//물리 공격 시 animObject가 앞으로 갔다와야 한다
+
+	// DungeonObject을(를) 통해 상속됨
+	virtual bool IsCollide() override;
+
+	// DungeonObject을(를) 통해 상속됨
+	virtual bool UseSkill(int index);
+	void SetIdle();
+
+	void SkillActivate();
+
 private:
 	int animDirX = 0, animDirY = -1;
-
+	
 	AnimObject* animObject;
+	//갔다 온다....
 
 	//컨트롤러 - 플레이어, 동료, 적 구분해서 행동 결정
 	Controller* controller = nullptr;
@@ -69,12 +80,16 @@ private:
 	//포켓몬 정보
 	PokemonData* data;
 
-	// DungeonObject을(를) 통해 상속됨
-	virtual bool IsCollide() override;
-
 	vector<class Skill*> skills;
 
 	//지닌 아이템 키
 	ItemData* carryItem = nullptr;
+
+	//
+	int curSkill = -1;
+
+	//현재의 행동 코드
+	int dirCode = 0;
+
 };
 
