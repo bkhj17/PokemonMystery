@@ -17,8 +17,6 @@ SkillDataManager::SkillDataManager()
 	data.maxPP = -1;
 	data.range = SkillData::Range::FRONT;
 	*/
-
-	EffectManager::Get()->Add("µ¢±¼Ã¤Âï", 50, L"Textures/pokemon/Skill/µ¢±¼Ã¤Âï.png", 7, 1, 5.0f);
 }
 
 SkillData* SkillDataManager::GetData(int i)
@@ -62,6 +60,8 @@ void SkillDataManager::Load()
 		totalDatas[data.key] = data;
 	}
 
+
+	EffectManager::Get()->Add("µ¢±¼Ã¤Âï", 50, L"Textures/pokemon/Skill/µ¢±¼Ã¤Âï.png", 7, 1, 5.0f);
 }
 
 float SkillDataManager::CalcAdvantage(int skill, int u)

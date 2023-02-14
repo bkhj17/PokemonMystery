@@ -6,10 +6,6 @@ class EffectObject : public DungeonObject
 {
 public:
 	//이펙트 발생 주체
-	//이펙트 애니메이션
-	//어떤 효과인지도 알아야 한다
-	//쓴놈 맞는 놈 해서 유닛 둘은 필요할 거다
-	//피격대상 판별여부도 필요할 것이다
 	EffectObject();
 	virtual ~EffectObject();
 
