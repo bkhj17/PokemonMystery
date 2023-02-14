@@ -7,12 +7,16 @@
 #include "../Control/PlayerController.h"
 #include "../Data/ItemDataManager.h"
 #include "../Data/DungeonDataManager.h"
+#include "../Data/SkillDataManager.h"
 #include "../UI/PokemonUIManager.h"
 #include "../Unit/UnitManager.h"
 #include "../Item/ItemObjectManager.h"
-
+#include "../Effect/EffectObjectManager.h"
 DungeonScene::DungeonScene()
 {
+	EffectManager::Get();
+	EffectObjectManager::Get();
+	SkillDataManager::Get();
 	ItemDataManager::Get();
 	DungeonDataManager::Get();
 	PokemonUIManager::Get();
@@ -38,6 +42,9 @@ DungeonScene::~DungeonScene()
 	ItemObjectManager::Delete();
 	BgTileManager::Delete();
 	ItemDataManager::Delete();	//사실은 여기서 안 하는게 좋다
+	SkillDataManager::Delete();
+	EffectObjectManager::Delete();
+	EffectManager::Delete();
 }
 
 void DungeonScene::InitFloor(string name, int floor)
@@ -97,8 +104,6 @@ void DungeonScene::Update()
 		//열린 UI가 있다면 그 쪽을 우선
 
 
-
-
 		if (PokemonUIManager::Get()->IsActing())
 			break;
 
@@ -122,7 +127,7 @@ void DungeonScene::Update()
 
 
 		//스킬도 발동 중인지 검사
-		
+		isActing |= EffectObjectManager::Get()->IsActing();
 
 		if (!isActing)
 			actState = TURN_END;
@@ -148,6 +153,8 @@ void DungeonScene::Update()
 	PokemonUIManager::Get()->Update();
 	UnitManager::Get()->Update();
 	ItemObjectManager::Get()->Update();
+	EffectObjectManager::Get()->Update();
+	EffectManager::Get()->Update();
 }
 
 void DungeonScene::Render()
@@ -155,6 +162,8 @@ void DungeonScene::Render()
 	tileMap->Render();
 	ItemObjectManager::Get()->Render();
 	UnitManager::Get()->Render();
+	EffectObjectManager::Get()->Render();
+	EffectManager::Get()->Render();
 }
 
 void DungeonScene::PostRender()

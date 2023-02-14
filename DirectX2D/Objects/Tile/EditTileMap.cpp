@@ -98,7 +98,7 @@ void EditTileMap::Save(string file)
 	writer->UInt(width);
 	writer->UInt(height);
 
-	writer->UInt(bgTiles.size());
+	writer->UInt((UINT)bgTiles.size());
 	UINT i = 0;
 	for (Tile* tile : bgTiles) {
 		if (!tile->Active())
@@ -117,7 +117,7 @@ void EditTileMap::Save(string file)
 		i++;
 	}
 
-	writer->UInt(objTiles.size());
+	writer->UInt((UINT)objTiles.size());
 
 	for (auto tile : objTiles) {
 		if (!tile->Active())
@@ -234,7 +234,7 @@ void EditTileMap::Resize(UINT width, UINT height)
 		bgTiles.resize(width * height);
 	}
 	else if (bgTiles.size() < width * height) {
-		bgTiles.reserve(width * height);
+		bgTiles.reserve((size_t)width * height);
 		wstring baseTile = L"Textures/Tile/tile.png";
 		Texture* texture = Texture::Add(baseTile);
 		for (UINT i = bgTiles.size(); i < width * height; i++) {

@@ -145,8 +145,8 @@ void TileScene::CreateSample(wstring path)
 		fileName += findData.cFileName;
 		result = FindNextFile(handle, &findData);
 
-		UINT index = sampleBtns.size();
-		Vector2 pos(index % width, index / width);
+		UINT index = (UINT)sampleBtns.size();
+		Vector2 pos = { (float)(index % width), (float)(index / width) };
 
 		Button* button = new Button(size);
 		button->SetTexture(Texture::Add(fileName));

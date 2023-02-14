@@ -4,6 +4,7 @@
 #include "YesNoUI.h"
 #include "StatusUI.h"
 #include "MiniMap.h"
+#include "SkillUI.h"
 
 PokemonUIManager::PokemonUIManager()
 {
@@ -11,6 +12,7 @@ PokemonUIManager::PokemonUIManager()
 	statusUI->Pos() = { CENTER_X, WIN_HEIGHT - 40.0f };
 	statusUI->UpdateWorld();
 
+	totalUI["Skill"] = new SkillUI();
 	totalUI["YesNo"] = new YesNoUI({ 150, 100 }, { WIN_WIDTH - 150, CENTER_Y });
 
 	miniMap = new MiniMap();

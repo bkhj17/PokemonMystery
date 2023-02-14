@@ -136,6 +136,6 @@ vector<Vector2> Dijkstra::GetPath(int start, int end)
 void Dijkstra::CreateNode(Vector2 pos)
 {
 	auto node = new DNode(pos);
-	node->index = nodes.size();
+	node->index = (int)nodes.size();
 	nodes.push_back(node);
 }

@@ -12,7 +12,7 @@ UnitManager::UnitManager()
 
 	player = new Unit(new PlayerController(), UNIT_SIZE);
 
-	friends.reserve(4);
+	friends.reserve(3);
 	enemies.reserve(100);
 }
 
@@ -53,26 +53,30 @@ void UnitManager::Render()
 {
 	vector<Unit*> v;
 
+	if (player->IsActing()) {
+		string s = player->GetData()->statusData.name;
+	}
 	for (auto e : enemies) {
-		if (e->Active()) {
+		if (e->Active() && CAM->ContainFrustum(e->GlobalPos(), e->GetSize()))
 			v.push_back(e);
-		}
 	}
 	for (auto f : friends) {
-		if (f->Active()) {
+		if (f->Active() && CAM->ContainFrustum(f->GlobalPos(), f->GetSize()))
 			v.push_back(f);
-		}
 	}
-
 	v.push_back(player);
 
-	sort(v.begin(), v.end(), [](Unit* l, Unit* r) {
-		return l->GlobalPos().y < r->GlobalPos().y;
-		});
 
-	for (auto unit : v) {
+
+	sort(v.begin(), v.end(), [](Unit* l, Unit* r) {
+		if (abs(abs(l->GlobalPos().y) - abs(r->GlobalPos().y)) < FLT_EPSILON)
+			return !l->IsActing() && r->IsActing();
+		return l->GlobalPos().y > r->GlobalPos().y;
+	});
+
+	for (auto unit : v)
 		unit->Render();
-	}
+	v.clear();
 }
 
 void UnitManager::RunPhase()
@@ -177,10 +181,10 @@ bool UnitManager::IsActing()
 		return true;
 
 	for (auto f : friends)
-		if (f->IsActing())
+		if (f->Active() && f->IsActing())
 			return true;
 	for (auto e : enemies)
-		if (e->IsActing())
+		if (e->Active() && e->IsActing())
 			return true;
 
 	return false;
@@ -205,6 +209,8 @@ bool UnitManager::IsUnitOnPoint(POINT point)
 		return true;
 
 	for (auto f : friends) {
+		if (!f->Active())
+			continue;
 		p = f->GetPoint();
 		if (p.x == point.x && p.y == point.y)
 			return true;
@@ -212,6 +218,8 @@ bool UnitManager::IsUnitOnPoint(POINT point)
 
 	for (auto e : enemies)
 	{
+		if (!e->Active())
+			continue;
 		p = e->GetPoint();
 		if (p.x == point.x && p.y == point.y)
 			return true;
@@ -475,7 +483,6 @@ void UnitManager::LoadAnimData()
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
 	data.pokemonNum = 19;
 	data.textureFile = L"Textures/pokemon/²¿·¿.png";
 	data.texcoord = { 12, 8 };
@@ -498,6 +505,8 @@ void UnitManager::LoadAnimData()
 		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 10, inTex });
 		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
 		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
 
 		//Up : 1
 		dirCode = 1;
@@ -514,6 +523,8 @@ void UnitManager::LoadAnimData()
 		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 8, inTex });
 		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 9, inTex });
 		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 10, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
 		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
 		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
 
@@ -534,6 +545,8 @@ void UnitManager::LoadAnimData()
 		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 10, inTex });
 		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
 		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
 
 		//Left : 3
 		dirCode = 3;
@@ -550,6 +563,8 @@ void UnitManager::LoadAnimData()
 		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 8, inTex });
 		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 9, inTex });
 		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 10, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
 		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
 		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
 
@@ -572,6 +587,8 @@ void UnitManager::LoadAnimData()
 		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 10, inTex });
 		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
 		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
 
 		//LeftDown : 6
 		dirCode = 6;
@@ -588,6 +605,8 @@ void UnitManager::LoadAnimData()
 		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 8, inTex });
 		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 9, inTex });
 		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 10, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
 		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
 		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
 
@@ -608,6 +627,8 @@ void UnitManager::LoadAnimData()
 		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 10, inTex });
 		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
 		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
 
 		//RightDown : 8
 		dirCode = 8;
@@ -624,6 +645,8 @@ void UnitManager::LoadAnimData()
 		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 8, inTex });
 		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 9, inTex });
 		data.clipData[dirCode * 100 + Unit::SKILL_SPECIAL].push_back({ 10, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
+		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
 		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
 		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
 	}

@@ -489,7 +489,19 @@
     <ClInclude Include="_Pokemon\UI\MiniMap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="_Pokemon\Log\GameLog.h">
+    <ClInclude Include="_Pokemon\UI\YesNoUI.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_Pokemon\Effect\EffectObjectManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_Pokemon\Data\SkillDataManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_Pokemon\UI\MainMenuUI.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_Pokemon\UI\SkillUI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -944,7 +956,19 @@
     <ClCompile Include="_Pokemon\UI\MiniMap.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="_Pokemon\Log\GameLog.cpp">
+    <ClCompile Include="_Pokemon\UI\YesNoUI.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="_Pokemon\Effect\EffectObjectManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="_Pokemon\Data\SkillDataManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="_Pokemon\UI\MainMenuUI.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="_Pokemon\UI\SkillUI.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

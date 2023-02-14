@@ -8,7 +8,9 @@ class Unit : public DungeonObject
 {
 private:
 	friend class Controller;
+	friend class UnitManager;
 
+	const float PHYSICS_TIME = 0.3f;
 public:
 	enum ActionState {
 		IDLE,
@@ -36,12 +38,7 @@ public:
 	void SetLevelData(int level);
 
 	bool IsActing();
-
-	bool Test();
-
-	//bool UseSkill(/*스킬 키, 시전 위치, 시전 방향 */); 
-	//
-
+	
 	Controller* GetController() { return controller; }
 	void SetController(Controller* controller);
 
@@ -50,19 +47,26 @@ public:
 	void TurnEnd();
 
 	bool PickUpItem(ItemData* itemData);
-private:
-	void SetAction();
-
-	//물리 공격 시 animObject가 앞으로 갔다와야 한다
 
 	// DungeonObject을(를) 통해 상속됨
 	virtual bool IsCollide() override;
 
 	// DungeonObject을(를) 통해 상속됨
 	virtual bool UseSkill(int index);
+
+	void Damage(int damage);
+	void Die();
+private:
+	void SetAction();
+
+	//물리 공격 시 animObject가 앞으로 갔다와야 한다
+
 	void SetIdle();
 
 	void SkillActivate();
+
+	void SetSkillData(int level);
+	void AddNewSkill(int level);
 
 private:
 	//포켓몬 정보
@@ -73,6 +77,10 @@ private:
 	//현재의 행동 코드
 	int dirCode = 0;
 	AnimObject* animObject;
+	Vector2 animOffset = {};
+	float animTime = 0.0f;
+	float animRate = 0.3f;
+
 	//갔다 온다....
 
 	//컨트롤러 - 플레이어, 동료, 적 구분해서 행동 결정

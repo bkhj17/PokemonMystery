@@ -7,6 +7,8 @@ YesNoUI::YesNoUI(Vector2 size, Vector2 pos)
 {
 	cQuad = new Quad(L"Textures/pokemon/UI/Cursor.png");
 	cQuad->SetParent(this);
+
+	maxCursor = 2;
 }
 
 YesNoUI::~YesNoUI()
@@ -22,13 +24,11 @@ void YesNoUI::Init()
 
 void YesNoUI::Update()
 {
-	if (KEY_DOWN(VK_DOWN))
-		cursor = (++cursor) % 2;
-	
-	if (KEY_DOWN(VK_UP))
-		cursor = cursor == 0 ? 1 : 0;
+	__super::Update();
+	if (!isActive)
+		return;
 
-	float cPosY = cursor == 0 ? 30.0f : -15.0f;
+	float cPosY = -5.0f + (cursor == 0 ? YES_POS.y : NO_POS.y);
 	cQuad->Pos() = { -Half().x + 30.0f, cPosY };
 	cQuad->UpdateWorld();
 
@@ -37,31 +37,23 @@ void YesNoUI::Update()
 		{
 		case 0:
 			Observer::Get()->ExecuteEvent(yesEventKey);
+			isActive = false;
+			break;
 		case 1:
 			isActive = false;
+			break;
 		}
 		return;
 	}
-
-	if (KEY_DOWN('X')) {
-		isActive = false;
-		return;
-	}
-
-	UpdateWorld();
 }
 
 void YesNoUI::PostRender()
 {
 	__super::PostRender();
 	
-	Font::Get()->RenderText(yes, { Pos().x, Pos().y + 30.0f});
-	Font::Get()->RenderText(no, { Pos().x, Pos().y - 15.0f});
-	
+	Font::Get()->RenderText(yes, Pos() + YES_POS);
+	Font::Get()->RenderText(no, Pos() + NO_POS);
 
+	RenderCursor();
 }
 
-void YesNoUI::RenderCursor()
-{
-	cQuad->PostRender();
-}

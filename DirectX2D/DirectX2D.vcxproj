@@ -141,6 +141,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="_Pokemon\UI\SkillUI.h" />
+    <ClInclude Include="_Pokemon\UI\MainMenuUI.h" />
+    <ClInclude Include="_Pokemon\Data\SkillDataManager.h" />
     <ClInclude Include="_Pokemon\UI\YesNoUI.h" />
     <ClInclude Include="_Pokemon\Effect\EffectObjectManager.h" />
     <ClInclude Include="_Pokemon\UI\MiniMap.h" />
@@ -303,6 +306,9 @@
     <ClInclude Include="Objects\Manager\UIManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="_Pokemon\UI\SkillUI.cpp" />
+    <ClCompile Include="_Pokemon\UI\MainMenuUI.cpp" />
+    <ClCompile Include="_Pokemon\Data\SkillDataManager.cpp" />
     <ClCompile Include="_Pokemon\UI\YesNoUI.cpp" />
     <ClCompile Include="_Pokemon\Effect\EffectObjectManager.cpp" />
     <ClCompile Include="_Pokemon\UI\MiniMap.cpp" />

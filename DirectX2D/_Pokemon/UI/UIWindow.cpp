@@ -28,7 +28,21 @@ void UIWindow::Init()
 
 void UIWindow::Update()
 {
+	if (KEY_DOWN(VK_DOWN))
+		cursor = (++cursor) % maxCursor;
+
+	if (KEY_DOWN(VK_UP))
+		cursor = cursor == 0 ? maxCursor - 1 : 0;
+
+	if (KEY_DOWN('X'))
+		Close();
+
 	UpdateWorld();
+}
+
+void UIWindow::RenderCursor()
+{
+	cQuad->PostRender();
 }
 
 void UIWindow::PostRender()
@@ -37,6 +51,12 @@ void UIWindow::PostRender()
 	floatBuffer->SetPS(1);
 
 	__super::PostRender();
+}
+
+void UIWindow::Close()
+{
+	isActive = false;
+	return;
 }
 
 void UIWindow::SetShaderInfo()

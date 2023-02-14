@@ -34,7 +34,7 @@ void BinaryWriter::Float(float data)
 
 void BinaryWriter::String(string data)
 {
-	UInt(data.size());
+	UInt((UINT)data.size());
 
 	const char* str = data.c_str();
 	WriteFile(file, str, sizeof(char)*data.size(), &size, nullptr);

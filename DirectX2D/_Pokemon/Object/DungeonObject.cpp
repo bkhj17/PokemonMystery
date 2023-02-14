@@ -41,6 +41,7 @@ void DungeonObject::SetPoint(int x, int y)
 
 	Vector2 pos = tileMap->PointToPos({ x, y });
 	movement->SetTargetPos(pos, 0.0f);
+	UpdateWorld();
 }
 
 POINT DungeonObject::GetPoint()

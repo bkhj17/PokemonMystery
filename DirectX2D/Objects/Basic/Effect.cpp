@@ -36,7 +36,6 @@ void Effect::Update()
 
 		frameBuffer->GetCurFrame().x = (float)(curFrameNum % maxFrameX);
 		frameBuffer->GetCurFrame().y = (float)(curFrameNum / maxFrameX);
-		float y = frameBuffer->GetCurFrame().y;
 	}
 
 	UpdateWorld();
@@ -62,7 +61,7 @@ void Effect::Play(Vector2 position)
 {
 	isActive = true;
 	Pos() = position;
-
+	UpdateWorld();
 	frameTime = 0.0f;
 
 	curFrameNum = 0;

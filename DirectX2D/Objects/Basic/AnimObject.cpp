@@ -35,6 +35,9 @@ void AnimObject::Render()
 
 void AnimObject::SetClip(int key)
 {
+	if (clips.find(key) == clips.end())
+		return;
+
 	if (curClip != clips[key]) {
 		curClip = clips[key];
 		curClip->Play();

@@ -199,10 +199,8 @@ vector<pair<int, int>> DungeonTileMap::DetectableTiles(POINT curPoint)
 	}
 
 	vector<pair<int, int>> result;
-	for (pair<pair<int, int>, int> const& point : check) {
-		pair<int, int> p = point.first;
-		result.emplace_back(p); //왜 안 들어가?
-	}
+	for (pair<pair<int, int>, int> const& point : check)
+		result.push_back(point.first);
 	return result;
 }
 
@@ -417,8 +415,6 @@ void DungeonTileMap::SetUpItems()
 		//방이다
 		return BgTileManager::Get()->IsRoom(tile->GetGridFlag());
 	});
-
-	
 
 	for (int i = 0; i < itemNum; i++) {
 		int pos = Random(i + 1, points.size());

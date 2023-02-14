@@ -11,11 +11,17 @@ public:
 
     virtual void Update();
 
-    virtual void RenderCursor() = 0;
+    virtual void RenderCursor();
     virtual void PostRender() override;
+
+    virtual void Close();
 private:
     void SetShaderInfo();
-private:
+protected:
     FloatValueBuffer* floatBuffer;
+
+    Quad* cQuad = nullptr;
+    int cursor = 0;
+    int maxCursor = 1;
 };
 

@@ -4,7 +4,7 @@ class EffectObject;
 class EffectObjectManager : public Singleton<EffectObjectManager>
 {
 private:
-	const UINT POOL_SIZE = 100.0f;
+	const UINT POOL_SIZE = 100;
 
 	friend class Singleton;
 	EffectObjectManager();
@@ -16,6 +16,7 @@ public:
 
 	EffectObject* Pop();
 
+	bool IsActing();
 private:
 	vector<EffectObject*> effects;
 };

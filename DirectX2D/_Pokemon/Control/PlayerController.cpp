@@ -3,6 +3,7 @@
 #include "../Unit/Unit.h"
 #include "../Unit/UnitManager.h"
 #include "../Tile/DungeonTileMap.h"
+#include "../UI/PokemonUIManager.h"
 
 PlayerController::PlayerController()
 {
@@ -22,8 +23,14 @@ bool PlayerController::SetCommand()
 	if (unit->IsActing())
 		return false;
 
+	if (KEY_DOWN('A')) {
+		PokemonUIManager::Get()->OpenUI("Skill");
+		return false;
+	}
+
+
 	if (KEY_DOWN('Z')) {
-		unit->Test();
+		unit->UseSkill(0);
 		return true;
 	}
 
@@ -45,13 +52,6 @@ bool PlayerController::SetCommand()
 				return true;
 		}
 	}
-
-	bool attackSelect = KEY_DOWN('Z') && KEY_PRESS(VK_LSHIFT);
-	if (attackSelect) {
-		//스킬 4번 사용
-		return true;
-	}
-
 
 	return false;
 }

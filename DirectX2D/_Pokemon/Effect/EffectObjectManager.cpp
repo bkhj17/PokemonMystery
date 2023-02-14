@@ -5,9 +5,8 @@
 EffectObjectManager::EffectObjectManager()
 {
 	effects.resize(POOL_SIZE);
-	for (auto& effect : effects) {
-		effect = new EffectObject();
-	}
+	for (auto& e : effects)
+		e = new EffectObject();
 }
 
 EffectObjectManager::~EffectObjectManager()
@@ -42,4 +41,12 @@ EffectObject* EffectObjectManager::Pop()
 	}
 
 	return nullptr;
+}
+
+bool EffectObjectManager::IsActing()
+{
+	for (auto e : effects)
+		if (e->Active())
+			return true;
+	return false;
 }

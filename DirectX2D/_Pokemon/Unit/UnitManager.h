@@ -126,8 +126,7 @@ private:
 private:
 	//선언 관련
 	map<int, PokemonTableData> pokemonTable;
-
-
+	map<int, map<int, int>> pokemonSkillTable;
 	map<int, AnimData> animTable;
 
 	//행동 관련

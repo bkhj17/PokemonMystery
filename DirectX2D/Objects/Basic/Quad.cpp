@@ -81,7 +81,7 @@ void Quad::UpdateVertices()
 	vertices[2] = Vertex(left, bottom, startUV.x, endUV.y);
 	vertices[3] = Vertex(right, bottom, endUV.x, endUV.y);
 
-	vertexBuffer->Update(vertices.data(), vertices.size());
+	vertexBuffer->Update(vertices.data(), (UINT)vertices.size());
 }
 
 void Quad::CreateMesh()

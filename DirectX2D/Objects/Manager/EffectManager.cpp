@@ -37,6 +37,19 @@ void EffectManager::Add(string key, UINT poolSize, wstring textureFile, float ma
 	totalEffects[key] = effects;
 }
 
+Effect* EffectManager::Pop(string key)
+{
+	if (totalEffects.find(key) == totalEffects.end())
+		return nullptr;
+
+	for (auto effect : totalEffects[key]) {
+		if (!effect->Active()) {
+			return effect;
+		}
+	}
+	return nullptr;
+}
+
 void EffectManager::Play(string key, Vector2 pos)
 {
 	if (totalEffects.find(key) == totalEffects.end())

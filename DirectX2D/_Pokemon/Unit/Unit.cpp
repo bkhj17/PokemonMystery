@@ -5,6 +5,7 @@
 #include "../Tile/DungeonTileMap.h"
 #include "UnitManager.h"
 #include "../Item/PlayerInventory.h"
+#include "../Skill/Skill.h"
 
 Unit::Unit(Controller* controller, Vector2 size)
 	: DungeonObject(size)
@@ -14,6 +15,9 @@ Unit::Unit(Controller* controller, Vector2 size)
 	SetController(controller);
 
 	data = new PokemonData;
+
+	skills.resize(5); //기본 공격 + 기술 4개
+	skills[0] = new Skill(0);
 }
 
 Unit::~Unit()
@@ -81,6 +85,20 @@ void Unit::CreateClipData()
 void Unit::UpdateWorld()
 {
 	__super::UpdateWorld();
+
+	if (animOffset.x != 0 || animOffset.y != 0) {
+		animTime += DELTA;
+		if (animTime < PHYSICS_TIME * 0.5f) {
+			animObject->Pos() = Lerp(Vector2(), animOffset, animTime / PHYSICS_TIME * 2.0f);
+		}
+		else if(animTime >= PHYSICS_TIME) {
+			animOffset = { 0, 0 };
+			animObject->Pos() = Vector2();
+		}
+		else {
+			animObject->Pos() = Lerp(animOffset, Vector2(), (animTime / PHYSICS_TIME - 0.5f) * 2.0f);
+		}
+	}
 	animObject->UpdateWorld();
 }
 
@@ -175,6 +193,8 @@ bool Unit::IsCollide()
 
 	for (auto f : UnitManager::Get()->GetFriends()) {		
 		check = f;
+		if (!check->Active())
+			continue;
 		if (check != this
 			&& check->GetPoint().x == GetPoint().x
 			&& check->GetPoint().y == GetPoint().y)
@@ -183,6 +203,8 @@ bool Unit::IsCollide()
 
 	for (auto e : UnitManager::Get()->GetEnemies()) {
 		check = e;
+		if (!check->Active())
+			continue;
 		if (check != this
 			&& check->GetPoint().x == GetPoint().x
 			&& check->GetPoint().y == GetPoint().y)
@@ -196,11 +218,14 @@ bool Unit::IsCollide()
 bool Unit::UseSkill(int index)
 {
 	//스킬이 사용 가능한지 확인해야 함
-	if (false) {
+	if (skills[index]->GetCurPP() == 0) {
 		//사용 불가능 로그
 		return false;
 	}
 	
+	if (skills[index]->GetCurPP() > 0)
+		skills[index]->GetCurPP()--;
+
 	curSkill = index;
 	//스킬 종류에 따라 행동 종류 결정
 	bool IsPhysics = true;
@@ -208,45 +233,72 @@ bool Unit::UseSkill(int index)
 
 	dirCode = dirCode / 100 * 100 + action;
 	animObject->SetClip(dirCode);
+	if (IsPhysics) {
+		animOffset = { animDirX * size.x, animDirY * size.y };
+		animTime = 0.0f;
+	}
+
 	return true;
+}
+
+void Unit::Damage(int damage)
+{
+	dirCode = dirCode / 100 * 100 + DAMAGE;
+	animObject->SetClip(dirCode);
+	if ((data->curHp -= damage) <= 0) {
+		Die();
+	}
+}
+
+void Unit::Die()
+{
+
 }
 
 void Unit::SetIdle()
 {
 	this->dirCode = 0;
 	SetAction();
+
+	if (data->curHp <= 0)
+		isActive = false;
 }
 
 void Unit::SkillActivate()
 {
 	//curSkill에 대응하는 effectObject를 생성
-
-
-
-
+	//skill에서 하자
+	//시전자 위치, 
+	//스킬 코드만 들고 있을까? 
+	skills[curSkill]->Activate(this);
 	SetIdle();
+}
+
+void Unit::SetSkillData(int level)
+{
+}
+
+void Unit::AddNewSkill(int level)
+{
 }
 
 bool Unit::IsActing()
 {
 	//스킬 시전 중인 경우, 혹은 데미지 입는 중인 경우
 	//스킬 발동 중인건 스킬이 직접 알린다
-	if (dirCode % 100 > IsMoving())
+	if (!isActive)
+		return false;
+
+
+	if (animTime > 0.0f && animTime < PHYSICS_TIME)
 		return true;
+
+	if (dirCode % 100 > MOVING)
+		return true;
+
 
 	if (__super::IsActing())
 		return true;
 
 	return false;
-}
-
-bool Unit::Test()
-{
-	if (IsActing())
-		return false;
-
-	dirCode = dirCode / 100 * 100 + SKILL_PHYSICS;
-	animObject->SetClip(dirCode);
-
-	return true;
 }
