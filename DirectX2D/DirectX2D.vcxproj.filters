@@ -1007,5 +1007,6 @@
     <FxCompile Include="Shaders\PixelPokemonProgressBar.hlsl" />
     <FxCompile Include="Shaders\PixelImageFont.hlsl" />
     <FxCompile Include="Shaders\PixelWindowFrame.hlsl" />
+    <FxCompile Include="Shaders\PixelMiniMapShader.hlsl" />
   </ItemGroup>
 </Project>

@@ -45,6 +45,8 @@ void PokemonUIManager::PostRender()
 
 	if (!openned.empty())
 		openned.back()->RenderCursor();
+	else
+		miniMap->PostRender();
 }
 
 void PokemonUIManager::OpenMenu()
