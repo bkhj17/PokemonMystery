@@ -10,14 +10,20 @@
 Unit::Unit(Controller* controller, Vector2 size)
 	: DungeonObject(size)
 {
-	//CreateClipData();
-
 	SetController(controller);
 
 	data = new PokemonData;
 
 	skills.resize(5); //기본 공격 + 기술 4개
 	skills[0] = new Skill(0);
+	for (int i = 1; i <= 4; i++) {
+		skills[i] = new Skill();
+	}
+
+	downQuad = new Quad(Vector2(40.0f, 40.0f));
+	downQuad->SetTexture(L"Textures/pokemon/Down.png");
+	downQuad->SetParent(this);
+	downQuad->Pos() = { -size.x * 0.5f, size.y * 0.5f };
 }
 
 Unit::~Unit()
@@ -25,6 +31,14 @@ Unit::~Unit()
 	delete animObject;
 	delete controller;
 	delete data;
+}
+
+void Unit::Init()
+{
+	isActive = true;
+	data->curHp = data->statusData.maxHp;
+	if (controller)
+		controller->Init();
 }
 
 void Unit::Update()
@@ -46,6 +60,10 @@ void Unit::Render()
 		return;
 	__super::Render();
 	animObject->Render();
+
+	if (downTime > 0) {
+		downQuad->Render();
+	}
 }
 
 void Unit::CreateClipData()
@@ -74,9 +92,7 @@ void Unit::CreateClipData()
 			auto clip = new Clip(frames, action <= MOVING);
 			if (action > MOVING)
 				clip->SetEvent(bind(action <= SKILL_SPECIAL ? &Unit::SkillActivate : &Unit::SetIdle, this));
-
-			animObject->AddClip(clipCode, clip);
-			
+			animObject->AddClip(clipCode, clip);			
 			frames.clear();
 		}
 	}
@@ -85,6 +101,12 @@ void Unit::CreateClipData()
 void Unit::UpdateWorld()
 {
 	__super::UpdateWorld();
+
+	if (!isActive)
+		return;
+
+	if (animObject == nullptr)
+		return;
 
 	if (animOffset.x != 0 || animOffset.y != 0) {
 		animTime += DELTA;
@@ -100,6 +122,7 @@ void Unit::UpdateWorld()
 		}
 	}
 	animObject->UpdateWorld();
+	downQuad->UpdateWorld();
 }
 
 void Unit::SetController(Controller* controller)
@@ -119,36 +142,42 @@ void Unit::SetDir(int x, int y)
 void Unit::SetData(int key, int level)
 {
 	int postKey = data->key;
-		UnitManager::Get()->GetPokemonData(key, level, data);
-	
-	if (postKey != key)
+	UnitManager::Get()->GetPokemonData(key, level, data);
+
+	if (postKey != key) {
+		InitSkillData(level);
 		CreateClipData();
+	}
 }
 
 void Unit::SetLevelData(int level)
 {
 	SetData(data->key, level);
+	//레벨 변화 시의 처리
+	AddNewSkill(level);
 }
 
 void Unit::TurnEnd()
 {
 	wait = max(0, wait - 2);
 	//상태이상 턴 감소
+	downTime -= 2;
+
+	controller->TurnEnd();
 }
 
 bool Unit::PickUpItem(ItemData* itemData)
 {
-	if (controller->GetTag() == "Player" 
-		|| controller->GetTag() == "Friend") {
+	if (controller->GetTag() == "Player" || controller->GetTag() == "Friend") {
 		if(PlayerInventory::Get()->InputItem(itemData)) {
-			//아이템 획득 로그
+			//아이템 획득 로그(인벤토리)
 			return true;
 		}
 	}
 
 	if (carryItem == nullptr) {
 		carryItem = itemData;
-		//아이템 획득 로그
+		//아이템 획득 로그(지니다)
 		return true;
 	}
 	
@@ -168,6 +197,9 @@ void Unit::SetAction()
 	3 4 5
 	6 7 8
 	*/
+	if (!isActive)
+		return;
+
 	if (dirCode % 100 >= SKILL_PHYSICS)
 		return;
 
@@ -211,24 +243,37 @@ bool Unit::IsCollide()
 			return true;
 	}
 
-
 	return false;
+}
+
+bool Unit::IsUsableSkill(int index, bool log)
+{
+	//스킬이 사용 가능한지 확인
+	if (!skills[index] || !skills[index]->IsValid())
+		return false;
+
+	if (skills[index]->GetCurPP() == 0) {
+		if (log) {
+			//사용 불가능 로그
+		}
+		return false;
+	}
+
+	return true;
 }
 
 bool Unit::UseSkill(int index)
 {
-	//스킬이 사용 가능한지 확인해야 함
-	if (skills[index]->GetCurPP() == 0) {
-		//사용 불가능 로그
+	if (!IsUsableSkill(index, true))
 		return false;
-	}
-	
-	if (skills[index]->GetCurPP() > 0)
+	//무한 사용은 pp가 -1이므로 그 경우에는 pp가 변하지 않는다
+	if(skills[index]->GetCurPP() > 0)	
 		skills[index]->GetCurPP()--;
 
+	//행동에 예약 걸기
 	curSkill = index;
 	//스킬 종류에 따라 행동 종류 결정
-	bool IsPhysics = true;
+	bool IsPhysics = skills[index]->IsPhysics();
 	int action = IsPhysics ? SKILL_PHYSICS : SKILL_SPECIAL;
 
 	dirCode = dirCode / 100 * 100 + action;
@@ -243,16 +288,21 @@ bool Unit::UseSkill(int index)
 
 void Unit::Damage(int damage)
 {
-	dirCode = dirCode / 100 * 100 + DAMAGE;
-	animObject->SetClip(dirCode);
-	if ((data->curHp -= damage) <= 0) {
-		Die();
+	if (damage > 0) {
+		dirCode = dirCode / 100 * 100 + DAMAGE;
+		animObject->SetClip(dirCode);
 	}
+	data->curHp = min(max(data->curHp - damage, 0), data->statusData.maxHp);
+	if (data->curHp <= 0)
+		Die();
+
+	if (damage != 0 && controller->GetTag() == "Player")
+		Observer::Get()->ExecuteEvent("UpdateStatusUI");
 }
 
 void Unit::Die()
 {
-
+	Observer::Get()->ExecuteParamEvent("UnitDie", reinterpret_cast<void*>(this));
 }
 
 void Unit::SetIdle()
@@ -266,20 +316,43 @@ void Unit::SetIdle()
 
 void Unit::SkillActivate()
 {
-	//curSkill에 대응하는 effectObject를 생성
-	//skill에서 하자
-	//시전자 위치, 
-	//스킬 코드만 들고 있을까? 
+	//curSkill 발동
 	skills[curSkill]->Activate(this);
 	SetIdle();
 }
 
-void Unit::SetSkillData(int level)
+void Unit::InitSkillData(int level)
 {
+	//
+	vector<int> skillKies;
+	UnitManager::Get()->GetInitSkills(data->key, level, skillKies);
+
+	for (int i = 0; i < skillKies.size(); i++)
+		SetSkill(i + 1, skillKies[i]);
+}
+
+void Unit::SetSkill(int slot, int skillIndex)
+{
+	//유효하지 않은 슬롯
+	if (slot < 1 || slot > 4)
+		return;
+	
+	skills[slot]->SetData(skillIndex);
 }
 
 void Unit::AddNewSkill(int level)
 {
+	//레벨 변화로 인해 스킬을 새로 익힌다
+	vector<int> tmp;
+	UnitManager::Get()->GetSkillDataKey(data->key, level, tmp);
+	if (tmp.empty())
+		return;
+
+	int p = 0;
+	for (int i = 1; i <= 4 && p < tmp.size(); i++) {
+		if (!skills[i]->IsValid())
+			SetSkill(i, tmp[p++]);
+	}
 }
 
 bool Unit::IsActing()
@@ -289,13 +362,11 @@ bool Unit::IsActing()
 	if (!isActive)
 		return false;
 
-
 	if (animTime > 0.0f && animTime < PHYSICS_TIME)
 		return true;
 
-	if (dirCode % 100 > MOVING)
+	if (dirCode % 100 >= MOVING)
 		return true;
-
 
 	if (__super::IsActing())
 		return true;

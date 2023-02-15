@@ -8,6 +8,8 @@ class Unit : public DungeonObject
 {
 private:
 	friend class Controller;
+	friend class PlayerController;
+	friend class EnemyController;
 	friend class UnitManager;
 
 	const float PHYSICS_TIME = 0.3f;
@@ -23,6 +25,7 @@ public:
 	Unit(Controller* controller, Vector2 size);
 	virtual ~Unit();
 
+	void Init();
 	void Update();
 	void Render();
 
@@ -52,10 +55,15 @@ public:
 	virtual bool IsCollide() override;
 
 	// DungeonObject을(를) 통해 상속됨
+	virtual bool IsUsableSkill(int index, bool log = true);
 	virtual bool UseSkill(int index);
 
 	void Damage(int damage);
 	void Die();
+
+	int GetCurAction() { return dirCode % 100; }
+
+	void SetDown(int d) { downTime = d; }
 private:
 	void SetAction();
 
@@ -65,7 +73,8 @@ private:
 
 	void SkillActivate();
 
-	void SetSkillData(int level);
+	void InitSkillData(int level);
+	void SetSkill(int slot, int skillIndex);
 	void AddNewSkill(int level);
 
 private:
@@ -95,5 +104,9 @@ private:
 
 	//지닌 아이템 키
 	ItemData* carryItem = nullptr;
+
+
+	int downTime = 0;
+	Quad* downQuad = nullptr;
 };
 

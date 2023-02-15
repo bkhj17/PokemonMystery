@@ -4,7 +4,7 @@ class HPProgressBar : public ProgressBar
 {
 public:
 	HPProgressBar(wstring frontImageFile, wstring backImageFile);
-	~HPProgressBar();
+	~HPProgressBar() = default;
 
 	void SetRenderAmount(float renderAmount);
 private:

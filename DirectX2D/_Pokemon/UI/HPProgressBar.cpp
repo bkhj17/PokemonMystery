@@ -8,11 +8,7 @@ HPProgressBar::HPProgressBar(wstring frontImageFile, wstring backImageFile)
 	valueBuffer->Get()[1] = renderAmount;
 }
 
-HPProgressBar::~HPProgressBar()
-{
-}
-
 void HPProgressBar::SetRenderAmount(float renderAmount)
 {
-	valueBuffer->Get()[1] = renderAmount;
+	valueBuffer->Get()[1] = this->renderAmount = renderAmount;
 }

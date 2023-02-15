@@ -17,11 +17,12 @@ public:
 	Controller(Unit* unit) : unit(unit) {};
 	virtual ~Controller();
 
+	virtual void Init() {}
 	virtual bool SetCommand() = 0;
 
-	void UseSkill(int i);
-
 	string GetTag() { return tag; }
+
+	virtual void TurnEnd() {}
 protected:
 	void SetUnit(Unit* unit) { this->unit = unit; }
 

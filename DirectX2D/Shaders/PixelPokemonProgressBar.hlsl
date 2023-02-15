@@ -19,7 +19,7 @@ float4 PS(PixelInput input) : SV_TARGET
 {
     if (input.uv.x > renderAmount)
         return float4(0.0f, 0.0f, 0.0f, 0.0f);
-    if (input.uv.x < fillAmount)
+    if (input.uv.x < fillAmount * renderAmount)
         return frontMap.Sample(samp, input.uv);
     return backMap.Sample(samp, input.uv);
 }

@@ -10,10 +10,14 @@ public:
 	EnemyController(Unit* unit);
 	virtual ~EnemyController() = default;
 
+	virtual void Init() override;
+
 	// Controller을(를) 통해 상속됨
 	virtual bool SetCommand() override;
+	bool ActivateReserved();
 	void SetMoveCommand();
 
+	void TurnEnd() override;
 protected:
 	POINT ChooseTarget(vector<pair<int, int>>& detectables);
 
@@ -30,6 +34,8 @@ protected:
 	void SetPatrolMoveCommand();
 
 protected:
-	virtual bool UseSkill(int i);
+	int reservedSkill = -1;
+	int transTime = 0;
+	int transRate = 5;
 };
 

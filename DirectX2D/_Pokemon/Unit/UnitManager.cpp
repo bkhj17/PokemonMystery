@@ -4,16 +4,29 @@
 #include "../Control/PlayerController.h"
 #include "../Control/EnemyController.h"
 #include "../Tile/DungeonTileMap.h"
+#include "../Tile/DungeonBgTile.h"
+#include "../Tile/BgTileManager.h"
+#include "../Data/DungeonDataManager.h"
 
 UnitManager::UnitManager()
 {
-	LoadPokemonTable("TextData/PokemonData.csv");
+	LoadPokemonTable();
 	LoadAnimData();
+	LoadPokemonSkillTable();
 
 	player = new Unit(new PlayerController(), UNIT_SIZE);
-
-	friends.reserve(3);
-	enemies.reserve(100);
+	/*
+	friends.resize(3);
+	for (auto& f : friends) {
+		f = new Unit(nullptr, UNIT_SIZE);
+		f->SetActive(false);
+	}
+	*/
+	enemies.resize(30);
+	for (auto& e : enemies) {
+		e = new Unit(new EnemyController(), UNIT_SIZE);
+		e->SetActive(false);
+	}
 }
 
 UnitManager::~UnitManager()
@@ -34,10 +47,6 @@ void UnitManager::Init()
 {
 	player->SetData(1, 5);
 
-	Unit* testEnemy = new Unit(new EnemyController(), UNIT_SIZE);
-	testEnemy->SetData(19, 2);
-
-	enemies.push_back(testEnemy);
 }
 
 void UnitManager::Update()
@@ -66,8 +75,6 @@ void UnitManager::Render()
 	}
 	v.push_back(player);
 
-
-
 	sort(v.begin(), v.end(), [](Unit* l, Unit* r) {
 		if (abs(abs(l->GlobalPos().y) - abs(r->GlobalPos().y)) < FLT_EPSILON)
 			return !l->IsActing() && r->IsActing();
@@ -89,16 +96,21 @@ void UnitManager::RunPhase()
 		{
 		case UnitManager::PLAYER_COMMAND:
 			if (player->GetWait() == 0) {
-				if (player->GetController()->SetCommand())
+				if (player->GetController()->SetCommand()) {
 					player->GetWait() += 2;
-				else
+				}
+				else {
 					return;
+				}
 			}
 			curPhase = PLAYER_ACT;
 			break;
 		case UnitManager::PLAYER_ACT:
-			curPhase = FRIEND_SKILL;
 			//이동 외에 다른걸 하는 중이면 리턴
+			if (player->GetCurAction() > 1)
+				return;
+
+			curPhase = FRIEND_SKILL;
 			break;
 		case UnitManager::FRIEND_SKILL:
 		{
@@ -110,48 +122,55 @@ void UnitManager::RunPhase()
 				if (f->GetWait() == 0) {
 					//만약 스킬을 쓴다면
 					if (false) {
-						//시전자의 턴을 증가시키고
-						//리턴
+						//시전자의 턴을 증가시키고 리턴
 						f->GetWait() += 2;
 						return;
 					}
 				}
 			}
-			if (!skillCall)
-				curPhase = FRIEND_MOVE;
+			curPhase = FRIEND_MOVE;
 		}
 		break;
 		case UnitManager::FRIEND_MOVE:
 			//이동의 경우 전원이 동시에 판단
-			curPhase = ENEMY_SKILL;
-
 			for (auto f : friends) {
-
+				if (!f->Active())
+					continue;
 			}
-			break;
+			curPhase = ENEMY_SKILL;
 		case UnitManager::ENEMY_SKILL:
 		{
 			bool skillCall = false;
 			for (auto e : enemies) {
+				//유효하지 않음
 				if (!e->Active())
 					continue;
-				//행동권 존재
-				if (e->GetWait() == 0) {
-					//만약 스킬을 쓴다면 
-					//시전자의 턴을 증가시키고 
-					//리턴
+
+				//예약된 스킬이 있다면 사용......
+				auto eController = (EnemyController*)e->GetController();
+				if (eController->ActivateReserved())
+					return;
+
+				//행동권 존재하고 만약 스킬을 쓴다면 
+				if (e->GetWait() == 0 && eController->SetCommand()) {
+					//시전자의 턴을 증가시키고 리턴
+					e->GetWait() += 2;
+					skillCall = true;
+					return;
 				}
 			}
-			if (!skillCall)
-				curPhase = FRIEND_MOVE;
 			curPhase = ENEMY_MOVE;
 		}
 		break;
 		case UnitManager::ENEMY_MOVE:
 			//이동의 경우 전원이 동시에 판단
 			for (auto e : enemies) {
+				if (e->GetWait() > 0)
+					continue;
+
 				auto controller = (EnemyController*)e->GetController();
 				controller->SetMoveCommand();
+				e->GetWait() += 2;
 			}
 
 			curPhase = TURN_END;
@@ -181,10 +200,10 @@ bool UnitManager::IsActing()
 		return true;
 
 	for (auto f : friends)
-		if (f->Active() && f->IsActing())
+		if (f->IsActing())
 			return true;
 	for (auto e : enemies)
-		if (e->Active() && e->IsActing())
+		if (e->IsActing())
 			return true;
 
 	return false;
@@ -198,7 +217,41 @@ void UnitManager::GetPokemonData(IN int key, IN int level, OUT PokemonData*& dat
 	data->key = key;
 	data->level = level;
 	ApplyLevel(level, data);
+}
 
+void UnitManager::GetInitSkills(IN int key, IN int level, OUT vector<int>& result)
+{
+	if (pokemonSkillTable.find(key) == pokemonSkillTable.end())
+		return;
+
+	stack<int> st;
+	auto& mp = pokemonSkillTable[key];
+	for (auto& skillKey : mp) {
+		if (skillKey.first > level)
+			break;
+
+		for (auto key : skillKey.second)
+			st.push(key);
+	}
+
+	for (int i = 0; i < 4 && !st.empty(); i++) {
+		result.push_back(st.top());
+		st.pop();
+	}
+
+	reverse(result.begin(), result.end());
+	return;
+}
+
+void UnitManager::GetSkillDataKey(IN int key, IN int level, OUT vector<int>& v)
+{
+	if (pokemonSkillTable.find(key) == pokemonSkillTable.end())
+		return;
+
+	if (pokemonSkillTable[key].find(level) == pokemonSkillTable[key].end())
+		return;
+
+	v.insert(v.end(), pokemonSkillTable[key][level].begin(), pokemonSkillTable[key][level].end());
 }
 
 bool UnitManager::IsUnitOnPoint(POINT point)
@@ -251,6 +304,73 @@ Unit* UnitManager::GetUnitOnPoint(POINT point)
 	return nullptr;
 }
 
+void UnitManager::ClearEnemy()
+{
+	for (auto e : enemies)
+		e->SetActive(false);
+}
+
+void UnitManager::InitEnemy() {
+	DungeonTileMap* tileMap = nullptr;
+	Observer::Get()->ExecuteGetEvent("CallTileMap", (void**)&tileMap);
+	if (!tileMap)
+		return;
+
+	auto& monsters = tileMap->GetFloorData()->monsters;
+	int i = Random(0, (int)monsters.size());
+	InitEnemy(monsters[i].first, monsters[i].second);
+
+}
+
+void UnitManager::InitEnemy(int key, int level)
+{
+	DungeonTileMap* tileMap = nullptr;
+	Observer::Get()->ExecuteGetEvent("CallTileMap", (void**)&tileMap);
+	if (!tileMap)
+		return;
+
+	Unit* unit = nullptr;
+	int cnt = 0;
+	for (auto e : enemies) {
+		if (e->Active()) {
+			cnt++;
+		}
+		else if (unit == nullptr) {
+			unit = e;
+		}
+	}
+
+	if (tileMap->GetFloorData()->monsterNum <= cnt)
+		return;
+
+	POINT point = tileMap->GetRandomPointByCondition([this, tileMap](POINT point) -> bool {
+		if (CAM->ContainFrustum(tileMap->PointToPos(point), UNIT_SIZE))
+			return false;
+		
+		auto tile = tileMap->GetBgTile(point);
+		if (tile == nullptr)
+			return false;
+		if (BgTileManager::Get()->GetLandTexture() != tile->GetTexture())
+			return false;
+		if (!BgTileManager::Get()->IsRoom(tile->GetGridFlag()))
+			return false;
+		if (GetUnitOnPoint(point))
+			return false;
+		return true;
+	});
+
+	if (point.x == -1 || point.y == -1) {
+		return;
+	}
+
+	if (tileMap->GetBgTile(point)->GetTexture() != BgTileManager::Get()->GetLandTexture())
+		return;
+
+	unit->SetData(key, level);
+	unit->SetPoint(point);
+	unit->Init();
+}
+
 bool UnitManager::CheckMovablePoint(POINT point, int dirX, int dirY)
 {
 	//맵 정보 불러올 수 있는지 확인
@@ -267,6 +387,11 @@ bool UnitManager::CheckMovablePoint(POINT point, int dirX, int dirY)
 	POINT nextPos = point;
 	nextPos.x += dirX;
 	nextPos.y += dirY;
+
+	if (tileMap->GetBgTile(nextPos)->GetTexture() == BgTileManager::Get()->GetWallTexture()) {
+		return false;
+	}
+
 	//가야 할 자리에 누가 먼저 자리잡고 있는지도 알아야 함
 	if (IsUnitOnPoint(nextPos))
 		return false;
@@ -292,10 +417,10 @@ void UnitManager::ApplyLevel(IN int level, OUT PokemonData* data)
 	data->curHp = (int)ceil(hpRate * data->statusData.maxHp);
 }
 
-void UnitManager::LoadPokemonTable(string fileName)
+void UnitManager::LoadPokemonTable()
 {
 	ifstream ifs;
-	ifs.open(fileName);
+	ifs.open(POKEMON_TABLE);
 
 	if (ifs.fail()) {
 		//로드 실패
@@ -651,6 +776,31 @@ void UnitManager::LoadAnimData()
 		data.clipData[dirCode * 100 + Unit::DAMAGE].push_back({ 11, inTex });
 	}
 	animTable[data.pokemonNum] = data;
+}
 
+void UnitManager::LoadPokemonSkillTable() {
+	ifstream ifs;
+	ifs.open(POKEMON_SKILL_TABLE);
+	if (ifs.fail())
+		return;
 
+	bool isFirst = true;
+	while (!ifs.eof()) {
+		string tmp;
+		getline(ifs, tmp);
+		if (isFirst) {
+			isFirst = false;
+			continue;
+		}
+
+		if (tmp.empty())
+			continue;
+
+		vector<string> v = SplitString(tmp, ",");
+		int pokemon = stoi(v[0]);
+		int level = stoi(v[1]);
+		int skill = stoi(v[2]);
+
+		pokemonSkillTable[pokemon][level].push_back(skill);
+	}
 }

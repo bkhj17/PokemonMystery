@@ -16,7 +16,13 @@ void Skill::SetData(int i)
 {
 	//i로 스킬 매니저에서 데이터 받아오기
 	data = SkillDataManager::Get()->GetData(i);
-	curPP = data->maxPP;
+	if(data != nullptr)
+		curPP = data->maxPP;
+}
+
+bool Skill::IsValid()
+{
+	return data != nullptr;
 }
 
 bool Skill::Activate(Unit* unit)
@@ -32,6 +38,8 @@ bool Skill::Activate(Unit* unit)
 
 	DungeonTileMap* tileMap = nullptr;
 	Observer::Get()->ExecuteGetEvent("CallTileMap", (void**)&tileMap);
+
+	string effectName = data->name;
 
 	switch (data->range)
 	{
@@ -51,21 +59,59 @@ bool Skill::Activate(Unit* unit)
 		}
 		case SkillData::ALL_ROOM:
 		{
+			EffectManager::Get()->Play(effectName, tileMap->PointToPos(unitPoint) + Vector2(0.0f, 50.0f));
+			effectName = "";
 			auto tiles = tileMap->DetectableTiles({ unitPoint.x, unitPoint.y });
 			for (auto& tilePoint : tiles)
 				startPoints.push_back({ tilePoint.first, tilePoint.second });
 			break;
 		}
-	}
+	}	
 
-	for (auto& point : startPoints)
-		effectObject->Init(unit, EffectManager::Get()->Pop("덩굴채찍"), data->applyTarget,
-			bind(&Skill::Condition, this, placeholders::_1, placeholders::_2), 
-			bind(&Skill::HitEvent, this, placeholders::_1, placeholders::_2), 
+	for (auto& point : startPoints) {
+		auto target = UnitManager::Get()->GetUnitOnPoint(point);
+		if (target == nullptr)
+			continue;
+		if (target == unit && data->range != SkillData::SELF)
+			continue;
+		effectObject->Init(unit, effectName, data->applyTarget,
+			bind(&Skill::Condition, this, placeholders::_1, placeholders::_2),
+			bind(&Skill::HitEvent, this, placeholders::_1, placeholders::_2),
 			point);
+	}
 
 	//시전 성공 시에만 true 반환
 	return true;
+}
+
+bool Skill::IsPhysics()
+{
+	return data->type == SkillData::PHYSICS;
+}
+
+bool Skill::IsInRange(POINT castPoint, POINT targetPoint)
+{
+	//타겟포인트는 인식범위에 들어왔다고 가정한다
+	//변화기술 어떡하지...
+	switch (data->range)
+	{
+	case SkillData::FRONT:
+		//원래 모퉁이면 못 하게 해야 하지만 일단 생략
+	case SkillData::FRONT_THROUGH:
+	{
+		int distX = abs(targetPoint.x - castPoint.x);
+		int distY = abs(targetPoint.y - castPoint.y);
+		return max(distX, distY) == 1;
+	}
+	case SkillData::SELF:
+		return true;
+	case SkillData::ALL_ROOM:
+		return true;
+	default:
+		break;
+	}
+
+	return false;
 }
 
 bool Skill::Condition(Unit* cast, Unit* target)
@@ -75,7 +121,10 @@ bool Skill::Condition(Unit* cast, Unit* target)
 
 void Skill::HitEvent(Unit* cast, Unit* target)
 {
-	target->Damage(CalcDamage(cast, target));
+	if (data->type == SkillData::TRANS) {
+		target->SetDown(10);
+	} else
+		target->Damage(CalcDamage(cast, target));
 }
 
 int Skill::CalcDamage(Unit* cast, Unit* target)

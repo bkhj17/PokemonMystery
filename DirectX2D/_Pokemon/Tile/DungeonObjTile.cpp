@@ -32,6 +32,7 @@ DungeonObjTile::DungeonObjTile(string type, Tile::Data data, Vector2 size)
 			if (unit->GetController()->GetTag() == "Enemy")
 				return;
 
+			unit->SetDown(0);
 			//밟은 유닛이 플레이어거나 동료라면 상태이상 제거
 		};
 	}

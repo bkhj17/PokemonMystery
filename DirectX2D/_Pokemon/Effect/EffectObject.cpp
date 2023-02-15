@@ -18,20 +18,18 @@ EffectObject::~EffectObject()
 	effect = nullptr;
 }
 
-void EffectObject::Init(Unit* unit, Effect* effect, int applyTarget, function<bool(Unit*, Unit*)> condition, function<void(Unit*, Unit*)> event, POINT startPoint)
+void EffectObject::Init(Unit* unit, string effectName, int applyTarget, function<bool(Unit*, Unit*)> condition, function<void(Unit*, Unit*)> event, POINT startPoint)
 {
 	this->unit = unit;
-	this->effect = effect;
+	this->effect = EffectManager::Get()->Pop(effectName);
 	this->condition = condition;
 	this->hitEvent = event;
 	this->applyTarget = applyTarget;
 	isActive = true;
 
 	SetPoint(startPoint);
-	if (effect != nullptr) {
-		Vector2 pos = GlobalPos();
-		effect->Play(pos);
-	}
+	if (effect != nullptr)
+		effect->Play(GlobalPos());
 }
 
 void EffectObject::Update()
@@ -42,11 +40,11 @@ void EffectObject::Update()
 	auto target = UnitManager::Get()->GetUnitOnPoint(GetPoint());
 	if (!target) {
 		//대상 없음
-		isActive = false;
 		if (effect) {
-			effect->SetActive(false);
+			effect->End();
 			effect = nullptr;
 		}
+		isActive = false;
 		return;
 	}
 

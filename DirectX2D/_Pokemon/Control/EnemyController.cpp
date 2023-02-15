@@ -3,6 +3,8 @@
 #include "../Unit/Unit.h"
 #include "../Unit/UnitManager.h"
 #include "../Tile/DungeonTileMap.h"
+#include "../Skill/Skill.h"
+#include "../Data/SkillDataManager.h"
 
 EnemyController::EnemyController()
 {
@@ -17,39 +19,77 @@ EnemyController::EnemyController(Unit* unit)
 	controllerType = ControllerType::ENEMY;
 }
 
-bool EnemyController::UseSkill(int i)
+void EnemyController::Init()
 {
-	//기술 4개 + 기본 공격 5개
-
-	if (i < 0 || i > 4)
-		return false;
-
-	//유닛의 i번째 기술이 존재는 하는지 확인
-	//unit; 
-
-	//유닛의 i번째 기술이 발동조건을 만족하는지 확인
-
-	//만족한다면 쓰자
-	//스킬을 썼다면 true 반환
-
-	return false;
+	reservedSkill = -1;
 }
 
 bool EnemyController::SetCommand()
 {
 	//에너미는 SetCommand에서 스킬이랑 일반 공격할지만 검사
 	//일반 공격을 스킬로 만들면 돼!!!!
-	//스킬 4번이 일반 공격이 된다
+	//스킬 0번이 일반 공격이 된다
 
 	//만약 타겟이 쓸 수 있는 기술 범위에 들어왔을 경우
 	//기술 유효 여부도 확인해서
-	//기술 사용하고 리턴 true
+	//기술 사용 예약하고 리턴 true
+	if (!unit->Active())
+		return false;
 
+	DungeonTileMap* tileMap = nullptr;
+	Observer::Get()->ExecuteGetEvent("CallTileMap", (void**)&tileMap);
+	if (tileMap == nullptr)	//이상사태 : 맵 인식 불가
+		return false;
+
+	//인식범위
+	vector<pair<int, int>> detectables = tileMap->DetectableTiles(unit->GetPoint());
+	//플레이어, 동료 위치 받아오기
+
+	POINT pTarget = ChooseTarget(detectables);
+	if (pTarget.x == -1 || pTarget.y == -1)
+		return false;
+
+	for (int i = 1; i <= 5; i++) {
+		//스킬 사용 조건을 충족하는지 알아야 함
+		if (!unit->skills[i % 5]->IsValid())
+			continue;
+
+		//변화기술 : 원래 개별 조건이 필요하지만 시간 관계상 5턴 지나야 쓸 수 있는 걸로 
+		SkillData::SkillType skillType = unit->skills[i % 5]->GetData()->type;
+		if (skillType == SkillData::TRANS && transTime > 0)
+			continue;
+		if(!unit->skills[i%5]->IsInRange(unit->GetPoint(), pTarget))
+			continue;
+		unit->SetDir(
+			max(-1, min(1, pTarget.x - unit->GetPoint().x)),
+			max(-1, min(1, pTarget.y - unit->GetPoint().y))
+		);
+		if (unit->IsUsableSkill(i % 5)) {
+			if (skillType == SkillData::TRANS)
+				transTime = transRate;
+			reservedSkill = i % 5;
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool EnemyController::ActivateReserved()
+{
+	if (reservedSkill >= 0 && reservedSkill < 5) {
+		unit->UseSkill(reservedSkill);
+		reservedSkill = -1;
+		return true;
+	}
 	return false;
 }
 
 void EnemyController::SetMoveCommand()
 {
+	if (!unit->Active())
+		return;
+
 	//에너미는 일제히 움직인다 => 이동한다고 선언할 필요가 없음
 	if (unit->GetWait() != 0)
 		return;
@@ -72,10 +112,13 @@ void EnemyController::SetMoveCommand()
 		return;
 	}
 
-	//타겟 발견 시
-
-	//이동 방향 확인
+	//타겟 발견 시 쫓기
 	ChaseMoveCommand(detectables, make_pair(pTarget.x, pTarget.y));
+}
+
+void EnemyController::TurnEnd()
+{
+	transTime = max(--transTime, 0);
 }
 
 POINT EnemyController::ChooseTarget(vector<pair<int, int>>& detectables)
@@ -104,6 +147,7 @@ POINT EnemyController::ChooseTarget(vector<pair<int, int>>& detectables)
 
 void EnemyController::ChaseMoveCommand(vector<pair<int, int>>& detectables, pair<int, int> target)
 {
+	//자신 위치
 	POINT uPoint = unit->GetPoint();
 
 	pair<int, int> start = make_pair(uPoint.x, uPoint.y);

@@ -130,6 +130,8 @@ vector<POINT> DungeonTileMap::GetPointsByCondition(function<bool(POINT)> conditi
 {
 	vector<POINT> points;
 	for (int i = 0; i < bgTiles.size(); i++) {
+		
+
 		POINT tilePoint = { i % (LONG)width, i / (LONG)width };
 		//애초에 벽
 		if (condition(tilePoint))
@@ -142,6 +144,11 @@ vector<POINT> DungeonTileMap::GetPointsByCondition(function<bool(POINT)> conditi
 POINT DungeonTileMap::GetRandomPointByCondition(function<bool(POINT)> condition)
 {
 	vector<POINT> roomPoints = GetPointsByCondition(condition);
+
+	if (roomPoints.empty()) {
+		return { -1, -1 };
+	}
+
 	return roomPoints[Random(0, (int)roomPoints.size())];
 }
 
@@ -206,7 +213,7 @@ vector<pair<int, int>> DungeonTileMap::DetectableTiles(POINT curPoint)
 
 DungeonBgTile* DungeonTileMap::GetBgTile(POINT point)
 {
-	if(point.x >= (int)width || point.x < 0 || point.y >= (int)height || point.y)
+	if(point.x >= (int)width || point.x < 0 || point.y >= (int)height || point.y < 0)
 		return nullptr;
 
 	return (DungeonBgTile*)bgTiles[point.y * width + point.x];

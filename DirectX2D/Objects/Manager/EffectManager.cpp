@@ -43,9 +43,8 @@ Effect* EffectManager::Pop(string key)
 		return nullptr;
 
 	for (auto effect : totalEffects[key]) {
-		if (!effect->Active()) {
+		if (!effect->Active())
 			return effect;
-		}
 	}
 	return nullptr;
 }

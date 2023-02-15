@@ -34,6 +34,9 @@ public:
 
 private:
 	void CallTileMap(OUT void** tileMap) {
+		if (this->tileMap == nullptr)
+			return;
+
 		*tileMap = (void*)this->tileMap;
 	}
 
@@ -42,15 +45,18 @@ private:
 	void SetFloorMove(int floor) { this->floorMove = floor; }
 	void ShiftNextFloor();
 	void InitFloor(string name, int floor);
+
+	void PlayerDie(void *unitPtr);
 private:
 	DungeonTileMap* tileMap;
 
 	ActState actState = ENTER_DUNGEON;
 
-	class PlayerController* controller = nullptr;
-
 	vector<Unit*> actionUnits;
 	vector<Unit*> movingUnits;
 
 	int floorMove = 0;
+
+	//Å×½ºÆ®
+	Quad* gameOver;
 };

@@ -62,10 +62,9 @@ void Effect::Play(Vector2 position)
 	isActive = true;
 	Pos() = position;
 	UpdateWorld();
+
 	frameTime = 0.0f;
-
 	curFrameNum = 0;
-
 	frameBuffer->GetCurFrame() = { 0.0f, 0.0f };
 }
 

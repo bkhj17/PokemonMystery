@@ -3,25 +3,24 @@
 #include "BgTileManager.h"
 
 DungeonBgTile::DungeonBgTile(Tile::Data data)
-	: Tile(data)
+	: Quad(data.textureFile), data(data)
 {
+	localPosition = data.pos;
+	localRotation.z = data.angle;
+
 	cutSize = GetTexture()->GetSize() / BgTileManager::Get()->GRID_SIZE;
 	size = cutSize;
 	UpdateVertices();
 }
 
 DungeonBgTile::DungeonBgTile(Tile::Data data, Vector2 size)
-	: Tile(data, size)
+	: Quad(data.textureFile, size), data(data)
 {
+	SetTexture(data.textureFile);
+	localPosition = data.pos;
+	localRotation.z = data.angle;
+
 	cutSize = GetTexture()->GetSize() / BgTileManager::Get()->GRID_SIZE;
-}
-
-void DungeonBgTile::Render()
-{
-	__super::Render();
-
-	collider->Render();
-
 }
 
 void DungeonBgTile::UpdateGrid(int flag)
@@ -41,4 +40,19 @@ bool DungeonBgTile::IsRoom()
 		return false;
 
 	return BgTileManager::Get()->IsRoom(gridFrag);
+}
+
+void DungeonBgTile::SetData(Tile::Data data)
+{
+	this->data.textureFile = data.textureFile;
+	this->data.pos = data.pos;
+	this->data.angle = data.angle;
+	this->data.type = data.type;
+
+	SetTexture(data.textureFile);
+
+	localPosition = data.pos;
+	localRotation.z = data.angle;
+
+	UpdateWorld();
 }

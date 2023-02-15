@@ -58,10 +58,10 @@ void SkillDataManager::Load()
 		data.range = (SkillData::Range)stoi(vs[7]);
 		data.applyTarget = stoi(vs[8]);
 		totalDatas[data.key] = data;
+
+		if (vs[9] != "-")
+			EffectManager::Get()->Add(data.name, 50, ChangeWString(vs[9]), stof(vs[10]), stof(vs[11]), 5.0f);
 	}
-
-
-	EffectManager::Get()->Add("µ¢±¼Ã¤Âï", 50, L"Textures/pokemon/Skill/µ¢±¼Ã¤Âï.png", 7, 1, 5.0f);
 }
 
 float SkillDataManager::CalcAdvantage(int skill, int u)

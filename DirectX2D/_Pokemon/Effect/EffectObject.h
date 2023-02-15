@@ -11,7 +11,7 @@ public:
 
 	void Init(
 		Unit* unit,
-		Effect* effect,
+		string effectName,
 		int applyTarget,
 		function<bool(Unit*, Unit*)> condition,
 		function<void(Unit*, Unit*)> event,

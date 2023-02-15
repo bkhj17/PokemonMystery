@@ -64,7 +64,7 @@ void DungeonDataManager::LoadData(string fileName)
 		auto vLevel = SplitString(v[12], " ");
 
 		for (int i = 0; i < vMonster.size(); i++)
-			data.monsters.emplace_back(make_pair(vMonster[i], stoi(vLevel[i])));
+			data.monsters.emplace_back(make_pair(stoi(vMonster[i]), stoi(vLevel[i])));
 		data.monsterNum = stoi(v[13]);
 
 		data.traps = SplitString(v[14], " ");

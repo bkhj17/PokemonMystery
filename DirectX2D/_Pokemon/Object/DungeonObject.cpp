@@ -46,13 +46,15 @@ void DungeonObject::SetPoint(int x, int y)
 
 POINT DungeonObject::GetPoint()
 {
-	POINT point = { -1, -1 };
 	DungeonTileMap* tileMap = nullptr;
 	Observer::Get()->ExecuteGetEvent("CallTileMap", (void**)&tileMap);
 	if (tileMap == nullptr)
 		return { -1, -1 };
 
-	Vector2 pos = IsMoving() ? movement->GetTargetPos() : Pos();
+	Vector2 pos = Pos();
+	Vector2 movePos = movement->GetTargetPos();
+
+	POINT point = tileMap->PosToPoint(IsMoving() ? movement->GetTargetPos() : Pos());
 	return tileMap->PosToPoint(IsMoving() ? movement->GetTargetPos() : Pos());
 }
 

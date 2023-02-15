@@ -1,7 +1,7 @@
 #pragma once
 
 struct SkillData {
-	enum SkillType : int{
+	enum SkillType : int {
 		PHYSICS,
 		SPECIAL,
 		TRANS
@@ -18,7 +18,8 @@ struct SkillData {
 	enum ApplyTarget : int {
 		ALL,
 		ENEMY,
-		FRIEND
+		FRIEND,
+		NONE
 	};
 
 	int key;

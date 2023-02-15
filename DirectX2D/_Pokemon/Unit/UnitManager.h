@@ -65,6 +65,8 @@ class UnitManager : public Singleton<UnitManager>
 private:
 	const Vector2 UNIT_SIZE = { 80.0f, 80.0f };
 
+	const string POKEMON_TABLE			= "TextData/PokemonData.csv";
+	const string POKEMON_SKILL_TABLE	= "TextData/PokemonSkillData.csv";
 private:
 	friend class Singleton;
 	UnitManager();
@@ -95,16 +97,20 @@ public:
 	bool IsActing();
 
 	void GetPokemonData(IN int key, IN int level, OUT PokemonData*& data);
+	void GetInitSkills(IN int key, IN int level, OUT vector<int>& result);
+	void GetSkillDataKey(IN int key, IN int level, OUT vector<int>& v);
 
 	Unit* GetPlayer() { return player; }
 	vector<Unit*>& GetFriends() { return friends; }
+
+	void InitEnemy();
+	void InitEnemy(int key, int level);
 	vector<Unit*>& GetEnemies() { return enemies; }
+	void ClearEnemy();
 
 	bool IsUnitOnPoint(POINT point);
 	Unit* GetUnitOnPoint(POINT point);
 	bool CheckMovablePoint(POINT point, int dirX, int dirY);
-
-
 
 	struct AnimData {
 		int pokemonNum = 1;
@@ -121,12 +127,13 @@ public:
 
 private:
 	void ApplyLevel(IN int level, OUT PokemonData* data);
-	void LoadPokemonTable(string fileName);
+	void LoadPokemonTable();
 	void LoadAnimData();
+	void LoadPokemonSkillTable();
 private:
 	//선언 관련
 	map<int, PokemonTableData> pokemonTable;
-	map<int, map<int, int>> pokemonSkillTable;
+	map<int, map<int, vector<int>>> pokemonSkillTable;
 	map<int, AnimData> animTable;
 
 	//행동 관련

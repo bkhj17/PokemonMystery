@@ -12,7 +12,7 @@ struct FloorData {
 	int nextFloor;
 
 	//나오는 몬스터 데이터도 필요
-	vector<pair<string, int>> monsters;
+	vector<pair<int, int>> monsters;
 	int monsterNum;
 
 	vector<string> items;
