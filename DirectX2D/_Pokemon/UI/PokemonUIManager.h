@@ -17,8 +17,12 @@ public:
 
 	UIWindow* OpenUI(string key);
 	void CloseUI();
+	void CloseUI(string key);
+
 
 	bool IsActing();
+
+
 private:
 	class StatusUI* statusUI;
 	UIWindow* logUI = nullptr; 

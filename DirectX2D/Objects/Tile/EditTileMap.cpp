@@ -32,7 +32,6 @@ void EditTileMap::Update()
 	for (auto tile : objTiles)
 		tile->Update();
 
-
 	UpdateWorld();
 }
 

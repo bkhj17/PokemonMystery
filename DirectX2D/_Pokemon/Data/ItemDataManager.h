@@ -25,10 +25,7 @@ public:
 
         return &datas[key];
     }
-
 private:
-
     unordered_map<string, ItemData> datas;
-
 };
 

@@ -21,16 +21,19 @@ Unit::Unit(Controller* controller, Vector2 size)
 	}
 
 	downQuad = new Quad(Vector2(40.0f, 40.0f));
+	downQuad->SetPixelShader(L"Transit.hlsl");
 	downQuad->SetTexture(L"Textures/pokemon/Down.png");
 	downQuad->SetParent(this);
 	downQuad->Pos() = { -size.x * 0.5f, size.y * 0.5f };
+
 }
 
 Unit::~Unit()
 {
-	delete animObject;
-	delete controller;
+	SAFE_DELETE(animObject);
+	SAFE_DELETE(controller);
 	delete data;
+
 }
 
 void Unit::Init()
@@ -59,6 +62,8 @@ void Unit::Render()
 	if (!isActive)
 		return;
 	__super::Render();
+
+	animObject->GetColorBuffer()->Get() = { 1.0f, 1.0f, 1.0f, data->curHp > 0 ? 1.0f : 0.5f };
 	animObject->Render();
 
 	if (downTime > 0) {
@@ -73,6 +78,7 @@ void Unit::CreateClipData()
 	animObject = new AnimObject();
 	animObject->SetParent(this);
 
+	animObject->SetPixelShader(L"Transit.hlsl");
 	//애니메이션 클립 설정
 	//데이터화 가능하면 좋겠다만
 	auto animData = UnitManager::Get()->GetAnimData(data->key);
@@ -302,7 +308,7 @@ void Unit::Damage(int damage)
 
 void Unit::Die()
 {
-	Observer::Get()->ExecuteParamEvent("UnitDie", reinterpret_cast<void*>(this));
+	Observer::Get()->ExecuteParamEvent("UnitDie", reinterpret_cast<void*>(this));	
 }
 
 void Unit::SetIdle()

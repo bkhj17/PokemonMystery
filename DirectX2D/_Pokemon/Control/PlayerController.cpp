@@ -28,7 +28,6 @@ bool PlayerController::SetCommand()
 		return false;
 	}
 
-
 	if (KEY_DOWN('Z')) {
 		unit->UseSkill(0);
 		return true;

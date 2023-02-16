@@ -18,7 +18,6 @@ public:
 		POINT startPoint);
 
 	virtual void Update() override;
-	virtual void Render() override;
 
 	virtual bool IsCollide() { return false; }
 

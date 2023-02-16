@@ -19,6 +19,8 @@ public:
 
     void AddClip(int key, Clip* clip) { clips[key] = clip; }
     void SetClip(int key);
+        
+    ColorBuffer* GetColorBuffer() { return colorBuffer; }
 private:
     ColorBuffer* colorBuffer;
 

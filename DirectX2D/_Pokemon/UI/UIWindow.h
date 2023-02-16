@@ -1,6 +1,5 @@
 #pragma once
-class UIWindow :
-    public Quad
+class UIWindow : public Quad
 {
 public:
     UIWindow(Vector2 size, Vector2 pos);
@@ -17,6 +16,8 @@ public:
     virtual void Close();
 private:
     void SetShaderInfo();
+    void CreateCursor();
+
 protected:
     FloatValueBuffer* floatBuffer;
 

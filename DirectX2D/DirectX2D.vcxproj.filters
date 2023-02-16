@@ -504,6 +504,15 @@
     <ClInclude Include="_Pokemon\UI\SkillUI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="_Pokemon\UI\ItemUi.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_Pokemon\UI\MessageUI.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_Pokemon\Log\Log.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectX2D.cpp">
@@ -971,6 +980,15 @@
     <ClCompile Include="_Pokemon\UI\SkillUI.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="_Pokemon\UI\ItemUi.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="_Pokemon\UI\MessageUI.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="_Pokemon\Log\Log.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX2D.rc">
@@ -1008,5 +1026,6 @@
     <FxCompile Include="Shaders\PixelImageFont.hlsl" />
     <FxCompile Include="Shaders\PixelWindowFrame.hlsl" />
     <FxCompile Include="Shaders\PixelMiniMapShader.hlsl" />
+    <FxCompile Include="Shaders\PixelTransit.hlsl" />
   </ItemGroup>
 </Project>

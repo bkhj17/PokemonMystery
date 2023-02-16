@@ -142,5 +142,9 @@ private:
 	vector<Unit*> enemies;
 
 	Phase curPhase = PLAYER_COMMAND;
+
+	bool playerCommanded = false;
+
+	ColorBuffer* notShadeBuffer;
 };
 

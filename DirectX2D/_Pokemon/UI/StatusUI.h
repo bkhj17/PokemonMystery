@@ -31,5 +31,7 @@ private:
 	Quad* qLv;
 	Quad* qHP;
 	Quad* qSlash;
+
+	ColorBuffer* transitBuffer;
 };
 

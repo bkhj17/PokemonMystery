@@ -27,6 +27,14 @@ UnitManager::UnitManager()
 		e = new Unit(new EnemyController(), UNIT_SIZE);
 		e->SetActive(false);
 	}
+
+	Observer::Get()->AddEvent("PlayerCommand", [this]() {
+		playerCommanded = true;
+	});
+
+
+	notShadeBuffer = new ColorBuffer;
+	notShadeBuffer->Get() = { 1.0f, 0.0f, 1.0f, 1.0f };
 }
 
 UnitManager::~UnitManager()
@@ -41,12 +49,13 @@ UnitManager::~UnitManager()
 		delete e;
 	enemies.clear();
 	enemies.shrink_to_fit();
+
+	delete notShadeBuffer;
 }
 
 void UnitManager::Init()
 {
-	player->SetData(1, 5);
-
+	player->SetData(1, 6);
 }
 
 void UnitManager::Update()
@@ -81,6 +90,7 @@ void UnitManager::Render()
 		return l->GlobalPos().y > r->GlobalPos().y;
 	});
 
+	notShadeBuffer->SetPS(1);
 	for (auto unit : v)
 		unit->Render();
 	v.clear();
@@ -96,8 +106,9 @@ void UnitManager::RunPhase()
 		{
 		case UnitManager::PLAYER_COMMAND:
 			if (player->GetWait() == 0) {
-				if (player->GetController()->SetCommand()) {
+				if (playerCommanded || player->GetController()->SetCommand()) {
 					player->GetWait() += 2;
+					playerCommanded = false;
 				}
 				else {
 					return;

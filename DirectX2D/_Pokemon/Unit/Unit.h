@@ -55,6 +55,7 @@ public:
 	virtual bool IsCollide() override;
 
 	// DungeonObject을(를) 통해 상속됨
+	vector<class Skill*>& GetSkills() { return skills; };
 	virtual bool IsUsableSkill(int index, bool log = true);
 	virtual bool UseSkill(int index);
 
@@ -105,8 +106,8 @@ private:
 	//지닌 아이템 키
 	ItemData* carryItem = nullptr;
 
-
 	int downTime = 0;
 	Quad* downQuad = nullptr;
+
 };
 

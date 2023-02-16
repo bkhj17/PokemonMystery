@@ -5,6 +5,7 @@
 #include "StatusUI.h"
 #include "MiniMap.h"
 #include "SkillUI.h"
+#include "MessageUI.h"
 
 PokemonUIManager::PokemonUIManager()
 {
@@ -14,7 +15,7 @@ PokemonUIManager::PokemonUIManager()
 
 	totalUI["Skill"] = new SkillUI();
 	totalUI["YesNo"] = new YesNoUI({ 150, 100 }, { WIN_WIDTH - 150, CENTER_Y });
-
+	
 	miniMap = new MiniMap();
 }
 
@@ -75,6 +76,14 @@ void PokemonUIManager::CloseUI()
 	if (openned.empty())
 		return;
 	openned.pop_back();
+}
+
+void PokemonUIManager::CloseUI(string key)
+{
+	if (totalUI.find(key) == totalUI.end())
+		return;
+
+	totalUI[key]->Close();
 }
 
 bool PokemonUIManager::IsActing()

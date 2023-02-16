@@ -1,25 +1,23 @@
 #include "Framework.h"
 #include "YesNoUI.h"
 #include "PokemonUIManager.h"
-
+#include "MessageUI.h"
 YesNoUI::YesNoUI(Vector2 size, Vector2 pos)
 	: UIWindow(size, pos)
 {
-	cQuad = new Quad(L"Textures/pokemon/UI/Cursor.png");
-	cQuad->SetParent(this);
-
 	maxCursor = 2;
+	messageUI = new MessageUI();
+	messageUI->SetMessage("계단을 발견했다. 이동하시겠습니까?");
 }
 
 YesNoUI::~YesNoUI()
 {
-	delete cQuad;
+	delete messageUI;
 }
 
 void YesNoUI::Init()
 {
 	__super::Init();
-	cursor = 0;
 }
 
 void YesNoUI::Update()
@@ -37,11 +35,11 @@ void YesNoUI::Update()
 		{
 		case 0:
 			Observer::Get()->ExecuteEvent(yesEventKey);
-			isActive = false;
+			Close();
 			break;
 		case 1:
 			isActive = false;
-			break;
+			Close();
 		}
 		return;
 	}
@@ -49,11 +47,18 @@ void YesNoUI::Update()
 
 void YesNoUI::PostRender()
 {
+	messageUI->PostRender();
+
 	__super::PostRender();
 	
 	Font::Get()->RenderText(yes, Pos() + YES_POS);
 	Font::Get()->RenderText(no, Pos() + NO_POS);
 
 	RenderCursor();
+}
+
+void YesNoUI::Close()
+{
+	__super::Close();
 }
 

@@ -7,23 +7,30 @@ UIWindow::UIWindow(Vector2 size, Vector2 pos)
 	isActive = false;
 	localPosition = pos;
 	SetShaderInfo();
+
+	CreateCursor();
 }
 
 UIWindow::UIWindow(float left, float right, float up, float down)
 	: Quad(Vector2(right - left, up - down))
 {
 	localPosition = { (right + left) / 2, (up + down) / 2 };
+	UpdateWorld();
 	SetShaderInfo();
+
+	CreateCursor();
 }
 
 UIWindow::~UIWindow()
 {
 	delete floatBuffer;
+	delete cQuad;
 }
 
 void UIWindow::Init()
 {
 	isActive = true;
+	cursor = 0;
 }
 
 void UIWindow::Update()
@@ -32,7 +39,7 @@ void UIWindow::Update()
 		cursor = (++cursor) % maxCursor;
 
 	if (KEY_DOWN(VK_UP))
-		cursor = cursor == 0 ? maxCursor - 1 : 0;
+		cursor = cursor == 0 ? maxCursor - 1 : cursor-1;
 
 	if (KEY_DOWN('X'))
 		Close();
@@ -56,7 +63,6 @@ void UIWindow::PostRender()
 void UIWindow::Close()
 {
 	isActive = false;
-	return;
 }
 
 void UIWindow::SetShaderInfo()
@@ -70,4 +76,11 @@ void UIWindow::SetShaderInfo()
 	floatBuffer->Get()[0] = 0.05f;
 	floatBuffer->Get()[1] = 0.05f;
 	floatBuffer->Get()[2] = 0.8f;
+}
+
+void UIWindow::CreateCursor()
+{
+	cQuad = new Quad(Vector2(50.0f, 50.0f));
+	cQuad->SetTexture(L"Textures/pokemon/UI/Cursor.png");
+	cQuad->SetParent(this);
 }

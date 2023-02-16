@@ -19,6 +19,9 @@ public:
 	void RenderText(wstring text, Float2 pos, Float2 size = {});
 	void RenderText(string text, Float2 pos, Float2 size = {});
 
+	void RenderTextLeft(string text, Float2 pos, Float2 size = {});
+	void RenderTextLeft(wstring text, Float2 pos, Float2 size = {});
+
 	ID2D1DeviceContext* GetDC() { return context; }
 
 private:

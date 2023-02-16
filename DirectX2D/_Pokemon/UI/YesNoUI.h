@@ -12,6 +12,7 @@ public:
 	virtual void Init() override;
 	void Update() override;
 	void PostRender() override;
+	void Close() override;
 
 	void SetYesEvent(string key) { yesEventKey = key; }
 
@@ -20,5 +21,7 @@ private:
 	wstring no = L"¾Æ´Ï¿À";
 
 	string yesEventKey = "";
+
+	class MessageUI* messageUI;
 };
 

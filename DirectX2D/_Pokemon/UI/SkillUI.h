@@ -10,8 +10,14 @@ public:
     ~SkillUI() = default;
 
     void Update();
+    void PostRender();
 
 private:
-    int cursor = 0;
+    //위치 조정용 함수들
+    float CursorX();
+    float NameX();
+    float PpX();
+
+    float LineY(int lineNum);
 };
 

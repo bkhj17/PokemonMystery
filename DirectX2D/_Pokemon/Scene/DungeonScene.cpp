@@ -74,11 +74,14 @@ void DungeonScene::InitFloor(string name, int floor)
 	auto player = UnitManager::Get()->GetPlayer();
 	player->SetDir(0, -1);
 	player->SetPoint(tileMap->GetPlayerStartPoint());
+	player->SetDown(0);
 	CAM->SetTarget(UnitManager::Get()->GetPlayer());
 
 	UnitManager::Get()->ClearEnemy();
-
 	UnitManager::Get()->InitEnemy();
+
+	Observer::Get()->ExecuteEvent("ClearMiniMap");
+	Observer::Get()->ExecuteParamEvent("MoveEnd", player);
 
 	floorMove = 0;
 	actState = ENTER_DUNGEON;

@@ -12,6 +12,7 @@ StatusUI::StatusUI()
 	
 	qB = new Quad(L"Textures/pokemon/UI/B.png");
 	qB->SetParent(this);
+	qB->SetPixelShader(L"Transit.hlsl");
 	qB->Pos().x = -CENTER_X + WIN_WIDTH * 0.02f;
 
 	floorFont = new ImageFont(numTextureFile, 0.0f);
@@ -19,10 +20,12 @@ StatusUI::StatusUI()
 	floorFont->SetAligned(ImageFont::CENTER);
 	
 	qF = new Quad(L"Textures/pokemon/UI/F.png");
+	qF->SetPixelShader(L"Transit.hlsl");
 	qF->SetParent(this);
 
 	qLv = new Quad(L"Textures/pokemon/UI/Lv.png");
 	qLv->SetParent(this);
+	qLv->SetPixelShader(L"Transit.hlsl");
 	qLv->Pos().x = -CENTER_X + WIN_WIDTH * 0.15f;
 
 	levelFont = new ImageFont(numTextureFile, 0.0f);
@@ -31,6 +34,7 @@ StatusUI::StatusUI()
 
 	qHP = new Quad(L"Textures/pokemon/UI/HP.png");
 	qHP->SetParent(this);
+	qHP->SetPixelShader(L"Transit.hlsl");
 	qHP->Pos().x = -CENTER_X + WIN_WIDTH * 0.28f;
 
 	curHpFont = new ImageFont(numTextureFile, 0.0f);
@@ -40,6 +44,7 @@ StatusUI::StatusUI()
 
 	qSlash = new Quad(L"Textures/pokemon/UI/Slash.png");
 	qSlash->SetParent(this);
+	qSlash->SetPixelShader(L"Transit.hlsl");
 
 	maxHpFont = new ImageFont(numTextureFile, 0.0f);
 	maxHpFont->SetParent(this);
@@ -51,21 +56,26 @@ StatusUI::StatusUI()
 	progressBar->Pos().x = progressBar->Half().x;
 	progressBar->SetParent(this);
 
+	transitBuffer = new ColorBuffer;
+	transitBuffer->Get() = { 1.0f, 0.0f, 1.0f, 1.0f };
+
 	Observer::Get()->AddEvent("UpdateStatusUI", bind(&StatusUI::UpdateInfo, this));
 }
 
 StatusUI::~StatusUI()
 {
-	SAFE_DELETE(progressBar);
-	SAFE_DELETE(curHpFont);
-	SAFE_DELETE(maxHpFont);
-	SAFE_DELETE(floorFont);
-	SAFE_DELETE(levelFont);
-	SAFE_DELETE(qB);
-	SAFE_DELETE(qF);
-	SAFE_DELETE(qLv);
-	SAFE_DELETE(qHP);
-	SAFE_DELETE(qSlash);
+	delete progressBar;
+	delete curHpFont;
+	delete maxHpFont;
+	delete floorFont;
+	delete levelFont;
+	delete qB;
+	delete qF;
+	delete qLv;
+	delete qHP;
+	delete qSlash;
+
+	delete transitBuffer;
 }
 
 void StatusUI::UpdateInfo()
@@ -82,6 +92,7 @@ void StatusUI::PostRender()
 	curHpFont->PostRender();
 	maxHpFont->PostRender();
 
+	transitBuffer->SetPS(1);
 	if(floor < 0)
 		qB->PostRender();
 	qF->PostRender();

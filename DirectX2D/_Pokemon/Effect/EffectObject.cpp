@@ -59,12 +59,6 @@ void EffectObject::Update()
 	UpdateWorld();
 }
 
-void EffectObject::Render()
-{
-	if (!effect || !effect->Active())
-		return;
-}
-
 void EffectObject::Apply()
 {
 	//이펙트 종료 시. 기본 공격은 이펙트가 없다
