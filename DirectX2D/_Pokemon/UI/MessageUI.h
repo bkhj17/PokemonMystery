@@ -3,8 +3,9 @@
 class MessageUI : public UIWindow
 {
 public:
+	
 	MessageUI();
-	~MessageUI();
+	~MessageUI() = default;
 
 	void PostRender() override;
 

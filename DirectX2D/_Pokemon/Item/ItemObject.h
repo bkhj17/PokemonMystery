@@ -22,4 +22,6 @@ private:
 private:
 	ItemData* data = nullptr;
 	Quad* quad;
+
+	ColorBuffer* transit;
 };

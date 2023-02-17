@@ -48,7 +48,6 @@ struct PokemonTableData {
 		float levelRate = (float)level / 100.0f;
 		return (int)((num * 2) * levelRate) + 5;
 	}
-
 };
 
 struct PokemonData {
@@ -100,9 +99,13 @@ public:
 	void GetInitSkills(IN int key, IN int level, OUT vector<int>& result);
 	void GetSkillDataKey(IN int key, IN int level, OUT vector<int>& v);
 
+	//주인공
 	Unit* GetPlayer() { return player; }
+
+	//동료
 	vector<Unit*>& GetFriends() { return friends; }
 
+	//적
 	void InitEnemy();
 	void InitEnemy(int key, int level);
 	vector<Unit*>& GetEnemies() { return enemies; }

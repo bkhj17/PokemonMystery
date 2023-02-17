@@ -3,7 +3,6 @@
 #include "DungeonBgTile.h"
 #include "BgTileManager.h"
 #include "DungeonObjTile.h"
-#include "DungeonAStar.h"
 #include "ObjTileManager.h"
 #include "../Data/DungeonDataManager.h"
 #include "../Item/ItemObjectManager.h"
@@ -22,20 +21,18 @@ DungeonTileMap::DungeonTileMap()
 	quad->SetVertexShader(L"DungeonTile.hlsl");
 	quad->SetPixelShader(L"DungeonTile.hlsl");
 
-	instances.resize(MAX_WIDTH * MAX_HEIGHT);	
+	instances.resize(MAX_WIDTH * MAX_HEIGHT);
 	for (auto& instance : instances)
 		instance.maxFrame = maxFrame;
 	
 	instanceBuffer = new VertexBuffer(instances.data(), sizeof(TileInstanceData), MAX_WIDTH * MAX_HEIGHT);
 	
-	astar = new DungeonAStar(this);
 }
 
 DungeonTileMap::~DungeonTileMap()
 {
 	delete instanceBuffer;
 	delete quad;
-	delete astar;
 	ObjTileManager::Delete();
 }
 

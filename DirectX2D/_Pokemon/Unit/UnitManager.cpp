@@ -16,6 +16,7 @@ UnitManager::UnitManager()
 
 	player = new Unit(new PlayerController(), UNIT_SIZE);
 	/*
+	//동료 생성 : 생략
 	friends.resize(3);
 	for (auto& f : friends) {
 		f = new Unit(nullptr, UNIT_SIZE);
@@ -31,7 +32,6 @@ UnitManager::UnitManager()
 	Observer::Get()->AddEvent("PlayerCommand", [this]() {
 		playerCommanded = true;
 	});
-
 
 	notShadeBuffer = new ColorBuffer;
 	notShadeBuffer->Get() = { 1.0f, 0.0f, 1.0f, 1.0f };
@@ -330,7 +330,6 @@ void UnitManager::InitEnemy() {
 	auto& monsters = tileMap->GetFloorData()->monsters;
 	int i = Random(0, (int)monsters.size());
 	InitEnemy(monsters[i].first, monsters[i].second);
-
 }
 
 void UnitManager::InitEnemy(int key, int level)
@@ -343,12 +342,10 @@ void UnitManager::InitEnemy(int key, int level)
 	Unit* unit = nullptr;
 	int cnt = 0;
 	for (auto e : enemies) {
-		if (e->Active()) {
+		if (e->Active())
 			cnt++;
-		}
-		else if (unit == nullptr) {
+		else if (unit == nullptr)
 			unit = e;
-		}
 	}
 
 	if (tileMap->GetFloorData()->monsterNum <= cnt)
@@ -370,9 +367,8 @@ void UnitManager::InitEnemy(int key, int level)
 		return true;
 	});
 
-	if (point.x == -1 || point.y == -1) {
+	if (point.x == -1 || point.y == -1)
 		return;
-	}
 
 	if (tileMap->GetBgTile(point)->GetTexture() != BgTileManager::Get()->GetLandTexture())
 		return;
@@ -433,10 +429,9 @@ void UnitManager::LoadPokemonTable()
 	ifstream ifs;
 	ifs.open(POKEMON_TABLE);
 
-	if (ifs.fail()) {
+	if (ifs.fail())
 		//로드 실패
 		return;
-	}
 
 	bool isFirst = true;
 	while (!ifs.eof()) {

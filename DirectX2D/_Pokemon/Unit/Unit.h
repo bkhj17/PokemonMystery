@@ -59,7 +59,7 @@ public:
 	virtual bool IsUsableSkill(int index, bool log = true);
 	virtual bool UseSkill(int index);
 
-	void Damage(int damage);
+	void Damage(int damage, bool log = true);
 	void Die();
 
 	int GetCurAction() { return dirCode % 100; }

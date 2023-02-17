@@ -301,7 +301,7 @@ bool Unit::UseSkill(int index)
 	return true;
 }
 
-void Unit::Damage(int damage)
+void Unit::Damage(int damage, bool log)
 {
 	if (damage > 0) {
 		dirCode = dirCode / 100 * 100 + DAMAGE;
@@ -310,17 +310,18 @@ void Unit::Damage(int damage)
 	int postHp = data->curHp;
 	data->curHp = min(max(data->curHp - damage, 0), data->statusData.maxHp);
 
-	string logText;
-	if (postHp < data->curHp) {
-		//HP가 늘었다 = 회복했다
-		logText = data->statusData.name + "은/는 " + to_string(data->curHp - postHp) + "만큼 회복했다.";
+	if (log) {
+		string logText;
+		if (postHp < data->curHp) {
+			//HP가 늘었다 = 회복했다
+			logText = data->statusData.name + "은/는 " + to_string(abs(data->curHp - postHp)) + "만큼 회복했다.";
+		}
+		else {
+			logText = data->statusData.name + "은/는 " + to_string(damage) + "의 데미지를 입었다.";
+		}
+		if (!logText.empty())
+			LogManager::Get()->InsertLog(logText);
 	}
-	else {
-		logText = data->statusData.name + "은/는 " + to_string(data->curHp - postHp) + "의 데미지를 입었다.";
-	}
-
-	if (!logText.empty())
-		LogManager::Get()->InsertLog(logText);
 
 	if (data->curHp <= 0)
 		Die();
@@ -331,7 +332,9 @@ void Unit::Damage(int damage)
 
 void Unit::Die()
 {
-	Observer::Get()->ExecuteParamEvent("UnitDie", reinterpret_cast<void*>(this));	
+	Observer::Get()->ExecuteParamEvent("UnitDie", reinterpret_cast<void*>(this));
+
+	LogManager::Get()->InsertLog(data->statusData.name + "은/는 쓰러졌다");
 }
 
 void Unit::SetIdle()

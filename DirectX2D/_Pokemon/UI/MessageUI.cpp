@@ -6,10 +6,6 @@ MessageUI::MessageUI()
 {
 }
 
-MessageUI::~MessageUI()
-{
-}
-
 void MessageUI::PostRender()
 {
 	__super::PostRender();

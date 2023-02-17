@@ -9,12 +9,17 @@ ItemObject::ItemObject()
 	isActive = false;
 
 	quad = new Quad(size);
+	quad->SetPixelShader(L"Transit.hlsl");
 	quad->SetParent(this);
+
+	transit = new ColorBuffer();
+	transit->Get() = { 1.0f, 0.0f, 1.0f, 1.0f };
 }
 
 ItemObject::~ItemObject()
 {
 	delete quad;
+	delete transit;
 }
 
 void ItemObject::SetData(string key)
@@ -50,6 +55,7 @@ void ItemObject::Render()
 	if (!isActive)
 		return;
 
+	transit->SetPS(1);
 	__super::Render();
 	quad->Render();
 }

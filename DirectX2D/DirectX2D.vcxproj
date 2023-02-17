@@ -141,6 +141,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Manager\SceneManager.h" />
+    <ClInclude Include="Scenes\Scene.h" />
+    <ClInclude Include="Scenes\TileScene.h" />
+    <ClInclude Include="_Pokemon\UI\LogUi.h" />
     <ClInclude Include="_Pokemon\Log\Log.h" />
     <ClInclude Include="_Pokemon\UI\MessageUI.h" />
     <ClInclude Include="_Pokemon\UI\ItemUi.h" />
@@ -169,9 +173,7 @@
     <ClInclude Include="_Pokemon\Control\PlayerController.h" />
     <ClInclude Include="_Pokemon\Object\DungeonObject.h" />
     <ClInclude Include="_Pokemon\Control\Controller.h" />
-    <ClInclude Include="_Pokemon\Tile\DungeonAStar.h" />
     <ClInclude Include="Objects\Basic\Particle.h" />
-    <ClInclude Include="Scenes\ParticleScene.h" />
     <ClInclude Include="_Pokemon\Unit\UnitMovement.h" />
     <ClInclude Include="_Pokemon\Unit\Unit.h" />
     <ClInclude Include="_Pokemon\Tile\BgTileManager.h" />
@@ -179,90 +181,31 @@
     <ClInclude Include="_Pokemon\Scene\DungeonScene.h" />
     <ClInclude Include="_Pokemon\Tile\DungeonBgTile.h" />
     <ClInclude Include="_Pokemon\Tile\DungeonTileMap.h" />
-    <ClInclude Include="Scenes\InstancingScene.h" />
     <ClInclude Include="Objects\Basic\AnimObject.h" />
-    <ClInclude Include="Homework\230130\Enemy0130.h" />
-    <ClInclude Include="Objects\Character\Isaac\Isaac.h" />
     <ClInclude Include="Objects\Algorithm\Heap.h" />
-    <ClInclude Include="Objects\Algorithm\Dijkstra.h" />
-    <ClInclude Include="Objects\Algorithm\DNode.h" />
     <ClInclude Include="Objects\Algorithm\AStar.h" />
-    <ClInclude Include="Homework\230126\EnemyTank0126.h" />
     <ClInclude Include="Framework\Collision\LineCollider.h" />
     <ClInclude Include="Objects\Algorithm\Node.h" />
-    <ClInclude Include="Homework\230130\Scene0130.h" />
-    <ClInclude Include="Homework\230130\Pacman0130.h" />
-    <ClInclude Include="Homework\230131\Scene0131.h" />
-    <ClInclude Include="Objects\UI\Panel.h" />
     <ClInclude Include="Framework\Utilities\BinaryReader.h" />
     <ClInclude Include="Framework\Utilities\BinaryWriter.h" />
     <ClInclude Include="Objects\Tile\GameTileMap.h" />
     <ClInclude Include="Libraries\ImGui\ImGuiFileDialog.h" />
     <ClInclude Include="Objects\Tile\EditTileMap.h" />
     <ClInclude Include="Framework\Environment\Camera.h" />
-    <ClInclude Include="Objects\Puzzle\Card.h" />
     <ClInclude Include="Framework\Utilities\Font.h" />
-    <ClInclude Include="Homework\230120\CardManager0120.h" />
-    <ClInclude Include="Homework\230120\LineRenderer0120.h" />
-    <ClInclude Include="Homework\230120\LineManager0120.h" />
     <ClInclude Include="Objects\UI\Button.h" />
-    <ClInclude Include="Homework\230119\Robot0119.h" />
-    <ClInclude Include="Objects\Manager\CommandManager.h" />
     <ClInclude Include="Objects\Manager\EffectManager.h" />
     <ClInclude Include="Objects\Basic\Effect.h" />
-    <ClInclude Include="Homework\230118\Dummy0118.h" />
-    <ClInclude Include="Homework\230118\Command0118.h" />
-    <ClInclude Include="Objects\Character\Ninja\NinjaGlide.h" />
-    <ClInclude Include="Objects\Character\Ninja\NinjaJumpDown.h" />
-    <ClInclude Include="Objects\Character\Ninja\NinjaJumpUp.h" />
-    <ClInclude Include="Objects\Character\Ninja\NinjaThrow.h" />
-    <ClInclude Include="Objects\Character\Ninja\NinjaJumpAttack.h" />
-    <ClInclude Include="Objects\Character\Ninja\NinjaMeleeAttack.h" />
-    <ClInclude Include="Objects\Character\Ninja\NinjaAttack.h" />
-    <ClInclude Include="Objects\Character\Ninja\NinjaJump.h" />
-    <ClInclude Include="Objects\Character\Ninja\NinjaRun.h" />
-    <ClInclude Include="Objects\Character\Ninja\NinjaIdle.h" />
     <ClInclude Include="Objects\Basic\Action.h" />
-    <ClInclude Include="Homework\230116\AnimTransform0117.h" />
     <ClInclude Include="Framework\Render\Clip.h" />
     <ClInclude Include="Framework\Render\Frame.h" />
     <ClInclude Include="Framework\Utilities\tinyxml2.h" />
-    <ClInclude Include="Objects\Character\Ninja\Ninja.h" />
-    <ClInclude Include="Homework\230118\Scene0118.h" />
-    <ClInclude Include="Homework\230118\Robot\Robot0118.h" />
-    <ClInclude Include="Homework\230118\Robot\RobotJumpUp0118.h" />
-    <ClInclude Include="Homework\230118\Robot\RobotJumpDown0118.h" />
-    <ClInclude Include="Homework\230118\Robot\RobotMeleeAttack0118.h" />
-    <ClInclude Include="Homework\230118\Robot\RobotAttack0118.h" />
-    <ClInclude Include="Homework\230118\Robot\RobotJumpAttack0118.h" />
-    <ClInclude Include="Homework\230118\Robot\RobotShoot0118.h" />
-    <ClInclude Include="Homework\230119\Scene0119.h" />
-    <ClInclude Include="Homework\230120\Scene0120.h" />
-    <ClInclude Include="Homework\230120\ProgressBar0120.h" />
     <ClInclude Include="Framework\Render\RenderTarget.h" />
-    <ClInclude Include="Homework\230125\Scene0125.h" />
-    <ClInclude Include="Homework\230126\Scene0126.h" />
-    <ClInclude Include="Scenes\RenderTargetScene.h" />
-    <ClInclude Include="Scenes\PuzzleScene.h" />
-    <ClInclude Include="Scenes\AnimationScene.h" />
-    <ClInclude Include="Objects\PinBall\Ball.h" />
-    <ClInclude Include="Objects\PinBall\Bat.h" />
-    <ClInclude Include="Homework\230116\Block0116.h" />
-    <ClInclude Include="Homework\230116\Ball0116.h" />
-    <ClInclude Include="Homework\230116\Bar0116.h" />
-    <ClInclude Include="Homework\230116\Area0116.h" />
     <ClInclude Include="Framework\Collision\CircleCollider.h" />
     <ClInclude Include="Framework\Collision\Collider.h" />
     <ClInclude Include="Framework\Collision\RectCollider.h" />
-    <ClInclude Include="Homework\230116\Scene0116.h" />
     <ClInclude Include="Framework\Utilities\Observer.h" />
-    <ClInclude Include="Scenes\PinBallScene.h" />
-    <ClInclude Include="Scenes\CollisionScene.h" />
     <ClInclude Include="Framework\Utilities\Audio.h" />
-    <ClInclude Include="Homework\230113\Clay0113.h" />
-    <ClInclude Include="Homework\230113\Aim0113.h" />
-    <ClInclude Include="Objects\Shooting\BulletManager.h" />
-    <ClInclude Include="Objects\Shooting\Bullet.h" />
     <ClInclude Include="Framework\Environment\Environment.h" />
     <ClInclude Include="Framework\Buffer\ConstBuffer.h" />
     <ClInclude Include="Framework\Math\GameMath.h" />
@@ -281,34 +224,19 @@
     <ClInclude Include="Manager\GameManager.h" />
     <ClInclude Include="Framework\Shader\PixelShader.h" />
     <ClInclude Include="Objects\Basic\Quad.h" />
-    <ClInclude Include="Objects\Shooting\Plane.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="Homework\230113\Scene0113.h" />
-    <ClInclude Include="Scenes\Scene.h" />
-    <ClInclude Include="Scenes\ShaderScene.h" />
-    <ClInclude Include="Homework\230120\SichuanCard0120.h" />
-    <ClInclude Include="Scenes\TankScene.h" />
-    <ClInclude Include="Objects\Tile\Tank.h" />
-    <ClInclude Include="Objects\Tile\TankPatrol.h" />
-    <ClInclude Include="Objects\Tile\TankState.h" />
-    <ClInclude Include="Objects\Tile\TankTrace.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Framework\Shader\VertexShader.h" />
     <ClInclude Include="Framework\Buffer\VertexBuffer.h" />
     <ClInclude Include="Framework\Buffer\VertexLayouts.h" />
-    <ClInclude Include="Scenes\TextureScene.h" />
     <ClInclude Include="Framework\Math\Transform.h" />
     <ClInclude Include="Framework\Render\Texture.h" />
-    <ClInclude Include="Scenes\TileScene.h" />
     <ClInclude Include="Objects\Tile\Tile.h" />
-    <ClInclude Include="Homework\230126\TileMap0126.h" />
-    <ClInclude Include="Homework\230130\TileMap0130.h" />
-    <ClInclude Include="Homework\230131\Window0131.h" />
-    <ClInclude Include="Homework\230131\WindowManager0131.h" />
-    <ClInclude Include="Scenes\UIScene.h" />
-    <ClInclude Include="Objects\Manager\UIManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Manager\SceneManager.cpp" />
+    <ClCompile Include="Scenes\TileScene.cpp" />
+    <ClCompile Include="_Pokemon\UI\LogUi.cpp" />
     <ClCompile Include="_Pokemon\Log\Log.cpp" />
     <ClCompile Include="_Pokemon\UI\MessageUI.cpp" />
     <ClCompile Include="_Pokemon\UI\ItemUi.cpp" />
@@ -337,9 +265,7 @@
     <ClCompile Include="_Pokemon\Tile\ObjTileManager.cpp" />
     <ClCompile Include="_Pokemon\Control\PlayerController.cpp" />
     <ClCompile Include="_Pokemon\Object\DungeonObject.cpp" />
-    <ClCompile Include="_Pokemon\Tile\DungeonAStar.cpp" />
     <ClCompile Include="Objects\Basic\Particle.cpp" />
-    <ClCompile Include="Scenes\ParticleScene.cpp" />
     <ClCompile Include="_Pokemon\Unit\UnitMovement.cpp" />
     <ClCompile Include="_Pokemon\Unit\Unit.cpp" />
     <ClCompile Include="_Pokemon\Tile\BgTileManager.cpp" />
@@ -347,89 +273,30 @@
     <ClCompile Include="_Pokemon\Scene\DungeonScene.cpp" />
     <ClCompile Include="_Pokemon\Tile\DungeonBgTile.cpp" />
     <ClCompile Include="_Pokemon\Tile\DungeonTileMap.cpp" />
-    <ClCompile Include="Scenes\InstancingScene.cpp" />
     <ClCompile Include="Objects\Basic\AnimObject.cpp" />
-    <ClCompile Include="Homework\230130\Enemy0130.cpp" />
-    <ClCompile Include="Objects\Character\Isaac\Isaac.cpp" />
     <ClCompile Include="Objects\Algorithm\Heap.cpp" />
-    <ClCompile Include="Objects\Algorithm\Dijkstra.cpp" />
-    <ClCompile Include="Objects\Algorithm\DNode.cpp" />
     <ClCompile Include="Objects\Algorithm\AStar.cpp" />
-    <ClCompile Include="Homework\230126\EnemyTank0126.cpp" />
     <ClCompile Include="Framework\Collision\LineCollider.cpp" />
     <ClCompile Include="Objects\Algorithm\Node.cpp" />
-    <ClCompile Include="Homework\230130\Scene0130.cpp" />
-    <ClCompile Include="Homework\230130\Pacman0130.cpp" />
-    <ClCompile Include="Homework\230131\Scene0131.cpp" />
-    <ClCompile Include="Objects\UI\Panel.cpp" />
     <ClCompile Include="Framework\Utilities\BinaryReader.cpp" />
     <ClCompile Include="Framework\Utilities\BinaryWriter.cpp" />
     <ClCompile Include="Objects\Tile\GameTileMap.cpp" />
     <ClCompile Include="Objects\Tile\EditTileMap.cpp" />
     <ClCompile Include="Framework\Environment\Camera.cpp" />
-    <ClCompile Include="Objects\Puzzle\Card.cpp" />
     <ClCompile Include="Framework\Utilities\Font.cpp" />
-    <ClCompile Include="Homework\230120\CardManager0120.cpp" />
-    <ClCompile Include="Homework\230120\LineRenderer0120.cpp" />
-    <ClCompile Include="Homework\230120\LineManager0120.cpp" />
     <ClCompile Include="Objects\UI\Button.cpp" />
-    <ClCompile Include="Homework\230119\Robot0119.cpp" />
-    <ClCompile Include="Objects\Manager\CommandManager.cpp" />
     <ClCompile Include="Objects\Manager\EffectManager.cpp" />
     <ClCompile Include="Objects\Basic\Effect.cpp" />
-    <ClCompile Include="Homework\230118\Dummy0118.cpp" />
-    <ClCompile Include="Homework\230118\Command0118.cpp" />
-    <ClCompile Include="Objects\Character\Ninja\NinjaGlide.cpp" />
-    <ClCompile Include="Objects\Character\Ninja\NinjaJumpDown.cpp" />
-    <ClCompile Include="Objects\Character\Ninja\NinjaJumpUp.cpp" />
-    <ClCompile Include="Objects\Character\Ninja\NinjaThrow.cpp" />
-    <ClCompile Include="Objects\Character\Ninja\NinjaJumpAttack.cpp" />
-    <ClCompile Include="Objects\Character\Ninja\NinjaMeleeAttack.cpp" />
-    <ClCompile Include="Objects\Character\Ninja\NinjaAttack.cpp" />
-    <ClCompile Include="Objects\Character\Ninja\NinjaJump.cpp" />
-    <ClCompile Include="Objects\Character\Ninja\NinjaRun.cpp" />
-    <ClCompile Include="Objects\Character\Ninja\NinjaIdle.cpp" />
     <ClCompile Include="Objects\Basic\Action.cpp" />
-    <ClCompile Include="Homework\230116\AnimTransform0117.cpp" />
     <ClCompile Include="Framework\Render\Clip.cpp" />
     <ClCompile Include="Framework\Render\Frame.cpp" />
     <ClCompile Include="Framework\Utilities\tinyxml2.cpp" />
-    <ClCompile Include="Objects\Character\Ninja\Ninja.cpp" />
-    <ClCompile Include="Homework\230118\Scene0118.cpp" />
-    <ClCompile Include="Homework\230118\Robot\Robot0118.cpp" />
-    <ClCompile Include="Homework\230118\Robot\RobotJumpUp0118.cpp" />
-    <ClCompile Include="Homework\230118\Robot\RobotJumpDown0118.cpp" />
-    <ClCompile Include="Homework\230118\Robot\RobotMeleeAttack0118.cpp" />
-    <ClCompile Include="Homework\230118\Robot\RobotAttack0118.cpp" />
-    <ClCompile Include="Homework\230118\Robot\RobotJumpAttack0118.cpp" />
-    <ClCompile Include="Homework\230118\Robot\RobotShoot0118.cpp" />
-    <ClCompile Include="Homework\230119\Scene0119.cpp" />
-    <ClCompile Include="Homework\230120\Scene0120.cpp" />
-    <ClCompile Include="Homework\230120\ProgressBar0120.cpp" />
     <ClCompile Include="Framework\Render\RenderTarget.cpp" />
-    <ClCompile Include="Homework\230125\Scene0125.cpp" />
-    <ClCompile Include="Homework\230126\Scene0126.cpp" />
-    <ClCompile Include="Scenes\RenderTargetScene.cpp" />
-    <ClCompile Include="Scenes\PuzzleScene.cpp" />
-    <ClCompile Include="Scenes\AnimationScene.cpp" />
-    <ClCompile Include="Objects\PinBall\Ball.cpp" />
-    <ClCompile Include="Objects\PinBall\Bat.cpp" />
-    <ClCompile Include="Homework\230116\Block0116.cpp" />
-    <ClCompile Include="Homework\230116\Ball0116.cpp" />
-    <ClCompile Include="Homework\230116\Bar0116.cpp" />
-    <ClCompile Include="Homework\230116\Area0116.cpp" />
     <ClCompile Include="Framework\Collision\CircleCollider.cpp" />
     <ClCompile Include="Framework\Collision\Collider.cpp" />
     <ClCompile Include="Framework\Collision\RectCollider.cpp" />
-    <ClCompile Include="Homework\230116\Scene0116.cpp" />
     <ClCompile Include="Framework\Utilities\Observer.cpp" />
-    <ClCompile Include="Scenes\PinBallScene.cpp" />
-    <ClCompile Include="Scenes\CollisionScene.cpp" />
     <ClCompile Include="Framework\Utilities\Audio.cpp" />
-    <ClCompile Include="Homework\230113\Clay0113.cpp" />
-    <ClCompile Include="Homework\230113\Aim0113.cpp" />
-    <ClCompile Include="Objects\Shooting\BulletManager.cpp" />
-    <ClCompile Include="Objects\Shooting\Bullet.cpp" />
     <ClCompile Include="Framework\Environment\Environment.cpp" />
     <ClCompile Include="Framework\Buffer\ConstBuffer.cpp" />
     <ClCompile Include="Framework\Math\GameMath.cpp" />
@@ -447,28 +314,11 @@
     <ClCompile Include="Manager\GameManager.cpp" />
     <ClCompile Include="Framework\Shader\PixelShader.cpp" />
     <ClCompile Include="Objects\Basic\Quad.cpp" />
-    <ClCompile Include="Objects\Shooting\Plane.cpp" />
-    <ClCompile Include="Homework\230113\Scene0113.cpp" />
     <ClCompile Include="Framework\Shader\VertexShader.cpp" />
     <ClCompile Include="Framework\Buffer\VertexBuffer.cpp" />
-    <ClCompile Include="Scenes\TextureScene.cpp" />
     <ClCompile Include="Framework\Math\Transform.cpp" />
     <ClCompile Include="Framework\Render\Texture.cpp" />
-    <ClCompile Include="Scenes\ShaderScene.cpp" />
-    <ClCompile Include="Homework\230120\SichuanCard0120.cpp" />
-    <ClCompile Include="Scenes\TankScene.cpp" />
-    <ClCompile Include="Objects\Tile\Tank.cpp" />
-    <ClCompile Include="Objects\Tile\TankPatrol.cpp" />
-    <ClCompile Include="Objects\Tile\TankState.cpp" />
-    <ClCompile Include="Objects\Tile\TankTrace.cpp" />
-    <ClCompile Include="Scenes\TileScene.cpp" />
     <ClCompile Include="Objects\Tile\Tile.cpp" />
-    <ClCompile Include="Homework\230126\TileMap0126.cpp" />
-    <ClCompile Include="Homework\230130\TileMap0130.cpp" />
-    <ClCompile Include="Homework\230131\Window0131.cpp" />
-    <ClCompile Include="Homework\230131\WindowManager0131.cpp" />
-    <ClCompile Include="Scenes\UIScene.cpp" />
-    <ClCompile Include="Objects\Manager\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX2D.rc" />
@@ -502,6 +352,9 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
+    <FxCompile Include="Shaders\PixelNinja.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="Shaders\PixelTransit.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
@@ -530,12 +383,6 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Shaders\PixelMulti.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="Shaders\PixelNinja.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>

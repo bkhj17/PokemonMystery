@@ -7,6 +7,7 @@
 #include "SkillUI.h"
 #include "MessageUI.h"
 #include "ItemUi.h"
+#include "LogUi.h"
 
 PokemonUIManager::PokemonUIManager()
 {
@@ -18,7 +19,10 @@ PokemonUIManager::PokemonUIManager()
 	totalUI["YesNo"] = new YesNoUI({ 150, 100 }, { WIN_WIDTH - 150, CENTER_Y });
 	totalUI["Item"] = new ItemUi();
 
+
+
 	miniMap = new MiniMap();
+	logUI = new LogUi();
 }
 
 PokemonUIManager::~PokemonUIManager()
@@ -37,6 +41,8 @@ void PokemonUIManager::Update()
 	
 	if (!openned.empty())
 		openned.back()->Update();
+
+	logUI->Update();
 }
 
 void PokemonUIManager::PostRender()
@@ -48,8 +54,10 @@ void PokemonUIManager::PostRender()
 
 	if (!openned.empty())
 		openned.back()->RenderCursor();
-	else
+	else {
 		miniMap->PostRender();
+		logUI->PostRender();
+	}
 }
 
 void PokemonUIManager::OpenMenu()
@@ -69,6 +77,8 @@ UIWindow* PokemonUIManager::OpenUI(string key)
 
 	openned.push_back(totalUI[key]);
 	openned.back()->Init();
+
+	logUI->Hide();
 
 	return openned.back();
 }

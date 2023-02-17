@@ -15,6 +15,9 @@ ImageFont::ImageFont(wstring textureFile, float interval)
     fontSize = quads[0]->GetSize();
 
     valueBuffer = new IntValueBuffer();
+
+    transit = new ColorBuffer;
+    transit->Get() = { 1.0f, 0.0f, 1.0f, 1.0f };
 }
 
 ImageFont::~ImageFont()
@@ -23,6 +26,7 @@ ImageFont::~ImageFont()
         delete quad;
 
     delete valueBuffer;
+    delete transit;
 }
 
 void ImageFont::Update()
@@ -56,6 +60,7 @@ void ImageFont::Update()
 
 void ImageFont::Render()
 {
+    transit->SetPS(2);
     for (UINT i = 0; i < strValue.size(); i++)
     {
         int num = strValue[i] - '0';
@@ -70,6 +75,7 @@ void ImageFont::Render()
 
 void ImageFont::PostRender()
 {
+    transit->SetPS(2);
     for (UINT i = 0; i < strValue.size(); i++)
     {
         int num = strValue[i] - '0';

@@ -61,7 +61,7 @@ private:
     void SetUpPlayerStart();
     void SetUpItems();
 private:
-    class DungeonAStar* astar;
+    //class DungeonAStar* astar;
 
     vector<TileInstanceData> instances;
     VertexBuffer* instanceBuffer;

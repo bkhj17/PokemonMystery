@@ -39,9 +39,6 @@
     <ClInclude Include="Framework\Utilities\Utility.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\Scene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Manager\GameManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -81,9 +78,6 @@
     <ClInclude Include="Framework\Math\Vector2.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\TextureScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Objects\Basic\Quad.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -96,28 +90,7 @@
     <ClInclude Include="Framework\Render\Texture.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Shooting\Plane.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Shooting\Bullet.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Shooting\BulletManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230113\Scene0113.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230113\Aim0113.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230113\Clay0113.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\Utilities\Audio.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\CollisionScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Framework\Collision\Collider.h">
@@ -129,40 +102,10 @@
     <ClInclude Include="Framework\Collision\CircleCollider.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Homework\230116\Scene0116.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230116\Area0116.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230116\Bar0116.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230116\Ball0116.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230116\Block0116.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\PinBallScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\PinBall\Bat.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\PinBall\Ball.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\Utilities\Observer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\AnimationScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\Utilities\tinyxml2.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Character\Ninja\Ninja.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Framework\Render\Frame.h">
@@ -171,70 +114,7 @@
     <ClInclude Include="Framework\Render\Clip.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Homework\230116\AnimTransform0117.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Objects\Basic\Action.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Character\Ninja\NinjaIdle.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Character\Ninja\NinjaRun.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Character\Ninja\NinjaJump.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Character\Ninja\NinjaAttack.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Character\Ninja\NinjaMeleeAttack.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Character\Ninja\NinjaJumpAttack.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Character\Ninja\NinjaThrow.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230118\Scene0118.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230118\Command0118.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230118\Robot\Robot0118.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230118\Robot\RobotJumpUp0118.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230118\Robot\RobotJumpDown0118.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230118\Robot\RobotMeleeAttack0118.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230118\Robot\RobotAttack0118.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230118\Robot\RobotJumpAttack0118.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230118\Robot\RobotShoot0118.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230118\Dummy0118.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Character\Ninja\NinjaJumpDown.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Character\Ninja\NinjaJumpUp.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Character\Ninja\NinjaGlide.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Basic\Effect.h">
@@ -243,61 +123,16 @@
     <ClInclude Include="Objects\Manager\EffectManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Manager\CommandManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\ShaderScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230119\Scene0119.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230119\Robot0119.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\PuzzleScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Objects\UI\Button.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230120\Scene0120.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230120\SichuanCard0120.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230120\CardManager0120.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Framework\Utilities\Font.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Homework\230120\LineRenderer0120.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230120\ProgressBar0120.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230120\LineManager0120.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\Environment\Camera.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Puzzle\Card.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\Render\RenderTarget.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230125\Scene0125.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\RenderTargetScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\TileScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Tile\EditTileMap.h">
@@ -312,34 +147,13 @@
     <ClInclude Include="Framework\Utilities\BinaryReader.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Homework\230126\Scene0126.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Libraries\ImGui\ImGuiFileDialog.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Tile\GameTileMap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\TankScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Tile\Tank.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Algorithm\Dijkstra.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Algorithm\DNode.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\Collision\LineCollider.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230126\TileMap0126.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230126\EnemyTank0126.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Algorithm\Node.h">
@@ -351,52 +165,7 @@
     <ClInclude Include="Objects\Algorithm\Heap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Homework\230130\Scene0130.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230130\Pacman0130.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230130\TileMap0130.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230130\Enemy0130.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Character\Isaac\Isaac.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Objects\Basic\AnimObject.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Tile\TankPatrol.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Tile\TankState.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Tile\TankTrace.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230131\Window0131.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230131\WindowManager0131.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework\230131\Scene0131.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\UIScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\UI\Panel.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Manager\UIManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\InstancingScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="_Pokemon\Tile\DungeonTileMap.h">
@@ -420,13 +189,7 @@
     <ClInclude Include="Objects\Basic\Particle.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\ParticleScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="_Pokemon\Unit\UnitMovement.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="_Pokemon\Tile\DungeonAStar.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="_Pokemon\Control\Controller.h">
@@ -513,6 +276,18 @@
     <ClInclude Include="_Pokemon\Log\Log.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="_Pokemon\UI\LogUi.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\SceneManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\TileScene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Scene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectX2D.cpp">
@@ -560,9 +335,6 @@
     <ClCompile Include="Framework\Buffer\ConstBuffer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\TextureScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Objects\Basic\Quad.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -575,28 +347,7 @@
     <ClCompile Include="Framework\Render\Texture.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Shooting\Plane.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Shooting\Bullet.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Shooting\BulletManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230113\Scene0113.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230113\Aim0113.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230113\Clay0113.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Framework\Utilities\Audio.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\CollisionScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Framework\Collision\Collider.cpp">
@@ -608,40 +359,10 @@
     <ClCompile Include="Framework\Collision\CircleCollider.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Homework\230116\Scene0116.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230116\Area0116.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230116\Bar0116.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230116\Ball0116.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230116\Block0116.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\PinBallScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\PinBall\Bat.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\PinBall\Ball.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Framework\Utilities\Observer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\AnimationScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Framework\Utilities\tinyxml2.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Character\Ninja\Ninja.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Framework\Render\Clip.cpp">
@@ -650,70 +371,7 @@
     <ClCompile Include="Framework\Render\Frame.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Homework\230116\AnimTransform0117.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Objects\Basic\Action.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Character\Ninja\NinjaIdle.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Character\Ninja\NinjaRun.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Character\Ninja\NinjaJump.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Character\Ninja\NinjaAttack.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Character\Ninja\NinjaMeleeAttack.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Character\Ninja\NinjaJumpAttack.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Character\Ninja\NinjaThrow.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230118\Scene0118.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230118\Command0118.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230118\Robot\Robot0118.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230118\Robot\RobotJumpUp0118.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230118\Robot\RobotJumpDown0118.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230118\Robot\RobotMeleeAttack0118.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230118\Robot\RobotAttack0118.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230118\Robot\RobotJumpAttack0118.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230118\Robot\RobotShoot0118.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230118\Dummy0118.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Character\Ninja\NinjaJumpDown.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Character\Ninja\NinjaJumpUp.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Character\Ninja\NinjaGlide.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Basic\Effect.cpp">
@@ -722,61 +380,16 @@
     <ClCompile Include="Objects\Manager\EffectManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Manager\CommandManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\ShaderScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230119\Scene0119.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230119\Robot0119.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\PuzzleScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Objects\UI\Button.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230120\Scene0120.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230120\SichuanCard0120.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230120\CardManager0120.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Framework\Utilities\Font.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Homework\230120\LineRenderer0120.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230120\ProgressBar0120.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230120\LineManager0120.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Framework\Environment\Camera.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Puzzle\Card.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Framework\Render\RenderTarget.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230125\Scene0125.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\RenderTargetScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\TileScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Tile\EditTileMap.cpp">
@@ -791,31 +404,10 @@
     <ClCompile Include="Framework\Utilities\BinaryReader.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Homework\230126\Scene0126.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Objects\Tile\GameTileMap.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\TankScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Tile\Tank.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Algorithm\Dijkstra.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Algorithm\DNode.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Framework\Collision\LineCollider.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230126\TileMap0126.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230126\EnemyTank0126.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Algorithm\Node.cpp">
@@ -827,52 +419,7 @@
     <ClCompile Include="Objects\Algorithm\Heap.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Homework\230130\Scene0130.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230130\Pacman0130.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230130\TileMap0130.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230130\Enemy0130.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Character\Isaac\Isaac.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Objects\Basic\AnimObject.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Tile\TankPatrol.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Tile\TankState.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Tile\TankTrace.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230131\Window0131.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230131\WindowManager0131.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework\230131\Scene0131.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\UIScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\UI\Panel.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Manager\UIManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\InstancingScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="_Pokemon\Tile\DungeonTileMap.cpp">
@@ -896,13 +443,7 @@
     <ClCompile Include="Objects\Basic\Particle.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\ParticleScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="_Pokemon\Unit\UnitMovement.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="_Pokemon\Tile\DungeonAStar.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="_Pokemon\Tile\ObjTileManager.cpp">
@@ -989,6 +530,15 @@
     <ClCompile Include="_Pokemon\Log\Log.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="_Pokemon\UI\LogUi.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\SceneManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\TileScene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX2D.rc">
@@ -1013,7 +563,6 @@
     <FxCompile Include="Shaders\PixelEffect.hlsl" />
     <FxCompile Include="Shaders\PixelFilter.hlsl" />
     <FxCompile Include="Shaders\PixelMulti.hlsl" />
-    <FxCompile Include="Shaders\PixelNinja.hlsl" />
     <FxCompile Include="Shaders\PixelLight.hlsl" />
     <FxCompile Include="Shaders\PixelProgress0120.hlsl" />
     <FxCompile Include="Shaders\PixelOutline.hlsl" />
@@ -1027,5 +576,6 @@
     <FxCompile Include="Shaders\PixelWindowFrame.hlsl" />
     <FxCompile Include="Shaders\PixelMiniMapShader.hlsl" />
     <FxCompile Include="Shaders\PixelTransit.hlsl" />
+    <FxCompile Include="Shaders\PixelNinja.hlsl" />
   </ItemGroup>
 </Project>

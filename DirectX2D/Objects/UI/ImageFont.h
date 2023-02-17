@@ -35,4 +35,6 @@ private:
 
     AlignedType alignedType;
     Vector2 fontSize;
+
+    ColorBuffer* transit;
 };

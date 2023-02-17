@@ -18,7 +18,6 @@ DungeonScene::DungeonScene()
 	EffectObjectManager::Get();
 	SkillDataManager::Get();
 	ItemDataManager::Get();
-	DungeonDataManager::Get();
 	PokemonUIManager::Get();
 	UnitManager::Get()->Init();
 	ItemObjectManager::Get();
@@ -43,7 +42,7 @@ DungeonScene::DungeonScene()
 		if (unit == nullptr)
 			return;
 		if (unit->GetController()->GetTag() != "Enemy")
-			unit->Damage(-1);
+			unit->Damage(-1, false);
 	});
 }
 
@@ -54,7 +53,6 @@ DungeonScene::~DungeonScene()
 	UnitManager::Delete();
 	ItemObjectManager::Delete();
 	BgTileManager::Delete();
-	ItemDataManager::Delete();	//사실은 여기서 안 하는게 좋다
 	SkillDataManager::Delete();
 	EffectObjectManager::Delete();
 	EffectManager::Delete();

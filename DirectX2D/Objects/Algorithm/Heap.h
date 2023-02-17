@@ -19,4 +19,3 @@ public:
 private:
 	vector<Node*> heap;
 };
-

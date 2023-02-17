@@ -173,53 +173,22 @@ using namespace GameMath;
 #include "Objects/Basic/Particle.h"
 
 #include "Objects/UI/Button.h"
-#include "Objects/UI/Panel.h"
 #include "Objects/UI/ImageFont.h"
 #include "Objects/UI/ProgressBar.h"
 
-#include "Objects/Algorithm/DNode.h"
-#include "Objects/Algorithm/Dijkstra.h"
 #include "Objects/Algorithm/Node.h"
 #include "Objects/Algorithm/Heap.h"
 #include "Objects/Algorithm/AStar.h"
 
-#include "Objects/Shooting/Plane.h"
-#include "Objects/Shooting/Bullet.h"
-#include "Objects/Shooting/BulletManager.h"
-
-#include "Objects/PinBall/Bat.h"
-#include "Objects/PinBall/Ball.h"
-
-#include "Objects/Puzzle/Card.h"
-
-#include "Objects/Character/Ninja/Ninja.h"
-#include "Objects/Character/Ninja/NinjaRun.h"
-#include "Objects/Character/Ninja/NinjaJump.h"
-#include "Objects/Character/Ninja/NinjaJumpUp.h"
-#include "Objects/Character/Ninja/NinjaJumpDown.h"
-#include "Objects/Character/Ninja/NinjaAttack.h"
-#include "Objects/Character/Ninja/NinjaMeleeAttack.h"
-#include "Objects/Character/Ninja/NinjaJumpAttack.h"
-#include "Objects/Character/Ninja/NinjaThrow.h"
-#include "Objects/Character/Ninja/NinjaGlide.h"
-
-#include "Objects/Character/Isaac/Isaac.h"
-
 #include "Objects/Tile/Tile.h"
 #include "Objects/Tile/EditTileMap.h"
 #include "Objects/Tile/GameTileMap.h"
-#include "Objects/Tile/TankState.h"
-#include "Objects/Tile/TankPatrol.h"
-#include "Objects/Tile/TankTrace.h"
-#include "Objects/Tile/Tank.h"
 
 #include "Objects/Manager/EffectManager.h"
-#include "Objects/Manager/CommandManager.h"
-#include "Objects/Manager/UIManager.h"
-#include "Objects/Manager/RenderManager.h"
 
 //Scene Header
 #include "Scenes/Scene.h"
+#include "Manager/SceneManager.h"
 #include "Manager/GameManager.h"
 
 extern HWND hWnd;

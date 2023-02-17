@@ -19,13 +19,10 @@ public:
 	void CloseUI();
 	void CloseUI(string key);
 
-
 	bool IsActing();
-
-
 private:
 	class StatusUI* statusUI;
-	UIWindow* logUI = nullptr; 
+	class LogUi* logUI = nullptr; 
 
 	class MiniMap* miniMap;
 

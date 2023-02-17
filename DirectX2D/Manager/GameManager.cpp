@@ -4,7 +4,7 @@
 //#include "Scenes/TextureScene.h"
 //#include "Scenes/CollisionScene.h"
 //#include "Scenes/PinBallScene.h"
-#include "Scenes/AnimationScene.h"
+//#include "Scenes/AnimationScene.h"
 //#include "Scenes/ShaderScene.h"
 //#include "Scenes/PuzzleScene.h"
 //#include "Scenes/RenderTargetScene.h"
@@ -24,6 +24,11 @@
 //#include "Homework/230126/Scene0126.h"
 //#include "Homework/230130/Scene0130.h"
 //#include "Homework/230131/Scene0131.h"
+
+#include "../_Pokemon/Data/ItemDataManager.h"
+#include "../_Pokemon/Data/DungeonDataManager.h"
+#include "../_Pokemon/Data/SkillDataManager.h"
+
 #include "_Pokemon/Scene/DungeonScene.h"
 
 GameManager::GameManager()
@@ -107,6 +112,12 @@ void GameManager::Create()
 
 	ImGui_ImplWin32_Init(hWnd);
 	ImGui_ImplDX11_Init(DEVICE, DC);
+
+
+	//pokemon
+	ItemDataManager::Get();
+	DungeonDataManager::Get();
+	SkillDataManager::Get();
 }
 
 void GameManager::Delete()
@@ -125,4 +136,10 @@ void GameManager::Delete()
 	ImGui_ImplDX11_Shutdown();
 
 	ImGui::DestroyContext();
+
+
+	//pokemon
+	ItemDataManager::Delete();
+	DungeonDataManager::Delete();
+	SkillDataManager::Delete();
 }
