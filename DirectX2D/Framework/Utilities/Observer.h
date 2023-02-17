@@ -17,7 +17,6 @@ public:
 	void ExecuteParamEvent(string key, void* param);
 	void ExecuteIntParamEvent(string key, int param);
 	void ExecuteGetEvent(string key, void** param);
-
 private:
 	unordered_map<string, vector<Event>> totalEvent;
 	unordered_map<string, vector<ParamEvent>> totalParamEvent;

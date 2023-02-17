@@ -1,4 +1,4 @@
 key,Name,Texture,Info,Event,EventParam
-Apple,사과,Textures/pokemon/ItemApple.png,먹으면 배부른 과일,EatFood,50
+Apple,사과,Textures/pokemon/Item/Apple.png,먹으면 배부른 과일,EatFood,50
 OrenBerry,오렌열매,Textures/pokemon/Item/BlueBerry.png,먹을 수 있는 열매. 체력을 회복한다,Heal EatFood,10 1
 Money,돈,Textures/pokemon/Item/Money.png,돈,,

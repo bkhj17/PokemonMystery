@@ -64,7 +64,7 @@ public:
 
 	int GetCurAction() { return dirCode % 100; }
 
-	void SetDown(int d) { downTime = d; }
+	void SetDown(int d);
 private:
 	void SetAction();
 

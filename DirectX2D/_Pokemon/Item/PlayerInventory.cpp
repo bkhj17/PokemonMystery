@@ -1,6 +1,8 @@
 #include "Framework.h"
 #include "PlayerInventory.h"
 #include "../Data/ItemDataManager.h"
+#include "../Unit/UnitManager.h"
+#include "../Log/Log.h"
 
 bool PlayerInventory::InputItem(ItemData* item)
 {
@@ -11,7 +13,14 @@ bool PlayerInventory::InputItem(ItemData* item)
 	return true;
 }
 
-ItemData* PlayerInventory::OutputItem(int i)
+void PlayerInventory::UseItem(UINT i)
+{
+	LogManager::Get()->InsertLog(itemList[i]->name + "을 사용했다.");
+	itemList[i]->Use(UnitManager::Get()->GetPlayer());
+	PlayerInventory::Get()->OutputItem(i);
+}
+
+ItemData* PlayerInventory::OutputItem(UINT i)
 {
 	if (i >= itemList.size() || i < 0)
 		return nullptr;

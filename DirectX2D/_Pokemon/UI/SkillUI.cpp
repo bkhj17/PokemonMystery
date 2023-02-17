@@ -38,7 +38,6 @@ void SkillUI::Update()
 				cursor = CLOSE_CURSOR;
 		}
 	}
-
 	//커서 위치 세팅
 	cQuad->Pos() = { CursorX(), LineY(cursor) };
 	cQuad->UpdateWorld();
@@ -67,6 +66,7 @@ void SkillUI::PostRender()
 	auto player = UnitManager::Get()->GetPlayer();
 	vector<Skill*> playerSkills = player->GetSkills();
 
+	//0은 기본공격이기 때문에 출력하지 않는다
 	for (int i = 1; i < playerSkills.size(); i++) {
 		if (playerSkills[i] != nullptr && playerSkills[i]->GetData() != nullptr) {
 			Font::Get()->RenderTextLeft(playerSkills[i]->GetData()->name, Pos() + Vector2(NameX(), LineY(i - 1)));

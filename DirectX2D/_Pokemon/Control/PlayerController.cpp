@@ -27,6 +27,10 @@ bool PlayerController::SetCommand()
 		PokemonUIManager::Get()->OpenUI("Skill");
 		return false;
 	}
+	if (KEY_DOWN('S')) {
+		PokemonUIManager::Get()->OpenUI("Item");
+		return false;
+	}
 
 	if (KEY_DOWN('Z')) {
 		unit->UseSkill(0);

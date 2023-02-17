@@ -7,6 +7,8 @@ struct ItemData {
     string info;
     vector<string> useEvents;
     vector<string> useParams;
+
+    void Use(class Unit*);
 };
 
 class ItemDataManager :
@@ -18,6 +20,8 @@ private:
     ~ItemDataManager();
 
     void Load(string fileName);
+    void Heal(void* ptr);
+
 public:
     ItemData* GetData(string key) {
         if (datas.find(key) == datas.end())

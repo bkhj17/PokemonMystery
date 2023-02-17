@@ -6,6 +6,7 @@
 #include "MiniMap.h"
 #include "SkillUI.h"
 #include "MessageUI.h"
+#include "ItemUi.h"
 
 PokemonUIManager::PokemonUIManager()
 {
@@ -15,7 +16,8 @@ PokemonUIManager::PokemonUIManager()
 
 	totalUI["Skill"] = new SkillUI();
 	totalUI["YesNo"] = new YesNoUI({ 150, 100 }, { WIN_WIDTH - 150, CENTER_Y });
-	
+	totalUI["Item"] = new ItemUi();
+
 	miniMap = new MiniMap();
 }
 

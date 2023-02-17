@@ -6,6 +6,7 @@
 #include "../Unit/Unit.h"
 #include "../Unit/UnitManager.h"
 #include "../Tile/DungeonTileMap.h"
+#include "../Log/Log.h"
 
 Skill::Skill(int i)
 {
@@ -81,6 +82,7 @@ bool Skill::Activate(Unit* unit)
 	}
 
 	//시전 성공 시에만 true 반환
+	LogManager::Get()->InsertLog(unit->GetData()->statusData.name + "은/는 " + data->name + "을/를 사용했다.");
 	return true;
 }
 

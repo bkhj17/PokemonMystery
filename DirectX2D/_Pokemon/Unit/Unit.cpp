@@ -6,6 +6,7 @@
 #include "UnitManager.h"
 #include "../Item/PlayerInventory.h"
 #include "../Skill/Skill.h"
+#include "../Log/Log.h"
 
 Unit::Unit(Controller* controller, Vector2 size)
 	: DungeonObject(size)
@@ -191,6 +192,14 @@ bool Unit::PickUpItem(ItemData* itemData)
 	return false;
 }
 
+void Unit::SetDown(int d)
+{
+	if (downTime == 0 && d > 0)
+		LogManager::Get()->InsertLog(data->statusData.name + "의 공격력이 떨어졌다");
+	
+	downTime = d;
+}
+
 void Unit::SetAction()
 {
 	/*
@@ -298,7 +307,21 @@ void Unit::Damage(int damage)
 		dirCode = dirCode / 100 * 100 + DAMAGE;
 		animObject->SetClip(dirCode);
 	}
+	int postHp = data->curHp;
 	data->curHp = min(max(data->curHp - damage, 0), data->statusData.maxHp);
+
+	string logText;
+	if (postHp < data->curHp) {
+		//HP가 늘었다 = 회복했다
+		logText = data->statusData.name + "은/는 " + to_string(data->curHp - postHp) + "만큼 회복했다.";
+	}
+	else {
+		logText = data->statusData.name + "은/는 " + to_string(data->curHp - postHp) + "의 데미지를 입었다.";
+	}
+
+	if (!logText.empty())
+		LogManager::Get()->InsertLog(logText);
+
 	if (data->curHp <= 0)
 		Die();
 

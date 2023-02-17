@@ -120,7 +120,6 @@ typedef function<void(void*)> ParamEvent;
 typedef function<void(int)> IntParamEvent;
 
 //Framework Header
-
 #include "Framework/Utilities/Singleton.h"
 #include "Framework/Utilities/Keyboard.h"
 #include "Framework/Utilities/Timer.h"
@@ -226,3 +225,4 @@ using namespace GameMath;
 extern HWND hWnd;
 extern Vector2 mousePos;
 extern float mouseWheel;
+
