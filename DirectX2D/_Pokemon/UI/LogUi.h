@@ -14,7 +14,5 @@ private:
 	float LineY(int lineNum);
 private:
 	float renderTime = 0.0f;
-
-
 };
 
