@@ -141,6 +141,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="_Pokemon\UI\ClearUI.h" />
+    <ClInclude Include="_Pokemon\Data\ClearData.h" />
+    <ClInclude Include="_Pokemon\Scene\ClearScene.h" />
     <ClInclude Include="Manager\SceneManager.h" />
     <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="Scenes\TileScene.h" />
@@ -149,7 +152,6 @@
     <ClInclude Include="_Pokemon\UI\MessageUI.h" />
     <ClInclude Include="_Pokemon\UI\ItemUi.h" />
     <ClInclude Include="_Pokemon\UI\SkillUI.h" />
-    <ClInclude Include="_Pokemon\UI\MainMenuUI.h" />
     <ClInclude Include="_Pokemon\Data\SkillDataManager.h" />
     <ClInclude Include="_Pokemon\UI\YesNoUI.h" />
     <ClInclude Include="_Pokemon\Effect\EffectObjectManager.h" />
@@ -234,6 +236,9 @@
     <ClInclude Include="Objects\Tile\Tile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="_Pokemon\UI\ClearUI.cpp" />
+    <ClCompile Include="_Pokemon\Data\ClearData.cpp" />
+    <ClCompile Include="_Pokemon\Scene\ClearScene.cpp" />
     <ClCompile Include="Manager\SceneManager.cpp" />
     <ClCompile Include="Scenes\TileScene.cpp" />
     <ClCompile Include="_Pokemon\UI\LogUi.cpp" />
@@ -241,7 +246,6 @@
     <ClCompile Include="_Pokemon\UI\MessageUI.cpp" />
     <ClCompile Include="_Pokemon\UI\ItemUi.cpp" />
     <ClCompile Include="_Pokemon\UI\SkillUI.cpp" />
-    <ClCompile Include="_Pokemon\UI\MainMenuUI.cpp" />
     <ClCompile Include="_Pokemon\Data\SkillDataManager.cpp" />
     <ClCompile Include="_Pokemon\UI\YesNoUI.cpp" />
     <ClCompile Include="_Pokemon\Effect\EffectObjectManager.cpp" />

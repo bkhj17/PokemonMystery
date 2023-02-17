@@ -1,14 +1,8 @@
 #include "Framework.h"
-#include "DungeonObject.h"
-#include "../Unit/UnitMovement.h"
-#include "../Tile/DungeonTileMap.h"
 
 DungeonObject::DungeonObject(Vector2 size)
 {
 	this->size = size;
-
-	collider = new RectCollider(size);
-	collider->SetParent(this);
 
 	movement = new UnitMovement;
 	movement->SetOwner(this);
@@ -16,19 +10,12 @@ DungeonObject::DungeonObject(Vector2 size)
 
 DungeonObject::~DungeonObject()
 {
-	delete collider;
 	delete movement;
 }
 
 void DungeonObject::UpdateWorld()
 {
 	__super::UpdateWorld();
-	collider->UpdateWorld();
-}
-
-void DungeonObject::Render()
-{
-	collider->Render();
 }
 
 void DungeonObject::SetPoint(int x, int y)

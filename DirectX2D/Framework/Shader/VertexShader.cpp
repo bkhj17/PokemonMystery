@@ -95,7 +95,7 @@ void VertexShader::CreateInputLayout()
 		if (temp == "POSITION")
 			elementDesc.Format = DXGI_FORMAT_R32G32B32_FLOAT;
 
-		int n = temp.find_first_of('_');
+		int n = (int)temp.find_first_of('_');
 
 		if (temp.substr(0, n) == "INSTANCE") {
 			elementDesc.InputSlot = 1;

@@ -1,9 +1,4 @@
 #include "Framework.h"
-#include "DungeonObjTile.h"
-#include "../Unit/Unit.h"
-#include "../Control/Controller.h"
-#include "../UI/PokemonUIManager.h"
-#include "../UI/YesNoUI.h"
 
 DungeonObjTile::DungeonObjTile(string type, Tile::Data data, Vector2 size)
 	: type(type), Tile(data, size)

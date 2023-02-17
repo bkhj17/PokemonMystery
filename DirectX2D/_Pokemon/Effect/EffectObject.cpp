@@ -1,11 +1,4 @@
 #include "Framework.h"
-#include "EffectObject.h"
-#include "../Tile/DungeonTileMap.h"
-#include "../Unit/UnitManager.h"
-#include "../Data/SkillDataManager.h"
-#include "../Unit/Unit.h"
-#include "../Control/Controller.h"
-
 
 EffectObject::EffectObject()
 	: DungeonObject(Vector2(50.0f, 50.0f))

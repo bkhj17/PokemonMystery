@@ -1,6 +1,4 @@
 #include "Framework.h"
-#include "ItemDataManager.h"
-#include "../Unit/Unit.h"
 
 ItemDataManager::ItemDataManager()
 {

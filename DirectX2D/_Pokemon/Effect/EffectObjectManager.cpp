@@ -1,6 +1,4 @@
 #include "Framework.h"
-#include "EffectObjectManager.h"
-#include "EffectObject.h"
 
 EffectObjectManager::EffectObjectManager()
 {

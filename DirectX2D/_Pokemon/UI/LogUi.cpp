@@ -1,6 +1,4 @@
 #include "Framework.h"
-#include "LogUi.h"
-#include "../Log/Log.h"
 
 LogUi::LogUi()
 	: UIWindow(0.0f, WIN_WIDTH, WIN_HEIGHT * 0.3f, 0.0f)
@@ -20,7 +18,8 @@ void LogUi::PostRender()
 
 	__super::PostRender();
 
-	vector<string> renderLog = LogManager::Get()->RenderLog();
+	vector<string> renderLog;
+	LogManager::Get()->GetRenderLog(renderLog);
 
 	for (int i = 0; i < renderLog.size(); i++)
 		Font::Get()->RenderTextLeft(renderLog[i], Pos() + Vector2(-Half().x + 80.0f, LineY(i)));
@@ -28,5 +27,5 @@ void LogUi::PostRender()
 
 float LogUi::LineY(int lineNum)
 {
-	return Half().y - 60.0f - lineNum * (cQuad->GetSize().y + 20.0f);
+	return Half().y - 40.0f - lineNum * (cQuad->GetSize().y + 20.0f);
 }

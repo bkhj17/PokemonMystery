@@ -1,8 +1,4 @@
 #include "Framework.h"
-#include "PlayerInventory.h"
-#include "../Data/ItemDataManager.h"
-#include "../Unit/UnitManager.h"
-#include "../Log/Log.h"
 
 bool PlayerInventory::InputItem(ItemData* item)
 {

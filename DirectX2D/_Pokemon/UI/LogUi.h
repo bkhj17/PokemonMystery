@@ -1,5 +1,4 @@
 #pragma once
-#include "UIWindow.h"
 class LogUi : public UIWindow
 {
 public:

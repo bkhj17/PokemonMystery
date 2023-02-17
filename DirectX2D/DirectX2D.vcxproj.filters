@@ -261,9 +261,6 @@
     <ClInclude Include="_Pokemon\Data\SkillDataManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="_Pokemon\UI\MainMenuUI.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="_Pokemon\UI\SkillUI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -286,6 +283,15 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\Scene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_Pokemon\Scene\ClearScene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_Pokemon\Data\ClearData.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_Pokemon\UI\ClearUI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -515,9 +521,6 @@
     <ClCompile Include="_Pokemon\Data\SkillDataManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="_Pokemon\UI\MainMenuUI.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="_Pokemon\UI\SkillUI.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -537,6 +540,15 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\TileScene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="_Pokemon\Scene\ClearScene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="_Pokemon\Data\ClearData.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="_Pokemon\UI\ClearUI.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

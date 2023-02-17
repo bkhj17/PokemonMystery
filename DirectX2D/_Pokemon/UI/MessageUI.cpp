@@ -1,5 +1,4 @@
 #include "Framework.h"
-#include "MessageUI.h"
 
 MessageUI::MessageUI()
 	: UIWindow(0.0f, WIN_WIDTH, WIN_HEIGHT * 0.3f, 0.0f)

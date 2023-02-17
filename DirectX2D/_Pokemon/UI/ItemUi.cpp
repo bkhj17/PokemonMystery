@@ -1,7 +1,4 @@
 #include "Framework.h"
-#include "ItemUi.h"
-#include "../Item/PlayerInventory.h"
-#include "../Data/ItemDataManager.h"
 
 ItemUi::ItemUi()
 	: UIWindow({ WIN_WIDTH * 0.3f, WIN_HEIGHT * 0.8f }, {WIN_WIDTH * 0.3f, WIN_HEIGHT * 0.6f})

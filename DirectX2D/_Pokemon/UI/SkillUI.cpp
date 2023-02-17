@@ -1,10 +1,4 @@
 #include "Framework.h"
-#include "SkillUI.h"
-#include "PokemonUIManager.h"
-#include "../Data/SkillDataManager.h"
-#include "../Skill/Skill.h"
-#include "../Unit/Unit.h"
-#include "../Unit/UnitManager.h"
 
 SkillUI::SkillUI()
 	: UIWindow({ WIN_WIDTH * 0.6f, WIN_HEIGHT * 0.6f }, {WIN_WIDTH * 0.4f, WIN_HEIGHT * 0.6f})

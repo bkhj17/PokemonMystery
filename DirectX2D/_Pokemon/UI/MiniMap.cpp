@@ -1,13 +1,4 @@
 #include "Framework.h"
-#include "MiniMap.h"
-#include "../Tile/DungeonTileMap.h"
-#include "../Tile/DungeonBgTile.h"
-#include "../Unit/Unit.h"
-#include "../Control/Controller.h"
-#include "../Unit/UnitManager.h"
-#include "../Tile/ObjTileManager.h"
-#include "../Tile/DungeonObjTile.h"
-#include "../Item/ItemObjectManager.h"
 
 MiniMap::MiniMap()
 {

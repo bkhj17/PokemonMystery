@@ -1,7 +1,4 @@
 #include "Framework.h"
-#include "ItemObject.h"
-#include "../Unit/UnitMovement.h"
-#include "../Data/ItemDataManager.h"
 
 ItemObject::ItemObject()
 	: DungeonObject(SIZE)

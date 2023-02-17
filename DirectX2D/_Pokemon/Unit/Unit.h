@@ -1,9 +1,6 @@
 #pragma once
-#include "../Object/DungeonObject.h"
 
 class Controller;
-struct PokemonData;
-struct ItemData;
 class Unit : public DungeonObject
 {
 private:

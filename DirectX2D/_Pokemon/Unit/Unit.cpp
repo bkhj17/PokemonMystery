@@ -1,12 +1,5 @@
 #include "Framework.h"
-#include "Unit.h"
-#include "UnitMovement.h"
-#include "../Control/Controller.h"
-#include "../Tile/DungeonTileMap.h"
-#include "UnitManager.h"
-#include "../Item/PlayerInventory.h"
-#include "../Skill/Skill.h"
-#include "../Log/Log.h"
+
 
 Unit::Unit(Controller* controller, Vector2 size)
 	: DungeonObject(size)
@@ -62,14 +55,13 @@ void Unit::Render()
 {
 	if (!isActive)
 		return;
-	__super::Render();
+	//__super::Render();
 
 	animObject->GetColorBuffer()->Get() = { 1.0f, 1.0f, 1.0f, data->curHp > 0 ? 1.0f : 0.5f };
 	animObject->Render();
 
-	if (downTime > 0) {
+	if (downTime > 0)
 		downQuad->Render();
-	}
 }
 
 void Unit::CreateClipData()

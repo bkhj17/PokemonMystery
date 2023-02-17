@@ -1,10 +1,4 @@
 #include "Framework.h"
-#include "StatusUI.h"
-#include "../Unit/Unit.h"
-#include "../Unit/UnitManager.h"
-#include "../Tile/DungeonTileMap.h"
-#include "../Data/DungeonDataManager.h"
-#include "HPProgressBar.h"
 
 StatusUI::StatusUI()
 {

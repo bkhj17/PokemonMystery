@@ -1,5 +1,4 @@
 #include "Framework.h"
-#include "UIWindow.h"
 
 UIWindow::UIWindow(Vector2 size, Vector2 pos)
 	: Quad(size)

@@ -1,6 +1,4 @@
 #include "Framework.h"
-#include "DungeonBgTile.h"
-#include "BgTileManager.h"
 
 DungeonBgTile::DungeonBgTile(Tile::Data data)
 	: Quad(data.textureFile), data(data)

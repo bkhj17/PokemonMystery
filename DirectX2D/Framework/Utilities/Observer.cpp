@@ -1,5 +1,4 @@
 #include "Framework.h"
-#include "Observer.h"
 
 void Observer::AddEvent(string key, Event e)
 {

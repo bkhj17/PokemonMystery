@@ -1,5 +1,4 @@
 #include "Framework.h"
-#include "BgTileManager.h"
 
 BgTileManager::BgTileManager()
 {

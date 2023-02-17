@@ -1,42 +1,16 @@
 #include "Framework.h"
-//#include "Scenes/TutorialScene.h"
-//#include "Scenes/SpawnPolygonScene.h"
-//#include "Scenes/TextureScene.h"
-//#include "Scenes/CollisionScene.h"
-//#include "Scenes/PinBallScene.h"
-//#include "Scenes/AnimationScene.h"
-//#include "Scenes/ShaderScene.h"
-//#include "Scenes/PuzzleScene.h"
-//#include "Scenes/RenderTargetScene.h"
 #include "Scenes/TileScene.h"
-//#include "Scenes/TankScene.h"
-//#include "Scenes/DijkstraScene.h"
-//#include "Scenes/UIScene.h"
-//#include "Scenes/InstancingScene.h"
-//#include "Scenes/ParticleScene.h"
-//#include "Homework/230112/Scene0112.h"
-//#include "Homework/230113/Scene0113.h"
-//#include "Homework/230116/Scene0116.h"
-//#include "Homework/230118/Scene0118.h"
-//#include "Homework/230119/Scene0119.h"
-//#include "Homework/230120/Scene0120.h"
-//#include "Homework/230125/Scene0125.h"
-//#include "Homework/230126/Scene0126.h"
-//#include "Homework/230130/Scene0130.h"
-//#include "Homework/230131/Scene0131.h"
-
-#include "../_Pokemon/Data/ItemDataManager.h"
-#include "../_Pokemon/Data/DungeonDataManager.h"
-#include "../_Pokemon/Data/SkillDataManager.h"
 
 #include "_Pokemon/Scene/DungeonScene.h"
-
+#include "_Pokemon/Scene/ClearScene.h"
 GameManager::GameManager()
 {
 	Create();
 	uiViewBuffer = new MatrixBuffer;
 
-	scene = new DungeonScene();
+	SceneManager::Get()->Add("Dungeon", new DungeonScene());
+	SceneManager::Get()->Add("Clear", new ClearScene());
+	SceneManager::Get()->ChangeScene("Dungeon");
 }
 
 GameManager::~GameManager()
@@ -53,7 +27,7 @@ void GameManager::Update()
 	Timer::Get()->Update();
 	Audio::Get()->Update();
 
-	scene->Update();
+	SceneManager::Get()->Update();
 
 	CAM->Update();
 
@@ -62,7 +36,7 @@ void GameManager::Update()
 
 void GameManager::Render()
 {
-	scene->PreRender();
+	SceneManager::Get()->PreRender();
 
 	Device::Get()->Clear();
 
@@ -71,7 +45,7 @@ void GameManager::Render()
 	Environment::Get()->SetViewport();
 	Environment::Get()->SetProjection();
 
-	scene->Render();
+	SceneManager::Get()->Render();
 
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
@@ -83,7 +57,7 @@ void GameManager::Render()
 	CAM->RenderUI();
 
 	uiViewBuffer->SetVS(1);
-	scene->PostRender();
+	SceneManager::Get()->PostRender();
 
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -113,11 +87,15 @@ void GameManager::Create()
 	ImGui_ImplWin32_Init(hWnd);
 	ImGui_ImplDX11_Init(DEVICE, DC);
 
-
+	SceneManager::Get();
 	//pokemon
 	ItemDataManager::Get();
 	DungeonDataManager::Get();
 	SkillDataManager::Get();
+	UnitManager::Get();
+	PokemonUIManager::Get();
+
+	ClearData::Get();
 }
 
 void GameManager::Delete()
@@ -137,9 +115,13 @@ void GameManager::Delete()
 
 	ImGui::DestroyContext();
 
-
+	SceneManager::Delete();
 	//pokemon
+	ClearData::Delete();
+
+	UnitManager::Delete();
 	ItemDataManager::Delete();
 	DungeonDataManager::Delete();
 	SkillDataManager::Delete();
+	PokemonUIManager::Delete();
 }

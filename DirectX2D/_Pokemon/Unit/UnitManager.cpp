@@ -1,12 +1,4 @@
 #include "Framework.h"
-#include "UnitManager.h"
-#include "Unit.h"
-#include "../Control/PlayerController.h"
-#include "../Control/EnemyController.h"
-#include "../Tile/DungeonTileMap.h"
-#include "../Tile/DungeonBgTile.h"
-#include "../Tile/BgTileManager.h"
-#include "../Data/DungeonDataManager.h"
 
 UnitManager::UnitManager()
 {

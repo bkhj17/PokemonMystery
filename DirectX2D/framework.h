@@ -186,6 +186,52 @@ using namespace GameMath;
 
 #include "Objects/Manager/EffectManager.h"
 
+//Pokemon
+#include "_Pokemon/Data/ItemDataManager.h"
+#include "_Pokemon/Data/DungeonDataManager.h"
+#include "_Pokemon/Data/SkillDataManager.h"
+
+#include "_Pokemon/Log/Log.h"
+
+#include "_Pokemon/Tile/DungeonBgTile.h"
+#include "_Pokemon/Tile/DungeonObjTile.h"
+#include "_Pokemon/Tile/DungeonTileMap.h"
+#include "_Pokemon/Tile/BgTileManager.h"
+#include "_Pokemon/Tile/ObjTileManager.h"
+
+#include "_Pokemon/Item/PlayerInventory.h"
+
+#include "_Pokemon/Skill/Skill.h"
+
+#include "_Pokemon/Unit/UnitMovement.h"	//오브젝트 전원이 공유
+#include "_Pokemon/Object/DungeonObject.h"
+#include "_Pokemon/Item/ItemObject.h"
+#include "_Pokemon/Item/ItemObjectManager.h"
+
+#include "_Pokemon/Effect/EffectObject.h"
+#include "_Pokemon/Effect/EffectObjectManager.h"
+
+#include "_Pokemon/Unit/UnitManager.h"	//포켓몬 데이터도 포함
+#include "_Pokemon/Unit/Unit.h"
+
+#include "_Pokemon/Data/ClearData.h"
+
+#include "_Pokemon/Control/Controller.h"
+#include "_Pokemon/Control/PlayerController.h"
+#include "_Pokemon/Control/EnemyController.h"
+
+#include "_Pokemon/UI/UIWindow.h"
+#include "_Pokemon/UI/YesNoUI.h"
+#include "_Pokemon/UI/HPProgressBar.h"
+#include "_Pokemon/UI/StatusUI.h"
+#include "_Pokemon/UI/MiniMap.h"
+#include "_Pokemon/UI/SkillUI.h"
+#include "_Pokemon/UI/MessageUI.h"
+#include "_Pokemon/UI/ItemUi.h"
+#include "_Pokemon/UI/LogUi.h"
+#include "_Pokemon/UI/ClearUI.h"
+#include "_Pokemon/UI/PokemonUIManager.h"
+
 //Scene Header
 #include "Scenes/Scene.h"
 #include "Manager/SceneManager.h"

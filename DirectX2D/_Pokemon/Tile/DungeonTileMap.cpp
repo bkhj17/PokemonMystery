@@ -1,11 +1,4 @@
 #include "Framework.h"
-#include "DungeonTileMap.h"
-#include "DungeonBgTile.h"
-#include "BgTileManager.h"
-#include "DungeonObjTile.h"
-#include "ObjTileManager.h"
-#include "../Data/DungeonDataManager.h"
-#include "../Item/ItemObjectManager.h"
 
 DungeonTileMap::DungeonTileMap()
 {
@@ -21,7 +14,7 @@ DungeonTileMap::DungeonTileMap()
 	quad->SetVertexShader(L"DungeonTile.hlsl");
 	quad->SetPixelShader(L"DungeonTile.hlsl");
 
-	instances.resize(MAX_WIDTH * MAX_HEIGHT);
+	instances.resize((size_t)MAX_WIDTH * MAX_HEIGHT);
 	for (auto& instance : instances)
 		instance.maxFrame = maxFrame;
 	
@@ -111,7 +104,7 @@ POINT DungeonTileMap::PosToPoint(Vector2 pos)
 
 bool DungeonTileMap::SetMove(IN int startX, IN int startY, IN int dirX, IN int dirY, OUT Vector2& destPos)
 {
-	auto curTile = (DungeonBgTile*)bgTiles[startY * width + startX]; 
+	auto curTile = (DungeonBgTile*)bgTiles[(size_t)startY * width + startX]; 
 	int flag = curTile->GetGridFlag();
 
 	bool result = BgTileManager::Get()->CheckMovable(flag, dirX, dirY);
@@ -177,12 +170,14 @@ vector<pair<int, int>> DungeonTileMap::DetectableTiles(POINT curPoint)
 			continue;
 		check[curNode.point] = curNode.flag;
 
-		int gridFlag = ((DungeonBgTile*)bgTiles[curNode.point.second * width + curNode.point.first])->GetGridFlag();
+		int gridFlag = ((DungeonBgTile*)bgTiles[(size_t)curNode.point.second * width + curNode.point.first])->GetGridFlag();
 
 		int nextFlag = 1;
 		bool isRoom = BgTileManager::Get()->IsRoom(gridFlag);
-		if (curNode.flag == 3 || (curNode.flag == 2 && isRoom))
+		if (curNode.flag >= 3)
 			nextFlag = 2;
+		else if (curNode.flag == 2)
+			nextFlag = !isRoom ? 0 : 2;
 		else if (curNode.flag == 1)
 			nextFlag = 0;
 
@@ -213,7 +208,7 @@ DungeonBgTile* DungeonTileMap::GetBgTile(POINT point)
 	if(point.x >= (int)width || point.x < 0 || point.y >= (int)height || point.y < 0)
 		return nullptr;
 
-	return (DungeonBgTile*)bgTiles[point.y * width + point.x];
+	return (DungeonBgTile*)bgTiles[(size_t)point.y * width + point.x];
 }
 
 void DungeonTileMap::SetGrid(int x, int y)
@@ -245,7 +240,7 @@ void DungeonTileMap::SetGrid(int x, int y)
         if (check.second >= (int)height || check.second < 0)
             continue;
 
-        auto nearTile = bgTiles[check.second * width + check.first];
+        auto nearTile = bgTiles[(size_t)check.second * width + check.first];
         //두 타일의 텍스처가 같다면 플래그 on
         if (targetTile->GetTexture() == nearTile->GetTexture())
             flag |= 1 << i;
@@ -339,8 +334,8 @@ void DungeonTileMap::SetUpTrap()
 
 	vector<POINT> roomPoints = GetPointsByCondition([this](POINT point) -> bool {
 		//잘못된 좌표다
-		if (point.y * width + point.x >= bgTiles.size()) return false;
-		auto tile = (DungeonBgTile*)bgTiles[point.y * width + point.x];
+		if ((size_t)point.y * width + point.x >= bgTiles.size()) return false;
+		auto tile = (DungeonBgTile*)bgTiles[(size_t)point.y * width + point.x];
 		//벽 혹은 물이다
 		if (tile->GetTexture() != BgTileManager::Get()->GetLandTexture()) return false;
 		//다른 타일이 있다
@@ -391,8 +386,8 @@ void DungeonTileMap::SetUpPlayerStart()
 {
 	playerStartPoint = GetRandomPointByCondition([this](POINT point) -> bool {
 		//잘못된 좌표다
-		if (point.y * width + point.x >= bgTiles.size()) return false;
-		auto tile = (DungeonBgTile*)bgTiles[point.y * width + point.x];
+		if ((size_t)point.y * width + point.x >= bgTiles.size()) return false;
+		auto tile = (DungeonBgTile*)bgTiles[(size_t)point.y * width + point.x];
 		//벽 혹은 물이다
 		if (tile->GetTexture() != BgTileManager::Get()->GetLandTexture()) return false;
 		//다른 타일이 있다
@@ -410,8 +405,9 @@ void DungeonTileMap::SetUpItems()
 
 	vector<POINT> points = GetPointsByCondition([this](POINT point) -> bool {
 		//잘못된 좌표다
-		if (point.y * width + point.x >= bgTiles.size()) return false;
-		auto tile = (DungeonBgTile*)bgTiles[point.y * width + point.x];
+		size_t index = (size_t)point.y * width + point.x;
+		if (index >= bgTiles.size()) return false;
+		auto tile = (DungeonBgTile*)bgTiles[index];
 		//벽 혹은 물이다
 		if (tile->GetTexture() != BgTileManager::Get()->GetLandTexture()) return false;
 		//오브젝트 타일이 있다
@@ -421,10 +417,10 @@ void DungeonTileMap::SetUpItems()
 	});
 
 	for (int i = 0; i < itemNum; i++) {
-		int pos = Random(i + 1, points.size());
+		int pos = Random(i + 1, (int)points.size());
 		swap(points[i], points[pos]);
 
-		string key = floorData->items[Random(0, floorData->items.size())];
+		string key = floorData->items[Random(0, (int)floorData->items.size())];
 		ItemObjectManager::Get()->InitItem(key, points[i]);
 	}
 }

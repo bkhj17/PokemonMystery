@@ -1,7 +1,5 @@
 #include "Framework.h"
-#include "YesNoUI.h"
-#include "PokemonUIManager.h"
-#include "MessageUI.h"
+
 YesNoUI::YesNoUI(Vector2 size, Vector2 pos)
 	: UIWindow(size, pos)
 {

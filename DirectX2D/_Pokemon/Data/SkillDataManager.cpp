@@ -1,6 +1,4 @@
 #include "Framework.h"
-#include "SkillDataManager.h"
-#include "../Unit/UnitManager.h"
 
 SkillDataManager::SkillDataManager()
 {

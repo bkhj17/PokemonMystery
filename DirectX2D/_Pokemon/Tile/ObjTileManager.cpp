@@ -1,7 +1,4 @@
 #include "Framework.h"
-#include "ObjTileManager.h"
-#include "../Unit/Unit.h"
-#include "DungeonObjTile.h"
 
 ObjTileManager::ObjTileManager()
 {

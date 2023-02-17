@@ -1,5 +1,4 @@
 #include "framework.h"
-#include "SceneManager.h"
 
 SceneManager::~SceneManager()
 {
@@ -22,6 +21,22 @@ void SceneManager::Render()
 		return;
 
 	curScene->Render();
+}
+
+void SceneManager::PostRender()
+{
+	if (curScene == nullptr)
+		return;
+
+	curScene->PostRender();
+}
+
+void SceneManager::PreRender()
+{
+	if (curScene == nullptr)
+		return;
+
+	curScene->PreRender();
 }
 
 void SceneManager::Add(string key, Scene* scene)

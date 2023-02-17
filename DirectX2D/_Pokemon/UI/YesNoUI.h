@@ -1,5 +1,5 @@
 #pragma once
-#include "UIWindow.h"
+
 class YesNoUI : public UIWindow
 {
 	const Vector2 YES_POS = { 0.0f, 25.0f };

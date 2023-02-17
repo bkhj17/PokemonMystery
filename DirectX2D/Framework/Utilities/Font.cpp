@@ -1,5 +1,4 @@
 #include "Framework.h"
-#include "Font.h"
 
 Font::Font()
 {

@@ -1,12 +1,4 @@
 #include "Framework.h"
-#include "Skill.h"
-#include "../Data/SkillDataManager.h"
-#include "../Effect/EffectObject.h"
-#include "../Effect/EffectObjectManager.h"
-#include "../Unit/Unit.h"
-#include "../Unit/UnitManager.h"
-#include "../Tile/DungeonTileMap.h"
-#include "../Log/Log.h"
 
 Skill::Skill(int i)
 {

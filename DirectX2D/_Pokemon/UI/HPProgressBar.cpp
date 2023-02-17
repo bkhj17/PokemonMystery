@@ -1,5 +1,4 @@
 #include "Framework.h"
-#include "HPProgressBar.h"
 
 HPProgressBar::HPProgressBar(wstring frontImageFile, wstring backImageFile)
 	: ProgressBar(frontImageFile, backImageFile)

@@ -5,7 +5,6 @@ struct FloorData {
 	int floorNum;
 
 	string file;
-
 	string name;
 
 	int postFloor;

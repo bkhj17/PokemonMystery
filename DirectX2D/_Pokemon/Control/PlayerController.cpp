@@ -1,10 +1,4 @@
 #include "Framework.h"
-#include "PlayerController.h"
-#include "../Unit/Unit.h"
-#include "../Unit/UnitManager.h"
-#include "../Tile/DungeonTileMap.h"
-#include "../UI/PokemonUIManager.h"
-
 PlayerController::PlayerController()
 {
 	tag = "Player";

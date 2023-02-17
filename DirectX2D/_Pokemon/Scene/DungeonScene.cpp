@@ -1,24 +1,10 @@
 #include "Framework.h"
 #include "DungeonScene.h"
-#include "../Tile/DungeonTileMap.h"
-#include "../Tile/BgTileManager.h"
-#include "../Unit/Unit.h"
-#include "../Unit/UnitMovement.h"
-#include "../Control/PlayerController.h"
-#include "../Data/ItemDataManager.h"
-#include "../Data/DungeonDataManager.h"
-#include "../Data/SkillDataManager.h"
-#include "../UI/PokemonUIManager.h"
-#include "../Unit/UnitManager.h"
-#include "../Item/ItemObjectManager.h"
-#include "../Effect/EffectObjectManager.h"
+
 DungeonScene::DungeonScene()
 {
 	EffectManager::Get();
 	EffectObjectManager::Get();
-	SkillDataManager::Get();
-	ItemDataManager::Get();
-	PokemonUIManager::Get();
 	UnitManager::Get()->Init();
 	ItemObjectManager::Get();
 	BgTileManager::Get();
@@ -31,7 +17,6 @@ DungeonScene::DungeonScene()
 	Observer::Get()->AddEvent("ShiftPostFloor", bind(&DungeonScene::SetFloorMove, this, POST));
 	Observer::Get()->AddParamEvent("UnitDie", bind(&DungeonScene::PlayerDie, this, placeholders::_1));
 
-	InitFloor("TinyWood", -1);
 
 	gameOver = new Quad(L"Textures/Shooting/GameOver.png");
 	gameOver->Pos() = { CENTER_X, CENTER_Y };
@@ -49,21 +34,27 @@ DungeonScene::DungeonScene()
 DungeonScene::~DungeonScene()
 {
 	delete tileMap;
-	PokemonUIManager::Delete();
-	UnitManager::Delete();
+	UnitManager::Get()->ClearEnemy();
+
 	ItemObjectManager::Delete();
 	BgTileManager::Delete();
-	SkillDataManager::Delete();
 	EffectObjectManager::Delete();
 	EffectManager::Delete();
 
 	delete gameOver;
 }
 
+void DungeonScene::Start()
+{
+	InitFloor("TinyWood", -1);
+	CAM->SetTarget(UnitManager::Get()->GetPlayer());
+}
+
 void DungeonScene::InitFloor(string name, int floor)
 {
 	if (floor == 0) {
 		//´øÀü Å»Ãâ
+		EscapeDungeon();
 		return;
 	}
 	tileMap->Init(name, floor);
@@ -73,7 +64,6 @@ void DungeonScene::InitFloor(string name, int floor)
 	player->SetDir(0, -1);
 	player->SetPoint(tileMap->GetPlayerStartPoint());
 	player->SetDown(0);
-	CAM->SetTarget(UnitManager::Get()->GetPlayer());
 
 	UnitManager::Get()->ClearEnemy();
 	UnitManager::Get()->InitEnemy();
@@ -96,6 +86,13 @@ void DungeonScene::PlayerDie(void* unitPtr)
 		return;
 
 	actState = PLAYER_DEAD;
+}
+
+void DungeonScene::EscapeDungeon()
+{
+	ClearData::Get()->SetDungeonData(tileMap->GetFloorData());
+	ClearData::Get()->SetPlayerData(UnitManager::Get()->GetPlayer()->GetData());
+	SceneManager::Get()->ChangeScene("Clear");
 }
 
 void DungeonScene::ShiftNextFloor()

@@ -8,6 +8,8 @@ private:
 public:
 	void Update();
 	void Render();
+	void PostRender();
+	void PreRender();
 
 	void Add(string key, Scene* scene);
 
