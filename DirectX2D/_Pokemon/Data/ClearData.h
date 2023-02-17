@@ -12,6 +12,7 @@ public:
 	void SetDungeonData(FloorData* data) { dungeonData = data; }
 	//던전 이름
 	string GetDungeonName();
+	string GetFloorStr() { return dungeonData->FloorString(); }
 
 	void SetPlayerData(PokemonData* data) { playerData = data;}
 	//플레이어 이름

@@ -5,6 +5,7 @@ bool PlayerInventory::InputItem(ItemData* item)
 	if (IsFull())
 		return false;
 
+	LogManager::Get()->InsertLog(item->name + "을/를 가방에 넣었다.");
 	itemList.push_back(item);
 	return true;
 }

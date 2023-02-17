@@ -62,8 +62,8 @@ void DungeonScene::InitFloor(string name, int floor)
 
 	auto player = UnitManager::Get()->GetPlayer();
 	player->SetDir(0, -1);
-	player->SetPoint(tileMap->GetPlayerStartPoint());
 	player->SetDown(0);
+	player->SetPoint(tileMap->GetPlayerStartPoint());
 
 	UnitManager::Get()->ClearEnemy();
 	UnitManager::Get()->InitEnemy();

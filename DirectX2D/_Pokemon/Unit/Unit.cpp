@@ -160,7 +160,7 @@ void Unit::TurnEnd()
 {
 	wait = max(0, wait - 2);
 	//상태이상 턴 감소
-	downTime -= 2;
+	downTime = max(0, downTime - 2);
 
 	controller->TurnEnd();
 }
@@ -168,15 +168,13 @@ void Unit::TurnEnd()
 bool Unit::PickUpItem(ItemData* itemData)
 {
 	if (controller->GetTag() == "Player" || controller->GetTag() == "Friend") {
-		if(PlayerInventory::Get()->InputItem(itemData)) {
-			//아이템 획득 로그(인벤토리)
+		if (PlayerInventory::Get()->InputItem(itemData))
 			return true;
-		}
 	}
 
 	if (carryItem == nullptr) {
 		carryItem = itemData;
-		//아이템 획득 로그(지니다)
+		LogManager::Get()->InsertLog(data->statusData.name + "은/는 " + itemData->name + "을/를 주웠다.");
 		return true;
 	}
 	
@@ -186,7 +184,7 @@ bool Unit::PickUpItem(ItemData* itemData)
 
 void Unit::SetDown(int d)
 {
-	if (downTime == 0 && d > 0)
+	if (downTime <= 0 && d > 0)
 		LogManager::Get()->InsertLog(data->statusData.name + "의 공격력이 떨어졌다");
 	
 	downTime = d;

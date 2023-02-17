@@ -23,6 +23,15 @@ struct FloorData {
 
 	vector<string> traps;
 	int maxTrapNum;
+
+	string FloorString() {
+		string str;
+		if (floorNum < 0)
+			str += "B";
+		str += to_string(abs(floorNum));
+		str += "F";
+		return str;
+	}
 };
 
 class DungeonDataManager : public Singleton<DungeonDataManager>

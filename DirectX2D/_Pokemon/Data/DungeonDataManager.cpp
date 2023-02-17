@@ -41,12 +41,8 @@ void DungeonDataManager::LoadData(string fileName)
 
 		data.name = v[2];
 		data.name += " ";
-
-		if (data.floorNum < 0)
-			data.name += "B";
-		data.name += to_string(abs(data.floorNum));
-		data.name += "F";
-
+		/*
+		*/
 		data.file = v[3];
 
 		data.postFloor = stoi(v[4]);
