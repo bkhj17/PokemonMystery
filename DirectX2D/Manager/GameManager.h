@@ -16,5 +16,7 @@ private:
 	Scene* scene = nullptr;
 
 	MatrixBuffer* uiViewBuffer;
+
+	bool showFPS = false;
 };
 

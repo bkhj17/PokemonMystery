@@ -32,6 +32,9 @@ void GameManager::Update()
 	CAM->Update();
 
 	mouseWheel = 0.0f;
+
+	if (KEY_UP(VK_F1))
+		showFPS = !showFPS;
 }
 
 void GameManager::Render()
@@ -51,8 +54,10 @@ void GameManager::Render()
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 
-	string fps = "FPS : " + to_string(Timer::Get()->GetFPS());
-	Font::Get()->RenderText(fps, { 100.0f, WIN_HEIGHT - 20.0f });
+	if (showFPS) {
+		string fps = "FPS : " + to_string(Timer::Get()->GetFPS());
+		Font::Get()->RenderText(fps, { 100.0f, WIN_HEIGHT - 20.0f });
+	}
 
 	CAM->RenderUI();
 
