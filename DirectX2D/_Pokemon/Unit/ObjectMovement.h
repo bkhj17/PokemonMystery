@@ -1,9 +1,9 @@
 #pragma once
-class UnitMovement
+class ObjectMovement
 {
 public:
-	UnitMovement() = default;
-	~UnitMovement() = default;
+	ObjectMovement() = default;
+	~ObjectMovement() = default;
 
 	void Update();
 

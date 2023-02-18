@@ -203,7 +203,7 @@ using namespace GameMath;
 
 #include "_Pokemon/Skill/Skill.h"
 
-#include "_Pokemon/Unit/UnitMovement.h"	//오브젝트 전원이 공유
+#include "_Pokemon/Unit/ObjectMovement.h"	//오브젝트 전원이 공유
 #include "_Pokemon/Object/DungeonObject.h"
 #include "_Pokemon/Item/ItemObject.h"
 #include "_Pokemon/Item/ItemObjectManager.h"

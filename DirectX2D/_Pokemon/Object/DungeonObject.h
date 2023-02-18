@@ -1,6 +1,6 @@
 #pragma once
 
-class UnitMovement;
+class ObjectMovement;
 class DungeonObject :
     public GameObject
 {
@@ -24,7 +24,6 @@ public:
     
 protected:
     void MovementUpdate();
-
 private:
     void SetMove();
 
@@ -34,6 +33,6 @@ protected:
     //뭔가에 부딪힐 때까지 이동하기
     int moveDist = 0;
     int moveDirX = 0, moveDirY = 0;
-    UnitMovement* movement;
+    ObjectMovement* movement;
 };
 

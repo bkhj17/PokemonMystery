@@ -1,6 +1,6 @@
 #include "Framework.h"
 
-void UnitMovement::Update()
+void ObjectMovement::Update()
 {
 	if (!owner)
 		return;
@@ -19,7 +19,7 @@ void UnitMovement::Update()
 		Teleport();
 }
 
-void UnitMovement::SetTargetPos(Vector2 pos, float time)
+void ObjectMovement::SetTargetPos(Vector2 pos, float time)
 {
 	startPos = owner->Pos();
 	targetPos = pos;
@@ -31,7 +31,7 @@ void UnitMovement::SetTargetPos(Vector2 pos, float time)
 	invTimeRate = 1.0f / timeRate;
 }
 
-void UnitMovement::Teleport()
+void ObjectMovement::Teleport()
 {
 	owner->Pos() = targetPos;
 	time = -1.0f;

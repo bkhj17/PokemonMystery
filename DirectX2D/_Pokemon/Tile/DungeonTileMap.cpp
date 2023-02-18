@@ -109,10 +109,7 @@ vector<POINT> DungeonTileMap::GetPointsByCondition(function<bool(POINT)> conditi
 {
 	vector<POINT> points;
 	for (int i = 0; i < bgTiles.size(); i++) {
-		
-
 		POINT tilePoint = { i % (LONG)width, i / (LONG)width };
-		//애초에 벽
 		if (condition(tilePoint))
 			points.push_back(tilePoint);
 	}
@@ -137,8 +134,8 @@ vector<pair<int, int>> DungeonTileMap::DetectableTiles(POINT curPoint)
 	//2 : 방 타일에 의한 주변 확인
 	//1 : 길 타일에 의한 주변 확인
 	priority_queue<DetectNode> pq;
-
 	pq.push({ {curPoint.x, curPoint.y}, 3, 0 });
+
 	POINT dir[8] = {
 		{-1, 1}, //leftUp
 		{0, 1}, //up
@@ -151,9 +148,7 @@ vector<pair<int, int>> DungeonTileMap::DetectableTiles(POINT curPoint)
 	};
 
 	while (!pq.empty()) {
-		DetectNode curNode = pq.top();
-		pq.pop();
-
+		DetectNode curNode = pq.top();	pq.pop();
 		if (check.find(curNode.point) != check.end() && check[curNode.point] >= curNode.flag)
 			continue;
 		check[curNode.point] = curNode.flag;

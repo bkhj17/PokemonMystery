@@ -7,17 +7,6 @@ private:
     UINT MAX_WIDTH = 200;
     UINT MAX_HEIGHT = 200;
 public:
-    //인스턴스 렌더링을 위한 구조체
-    struct TileInstanceData {
-        Matrix transform;
-
-        Vector2 maxFrame;
-        Vector2 curFrame;
-
-        int tileType;
-        Float3 padding; //사이즈 맞추기 용 공간
-    };
-
     DungeonTileMap();
     ~DungeonTileMap();
     
@@ -66,11 +55,19 @@ private:
     void SetUpPlayerStart();
     void SetUpItems();
 private:
-    //class DungeonAStar* astar;
+    //인스턴스 렌더링을 위한 구조체
+    struct TileInstanceData {
+        Matrix transform;
+
+        Vector2 maxFrame;
+        Vector2 curFrame;
+
+        int tileType;
+        Float3 padding; //사이즈 맞추기 용 공간
+    };
 
     vector<TileInstanceData> instances;
     VertexBuffer* instanceBuffer;
-
     Quad* quad;
 
     FloorData* floorData = nullptr;

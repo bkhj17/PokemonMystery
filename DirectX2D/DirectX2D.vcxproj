@@ -176,7 +176,7 @@
     <ClInclude Include="_Pokemon\Object\DungeonObject.h" />
     <ClInclude Include="_Pokemon\Control\Controller.h" />
     <ClInclude Include="Objects\Basic\Particle.h" />
-    <ClInclude Include="_Pokemon\Unit\UnitMovement.h" />
+    <ClInclude Include="_Pokemon\Unit\ObjectMovement.h" />
     <ClInclude Include="_Pokemon\Unit\Unit.h" />
     <ClInclude Include="_Pokemon\Tile\BgTileManager.h" />
     <ClInclude Include="_Pokemon\Tile\DungeonObjTile.h" />
@@ -270,7 +270,7 @@
     <ClCompile Include="_Pokemon\Control\PlayerController.cpp" />
     <ClCompile Include="_Pokemon\Object\DungeonObject.cpp" />
     <ClCompile Include="Objects\Basic\Particle.cpp" />
-    <ClCompile Include="_Pokemon\Unit\UnitMovement.cpp" />
+    <ClCompile Include="_Pokemon\Unit\ObjectMovement.cpp" />
     <ClCompile Include="_Pokemon\Unit\Unit.cpp" />
     <ClCompile Include="_Pokemon\Tile\BgTileManager.cpp" />
     <ClCompile Include="_Pokemon\Tile\DungeonObjTile.cpp" />
