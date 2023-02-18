@@ -19,7 +19,6 @@ DungeonTileMap::DungeonTileMap()
 		instance.maxFrame = maxFrame;
 	
 	instanceBuffer = new VertexBuffer(instances.data(), sizeof(TileInstanceData), MAX_WIDTH * MAX_HEIGHT);
-	
 }
 
 DungeonTileMap::~DungeonTileMap()
@@ -82,16 +81,6 @@ void DungeonTileMap::Render()
 		obj->Render();
 }
 
-void DungeonTileMap::GetNodes(vector<Node*>& nodes)
-{
-	for (auto tile : bgTiles) {
-		Vector2 tilePos = tile->GlobalPos();
-		Node* node = new Node(tilePos, (int)nodes.size());
-
-		nodes.push_back(node);
-	}
-}
-
 POINT DungeonTileMap::PosToPoint(Vector2 pos)
 {
 	POINT result = { +0, +0 };
@@ -135,9 +124,8 @@ POINT DungeonTileMap::GetRandomPointByCondition(function<bool(POINT)> condition)
 {
 	vector<POINT> roomPoints = GetPointsByCondition(condition);
 
-	if (roomPoints.empty()) {
+	if (roomPoints.empty())
 		return { -1, -1 };
-	}
 
 	return roomPoints[Random(0, (int)roomPoints.size())];
 }
@@ -172,6 +160,7 @@ vector<pair<int, int>> DungeonTileMap::DetectableTiles(POINT curPoint)
 
 		int gridFlag = ((DungeonBgTile*)bgTiles[(size_t)curNode.point.second * width + curNode.point.first])->GetGridFlag();
 
+		//다음 타일에서 더 탐색할지 확인
 		int nextFlag = 1;
 		bool isRoom = BgTileManager::Get()->IsRoom(gridFlag);
 		if (curNode.flag >= 3)
@@ -184,14 +173,14 @@ vector<pair<int, int>> DungeonTileMap::DetectableTiles(POINT curPoint)
 		if (curNode.flag >= 1) {
 			for (int i = 0; i < 8; i++) {
 				Vector2 dest;
+				//갈 수 없는 위치는 넘긴다
 				if (!SetMove(curNode.point.first, curNode.point.second, dir[i].x, dir[i].y, dest))
 					continue;
-
+				//다음 타일 정보 저장
 				DetectNode nextNode;
 				nextNode.point = { curNode.point.first + dir[i].x, curNode.point.second + dir[i].y };
 				nextNode.flag = nextFlag;
 				nextNode.dist = curNode.dist + 1;
-
 				pq.push(nextNode);
 			}
 		}
