@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="_Pokemon\Log\LogManager.h" />
     <ClInclude Include="_Pokemon\UI\ClearUI.h" />
     <ClInclude Include="_Pokemon\Data\ClearData.h" />
     <ClInclude Include="_Pokemon\Scene\ClearScene.h" />
@@ -148,7 +149,6 @@
     <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="Scenes\TileScene.h" />
     <ClInclude Include="_Pokemon\UI\LogUi.h" />
-    <ClInclude Include="_Pokemon\Log\Log.h" />
     <ClInclude Include="_Pokemon\UI\MessageUI.h" />
     <ClInclude Include="_Pokemon\UI\ItemUi.h" />
     <ClInclude Include="_Pokemon\UI\SkillUI.h" />
@@ -236,13 +236,13 @@
     <ClInclude Include="Objects\Tile\Tile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="_Pokemon\Log\LogManager.cpp" />
     <ClCompile Include="_Pokemon\UI\ClearUI.cpp" />
     <ClCompile Include="_Pokemon\Data\ClearData.cpp" />
     <ClCompile Include="_Pokemon\Scene\ClearScene.cpp" />
     <ClCompile Include="Manager\SceneManager.cpp" />
     <ClCompile Include="Scenes\TileScene.cpp" />
     <ClCompile Include="_Pokemon\UI\LogUi.cpp" />
-    <ClCompile Include="_Pokemon\Log\Log.cpp" />
     <ClCompile Include="_Pokemon\UI\MessageUI.cpp" />
     <ClCompile Include="_Pokemon\UI\ItemUi.cpp" />
     <ClCompile Include="_Pokemon\UI\SkillUI.cpp" />

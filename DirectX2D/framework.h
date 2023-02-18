@@ -191,7 +191,7 @@ using namespace GameMath;
 #include "_Pokemon/Data/DungeonDataManager.h"
 #include "_Pokemon/Data/SkillDataManager.h"
 
-#include "_Pokemon/Log/Log.h"
+#include "_Pokemon/Log/LogManager.h"
 
 #include "_Pokemon/Tile/DungeonBgTile.h"
 #include "_Pokemon/Tile/DungeonObjTile.h"

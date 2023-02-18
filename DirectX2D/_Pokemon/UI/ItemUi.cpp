@@ -24,7 +24,7 @@ void ItemUi::Update()
 	}
 	if (KEY_DOWN(VK_UP)) {
 		if(cursor >= itemList.size() && cursor < CLOSE_CURSOR)
-			cursor = itemList.size() - 1;
+			cursor = (int)itemList.size() - 1;
 	}
 	//커서 위치 세팅
 	cQuad->Pos() = { CursorX(), LineY(cursor) };
