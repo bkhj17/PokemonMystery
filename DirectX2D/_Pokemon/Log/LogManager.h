@@ -6,7 +6,7 @@ private:
 	LogManager() = default;
 	~LogManager() = default;
 
-	const UINT MAX_RENDER = 3;
+	const int MAX_RENDER = 3;
 public:
 	void InsertLog(string log);
 
