@@ -8,8 +8,8 @@ DungeonObjTile::DungeonObjTile(string type, Tile::Data data, Vector2 size)
 	paramEvent = nullptr;
 	if (type == "Stair") {
 		paramEvent = [](void* ptr) {
-			Unit* unit = (Unit*)ptr;
 			//밟은 Unit을 알아야 한다
+			Unit* unit = (Unit*)ptr;
 			//Unit->Controller를 받아야 한다
 			if (unit->GetController()->GetTag() != "Player")
 				return;

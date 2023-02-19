@@ -13,7 +13,7 @@ cbuffer ColorBuffer : register(b0)
 
 cbuffer ValueBuffer : register(b1)
 {
-    float2 weight;              //x 두께 (0~1)
+    float2 weight;              //두께 (0~1)
     float value;                //안쪽 투명도
 }
 
