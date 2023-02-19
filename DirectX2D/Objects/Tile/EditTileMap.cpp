@@ -236,7 +236,7 @@ void EditTileMap::Resize(UINT width, UINT height)
 		bgTiles.reserve((size_t)width * height);
 		wstring baseTile = L"Textures/Tile/tile.png";
 		Texture* texture = Texture::Add(baseTile);
-		for (UINT i = bgTiles.size(); i < width * height; i++) {
+		for (UINT i = (UINT)bgTiles.size(); i < width * height; i++) {
 			int x = i % width;
 			int y = i / width;
 

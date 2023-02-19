@@ -14,7 +14,7 @@ void PlayerInventory::UseItem(UINT i)
 {
 	LogManager::Get()->InsertLog(itemList[i]->name + "을 사용했다.");
 	itemList[i]->Use(UnitManager::Get()->GetPlayer());
-	PlayerInventory::Get()->OutputItem(i);
+	OutputItem(i);
 }
 
 ItemData* PlayerInventory::OutputItem(UINT i)

@@ -14,7 +14,7 @@ void ItemUi::Update()
 	__super::Update();
 	auto& itemList = PlayerInventory::Get()->GetList();
 
-	//현재 커서에 해당하는 스킬이 유효하지 않다면 다음으로 넘긴다
+	//현재 커서에 해당하는 아이템이 유효하지 않다면 다음으로 넘긴다
 	if (itemList.empty()) {
 		cursor = CLOSE_CURSOR;
 	}

@@ -64,7 +64,7 @@ void ImageFont::Render()
     for (UINT i = 0; i < strValue.size(); i++)
     {
         int num = strValue[i] - '0';
-        int index = strValue.size() - i - 1;
+        size_t index = strValue.size() - i - 1;
 
         valueBuffer->Get()[0] = num;
         valueBuffer->SetPS(1);
@@ -79,7 +79,7 @@ void ImageFont::PostRender()
     for (UINT i = 0; i < strValue.size(); i++)
     {
         int num = strValue[i] - '0';
-        int index = strValue.size() - i - 1;
+        size_t index = strValue.size() - i - 1;
 
         valueBuffer->Get()[0] = num;
         valueBuffer->SetPS(1);
