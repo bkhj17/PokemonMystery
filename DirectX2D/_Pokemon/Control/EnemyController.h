@@ -34,6 +34,6 @@ protected:
 protected:
 	int reservedSkill = -1;
 	int transTime = 0;
-	int transRate = 5;
+	int transRate = 10;
 };
 

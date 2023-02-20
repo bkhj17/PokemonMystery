@@ -42,7 +42,6 @@ void GameTileMap::PushObject(Collider* collider)
 
 void GameTileMap::PushRect(RectCollider* collider)
 {
-	Vector2 overlap;
 	for (Tile* tile : objTiles)
 		tile->PushRect(collider);
 }
@@ -51,7 +50,7 @@ void GameTileMap::GetNodes(vector<Node*>& nodes)
 {
 	for (auto tile : bgTiles) {
 		Vector2 tilePos = tile->GlobalPos();
-		Node* node = new Node(tilePos, nodes.size());
+		Node* node = new Node(tilePos, (int)nodes.size());
 
 		for (Tile* obj : objTiles) {
 			Vector2 objPos = obj->GlobalPos();
@@ -77,7 +76,7 @@ Vector2 GameTileMap::LeftBottom()
 
 Vector2 GameTileMap::RightTop()
 {
-	return LeftBottom() + Vector2(width, height) * tileSize;
+	return LeftBottom() + Vector2((float)width, (float)height) * tileSize;
 }
 
 void GameTileMap::Load(string file)

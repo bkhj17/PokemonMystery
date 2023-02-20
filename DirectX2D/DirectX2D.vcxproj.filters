@@ -189,7 +189,7 @@
     <ClInclude Include="Objects\Basic\Particle.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="_Pokemon\Unit\UnitMovement.h">
+    <ClInclude Include="_Pokemon\Object\ObjectMovement.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="_Pokemon\Control\Controller.h">
@@ -270,9 +270,6 @@
     <ClInclude Include="_Pokemon\UI\MessageUI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="_Pokemon\Log\Log.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="_Pokemon\UI\LogUi.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -292,6 +289,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="_Pokemon\UI\ClearUI.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_Pokemon\Log\LogManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -449,7 +449,7 @@
     <ClCompile Include="Objects\Basic\Particle.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="_Pokemon\Unit\UnitMovement.cpp">
+    <ClCompile Include="_Pokemon\Object\ObjectMovement.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="_Pokemon\Tile\ObjTileManager.cpp">
@@ -530,9 +530,6 @@
     <ClCompile Include="_Pokemon\UI\MessageUI.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="_Pokemon\Log\Log.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="_Pokemon\UI\LogUi.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -549,6 +546,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="_Pokemon\UI\ClearUI.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="_Pokemon\Log\LogManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

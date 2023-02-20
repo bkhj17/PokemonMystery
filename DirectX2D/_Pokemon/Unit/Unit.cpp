@@ -213,7 +213,7 @@ void Unit::SetAction()
 	//스킬 사용 중일 경우
 
 	//이동 중일 경우
-	if (movement->IsMoving())
+	if (IsMoving())
 		dirCode += MOVING;
 	
 	animObject->SetClip(dirCode);
@@ -260,6 +260,7 @@ bool Unit::IsUsableSkill(int index, bool log)
 	if (skills[index]->GetCurPP() == 0) {
 		if (log) {
 			//사용 불가능 로그
+			LogManager::Get()->InsertLog(data->statusData.name + "은/는 기술 사용에 실패했다.");
 		}
 		return false;
 	}

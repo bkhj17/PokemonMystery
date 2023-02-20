@@ -4,7 +4,7 @@ DungeonObject::DungeonObject(Vector2 size)
 {
 	this->size = size;
 
-	movement = new UnitMovement;
+	movement = new ObjectMovement;
 	movement->SetOwner(this);
 }
 
@@ -84,7 +84,7 @@ void DungeonObject::MovementUpdate()
 	
 	//이동한 직후인 거라면 이동이 끝났음을 알려야 한다
 	if(movement->IsMoved())
-		Observer::Get()->ExecuteParamEvent("MoveEnd", (void*)this);
+		Observer::Get()->ExecuteParamEvent("MoveEnd", this);
 }
 
 void DungeonObject::SetMove()

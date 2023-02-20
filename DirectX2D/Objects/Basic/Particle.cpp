@@ -44,7 +44,7 @@ void Particle::Update()
     }
 
     quad->GetColor() = color;
-    instanceBuffer->Update(instances.data(), instances.size());
+    instanceBuffer->Update(instances.data(), (UINT)instances.size());
 
     if (lifeTime > data.duration)
         Stop();
@@ -60,7 +60,7 @@ void Particle::Render()
 
     quad->SetRender();
 
-    DC->DrawIndexedInstanced(6, instances.size(), 0, 0, 0);
+    DC->DrawIndexedInstanced(6, (UINT)instances.size(), 0, 0, 0);
 }
 
 void Particle::Play(Vector2 pos)

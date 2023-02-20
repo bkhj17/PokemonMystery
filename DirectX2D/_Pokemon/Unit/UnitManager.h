@@ -25,12 +25,9 @@ enum PokemonType {
 };
 
 struct PokemonTableData {
-	//번호(키)
-	int key = 0;
-	//이름
-	string name;
-	//포켓몬의 타입. 기술 타입으로도 사용
-	vector<PokemonType> type;
+	int key = 0;				//번호(키)
+	string name;				//이름
+	vector<PokemonType> type;	//포켓몬의 타입. 기술 타입으로도 사용
 
 	int maxHp = 1;
 	int attack = 1;
@@ -39,12 +36,12 @@ struct PokemonTableData {
 	int sDefense = 1;
 	int speed = 1;
 
-	static int ApplyLevelHp(int level, int hp) {
+	static int ApplyLevelHp(int level, int hp) {	//최대 HP 계산식
 		float levelRate = (float)level / 100.0f;
 		return (int)((hp * 2 + 100) * levelRate) + 10;
 	}
 
-	static int ApplyLevel(int level, int num) {
+	static int ApplyLevel(int level, int num) {		//HP를 제외한 능력치 계산식
 		float levelRate = (float)level / 100.0f;
 		return (int)((num * 2) * levelRate) + 5;
 	}
@@ -55,8 +52,6 @@ struct PokemonData {
 	int level = 1;
 	int curHp = 1;
 	PokemonTableData statusData;
-	//특성은 제외
-	//상태이상 정보는 유닛에서 직접 갖기로 한다
 };
 
 class UnitManager : public Singleton<UnitManager>

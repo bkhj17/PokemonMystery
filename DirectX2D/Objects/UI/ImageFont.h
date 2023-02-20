@@ -33,7 +33,7 @@ private:
 
     float interval;
 
-    AlignedType alignedType;
+    AlignedType alignedType = LEFT;
     Vector2 fontSize;
 
     ColorBuffer* transit;
