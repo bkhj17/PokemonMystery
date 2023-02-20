@@ -22,40 +22,38 @@ float4 PS(PixelInput input) : SV_TARGET
     bool isFrame = false;
     float2 uv;
     
+    float p1 = 1.0 / 3.0;
+    float p2 = p1 * 2.0;
+    
     if (input.uv.x < weight.x)
     {
         isFrame = true;
-        uv.x = input.uv.x / weight.x * 0.33;
+        uv.x = input.uv.x / weight.x * p1;
     }
     else if (input.uv.x > 1 - weight.x)
     {
         isFrame = true;
-        uv.x = 0.66 + (input.uv.x - (1 - weight.x)) / weight.x * 0.33;
+        uv.x = p2 + (input.uv.x - (1 - weight.x)) / weight.x * p1;
     }
     else
-    {
-        uv.x = 0.33 + (input.uv.x - weight.x) / (1 - 2 * weight.x) * 0.33;
-    }
+        uv.x = p1 + (input.uv.x - weight.x) / (1 - 2 * weight.x) * p1;
     
     if (input.uv.y < weight.y)
     {
         isFrame = true;
-        uv.y = input.uv.y / weight.y * 0.33;
+        uv.y = input.uv.y / weight.y * p1;
     }
     else if (input.uv.y > 1 - weight.y)
     {
         isFrame = true;
-        uv.y = 0.66 + (input.uv.y - (1 - weight.y)) / weight.y * 0.33;
+        uv.y = p2 + (input.uv.y - (1 - weight.y)) / weight.y * p1;
     }
     else
-    {
-        uv.y = 0.33 + (input.uv.y - weight.y) / (1 - 2 * weight.y) * 0.33;
-    }
+        uv.y = p1 + (input.uv.y - weight.y) / (1 - 2 * weight.y) * p1;
     
     if (isFrame)
-    {
-        return map.Sample(samp, uv);  
-    }
+        return map.Sample(samp, uv);
+    
     
     return float4(color.rgb, value);
 }
